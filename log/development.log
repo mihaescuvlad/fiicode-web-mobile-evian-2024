@@ -1,0 +1,555 @@
+Started GET "/" for 127.0.0.1 at 2024-02-18 14:02:13 +0200
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.3ms | Allocations: 376)
+Completed 200 OK in 9ms (Views: 3.4ms | ActiveRecord: 0.0ms | Allocations: 7904)
+
+
+Started GET "/" for 127.0.0.1 at 2024-02-18 14:02:17 +0200
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.0ms | Allocations: 13)
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 208)
+
+
+Started GET "/" for 127.0.0.1 at 2024-02-18 14:21:44 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate
+
+You have 1 pending migration:
+
+db/migrate/20240218120740_create_food_items.rb
+
+
+):
+  
+activerecord (7.1.3) lib/active_record/migration.rb:755:in `check_pending_migrations'
+activerecord (7.1.3) lib/active_record/migration.rb:644:in `block (2 levels) in call'
+activesupport (7.1.3) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (7.1.3) lib/active_record/migration.rb:649:in `block in call'
+activerecord (7.1.3) lib/active_record/migration.rb:641:in `synchronize'
+activerecord (7.1.3) lib/active_record/migration.rb:641:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.3) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.3) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.3) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.3) lib/active_support/broadcast_logger.rb:240:in `method_missing'
+railties (7.1.3) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.3) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2024-02-18 14:21:46 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate
+
+You have 1 pending migration:
+
+db/migrate/20240218120740_create_food_items.rb
+
+
+):
+  
+activerecord (7.1.3) lib/active_record/migration.rb:755:in `check_pending_migrations'
+activerecord (7.1.3) lib/active_record/migration.rb:644:in `block (2 levels) in call'
+activesupport (7.1.3) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (7.1.3) lib/active_record/migration.rb:649:in `block in call'
+activerecord (7.1.3) lib/active_record/migration.rb:641:in `synchronize'
+activerecord (7.1.3) lib/active_record/migration.rb:641:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.3) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.3) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.3) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.3) lib/active_support/broadcast_logger.rb:240:in `method_missing'
+railties (7.1.3) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.3) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.3) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2024-02-18 14:22:21 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.5ms | Allocations: 376)
+Completed 200 OK in 5ms (Views: 2.3ms | ActiveRecord: 0.0ms | MongoDB: 0.0ms | Allocations: 4738)
+
+
+Started GET "/" for 127.0.0.1 at 2024-02-18 14:23:43 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.3ms | Allocations: 376)
+Completed 200 OK in 5ms (Views: 2.1ms | ActiveRecord: 0.0ms | MongoDB: 0.0ms | Allocations: 4738)
+
+
+Started GET "/" for 127.0.0.1 at 2024-02-18 14:23:44 +0200
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.0ms | Allocations: 13)
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | MongoDB: 0.0ms | Allocations: 211)
+
+
+Started GET "/" for 127.0.0.1 at 2024-02-18 14:23:44 +0200
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.0ms | Allocations: 13)
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | MongoDB: 0.0ms | Allocations: 210)
+
+
+Started GET "/" for 127.0.0.1 at 2024-02-18 14:23:44 +0200
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/toaster/.rbenv/versions/3.2.3/lib/ruby/gems/3.2.0/gems/railties-7.1.3/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.0ms | Allocations: 13)
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | MongoDB: 0.0ms | Allocations: 210)
+
+
+MONGODB | Topology type 'unknown' initializing.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Server localhost:27017 initializing.
+MONGODB | Waiting for up to 30.00 seconds for servers to be scanned: #<Cluster topology=Unknown[localhost:27017] servers=[#<Server address=localhost:27017 UNKNOWN>]>
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Topology type 'unknown' initializing.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Server localhost:27017 initializing.
+MONGODB | Waiting for up to 30.00 seconds for servers to be scanned: #<Cluster topology=Unknown[localhost:27017] servers=[#<Server address=localhost:27017 UNKNOWN>]>
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Error checking localhost:27017: Mongo::Error::SocketError: Errno::ECONNREFUSED: Connection refused - connect(2) for 127.0.0.1:27017 (for 127.0.0.1:27017 (no TLS)) (on localhost:27017)
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'unknown'.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Topology type 'unknown' initializing.
+MONGODB | There was a change in the members of the 'Unknown' topology.
+MONGODB | Server localhost:27017 initializing.
+MONGODB | Waiting for up to 30.00 seconds for servers to be scanned: #<Cluster topology=Unknown[localhost:27017] servers=[#<Server address=localhost:27017 UNKNOWN>]>
+MONGODB | Server description for localhost:27017 changed from 'unknown' to 'standalone'.
+MONGODB | Topology type 'Unknown' changed to type 'Single'.
+MONGODB | localhost:27017 req:6 conn:1:1 sconn:8 | fiicode24.development.insert | STARTED | {"insert"=>"food_items", "ordered"=>true, "documents"=>[{"_id"=>BSON::ObjectId('65d1fbc2d831836ccc853c3f'), "name"=>"Piept de pui", "carbohydrates"=>"0", "sugars"=>"0", "fat"=>"3", "protein"=>"21", "updated_at"=>2024-02-18 12:45:03.997889699 UTC, "cre...
+MONGODB | localhost:27017 req:6 | fiicode24.development.insert | FAILED | [73:InvalidNamespace]: '.' is an invalid character in a db name: fiicode24.development | 0.00010034100068878615s
