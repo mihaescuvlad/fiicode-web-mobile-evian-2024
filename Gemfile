@@ -10,6 +10,7 @@ gem "turbo-rails"
 gem "stimulus-rails"
 gem "jbuilder"
 gem "tzinfo-data"
+gem "sass-rails"
 gem "bootsnap", require: false
 gem "tailwindcss-rails", "~> 2.3"
 gem 'mongoid', '~> 8.1.0'

@@ -1,0 +1,15 @@
+%h1
+  Welcome to the User section!
+%btn.w-32.p-4.bg-green-500.inline-block.text-center{onclick: "showSuccessNotifier()"}
+  Success
+%btn.w-32.p-4.bg-red-500.inline-block.text-center{onclick: "showErrorNotifier()"}
+  Error
+
+:javascript
+  function showSuccessNotifier() {
+    SuccessNotifier.get.show("Success");
+  }
+
+  function showErrorNotifier() {
+    ErrorNotifier.get.show("Error");
+  }
