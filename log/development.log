@@ -2,3 +2,114 @@
 [ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: www.cemancam.local
 [ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: www.cemancam.local
 [ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: www.cemancam.local
+  
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+  
+Mongoid::Errors::DocumentNotFound (
+message:
+  Document not found for class Login with attributes {:email_uc=>"TEST@AA.COM"}.
+summary:
+  When calling Login.find_by with a hash of attributes, all attributes provided must match a document in the database or this error will be raised.
+resolution:
+  Search for attributes that are in the database or set the Mongoid.raise_not_found_error configuration option to false, which will cause nil to be returned instead of raising this error.):
+  
+app/controllers/user/sessions_controller.rb:7:in `login'
+Overwriting existing field _id in class User.
+  
+Mongoid::Errors::InvalidFieldOption (
+message:
+  Invalid option :required provided for field :login_data.
+summary:
+  Mongoid requires that you only provide valid options on each field definition in order to prevent unexpected behavior later on.
+resolution:
+  When defining the field :login_data on 'User', please provide valid options for the field. These are currently: as, default, identity, label, localize, fallbacks, association, pre_processed, subtype, type, overwrite. If you meant to define a custom field option, please do so first as follows:
+
+   Mongoid::Fields.option :required do |model, field, value|
+     # Your logic here...
+   end
+   class User
+     include Mongoid::Document
+     field :login_data, required: true
+   end
+
+ Refer to: https://www.mongodb.com/docs/mongoid/current/reference/fields/#custom-field-options):
+  
+app/models/user.rb:5:in `<class:User>'
+app/models/user.rb:1:in `<main>'
+Overwriting existing field _id in class User.
+Overwriting existing field _id in class User.
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+Overwriting existing field _id in class User.
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/turbo.min-fcb683144a7bcb99720c2a5325259ae33a534c66f030618d91bb306a3bb6efd2.js"):
+  
+Overwriting existing field _id in class User.
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/turbo.min-fcb683144a7bcb99720c2a5325259ae33a534c66f030618d91bb306a3bb6efd2.js"):
+  
+Overwriting existing field _id in class User.
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+Overwriting existing field _id in class User.
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+Overwriting existing field _id in class User.
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+Overwriting existing field _id in class User.
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/tailwind-109152407781686a333bc6d4f5c7792803b07e1a0999876b8c9706dc00e38079.css"):
+  
+Overwriting existing field _id in class User.
+Overwriting existing field _id in class User.
