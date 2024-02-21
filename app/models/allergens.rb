@@ -1,5 +1,5 @@
 class Allergens
   include Mongoid::Document
   field :_id, type: BSON::ObjectId
-  field :name, type: String, required: true
+  field :name, type: String
 end

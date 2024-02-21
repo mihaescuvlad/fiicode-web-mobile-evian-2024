@@ -2,7 +2,7 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps::Short
   field :_id, type: BSON::ObjectId
-  field :login_data, type: BSON::ObjectId, required: true
+  field :login_data, type: BSON::ObjectId
 
   field :dietary_preferences, type: Array
   field :allergens, type: Array
@@ -14,5 +14,5 @@ class User
   field :location, type: String
   field :profile_picture, type: BSON::Binary
   
-  field :administrator, type: Boolean, required: true
+  field :administrator, type: Boolean
 end
