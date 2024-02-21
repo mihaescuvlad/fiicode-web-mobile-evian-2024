@@ -1,4 +1,4 @@
-class Products
+class Product
   include Mongoid::Document
   include Mongoid::Created::Timestamps
   field :ean, type: String, as:_id

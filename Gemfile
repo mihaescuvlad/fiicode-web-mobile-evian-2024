@@ -12,7 +12,8 @@ gem "jbuilder"
 gem "tzinfo-data"
 gem "bootsnap", require: false
 gem "tailwindcss-rails", "~> 2.3"
-gem 'mongoid', '~> 8.1.0'
+gem "mongoid", "~> 8.1.0"
+gem "sassc", "~> 2.4"
 
 group :development, :test do
   gem "debug"

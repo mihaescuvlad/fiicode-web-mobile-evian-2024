@@ -9,7 +9,7 @@ class User
   
   field :weight, type: Integer
   field :height, type: Integer
-  field :gender, type: Integer
+  field :gender, type: String
   field :bio, type: String
   field :location, type: String
   field :profile_picture, type: BSON::Binary
