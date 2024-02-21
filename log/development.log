@@ -2,3 +2,16 @@
 [ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: www.cemancam.local
 [ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: www.cemancam.local
 [ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: www.cemancam.local
+  
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+  
+Mongoid::Errors::DocumentNotFound (
+message:
+  Document not found for class Login with attributes {:email_uc=>"TEST@AA.COM"}.
+summary:
+  When calling Login.find_by with a hash of attributes, all attributes provided must match a document in the database or this error will be raised.
+resolution:
+  Search for attributes that are in the database or set the Mongoid.raise_not_found_error configuration option to false, which will cause nil to be returned instead of raising this error.):
+  
+app/controllers/user/sessions_controller.rb:7:in `login'
