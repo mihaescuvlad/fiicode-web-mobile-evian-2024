@@ -1,13 +1,21 @@
-.flex.justify-center.items-center.h-full
-  = form_with url: "/test", method: "get", id: "my_form", class: "flex flex-col w-full max-w-lg p-8 bg-slate-400 rounded-lg" do |f|
-    .flex.justify-between.items-center.w-full
-      = f.label :name, "Name: "
-      = f.text_field :name
-    = f.submit "Submit", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-
-:javascript
-  const form = new FormController("my_form")
-  form.appendMiddleware((data) => {
-    console.log("Middleware 1", data)
-    return data
-  })
+.flex.flex-col
+    %div{class: "flex text-base uppercase h-12 font-semibold whitespace-nowrap text-center text-white bg-primary-50 leading-tight" }
+        = link_to "test", root_path, class: "w-full h-full inline-flex items-center justify-center px-5 py-1"
+    %div{class: "flex text-base uppercase h-12 font-semibold whitespace-nowrap text-center text-white bg-primary-100 leading-tight" }
+        = link_to "test", root_path, class: "w-full h-full inline-flex items-center justify-center px-5 py-1"
+    %div{class: "flex text-base uppercase h-12 font-semibold whitespace-nowrap text-center text-white bg-primary-200 leading-tight" }
+        = link_to "test", root_path, class: "w-full h-full inline-flex items-center justify-center px-5 py-1"
+    %div{class: "flex text-base uppercase h-12 font-semibold whitespace-nowrap text-center text-white bg-primary-300 leading-tight" }
+        = link_to "test", root_path, class: "w-full h-full inline-flex items-center justify-center px-5 py-1"
+    %div{class: "flex text-base uppercase h-12 font-semibold whitespace-nowrap text-center text-white bg-primary-400 leading-tight" }
+        = link_to "test", root_path, class: "w-full h-full inline-flex items-center justify-center px-5 py-1"
+    %div{class: "flex text-base uppercase h-12 font-semibold whitespace-nowrap text-center text-white bg-primary-500 leading-tight" }
+        = link_to "test", root_path, class: "w-full h-full inline-flex items-center justify-center px-5 py-1"
+    %div{class: "flex text-base uppercase h-12 font-semibold whitespace-nowrap text-center text-white bg-primary-600 leading-tight" }
+        = link_to "test", root_path, class: "w-full h-full inline-flex items-center justify-center px-5 py-1"
+    %div{class: "flex text-base uppercase h-12 font-semibold whitespace-nowrap text-center text-white bg-primary-700 leading-tight" }
+        = link_to "test", root_path, class: "w-full h-full inline-flex items-center justify-center px-5 py-1"
+    %div{class: "flex text-base uppercase h-12 font-semibold whitespace-nowrap text-center text-white bg-primary-800 leading-tight" }
+        = link_to "test", root_path, class: "w-full h-full inline-flex items-center justify-center px-5 py-1"
+    %div{class: "flex text-base uppercase h-12 font-semibold whitespace-nowrap text-center text-white bg-primary-900 leading-tight" }
+        = link_to "test", root_path, class: "w-full h-full inline-flex items-center justify-center px-5 py-1"

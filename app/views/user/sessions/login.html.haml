@@ -1,0 +1,20 @@
+.flex.flex-col.justify-center.items-center{ class: "h-full w-full" }
+    .flex.flex-col.justify-center.items-center{ class: "w-11/12" }
+        = form_tag '/login', method: :post do
+            .flex.flex-col.justify-center.items-start.shadow-xl.rounded-md.p-4.border-1
+                .flex.flex-col.justify-center.items-center.text-xl.font-bold.mb-4.w-full
+                    = "Login to your account"
+                %label{for: "email"}
+                    = "Email"
+                %input{type: "email", name: "email", id: "email", required: true, class: "rounded-md p-2 w-full"}
+
+                %label{for: "password"}
+                    = "Password"
+                %input{type: "password", name: "password", id: "password", required: true, class: "rounded-md p-2 w-full"}
+                .flex.flex-row.justify-between.items-center.mt-4
+                    %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2"}
+                        = "Login"
+        .flex.flex-row.justify-center.items-center.mt-4.text-xs
+            .mr-1
+                = "Don't have an account?"
+            = link_to "Sign up!", "/register", class: "text-primary-500"
