@@ -1,5 +1,5 @@
 class User::WelcomeController < UserApplicationController
   def index
-    render plain: "Welcome to the User section!"
+    clear_session
   end
 end
