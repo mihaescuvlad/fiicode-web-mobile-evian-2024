@@ -61,4 +61,4 @@ storage/development.sqlite3
 
 /config/credentials/development.key
 public/assets/*
-public/assets/.*
+lob/development.log
