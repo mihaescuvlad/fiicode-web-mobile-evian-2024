@@ -31,6 +31,10 @@ FormController = class {
             const body = isGet ? {} : {body: JSON.stringify(data)};
 
             const res = await fetch(endpoint, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': formData["authenticity_token"]
+                },
                 method: this.#form.method,
                 ...body
             });
