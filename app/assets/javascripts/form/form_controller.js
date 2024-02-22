@@ -22,6 +22,7 @@ FormController = class {
                 data[key] = value;
             });
 
+            this.disabled = true;
             let endpoint = this.#form.action;
             const isGet = this.#form.method.toUpperCase() === 'GET';
             if (isGet) {
@@ -35,7 +36,15 @@ FormController = class {
             });
 
             await this.#runChain(res);
+            this.disabled = false;
         });
+    }
+
+    /** @param {boolean} disable True if the form should be disabled, false if it should be enabled */
+    set disabled(disable) {
+        document.querySelectorAll(`#${this.#form.id} input, #${this.#form.id} button`).forEach((element) => {
+            element.disabled = disable;
+        })
     }
 
     static get(formId) {
