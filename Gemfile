@@ -13,6 +13,7 @@ gem "tzinfo-data"
 gem "sass-rails"
 gem "bootsnap", require: false
 gem "tailwindcss-rails", "~> 2.3"
+gem "mongoid", "~> 8.1.0"
 gem 'mongoid', '~> 8.1.0'
 gem 'material_icons'
 

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :measurements
+  resources :allergens
+  resources :dietary_preferences
+  resources :users
   scope module: 'user', constraints: ->(req) { Context.get_context(req) == :user } do
     root to: 'welcome#index'
     match '/', to: 'welcome#index', via: :all
