@@ -1,4 +1,4 @@
-class BaseNotifier {
+BaseNotifier = class {
     static #activeNotifier = null;
 
     #dom_object;

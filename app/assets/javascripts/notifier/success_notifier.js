@@ -1,4 +1,4 @@
-class SuccessNotifier extends BaseNotifier {
+SuccessNotifier = class extends BaseNotifier {
     static #NOTIFIER_ID = 'success-notifier';
     static #HIDDEN_CLASS_NAME = 'hidden-notifier';
     static #notifier = null;
