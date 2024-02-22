@@ -6,7 +6,12 @@
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track" => "reload"
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track" => "reload"
+    = stylesheet_link_tag "notifier/hidden"
+    = javascript_include_tag "notifier/base_notifier"
+    = javascript_include_tag "form/form_controller"
     = javascript_importmap_tags
 
   %body
+    = render "partials/notifier/success_notifier"
+    = render "partials/notifier/error_notifier"
     = yield
