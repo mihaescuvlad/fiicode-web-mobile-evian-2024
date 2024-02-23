@@ -13,6 +13,7 @@ class User::WelcomeController < UserApplicationController
   end
 
   def profile
+    authenticate_user!
   end
 
 end

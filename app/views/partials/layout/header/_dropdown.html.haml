@@ -1,0 +1,28 @@
+- links = [{label: "My Submissions", path: "/my-submissions"},
+          {label: "My Hub posts", path: "/hub"}]
+
+- user = {name: "usersmek_123" }
+-# - user = nil
+
+- unless user.nil?
+  .dropdown-menu.absolute.top-full.-right-5.p-4.hidden
+    .w-64.py-4.bg-primary-700.flex.flex-col.duration-300.gap-4
+      %span.flex.justify-between.items-center.px-4
+        %h1
+          = link_to "/profile" do
+            @usersmek_123
+        = material_icon.shape(:logout).md_24
+      %ul.flex.flex-col
+        - links.each do |link|
+          = link_to link[:path] do
+            %li.px-4.py-2.hover:bg-primary-600
+              = link[:label]
+- else
+  .dropdown-menu.absolute.top-full.-right-5.p-4.hidden
+    %ul.w-32.py-2.bg-primary-700.flex.flex-col
+      = link_to login_path do
+        %li.px-4.py-2.hover:bg-primary-600
+          Log in
+      = link_to register_path do
+        %li.px-4.py-2.hover:bg-primary-600
+          Register
