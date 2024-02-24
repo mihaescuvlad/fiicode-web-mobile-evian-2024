@@ -4,13 +4,13 @@ class User::SessionsController < UserApplicationController
 
   def login
     if request.post?
-      login = Login.find_by(email_uc: params[:email].upcase)
-      if login && Login.authenticate(params[:email], params[:password])
+      login = Login.authenticate(params[:email], params[:password])
+      if login
         session[:login_id] = login.id
         session[:expires_at] = Time.current + 24.hour
         redirect_to '/'
       else
-        
+        render json: { message: "Invalid credentials" }, status: :unauthorized and return
       end
     end
   end
@@ -25,7 +25,7 @@ class User::SessionsController < UserApplicationController
           session[:expires_at] = Time.current + 24.hour
         end
       rescue Mongoid::Errors::Validations => e
-        puts e #TODO: Add alert
+        render json: { message: "Invalid data" }, status: :unauthorized and return
       end
       user = User.new(name: params[:name], login_id: login._id)
       user.save!
@@ -37,6 +37,6 @@ class User::SessionsController < UserApplicationController
   end
 
   def logout
-  
+
   end
 end
