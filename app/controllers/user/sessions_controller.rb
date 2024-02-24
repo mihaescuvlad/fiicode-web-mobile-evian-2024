@@ -8,7 +8,7 @@ class User::SessionsController < UserApplicationController
       if login && Login.authenticate(params[:email], params[:password])
         session[:login_id] = login.id
         session[:expires_at] = Time.current + 24.hour
-        redirect_to root_path
+        redirect_to '/'
       else
         
       end
@@ -23,14 +23,15 @@ class User::SessionsController < UserApplicationController
         if login.save!
           session[:login_id] = login.id
           session[:expires_at] = Time.current + 24.hour
-          redirect_to root_path and return
         end
       rescue Mongoid::Errors::Validations => e
         puts e #TODO: Add alert
       end
-      # user = User.new(user_params)
-      #TODO: User logic
-      redirect_to root_path and return
+      user = User.new(name: params[:name], login_id: login._id)
+      user.save!
+      login.update_attribute(:user_id, user._id)
+
+      redirect_to '/' and return
     end
 
   end
@@ -38,11 +39,4 @@ class User::SessionsController < UserApplicationController
   def logout
   
   end
-
-  private
-
-  def user_params
-    params.permit(:name, :country, :city)
-  end
-
 end

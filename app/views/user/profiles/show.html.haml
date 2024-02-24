@@ -1,0 +1,96 @@
+.w-full.h-full.flex.flex-col.mt-20
+  .text-2xl.font-bold
+    = 'Profile Settings'
+  .text-gray-500
+    = 'Change your profile and account settings.'
+  .shadow-lg.bg-white.rounded-lg.p-4.flex.flex-row
+    .tabs.flex.flex-col.space-y-4.border-r-2.border-gray-200.pr-4.block
+      %button{ class: "tab flex flex-row items-center focus:outline-none", data: { tab: "profile" } }
+        .mdi.mdi-account-outline.text-2xl
+        %span= 'Profile'
+      %button{ class: "tab flex flex-row items-center focus:outline-none", data: { tab: "account" } }
+        .mdi.mdi-lock-outline.text-2xl
+        %span= 'Account'
+    = form_tag user_profile_path, method: :put, class: "w-full" do
+      .tab-content.flex.flex-col.pl-4.justify-center.items-center.w-full
+        .profile.flex-col.flex.space-y-4{ class: "w-8/12 h-8/12" }
+          %div
+            .text-2xl.font-semibold
+              = current_user.name
+              = current_user.full_name
+            .text-gray-500.text-sm
+              = "#{current_user.city}, #{current_user.country}"
+          .flex.flex-row.justify-between.items-center.mt-4.space-x-4
+            .flex-flex-col{ class: "w-5/12" }
+              %label.text-sm{for: "name"}
+                = "Name"
+              %input{type: "text", name: "profile[name]", id: "name", required: true, class: "rounded-md p-2 w-full", value: "#{current_user.name}"}
+            .flex.flex-col{ class: "w-5/12" }
+              %label.text-sm{for: "full_name"}
+                = "Full Name"
+              %input{type: "text", name: "profile[full_name]", id: "full_name", required: true, class: "rounded-md p-2 w-full", value: "#{current_user.full_name}"}
+          .flex.flex-row.justify-between.items-center.mt-4.space-x-4
+            .flex-flex-col{ class: "w-5/12" }
+              %label.text-sm{for: "country"}
+                = "Country"
+              %input{type: "text", name: "profile[country]", id: "country", required: true, class: "rounded-md p-2 w-full", value: "#{current_user.country}"}
+            .flex.flex-col{ class: "w-5/12" }
+              %label.text-sm{for: "city"}
+                = "City"
+              %input{type: "text", name: "profile[city]", id: "city", required: true, class: "rounded-md p-2 w-full", value: "#{current_user.city}"}
+          .flex.flex-row.justify-between.items-center.mt-4.space-x-4
+            .flex.flex-col{ class: "w-5/12" }
+              %label.text-sm{for: "height"}
+                = "Height"
+              %input{type: "text", name: "profile[height]", id: "height", required: true, class: "rounded-md p-2 w-full", value: "#{current_user.height}"}
+            .flex-flex-col{ class: "w-5/12" }
+              %label.text-sm{for: "weight"}
+                = "Weight"
+              %input{type: "text", name: "profile[weight]", id: "weight", required: true, class: "rounded-md p-2 w-full", value: "#{current_user.weight}"}
+          .flex.flex-row.justify-center.items-center.mt-4.space-x-4
+            %button{ class: "bg-primary-500 text-white rounded-md p-2 mt-4 w-fit", type: "submit" }
+              = "Save Changes"
+      .account.hidden
+        %p Account Content Here
+
+:javascript
+  $(document).ready(function() {
+      const tabs = document.querySelectorAll('.tab');
+      const contents = document.querySelectorAll('.tab-content > div');
+
+      function clearSelection() {
+          tabs.forEach(tab => {
+              tab.classList.remove('text-primary-500', 'font-bold');
+              tab.children[0].classList.remove('text-primary-500'); // Remove icon color
+          });
+          contents.forEach(content => {
+              content.classList.add('hidden'); // Ensure all contents are hidden initially
+          });
+      }
+
+      tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+              clearSelection(); // Hide all content first
+
+              // Then, show the selected tab's content
+              tab.classList.add('text-primary-500', 'font-bold');
+              tab.children[0].classList.add('text-primary-500'); // Add icon color for the active tab
+
+              const targetClass = tab.dataset.tab;
+              const targetContent = document.querySelector('.' + targetClass);
+              targetContent.classList.remove('hidden'); // Only unhide the selected content
+
+              // Save the active tab in sessionStorage
+              sessionStorage.setItem('activeTab', targetClass);
+          });
+      });
+
+      // Check if there's an active tab saved in sessionStorage
+      const activeTab = sessionStorage.getItem('activeTab');
+      if(activeTab) {
+          document.querySelector(`.tab[data-tab="${activeTab}"]`).click();
+      } else {
+          // Trigger click on Profile tab by default to show its content initially
+          document.querySelector('.tab[data-tab="profile"]').click();
+      }
+  });

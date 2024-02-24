@@ -1,0 +1,17 @@
+%html
+    %head
+    %title LearnRails
+    %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track" => "reload"
+    = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track" => "reload"
+    = javascript_include_tag "application", "data-turbo-track" => "reload"
+    
+    %link{href: "https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css", rel: "stylesheet"}
+
+    = javascript_importmap_tags
+
+    %body.flex.justify-center.items-center.h-screen.bg-gray-300
+        %div{class: "w-8/12"}
+            = yield

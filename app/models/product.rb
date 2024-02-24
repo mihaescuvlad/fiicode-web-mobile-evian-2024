@@ -1,6 +1,6 @@
 class Product
   include Mongoid::Document
-  include Mongoid::Created::Timestamps
+  include Mongoid::Timestamps
   field :ean, type: String, as:_id
 
   field :brand, type: String
