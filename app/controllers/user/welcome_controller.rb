@@ -12,8 +12,4 @@ class User::WelcomeController < UserApplicationController
   def hub
   end
 
-  def profile
-    authenticate_user!
-  end
-
 end
