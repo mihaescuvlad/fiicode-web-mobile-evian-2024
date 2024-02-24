@@ -15,6 +15,11 @@ class User::SessionsController < UserApplicationController
     end
   end
 
+  def logout
+    clear_session
+    redirect_to '/'
+  end
+
   def register
     if request.post?
       begin

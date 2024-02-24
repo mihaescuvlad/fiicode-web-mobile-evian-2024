@@ -7,11 +7,18 @@
     = stylesheet_link_tag "application", "data-turbo-track" => "reload"
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track" => "reload"
     = javascript_include_tag "application", "data-turbo-track" => "reload"
-    
+    = stylesheet_link_tag "notifier/hidden"
+    = javascript_include_tag "notifier/base_notifier"
+    = javascript_include_tag "form/form_controller"
+    = yield :head
+
     %link{href: "https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css", rel: "stylesheet"}
 
     = javascript_importmap_tags
 
-    %body.flex.justify-center.items-center.h-screen.bg-gray-300
-        %div{class: "w-8/12"}
-            = yield
+    %body.w-full.h-full.bg-slate-200.flex.flex-col
+        = render "partials/notifier/success_notifier"
+        = render "partials/notifier/error_notifier"
+        = render "partials/layout/header"
+        = yield
+        = render "partials/layout/footer"

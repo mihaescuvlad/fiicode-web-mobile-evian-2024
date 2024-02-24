@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     match '/hub', to: 'welcome#hub', via: :all
     match '/login', to: 'sessions#login', via: %i[post get]
     match '/register', to: 'sessions#register', via: %i[post get]
-
+    match '/logout', to: 'sessions#logout', via: :all
     resource :profile, only: %i[show edit update]
 
   end
