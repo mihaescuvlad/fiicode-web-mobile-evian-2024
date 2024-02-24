@@ -1,0 +1,16 @@
+.container.mx-auto.px-4.py-8
+  %h1.text-2xl.font-semibold.mb-4.text-center All Products
+
+  .overflow-x-auto
+    %table.border.border-collapse.w-full.table-auto
+      %thead
+        %tr.bg-gray-100
+          %th.py-3.px-4.border.border-gray-300.font-medium.text-left Product Name
+      %tbody
+        - @products.each do |product|
+          %tr.border.border-gray-300
+            %td.py-3.px-4
+              = link_to product.name, product_path(product)
+
+  .mt-8.flex.justify-center
+    = link_to "Back", root_path, class: "bg-gray-100 py-2 px-4 rounded-lg text-gray-600 hover:text-gray-800 font-medium"
