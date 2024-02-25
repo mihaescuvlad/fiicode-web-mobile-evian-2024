@@ -1,7 +1,7 @@
 class Product
   include Mongoid::Document
   include Mongoid::Timestamps
-  field :ean, type: String, as:_id
+  field :ean, type: String, as: :id
 
   field :brand, type: String
   field :name, type: String
@@ -16,6 +16,7 @@ class Product
   field :saturated_fat, type: Float
   field :polysaturated_fat, type: Float
   field :monosaturated_fat, type: Float
+  field :trans_fat, type: Float
   field :carbohydrates, type: Float
   field :fiber, type: Float
   field :sugar, type: Float
