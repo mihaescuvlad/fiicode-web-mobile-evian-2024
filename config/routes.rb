@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     resource :profile, only: %i[show edit update]
 
     namespace :product, name_path: 'products' do
-      resources :products
+      resources :products do
+        resources :reviews
+      end
     end
   end
 end

@@ -1,14 +1,11 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
-  
-  field :login_data, type: BSON::ObjectId
   field :name, type: String
 
   field :dietary_preferences, type: Array
   field :allergens, type: Array
   
-  field :name, type: String
   field :full_name, type: String
   field :weight, type: Integer
   field :height, type: Integer
