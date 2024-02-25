@@ -1,12 +1,10 @@
-class AllergensController < ApplicationController
+class User::Product::AllergensController < UserApplicationController
   before_action :set_allergen, only: %i[ show ]
 
-  # GET /allergens
   def index
     @allergens = Allergen.all
   end
 
-  # Get /allergens/:id
   def show
   end
 

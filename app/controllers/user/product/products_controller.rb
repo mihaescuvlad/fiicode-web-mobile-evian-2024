@@ -1,12 +1,9 @@
-class ProductsController < ProductApplicationController
+class User::Product::ProductsController < UserApplicationController
+  before_action :authenticate_user!
   before_action :set_product, only: %i[ show edit update destroy ]
 
   def index
     @products = Product.all
-    # @allergen_names = Allergen.pluck(:_id, :name).to_h
-    # @weight_units_strings = Measurement.pluck(:_id, :unit).to_h
-    # @weight_units = @product.weight_units.map { |measurement_id| Measurement.find(measurement_id).unit }
-    # @user_names = User.pluck(:_id, :name).to_h
   end
 
   def show
@@ -15,6 +12,7 @@ class ProductsController < ProductApplicationController
     @weight_units_strings = Measurement.pluck(:_id, :unit).to_h
     @weight_units = @product.weight_units.map { |measurement_id| Measurement.find(measurement_id).unit }
     @user_names = User.pluck(:_id, :name).to_h
+    @reviews = Review.where(product_id: @product.id)
   end
 
   def new
@@ -65,7 +63,6 @@ class ProductsController < ProductApplicationController
     end
 
     def product_params
-      #params.fetch(:product, {})
       params.require(:product).permit(:ean, :brand, :name, :price, :weight, :weight_units, :servings, :allergens, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, :submitted_by, :approved, :rating)
     end
 end

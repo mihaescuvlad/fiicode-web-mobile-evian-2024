@@ -1,0 +1,23 @@
+- links = [{ icon: :home, label: "home", path: user_root_path },
+           { icon: :forum, label: "hub", path: "/hub" }]
+
+- content_for :head do
+  = stylesheet_link_tag "layout/header"
+
+%header.bg-primary-500.p-4.text-white.sm:block
+  %nav.container.mx-auto.h-8.px-2.flex.justify-center.items-center.gap-10
+    %h1.text-lg.uppercase.font-bold
+      Ce mancam?
+    %input.hidden.sm:block.flex-1.rounded-full.text-black.text-sm{placeholder: "Search for a food item", type: "text"}
+    %ul.hidden.sm:flex.items-center.gap-4
+      - links.each do |link|
+        %li
+          = link_to link[:path], class: "flex items-center gap-1" do
+            = material_icon.shape(link[:icon]).md_24
+            %span.hidden.text-sm.capitalize.lg:inline-block
+              = link[:label]
+    #profile-section.hidden.sm:flex.items-center.h-full.gap-4.relative
+      = material_icon.shape(:notifications).md_24
+      = link_to "/profile" do
+        = material_icon.shape(:account_circle).md_24
+      = render "partials/layout/header/dropdown"
