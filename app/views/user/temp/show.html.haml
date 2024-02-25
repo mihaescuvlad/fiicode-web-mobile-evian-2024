@@ -41,7 +41,7 @@
               = "Submitted by"
             %td{ class: "border border-slate-300 p-2 text-slate-700"}
               - user = User.find(value)
-              = user.name
+              = user.first_name
               %br/
           - else
             %td{ class: "border border-slate-300 p-2 font-semibold"}= humanized_attribute
@@ -71,7 +71,7 @@
       - if @reviews.present?
         - @reviews.each do |review|
           - next if review.comment.blank?
-          - reviewer = User.find_by(id: review.reviewer_id).name
+          - reviewer = User.find_by(id: review.reviewer_id).first_name
           .flex.flex-col.items-start.shadow-xl.rounded-md.p-4.border-2.bg-slate-100.w-full{ class: "mb-4" }
             .flex#review_flex.flex-row.justify-start.content-center.rounded-md.p-2.border-2.mb-3.bg-gray-200{ class: "w-full" }
               - if review.rating

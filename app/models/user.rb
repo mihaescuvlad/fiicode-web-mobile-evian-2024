@@ -1,12 +1,14 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
-  field :name, type: String
-
-  field :dietary_preferences, type: Array
-  field :allergens, type: Array
   
-  field :full_name, type: String
+  DIETARY_PREFERENCES_VALUES = [:vegetarian, :vegan, :pescetarian, :gluten_free, :dairy_free, :nut_free, :soy_free, :egg_free, :shellfish_free, :no_restrictions]
+
+  field :dietary_preferences, type: Symbol
+  field :allergens, type: Array, default: []
+  
+  field :first_name, type: String
+  field :last_name, type: String
   field :weight, type: Integer
   field :height, type: Integer
   field :gender, type: String
