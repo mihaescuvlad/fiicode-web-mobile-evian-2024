@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  resources :measurements
-  
-  resources :dietary_preferences
   scope module: 'user', constraints: ->(req) { Context.get_context(req) == :user }, name_path: 'user', as: 'user' do
     root to: 'welcome#index'
     match '/', to: 'welcome#index', via: :all
@@ -14,6 +11,11 @@ Rails.application.routes.draw do
     resource :profile, only: %i[show edit update]
     resources :allergens, only: %i[index show] do
       get :search, on: :collection
+    end
+    namespace :product, name_path: 'products' do
+      resources :products do
+        resources :reviews
+      end
     end
   end
 end

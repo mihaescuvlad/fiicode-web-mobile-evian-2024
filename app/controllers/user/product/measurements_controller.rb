@@ -1,13 +1,11 @@
-class MeasurementsController < ApplicationController
+class User::Product::MeasurementsController < UserApplicationController
   before_action :set_measurement, only: %i[ show ]
 
-  # GET /measurements
   def index
     @measurements = Measurement.all
     render json: @measurements
   end
 
-  # GET /measurements/:id
   def show
   end
 
