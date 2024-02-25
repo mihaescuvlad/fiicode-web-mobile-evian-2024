@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :measurements
-  resources :allergens
+  
   resources :dietary_preferences
   scope module: 'user', constraints: ->(req) { Context.get_context(req) == :user }, name_path: 'user', as: 'user' do
     root to: 'welcome#index'
@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     match '/register', to: 'sessions#register', via: %i[post get]
     match '/logout', to: 'sessions#logout', via: :all
     resource :profile, only: %i[show edit update]
-
+    resources :allergens, only: %i[index show] do
+      get :search, on: :collection
+    end
   end
 end

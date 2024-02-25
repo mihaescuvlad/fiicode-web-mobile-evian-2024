@@ -4,6 +4,7 @@ class Login
     include ActiveModel::SecurePassword
 
     field :email, type: String
+    field :username, type: String
     field :account_id, type: BSON::ObjectId
     field :email_uc, type: String, default: -> { email.upcase.strip if email.present? }
     field :password, type: String
@@ -11,7 +12,7 @@ class Login
     
     before_create :strip_email
 
-    validates_uniqueness_of :email, case_sensitive: false
+    validates_uniqueness_of :email, :username, case_sensitive: false
     validates_presence_of :email, :password
 
 
