@@ -2,7 +2,7 @@ class Product
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :ean, type: String, as: :_id
+  field :ean, type: String, as: :id
   field :brand, type: String
   field :name, type: String
   field :price, type: Float
