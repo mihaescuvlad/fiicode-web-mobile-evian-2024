@@ -21,7 +21,7 @@
             = material_icon.shape('arrow_drop_down').md_24
         %ul#weight-units.absolute.z-10.mt-1.max-h-56.w-full.overflow-auto.rounded-md.bg-slate-50.py-1.text-base.shadow-lg.ring-1.ring-black.ring-opacity-5.focus:outline-none.sm:text-sm{"aria-activedescendant" => "listbox-option-3", "aria-labelledby" => "listbox-label", role: "listbox", tabindex: "-1", style: "display: none;"}
           - @weight_units.each_with_index do |unit, index|
-            %li{ id: "listbox-option-#{index}", class: "text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9", role: "option" }
+            %li{ id: "listbox-option-#{index}", class: "text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-gray-200", role: "option" }
               .flex.items-center
                 %span.font-normal.ml-3.block.truncate= unit
 
