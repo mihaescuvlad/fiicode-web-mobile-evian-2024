@@ -1,4 +1,4 @@
-class User::Product::MeasurementsController < UserApplicationController
+class User::MeasurementsController < UserApplicationController
   before_action :set_measurement, only: %i[ show ]
 
   def index

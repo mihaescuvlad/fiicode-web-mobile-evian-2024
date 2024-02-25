@@ -1,4 +1,4 @@
-class User::Product::ReviewsController < UserApplicationController
+class User::ReviewsController < UserApplicationController
   def index
     @reviews = Review.all
   end
@@ -11,7 +11,7 @@ class User::Product::ReviewsController < UserApplicationController
   
     respond_to do |format|
       if @review.save
-        format.html { redirect_to user_product_product_path(@review.product_id), notice: 'Review was successfully created.' }
+        format.html { redirect_to user_product_path(@review.product_id), notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @review }
       else
         format.html { render :new, status: :unprocessable_entity }

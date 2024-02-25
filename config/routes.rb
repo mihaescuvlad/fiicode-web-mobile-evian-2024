@@ -8,14 +8,15 @@ Rails.application.routes.draw do
     match '/login', to: 'sessions#login', via: %i[post get]
     match '/register', to: 'sessions#register', via: %i[post get]
     match '/logout', to: 'sessions#logout', via: :all
+    
     resource :profile, only: %i[show edit update]
+    
     resources :allergens, only: %i[index show] do
       get :search, on: :collection
     end
-    namespace :product, name_path: 'products' do
-      resources :products do
-        resources :reviews
-      end
+
+    resources :products do
+      resources :reviews
     end
   end
 end

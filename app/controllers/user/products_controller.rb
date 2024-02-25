@@ -1,4 +1,4 @@
-class User::Product::ProductsController < UserApplicationController
+class User::ProductsController < UserApplicationController
   before_action :authenticate_user!
   before_action :set_product, only: %i[ show edit update destroy ]
 

@@ -11,7 +11,7 @@
           - product_row_class = row_index.even? ? "bg-slate-100" : "bg-slate-200"
           %tr{ class: product_row_class }
             %td.py-3.px-4
-              = link_to product.name, user_product_product_path(product)
+              = link_to product.name, user_product_path(product)
 
   .mt-8.flex.justify-center
     = link_to "Back", user_root_path, class: "bg-gray-100 py-2 px-4 rounded-lg text-gray-600 hover:text-gray-800 font-medium"
