@@ -1,0 +1,64 @@
+-# TODO: [FII-45] Refactor tag selector into a partial
+
+.container.mx-auto.max-w-xl.px-4
+  = controlled_form "/profile/settings/dietary_preferences", method: :put, class: "size-full" do
+    .flex.flex-col.justify-between.size-full
+      .preferences.flex.flex-col.gap-4
+        .space-y-2
+          %label.text-lg.font-semibold.text-gray-900
+            Dietary Preferences
+          = select_tag "dietary_preferences", options_for_select(@dietary_preferences, current_user.dietary_preferences), class: "form-select w-full rounded-lg"
+        .flex.flex-col.gap-2
+          .space-y-2
+            .text-lg.font-semibold
+              Allergens
+            .flex.flex-row.items-center.justify-start.space-x-4
+              = text_field_tag 'user_name', nil, class: 'user-autocomplete rounded-lg p-2 w-full', placeholder: 'Add allergens'
+          #allergens-anchor.w-full.flex.flex-wrap.gap-2
+            - current_user.allergens.each do |a|
+              - allergen = a.name
+              - a_id = a.id.to_s
+              - css_friendly = allergen.gsub(/\s+/, '-')
+              .flex.flex-row.items-center.justify-start.space-x-2{ id: "allergen-#{css_friendly}" }
+                = hidden_field_tag "allergens[]", a_id, id: "input-#{css_friendly}"
+                = allergen
+                %button.remove-allergen{ type: "button", id: "remove-allergen-#{css_friendly}", class: "text-primary-500" }
+                  %i.mdi.mdi-close-circle-outline.text-2xl
+      %div.flex.flex-row.justify-end.items-center.mt-4.space-x-4
+        %button{ class: "bg-primary-500 text-white rounded-lg p-2 mt-4 w-fit", type: "submit" }
+          = "Save Changes"
+
+
+:javascript
+  $('.user-autocomplete').autocomplete({
+    source: '/allergens/search',
+    select: function(event, ui) {
+      const allergen = ui.item.label;
+      const allergenId = ui.item.value;
+
+      if (allergen && !$('#allergen-' + allergen.replace(/\s+/g, '-')).length) {
+        $('#allergens-anchor').append(`
+          <div class="flex flex-row items-center justify-start space-x-2" id="allergen-${allergen.replace(/\s+/g, '-')}">
+            <input type="hidden" name="allergens[]" value="${allergenId}">
+            <span class="text-md">${allergen}</span>
+            <button type="button" class="text-primary-500 remove-allergen" id="remove-allergen-${allergen.replace(/\s+/g, '-')}">
+              <i class="mdi mdi-close-circle-outline text-2xl"></i>
+            </button>
+          </div>
+        `);
+      }
+      else if (allergen) {
+        ErrorNotifier.get.show("Allergen already added", 4000)
+      }
+      $('.user-autocomplete').val('');
+      return false;
+    },
+    minLength: 2,
+    delay: 500,
+    autoFocus: true
+  });
+
+  $(document).on('click', '[id^="remove-allergen-"]', function() {
+    const allergen = this.id.replace('remove-allergen-', '');
+    $(`#allergen-${allergen.replace(/\s+/g, '-')}`).remove();
+  });
