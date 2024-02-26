@@ -92,7 +92,7 @@
             .text-lg.font-semibold.text-gray-900
               = "Dietary Preferences"
             %div{ class: "space-y-4" }
-              = select_tag "profile[dietary_preferences]", options_for_select(@dietary_preferences, current_user.dietary_preferences), class: "form-select w-full"
+              = select_tag "profile[dietary_preferences]", options_for_select(@dietary_preferences, current_user.dietary_preferences), class: "form-select w-full rounded-lg"
             .flex.flex-col.space-y-4
               .flex.flex-col
                 .text-lg.font-semibold
