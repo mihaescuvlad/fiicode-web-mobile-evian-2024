@@ -25,5 +25,5 @@
     = render "partials/notifier/error_notifier"
     = render "partials/layout/header"
     %main.flex-1.p-4
-      = yield
+      = content_for?(:content) ? yield(:content) : yield
     = render "partials/layout/footer"

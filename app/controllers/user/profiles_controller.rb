@@ -1,36 +1,46 @@
 class User::ProfilesController < UserApplicationController
-    before_action :authenticate_user!
+  layout 'user_profile'
 
-    def show
-        @login = Login.find_by(id: current_user.login_id)
-        @dietary_preferences = User::DIETARY_PREFERENCES_VALUES
+  before_action :authenticate_user!
+
+  def show
+    redirect_to "/profile/settings/user"
+  end
+
+  def user
+  end
+
+  def update_user
+    current_user.update_attributes!(
+      params.permit(:name, :full_name, :weight, :dietary_preferences, :height, :city, :country, allergens: [])
+    )
+
+    render json: { message: 'Profile updated' }, status: :ok
+  end
+
+  def account
+    @login = Login.find_by(id: current_user.login_id)
+  end
+
+  def update_account
+    if params[:password] != params[:password_confirmation]
+      render json: { message: 'Password and password confirmation do not match' }, status: :bad_request and return
     end
 
-    def update
-        user = User.find_by(login_id: session[:login_id]["$oid"])
-        user.update_attributes!(user_params)
-        password = login_params[:password]
-        confirmation = login_params[:password_confirmation]
-        if password.present? && confirmation.present? 
-            if password != confirmation
-                render json: { message: 'Password and password confirmation do not match' }, status: :unauthorized and return
-            end
-            login = Login.find_by(id: user.login_id)
-            login.set_password(password)
-        end
+    current_user.login.set_password(params[:password])
+    render json: { message: 'Password updated' }, status: :ok
+  end
 
+  def dietary_preferences
+    @dietary_preferences = User::DIETARY_PREFERENCES_VALUES
+  end
 
-        redirect_to user_profile_path
-    end
+  def update_dietary_preferences
+    current_user.allergens_ids = params["allergens[]"]
+    current_user.dietary_preferences = params[:dietary_preferences]
+    current_user.save!
 
-    private
-
-    def user_params
-        params.require(:profile).permit(:name, :full_name, :weight, :dietary_preferences, :height, :city, :country, allergens: [])
-    end
-
-    def login_params
-        params.require(:login).permit(:password, :password_confirmation)
-    end
+    render json: { message: 'Dietary preferences updated' }, status: :ok
+  end
 
 end

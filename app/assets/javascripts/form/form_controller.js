@@ -17,14 +17,11 @@ FormController = class {
             event.preventDefault();
 
             const formData = new FormData(this.#form);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
+            const data = this.#convertFormDataToObject(formData);
 
             this.disabled = true;
             let endpoint = this.#form.action;
-            const isGet = this.#form.method.toUpperCase() === 'GET';
+            const isGet = this.#form.getAttribute("method").toUpperCase() === 'GET';
             if (isGet) {
                 endpoint += '?' + new URLSearchParams(data).toString();
             }
@@ -35,7 +32,7 @@ FormController = class {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': formData["authenticity_token"]
                 },
-                method: this.#form.method,
+                method: this.#form.getAttribute("method"),
                 ...body
             });
 
@@ -82,6 +79,26 @@ FormController = class {
         return this;
     }
 
+
+    /**
+     * @param {FormData} formData
+     */
+    #convertFormDataToObject(formData) {
+        const object = {};
+        formData.forEach((value, key) => {
+            if (!object[key] && key.endsWith("[]"))
+                object[key] = []
+
+            if (!object[key])
+                object[key] = value;
+            else if (Array.isArray(object[key]))
+                object[key].push(value);
+            else
+                object[key] = [object[key], value];
+        });
+        return object;
+    }
+
     /******************************
      HERE BEGIN DEFAULT MIDDLEWARES
      ******************************/
@@ -102,13 +119,20 @@ FormController = class {
             return data
         }
 
-        if (contentType !== 'application/json' || !data.message)
+        let msg = ""
+        if (contentType === 'application/json') {
+            msg = data.message ?? ""
+        } else if (contentType === 'text/html') {
+            // TODO: [FII-44] Parse header for a message
+        }
+
+        if (!msg)
             return data
 
         if (status >= 200 && status < 300)
-            SuccessNotifier.get.show(data.message);
+            SuccessNotifier.get.show(msg);
         else
-            ErrorNotifier.get.show(data.message);
+            ErrorNotifier.get.show(msg);
 
         return data
     }
@@ -128,8 +152,8 @@ FormController = class {
      */
     #renderHtml() {
         const form = this.#form
-        return (data, {contentType, endpoint}) => {
-            if (contentType !== 'text/html')
+        return (data, {contentType, endpoint, status}) => {
+            if (contentType !== 'text/html' || status >= 500)
                 return data
 
             const qSelector = form.getAttribute("htmlfor")

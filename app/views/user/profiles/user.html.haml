@@ -1,0 +1,31 @@
+.container.mx-auto.max-w-xl.px-4
+  = controlled_form "/profile/settings/user", method: :put, class: "size-full" do
+    .flex.flex-col.justify-between.size-full
+      .grid.gap-4{class:"md:grid-cols-2"}
+        %div
+          %label.text-sm{for: "name"}
+            = "First Name"
+          %input{type: "text", name: "first_name", id: "first_name", class: "rounded-lg p-2 w-full", value: "#{current_user.first_name}"}
+        %div
+          %label.text-sm{for: "full_name"}
+            = "Last Name"
+          %input{type: "text", name: "last_name", id: "last_name", class: "rounded-lg p-2 w-full", value: "#{current_user.last_name}"}
+        %div
+          %label.text-sm{for: "country"}
+            = "Country"
+          %input{type: "text", name: "country", id: "country", class: "rounded-lg p-2 w-full", value: "#{current_user.country}"}
+        %div
+          %label.text-sm{for: "city"}
+            = "City"
+            %input{type: "text", name: "city", id: "city", class: "rounded-lg p-2 w-full", value: "#{current_user.city}"}
+        %div
+          %label.text-sm{for: "height"}
+            = "Height"
+          %input{type: "text", name: "height", id: "height", class: "rounded-lg p-2 w-full", value: "#{current_user.height}"}
+        %div
+          %label.text-sm{for: "weight"}
+            = "Weight"
+          %input{type: "text", name: "weight", id: "weight", class: "rounded-lg p-2 w-full", value: "#{current_user.weight}"}
+      .flex.w-full.justify-end.mt-4.space-x-4
+        %button{ class: "bg-primary-500 text-white rounded-lg p-2 mt-4 w-fit", type: "submit" }
+          = "Save Changes"
