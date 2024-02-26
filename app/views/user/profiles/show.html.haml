@@ -1,5 +1,4 @@
 - content_for :content do
-  #treshold.sm:hidden
 
   .flex.justify-between.flex-col.size-full
     .flex.flex-col.divide-y.divide-slate-500
@@ -12,11 +11,5 @@
       = link_to "/logout", method: :post, class: "flex flex-row items-center" do
         %i.mdi.mdi-logout-variant.text-2xl.mr-2
         %span Logout
-
-  :javascript
-    if(document.getElementById('treshold').offsetParent === null) {
-      location.replace('/profile/settings/user');
-    }
-
 
 

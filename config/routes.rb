@@ -9,14 +9,11 @@ Rails.application.routes.draw do
     match '/register', to: 'sessions#register', via: %i[post get]
     match '/logout', to: 'sessions#logout', via: :all
 
-    get '/profile', to: 'profiles#show'
-    get '/profile/settings', to: 'profiles#show'
-    get '/profile/settings/user', to: 'profiles#user'
-    put '/profile/settings/user', to: 'profiles#update_user'
-    get '/profile/settings/account', to: 'profiles#account'
-    put '/profile/settings/account', to: 'profiles#update_account'
-    get '/profile/settings/dietary_preferences', to: 'profiles#dietary_preferences'
-    put '/profile/settings/dietary_preferences', to: 'profiles#update_dietary_preferences'
+    resource :profile, only: %i[show index] do
+      match :user, on: :collection, via: %i[get put]
+      match :account, on: :collection, via: %i[get put]
+      match :dietary_preferences, on: :collection, via: %i[get put]
+    end
 
     resources :allergens, only: %i[index show] do
       get :search, on: :collection

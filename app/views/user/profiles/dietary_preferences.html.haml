@@ -1,7 +1,7 @@
 -# TODO: [FII-45] Refactor tag selector into a partial
 
 .container.mx-auto.max-w-xl.px-4
-  = controlled_form "/profile/settings/dietary_preferences", method: :put, class: "size-full" do
+  = controlled_form dietary_preferences_user_profile_path, method: :put, class: "size-full" do
     .flex.flex-col.justify-between.size-full
       .preferences.flex.flex-col.gap-4
         .space-y-2
@@ -24,7 +24,7 @@
                 = allergen
                 %button.remove-allergen{ type: "button", id: "remove-allergen-#{css_friendly}", class: "text-primary-500" }
                   %i.mdi.mdi-close-circle-outline.text-2xl
-      %div.flex.flex-row.justify-end.items-center.mt-4.space-x-4
+      %div.flex.flex-row.justify-center.items-center.mt-4.space-x-4
         %button{ class: "bg-primary-500 text-white rounded-lg p-2 mt-4 w-fit", type: "submit" }
           = "Save Changes"
 

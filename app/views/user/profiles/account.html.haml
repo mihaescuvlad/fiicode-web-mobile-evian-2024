@@ -1,5 +1,5 @@
 .container.mx-auto.max-w-xl.px-4
-  = controlled_form "/profile/settings/account", method: :put, class: "size-full" do
+  = controlled_form account_user_profile_path, method: :put, class: "size-full" do
     .flex.flex-col.justify-between.size-full
       .grid.gap-4{class:"md:grid-cols-2"}
         %div
@@ -19,6 +19,6 @@
             %label.text-sm{for: "password_confirmation"}
               = "Confirm Password"
             %input{type: "password", name: "password_confirmation", id: "password_confirmation", class: "rounded-lg p-2 w-full"}
-      .flex.flex-row.justify-end.items-center.mt-4.space-x-4
+      .flex.flex-row.justify-center.items-center.mt-4.space-x-4
         %button{ class: "bg-primary-500 text-white rounded-lg p-2 mt-4 w-fit", type: "submit" }
           = "Save Changes"
