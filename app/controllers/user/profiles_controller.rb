@@ -1,10 +1,10 @@
 class User::ProfilesController < UserApplicationController
   layout 'user_profile'
-
   before_action :authenticate_user!
+  before_action :set_links
 
   def show
-    redirect_to "/profile/settings/user"
+    # TODO: [FII-46] Redirect if not on mobile
   end
 
   def user
@@ -43,4 +43,11 @@ class User::ProfilesController < UserApplicationController
     render json: { message: 'Dietary preferences updated' }, status: :ok
   end
 
+  protected
+
+  def set_links
+    @links = [{ href: "/profile/settings/user", text: "Profile", icon: "account" },
+              { href: "/profile/settings/account", text: "Account", icon: "lock" },
+              { href: "/profile/settings/dietary_preferences", text: "Preferences", icon: "food" }]
+  end
 end

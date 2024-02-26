@@ -1,7 +1,7 @@
 .container.mx-auto.max-w-xl.px-4
   = controlled_form "/profile/settings/user", method: :put, class: "size-full" do
     .flex.flex-col.justify-between.size-full
-      .grid.gap-4{class:"md:grid-cols-2"}
+      .grid.gap-4{class:"sm:grid-cols-2"}
         %div
           %label.text-sm{for: "name"}
             = "First Name"
