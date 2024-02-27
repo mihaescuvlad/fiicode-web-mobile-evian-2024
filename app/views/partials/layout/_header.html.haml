@@ -19,6 +19,22 @@
               = link[:label]
     #profile-section.hidden.sm:flex.items-center.h-full.gap-4.relative
       %i.mdi.mdi-bell-outline.text-2xl
-      = link_to "/profile" do
+      = link_to "/profile", id: 'profile-path' do
         %i.mdi.mdi-account-circle-outline.text-2xl
       = render "partials/layout/header/dropdown"
+
+:javascript
+  $(document).ready(function() {
+    var updateLink = function() {
+      var profileLink = document.getElementById("profile-path");
+      if (window.innerWidth < 768) {
+        profileLink.setAttribute('href', "#{user_profile_path}");
+      } else {
+        profileLink.setAttribute('href', "#{user_user_profile_path}");
+      }
+    };
+
+    updateLink();
+
+    window.addEventListener('resize', updateLink);
+  });
