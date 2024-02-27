@@ -1,4 +1,4 @@
-.flex.flex-col.justify-center.items-center.h-full.w-full.overflow-auto
+.flex.flex-col.justify-center.items-center.w-full.overflow-auto
   .flex.flex-col.justify-center.items-center.place-self-center.w-full
     %h1.text-3xl.font-semibold.mt-10
       = "#{@product.name}"
@@ -54,22 +54,22 @@
       - current_review = @reviews.find_by(reviewer_id: current_user.id) rescue nil
       = "Reviews"
 
-    %form#review-form{ action: "/products/#{@product.id}/reviews/#{current_review.id if current_review.present?}", method: current_review.present? ? 'put' : 'post', class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full h-[20rem] mb-10" }
+    = controlled_form "/products/#{@product.id}/reviews/#{current_review.id if current_review.present?}", id: "review-form", method: current_review.present? ? :put : :post, class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full h-[20rem] mb-10" do
       = csrf_meta_tags 
       %label.mb-2
         = "Write a review for #{@product.name}"
-      %textarea#review-text.bg-slate-50{ class: "w-full h-2/3 mb-2 rounded-lg", style: "resize: none;", name: "review[comment]" } 
+      %textarea#review-text.bg-slate-50{ class: "w-full h-2/3 mb-2 rounded-lg", style: "resize: none;", name: "review[comment]" }
         = current_review&.comment
       .flex.flex-row.items-center.justify-between.w-full.mt-4
         %label
           = "Do you recommend this product?"
         .flex#thumbs-buttons.flex-row.items-center.justify-start{ class: "w-1/2" }
-          %button#thumbs-up-btn.mr-4.border-teal-700.rounded-lg{ class: current_review&.rating == true ? "border" : "", type: "button", onclick: "setRating(true)" }
-            %span.p-1{ style: "color: 266aff; opacity: 0.85;" }
-              = material_icon.shape('thumb_up').md_36
-          %button#thumbs-down-btn.border-rose-500.rounded-lg{ class: current_review&.rating == false ? "border" : "", type: "button", onclick: "setRating(false)" }
-            %span.p-1{ style: "color: ff2626; opacity: 0.85;" }
-              = material_icon.shape('thumb_down').md_36
+          %input#thumbs-up-btn.mr-4.border-teal-700.rounded-lg.hidden{type: "radio", name: "rating", value: "like" }
+          %label.p-1{ style: "color: 266aff; opacity: 0.85;", for: "thumbs-up-btn", class: "checked:border"}
+            = material_icon.shape('thumb_up').md_36
+          %input#thumbs-down-btn.border-rose-500.rounded-lg.hidden{ type: "radio", name: "rating", value: "dislike" }
+          %label.p-1{ style: "color: ff2626; opacity: 0.85;", for: "thumbs-down-btn", class: "checked:border" }
+            = material_icon.shape('thumb_down').md_36
         %button{ type: "submit", class: "bg-primary-500 text-white rounded-lg p-2 px-4" }
           = current_review.present? ? "Update" : "Submit"
 
@@ -127,50 +127,4 @@
               weightUnitsList.style.display = 'none';
           }
       });
-  });
-
-  function setRating(isThumbsUp) {
-    const thumbsUpBtn = document.getElementById('thumbs-up-btn');
-    const thumbsDownBtn = document.getElementById('thumbs-down-btn');
-
-    thumbsUpBtn.classList.toggle('border', isThumbsUp);
-    thumbsDownBtn.classList.toggle('border', !isThumbsUp);
-
-    const ratingInput = document.createElement('input');
-    ratingInput.type = 'hidden';
-    ratingInput.name = 'review[rating]';
-    ratingInput.value = isThumbsUp ? 'true' : 'false';
-
-    const form = document.getElementById('review-form');
-    const existingRatingInput = form.querySelector('input[name="review[rating]"]');
-    if (existingRatingInput) {
-      existingRatingInput.remove();
-    }
-
-    form.appendChild(ratingInput);
-  }
-
-  $('body').on('submit', '#review-form', function(event) {
-    event.preventDefault();
-    let form = $(this);
-    let formData = new FormData(form[0]);
-    formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
-
-    $.ajax({
-      url: form.attr('action'),
-      method: form.attr('method'),
-      data: formData,
-      contentType: false,
-      processData: false,
-      success: function(response) {
-        $('meta[name="csrf-token"]').attr('content', response.token);
-
-        console.log('Am ajuns aici...')
-        $('#review-text').val('');
-        location.reload();
-      },
-      error: function(xhr, status, error) {
-        console.log(error);
-      }
-    });
   });
