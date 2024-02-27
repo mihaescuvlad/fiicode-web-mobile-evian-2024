@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
 
     resources :products do
-      resources :reviews
+      resources :reviews, via: :all
     end
   end
 end

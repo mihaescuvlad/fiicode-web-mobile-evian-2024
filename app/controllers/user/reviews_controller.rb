@@ -1,4 +1,7 @@
 class User::ReviewsController < UserApplicationController
+  before_action :authenticate_user!
+  before_action :set_review, only: %i[ show edit update destroy ]
+
   def index
     @reviews = Review.all
   end
@@ -19,9 +22,25 @@ class User::ReviewsController < UserApplicationController
       end
     end
   end
-  
+
+  def update
+    respond_to do |format|
+      puts review.inspect
+      if @review.update(product_params)
+        format.html { redirect_to product_url(@review), notice: "Review was successfully updated." }
+        format.json { render :show, status: :ok, location: @review }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @review.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   private
+
+  def set_review
+    @review = Review.find(params[:id])
+  end
 
   def review_params
     login_id = session[:login_id]["$oid"]
