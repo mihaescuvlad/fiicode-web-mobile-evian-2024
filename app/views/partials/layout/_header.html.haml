@@ -26,7 +26,6 @@
   $(document).ready(function() {
     var updateLink = function() {
       var profileLink = document.getElementById("profile-path");
-      console.log(window.innerWidth);
       if (window.innerWidth < 768) {
         profileLink.setAttribute('href', "#{user_profile_path}");
       } else {

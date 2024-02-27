@@ -9,7 +9,7 @@ Thread.new do
         allergens.select { |tag|
             tag['name'].first >= 'A' && tag['name'].first <= 'Z'
         }.map { |tag|
-            tag['name'].gsub(/.*:/, '')
+            { name: tag['name'].gsub(/.*:/, ''), id: tag['id'] }
         }
         end
     end      
