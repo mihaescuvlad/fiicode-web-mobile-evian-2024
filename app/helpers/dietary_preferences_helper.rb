@@ -1,0 +1,2 @@
+module DietaryPreferencesHelper
+end

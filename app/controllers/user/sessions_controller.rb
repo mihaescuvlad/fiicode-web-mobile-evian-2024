@@ -4,45 +4,40 @@ class User::SessionsController < UserApplicationController
 
   def login
     if request.post?
-      login = Login.find_by(email_uc: params[:email].upcase)
-      if login && Login.authenticate(params[:email], params[:password])
+      login = Login.authenticate(params[:email], params[:password])
+      if login
         session[:login_id] = login.id
         session[:expires_at] = Time.current + 24.hour
-        redirect_to root_path
+        redirect_to '/'
       else
-        
+        render json: { message: "Invalid credentials" }, status: :unauthorized and return
       end
     end
+  end
+
+  def logout
+    clear_session
+    redirect_to '/'
   end
 
   def register
     if request.post?
       begin
-        login = Login.new(email: params[:email])
+        login = Login.new(email: params[:email], username: params[:username])
         login.set_password(params[:password])
         if login.save!
           session[:login_id] = login.id
           session[:expires_at] = Time.current + 24.hour
-          redirect_to root_path and return
         end
       rescue Mongoid::Errors::Validations => e
-        puts e #TODO: Add alert
+        render json: { message: "Email or username are already used, try again!!" }, status: :unauthorized and return
       end
-      # user = User.new(user_params)
-      #TODO: User logic
-      redirect_to root_path and return
+      user = User.new(login_id: login._id, first_name: params[:first_name], last_name: params[:last_name])
+      user.save!
+      login.update_attribute(:user_id, user._id)
+
+      redirect_to '/' and return
     end
 
   end
-
-  def logout
-  
-  end
-
-  private
-
-  def user_params
-    params.permit(:name, :country, :city)
-  end
-
 end

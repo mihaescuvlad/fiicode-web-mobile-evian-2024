@@ -1,0 +1,125 @@
+.flex.flex-col.justify-center.items-center.h-full.w-full.overflow-auto
+  %h1.text-3xl.font-semibold.mt-10
+    = "#{@product.name}"
+  %h1.text-xl.font-semibold.mb-8
+    = "(#{@product.brand} - #{@product.weight}g)"
+  .flex.flex-row.justify-between.items-start{ class: "md:w-1/4 sm:w-full mb-8" }
+    .flex.flex-col{ class: "w-1/2 px-4" }
+      %label.mb-4
+        = "Number of servings" 
+      %input{type: "number", name: "servings", id: "servings", required: true, class: "rounded-md p-2 w-full border border-slate-700 bg-slate-50", min: "0", value: "1"}
+    .flex.flex-col{ class: "w-1/2 px-4" }
+      %label#listbox-label
+      = "Serving size"
+      .relative.mt-4
+        %button#weight-units-list-button.relative.w-full.cursor-default.rounded-md.bg-white.pl-3.pr-10.text-left.text-gray-900.bg-slate-50.shadow-sm.ring-1.ring-inset.ring-slate-700.focus:outline-none.focus:ring-2.focus:ring-indigo-500.sm:text-sm.sm:leading-6{"aria-expanded" => "true", "aria-haspopup" => "listbox", "aria-labelledby" => "listbox-label", class: "py-2", type: "button"}
+          %span.flex.items-center
+            = @weight_units.find { |unit| unit.match?(/^100\s+\S+/) } # Regex sequence for finding any string starting with 100 + whitespace + characters
+          %span.pointer-events-none.absolute.inset-y-0.right-0.ml-3.flex.items-center.pr-2
+            = material_icon.shape('arrow_drop_down').md_24
+        %ul#weight-units.absolute.z-10.mt-1.max-h-56.w-full.overflow-auto.rounded-md.bg-slate-50.py-1.text-base.shadow-lg.ring-1.ring-black.ring-opacity-5.focus:outline-none.sm:text-sm{"aria-activedescendant" => "listbox-option-3", "aria-labelledby" => "listbox-label", role: "listbox", tabindex: "-1", style: "display: none;"}
+          - @weight_units.each_with_index do |unit, index|
+            %li{ id: "listbox-option-#{index}", class: "text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9", role: "option" }
+              .flex.items-center
+                %span.font-normal.ml-3.block.truncate= unit
+
+  %table.table-auto.border.border-slate-300{ class: "md:w-1/3 sm:w-full" }
+    %tbody
+      - @product.attributes.except('_id', 'brand', 'name', 'weight', 'weight_units', 'approved', 'created_at', 'updated_at').each_with_index do |(attribute, value), row_index|
+        - humanized_attribute = attribute.humanize.split.map(&:capitalize).join(' ')
+        - product_row_class = row_index.even? ? "bg-slate-50" : "bg-slate-100"
+        %tr{ class: product_row_class}
+          - if attribute == "allergens"
+            %td{ class: "border border-slate-300 p-2 font-semibold w-1/3"}
+              = "Allergens"
+            %td{ class: "border border-slate-300 p-2 text-slate-700 w-2/3"}
+              - allergen_names = value.map { |allergen_id| Allergen.find(allergen_id).name }
+              = allergen_names.join(', ')
+              %br/
+          - elsif attribute == "submitted_by"
+            %td{ class: "border border-slate-300 p-2 font-semibold"}
+              = "Submitted by"
+            %td{ class: "border border-slate-300 p-2 text-slate-700"}
+              - user = User.find(value)
+              = user.first_name
+              %br/
+          - else
+            %td{ class: "border border-slate-300 p-2 font-semibold"}= humanized_attribute
+            %td{ class: "border border-slate-300 p-2 text-slate-700"}= value.present? ? value : "0"
+
+  .flex.flex-col.justify-start.items-start{ class: "md:w-1/3 sm:w-full h-full mt-10" }
+    %h1.text-2xl.font-semibold.mb-4
+      = "Reviews"
+    .flex.flex-col.items-start.shadow-xl.rounded-md.p-4.border-2.bg-slate-100.w-full{ class: "h-[20rem] mb-10" }
+      %label.mb-2
+        = "Write a review for #{@product.name}"
+      %textarea.bg-slate-50{ class: "w-full h-2/3 mb-2" }
+      .flex.flex-row.items-center.justify-between.w-full.mt-4
+        %label
+          = "Do you recommend this product?"
+        .flex.flex-row.items-center.justify-start{ class: "w-1/2" }
+          %button.mr-4
+            %span{ style: "color: 266aff; opacity: 0.85;" }
+              = material_icon.shape('thumb_up').md_36
+          %button
+            %span{ style: "color: ff2626; opacity: 0.85;" }
+              = material_icon.shape('thumb_down').md_36
+        %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2 px-4"}
+          = "Submit"
+
+    .flex.flex-col.items-start.w-full
+      - if @reviews.present?
+        - @reviews.each do |review|
+          - next if review.comment.blank?
+          - reviewer = User.find_by(id: review.reviewer_id).first_name
+          .flex.flex-col.items-start.shadow-xl.rounded-md.p-4.border-2.bg-slate-100.w-full{ class: "mb-4" }
+            .flex#review_flex.flex-row.justify-start.content-center.rounded-md.p-2.border-2.mb-3.bg-gray-200{ class: "w-full" }
+              - if review.rating
+                %span.flex.items-center.mr-4{ style: "color: 266aff; opacity: 0.85;" }
+                  = material_icon.shape('thumb_up').md_36
+                %p.text-slate-800.text-lg.font-medium.mt-1
+                  = "Recommended by #{reviewer}"
+              - else
+                %span.flex.items-center.mr-4{ style: "color: ff2626; opacity: 0.85;"}
+                  = material_icon.shape('thumb_down').md_36
+                %p.text-slate-800.text-lg.font-medium.mt-1
+                  = "Not Recommended by #{reviewer}"
+            %div.mb-4
+              %p
+                = review.comment
+      - else
+        %p No reviews available. You can help by adding a review.
+
+
+:javascript
+  document.addEventListener("DOMContentLoaded", function() {
+      var listItems = document.querySelectorAll('#weight-units li');
+      var button = document.querySelector("#weight-units-list-button > span")
+      var weightUnitsList = document.getElementById('weight-units');
+
+      function updateServingSize(element) {
+          var buttonText = element.innerText.trim();
+          button.innerText = buttonText;
+          weightUnitsList.style.display = 'none';
+      }
+
+      button.addEventListener('click', function() {
+          if (weightUnitsList.style.display === 'none' || weightUnitsList.style.display === '') {
+              weightUnitsList.style.display = 'block';
+          } else {
+              weightUnitsList.style.display = 'none';
+          }
+      });
+
+      listItems.forEach(function(item) {
+          item.addEventListener('click', function() {
+              updateServingSize(this);
+          });
+      });
+
+      document.body.addEventListener('click', function(event) {
+          if (!event.target.closest('#weight-units-list-button') && !event.target.closest('#weight-units')) {
+              weightUnitsList.style.display = 'none';
+          }
+      });
+  });
