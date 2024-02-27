@@ -3,7 +3,9 @@ class User::ProfilesController < UserApplicationController
   before_action :authenticate_user!
   before_action :set_links
 
-  def show; end
+  def show
+    render layout: 'user_application'
+  end
 
   def user
     if request.put?
@@ -21,7 +23,7 @@ class User::ProfilesController < UserApplicationController
       if params[:password] != params[:password_confirmation]
         render json: { message: 'Password and password confirmation do not match' }, status: :bad_request and return
       end
-  
+
       @login.set_password(params[:password])
       render json: { message: 'Password updated' }, status: :ok
     end
@@ -34,7 +36,7 @@ class User::ProfilesController < UserApplicationController
       current_user.allergens_ids = params["allergens[]"]
       current_user.dietary_preferences = params[:dietary_preferences]
       current_user.save!
-  
+
       render json: { message: 'Dietary preferences updated' }, status: :ok
     end
   end

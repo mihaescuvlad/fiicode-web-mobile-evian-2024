@@ -1,13 +1,11 @@
-- content_for :content do
-
-  .flex.justify-between.flex-col.size-full
-    .flex.flex-col.divide-y.divide-slate-500
-      - @links.each do |link|
-        = link_to link[:href], class: "text-#{current_page?(link[:href]) ? 'primary-500' : 'black'}" do
-          %button{ class: "h-12 flex flex-row items-center focus:outline-none w-full" }
-            .mdi.text-2xl.mr-2{class: "mdi-#{link[:icon]}-outline"}
-            %span= link[:text]
-    %div
-      = link_to "/logout", method: :post, class: "flex flex-row items-center" do
-        %i.mdi.mdi-logout-variant.text-2xl.mr-2
-        %span Logout
+.flex.justify-between.flex-col.size-full
+  .flex.flex-col.divide-y.divide-slate-500
+    - @links.each do |link|
+      = link_to link[:href], class: "text-#{current_page?(link[:href]) ? 'primary-500' : 'black'}" do
+        %button{ class: "h-12 flex flex-row items-center focus:outline-none w-full" }
+          .mdi.text-2xl.mr-2{class: "mdi-#{link[:icon]}-outline"}
+          %span= link[:text]
+  %div
+    = link_to "/logout", method: :post, class: "flex flex-row items-center" do
+      %i.mdi.mdi-logout-variant.text-2xl.mr-2
+      %span Logout
