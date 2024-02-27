@@ -9,6 +9,9 @@ class User::ReviewsController < UserApplicationController
   def show
   end
 
+  def edit
+  end
+
   def create
     @review = Review.new(review_params)
   
@@ -25,14 +28,22 @@ class User::ReviewsController < UserApplicationController
 
   def update
     respond_to do |format|
-      puts review.inspect
-      if @review.update(product_params)
-        format.html { redirect_to product_url(@review), notice: "Review was successfully updated." }
+      if @review.update(review_params)
+        format.html { redirect_to user_product_path(@review), notice: "Review was successfully updated." }
         format.json { render :show, status: :ok, location: @review }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @product.destroy!
+
+    respond_to do |format|
+      format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
+      format.json { head :no_content }
     end
   end
 

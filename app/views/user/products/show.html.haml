@@ -158,7 +158,6 @@
 
     $.ajax({
       url: form.attr('action'),
-      // method: 'POST',
       method: form.attr('method'),
       data: formData,
       contentType: false,
@@ -166,6 +165,7 @@
       success: function(response) {
         $('meta[name="csrf-token"]').attr('content', response.token);
 
+        console.log('Am ajuns aici...')
         $('#review-text').val('');
         location.reload();
       },
