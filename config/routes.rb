@@ -8,9 +8,13 @@ Rails.application.routes.draw do
     match '/login', to: 'sessions#login', via: %i[post get]
     match '/register', to: 'sessions#register', via: %i[post get]
     match '/logout', to: 'sessions#logout', via: :all
-    
-    resource :profile, only: %i[show edit update]
-    
+
+    resource :profile, only: %i[show index] do
+      match :user, on: :collection, via: %i[get put]
+      match :account, on: :collection, via: %i[get put]
+      match :dietary_preferences, on: :collection, via: %i[get put]
+    end
+
     resources :allergens, only: %i[index show] do
       get :search, on: :collection
     end
