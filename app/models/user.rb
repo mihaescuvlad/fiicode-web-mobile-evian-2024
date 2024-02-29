@@ -26,9 +26,7 @@ class User
 
   def allergens
     return [] if allergens_ids.blank?
-    allergens_ids.flat_map do |id|
-      Rails.cache.read('allergens_list').select { |allergen| allergen[:id] == id }
-                                          .map { |allergen| { name: allergen[:name], id: allergen[:id] } }
-    end
+    
+    Allergen.where(:off_id.in => allergens_ids)
   end
 end

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     end
 
     resources :products do
+      get :search, on: :collection
       resources :reviews
     end
   end
