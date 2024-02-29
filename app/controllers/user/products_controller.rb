@@ -32,12 +32,17 @@ class User::ProductsController < UserApplicationController
 
     @product.allergens ||= []
 
+    # Default values if `nil`: "1 g", "100 g"
     @product.weight_units ||= [
       BSON::ObjectId('65d320c04bbf6989c52c9571'),
       BSON::ObjectId('65d320ca4bbf6989c52c9572'),
+    ]
+
+    # Add the "1 serving" and "1 container" mandatory weight units
+    @product.weight_units.append(
       BSON::ObjectId('65d320e64bbf6989c52c9575'),
       BSON::ObjectId('65d320f74bbf6989c52c9576')
-    ]
+    )
 
     puts @product.inspect
   
