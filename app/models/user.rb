@@ -24,11 +24,15 @@ class User
     Login.find(login_id)
   end
 
+  def administrator?
+    administrator
+  end
+
   def allergens
     return [] if allergens_ids.blank?
     allergens_ids.flat_map do |id|
       Rails.cache.read('allergens_list').select { |allergen| allergen[:id] == id }
-                                          .map { |allergen| { name: allergen[:name], id: allergen[:id] } }
+           .map { |allergen| { name: allergen[:name], id: allergen[:id] } }
     end
   end
 end
