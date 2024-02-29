@@ -7,6 +7,8 @@ class User::ProductsController < UserApplicationController
   end
 
   def show
+    puts params.inspect
+
     @product = Product.find(params[:id])
     @allergen_names = Allergen.pluck(:_id, :name).to_h
     @weight_units_strings = Measurement.pluck(:_id, :unit).to_h
@@ -24,10 +26,24 @@ class User::ProductsController < UserApplicationController
 
   def create
     @product = Product.new(product_params)
+    @product.rating = 0
+    @product.approved = false
+    @product.submitted_by = current_user.id
 
+    @product.allergens ||= []
+
+    @product.weight_units ||= [
+      BSON::ObjectId('65d320c04bbf6989c52c9571'),
+      BSON::ObjectId('65d320ca4bbf6989c52c9572'),
+      BSON::ObjectId('65d320e64bbf6989c52c9575'),
+      BSON::ObjectId('65d320f74bbf6989c52c9576')
+    ]
+
+    puts @product.inspect
+  
     respond_to do |format|
       if @product.save
-        format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
+        format.html { redirect_to user_product_path(@product.id), notice: "Product was successfully created." }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +55,7 @@ class User::ProductsController < UserApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
+        format.html { redirect_to user_product_path(@product.id), notice: "Product was successfully updated." }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -63,6 +79,7 @@ class User::ProductsController < UserApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:ean, :brand, :name, :price, :weight, :weight_units, :servings, :allergens, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, :submitted_by, :approved, :rating)
+      puts params.inspect
+      params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :allergens, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron)
     end
 end

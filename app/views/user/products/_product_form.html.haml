@@ -1,0 +1,160 @@
+- content_for :head do
+    = stylesheet_link_tag 'product_form.css', media: 'all'
+
+= controlled_form "/products", id: "product-form", model: product, method: :post, class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 md:w-1/4 sm:w-full" do
+    .flex.flex-col.content-center.w-full{ class: "tab" }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Product name"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ id: "name", name: "product[name]" }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Product brand"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ id: "brand", name: "product[brand]" }
+
+    .flex.flex-col.content-center.w-full{ class: "tab" }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Price"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "price", name: "product[price]" }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Weight (g)"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "weight", name: "product[weight]" }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Serving Size (g)"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "servings_quantity", name: "product[serving_quantity]" }
+
+    .flex.flex-col.content-center.w-full{ class: "tab" }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Calories"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "calories", name: "product[calories]" }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Fat"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "fat", name: "product[fat]" }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Carbohydrates"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "carbohydrates", name: "product[carbohydrates]" }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Protein"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "protein", name: "product[protein]" }
+
+    .flex.flex-col.content-center.w-full{ class: "tab" }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Saturated fat - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "saturated_fat", name: "product[saturated_fat]", value: nil }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Polysaturated fat - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "polysaturated_fat", name: "product[polysaturated_fat]", value: nil }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Monosaturated fat - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "monosaturated_fat", name: "product[monosaturated_fat]", value: nil }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Trans fat - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "trans_fat", name: "product[trans_fat]", value: nil }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Fiber - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "fiber", name: "product[fiber]", value: nil }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Sugar - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "sugar", name: "product[sugar]", value: nil }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Sodium - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "sodium", name: "product[sodium]", value: nil }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Vitamin A - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "vitamin_A", name: "product[vitamin_A]", value: nil }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Vitamin C - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "vitamin_C", name: "product[vitamin_C]", value: nil }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Calcium - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "calcium", name: "product[calcium]", value: nil }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Iron - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "iron", name: "product[iron]", value: nil }
+
+    .flex.flex-col.content-center.w-full{ class: "tab" }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Allergens - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ id: "allergens", name: "product[allergens]", value: nil }
+        %label.text-xl.flex.flex-col.mb-4
+            = "Weight Units - Optional"
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ id: "weight_units", name: "product[weight_units]", value: nil }
+
+    .flex.flex-row.justify-end.items-center.w-full.mb-2
+        %button.bg-zinc-600.rounded-md.text-white.px-4.p-2{ id: "previousButton", onClick: "tabShift(-1)", type: "button" }
+            = "Previous"
+        %button.bg-lime-600.rounded-md.text-white.px-4.p-2.ml-2{ id: "nextButton", onClick: "tabShift(1)", type: "button" }
+            = "Next"
+    
+    .flex.flex-row.justify-center.w-full 
+        - (1..5).each do |step|
+            %span{ class: "step" }
+
+:javascript
+    var currentTab = 0;
+    showTab(currentTab);
+
+    function showTab(n) {
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+
+        if (n == 0) {
+            document.getElementById("previousButton").style.display = "none";
+        } else {
+            document.getElementById("previousButton").style.display = "inline";
+        }
+
+        if (n == (x.length - 1)) {
+            document.getElementById("nextButton").innerHTML = "Submit";
+        } else {
+            document.getElementById("nextButton").innerHTML = "Next";
+        }
+
+        fixStepIndicator(n)
+    }
+
+    function tabShift(n) {
+        var x = document.getElementsByClassName("tab");
+
+        if (n == 1 && !validateForm()) return false;
+
+        x[currentTab].style.display = "none";
+        currentTab = currentTab + n;
+
+        if (currentTab >= x.length) {
+            document.getElementById("product-form").submit();
+            return false;
+        }
+
+        showTab(currentTab);
+    }
+
+    function validateForm() {
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByTagName("input");
+
+        for (i = 0; i < y.length; i++) {
+            if (y[i].value == "" && y[i].getAttribute("required")) {
+                y[i].className += " invalid";
+                valid = false;
+            }
+        }
+
+        if (valid) {
+            for (i = 0; i < y.length; i++) {
+                y[i].classList.remove("invalid");
+            }
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+        }
+
+        return valid;
+    }
+
+    function fixStepIndicator(n) {
+        var i, x = document.getElementsByClassName("step");
+
+        for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+        }
+
+        x[n].className += " active";
+    }
