@@ -23,18 +23,17 @@ class User::SessionsController < UserApplicationController
   def register
     if request.post?
       begin
-        login = Login.new(email: params[:email], username: params[:username])
-        login.set_password(params[:password])
-        if login.save!
-          session[:login_id] = login.id
-          session[:expires_at] = Time.current + 24.hour
-        end
+        login = Login.new(params.permit([:username, :email, :password]))
+        session[:login_id] = login.id
+        session[:expires_at] = Time.current + 24.hour
+
+        User.create!(first_name: params[:first_name], last_name: params[:last_name], login: login)
+        login.save!
       rescue Mongoid::Errors::Validations => e
         render json: { message: "Email or username are already used, try again!!" }, status: :unauthorized and return
+      rescue ArgumentError => e
+        render json: { message: e.message }, status: :bad_request and return
       end
-      user = User.new(login_id: login._id, first_name: params[:first_name], last_name: params[:last_name])
-      user.save!
-      login.update_attribute(:user_id, user._id)
 
       redirect_to '/' and return
     end

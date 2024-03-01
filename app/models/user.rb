@@ -16,19 +16,13 @@ class User
   field :country, type: String
   field :city, type: String
   field :profile_picture, type: BSON::Binary
-  field :login_id, type: BSON::ObjectId
-
-  field :administrator, type: Boolean
-
-  def login
-    Login.find(login_id)
-  end
+  belongs_to :login, class_name: 'Login', inverse_of: :user
 
   def allergens
     return [] if allergens_ids.blank?
     allergens_ids.flat_map do |id|
       Rails.cache.read('allergens_list').select { |allergen| allergen[:id] == id }
-                                          .map { |allergen| { name: allergen[:name], id: allergen[:id] } }
+           .map { |allergen| { name: allergen[:name], id: allergen[:id] } }
     end
   end
 end

@@ -23,4 +23,11 @@ Rails.application.routes.draw do
       resources :reviews
     end
   end
+
+  scope module: 'admin', constraints: ->(req) { Context.get_context(req) == :admin }, name_path: 'admin', as: 'admin' do
+    root to: 'welcome#index'
+    match '/', to: 'welcome#index', via: :all
+
+    match '/login', to: 'sessions#login', via: %i[post get]
+  end
 end
