@@ -7,8 +7,6 @@ class User::ProductsController < UserApplicationController
   end
 
   def show
-    puts params.inspect
-
     @product = Product.find(params[:id])
     @allergen_names = Allergen.pluck(:_id, :name).to_h
     @weight_units_strings = Measurement.pluck(:_id, :unit).to_h
@@ -30,7 +28,7 @@ class User::ProductsController < UserApplicationController
     @product.approved = false
     @product.submitted_by = current_user.id
 
-    @product.allergens ||= []
+    @product.allergens = params[:allergens].presence || []
 
     # Default values if `nil`: "1 g", "100 g"
     @product.weight_units ||= [
@@ -44,8 +42,6 @@ class User::ProductsController < UserApplicationController
       BSON::ObjectId('65d320f74bbf6989c52c9576')
     )
 
-    puts @product.inspect
-  
     respond_to do |format|
       if @product.save
         format.html { redirect_to user_product_path(@product.id), notice: "Product was successfully created." }
@@ -84,7 +80,6 @@ class User::ProductsController < UserApplicationController
     end
 
     def product_params
-      puts params.inspect
       params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :allergens, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron)
     end
 end

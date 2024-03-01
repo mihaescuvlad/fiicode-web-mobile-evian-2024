@@ -35,7 +35,7 @@
             %td{ class: "border border-slate-300 p-2 font-semibold w-1/3"}
               = "Allergens"
             %td{ class: "border border-slate-300 p-2 text-slate-700 w-2/3"}
-              - allergen_names = value.map { |allergen_id| Allergen.find(allergen_id).name }
+              - allergen_names = value.map { |allergen_id| Allergen.find_by(off_id: allergen_id).name }
               = allergen_names.join(', ')
               %br/
           - elsif attribute == "submitted_by"

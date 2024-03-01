@@ -13,70 +13,72 @@
     .flex.flex-col.content-center.w-full{ class: "tab" }
         %label.text-xl.flex.flex-col.mb-4
             = "Price"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "price", name: "product[price]" }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "price", name: "product[price]", min: "0" }
         %label.text-xl.flex.flex-col.mb-4
             = "Weight (g)"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "weight", name: "product[weight]" }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "weight", name: "product[weight]", min: "0" }
         %label.text-xl.flex.flex-col.mb-4
             = "Serving Size (g)"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "servings_quantity", name: "product[serving_quantity]" }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "servings_quantity", name: "product[serving_quantity]", min: "0" }
 
     .flex.flex-col.content-center.w-full{ class: "tab" }
         %label.text-xl.flex.flex-col.mb-4
             = "Calories"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "calories", name: "product[calories]" }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "calories", name: "product[calories]", min: "0" }
         %label.text-xl.flex.flex-col.mb-4
             = "Fat"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "fat", name: "product[fat]" }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "fat", name: "product[fat]", min: "0" }
         %label.text-xl.flex.flex-col.mb-4
             = "Carbohydrates"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "carbohydrates", name: "product[carbohydrates]" }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "carbohydrates", name: "product[carbohydrates]", min: "0" }
         %label.text-xl.flex.flex-col.mb-4
             = "Protein"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "protein", name: "product[protein]" }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "protein", name: "product[protein]", min: "0" }
 
     .flex.flex-col.content-center.w-full{ class: "tab" }
         %label.text-xl.flex.flex-col.mb-4
             = "Saturated fat - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "saturated_fat", name: "product[saturated_fat]", value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "saturated_fat", name: "product[saturated_fat]", min: "0", value: nil }
         %label.text-xl.flex.flex-col.mb-4
             = "Polysaturated fat - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "polysaturated_fat", name: "product[polysaturated_fat]", value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "polysaturated_fat", name: "product[polysaturated_fat]", min: "0", value: nil }
         %label.text-xl.flex.flex-col.mb-4
             = "Monosaturated fat - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "monosaturated_fat", name: "product[monosaturated_fat]", value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "monosaturated_fat", name: "product[monosaturated_fat]", min: "0", value: nil }
         %label.text-xl.flex.flex-col.mb-4
             = "Trans fat - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "trans_fat", name: "product[trans_fat]", value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "trans_fat", name: "product[trans_fat]", min: "0", value: nil }
         %label.text-xl.flex.flex-col.mb-4
             = "Fiber - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "fiber", name: "product[fiber]", value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "fiber", name: "product[fiber]", min: "0", value: nil }
         %label.text-xl.flex.flex-col.mb-4
             = "Sugar - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "sugar", name: "product[sugar]", value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "sugar", name: "product[sugar]", min: "0", value: nil }
         %label.text-xl.flex.flex-col.mb-4
             = "Sodium - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "sodium", name: "product[sodium]", value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "sodium", name: "product[sodium]", min: "0", value: nil }
         %label.text-xl.flex.flex-col.mb-4
             = "Vitamin A - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "vitamin_A", name: "product[vitamin_A]", value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "vitamin_A", name: "product[vitamin_A]", min: "0", value: nil }
         %label.text-xl.flex.flex-col.mb-4
             = "Vitamin C - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "vitamin_C", name: "product[vitamin_C]", value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "vitamin_C", name: "product[vitamin_C]", min: "0", value: nil }
         %label.text-xl.flex.flex-col.mb-4
             = "Calcium - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "calcium", name: "product[calcium]", value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "calcium", name: "product[calcium]", min: "0", value: nil }
         %label.text-xl.flex.flex-col.mb-4
             = "Iron - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "iron", name: "product[iron]", value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "iron", name: "product[iron]", min: "0", value: nil }
 
     .flex.flex-col.content-center.w-full{ class: "tab" }
         %label.text-xl.flex.flex-col.mb-4
             = "Allergens - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ id: "allergens", name: "product[allergens[]]", value: nil }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Weight Units - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ id: "weight_units", name: "product[weight_units[]]", value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ id: "allergens", class: 'allergen-autocomplete', value: nil }
+            #allergens-anchor.w-full.flex.flex-wrap.gap-2
+        /
+            %label.text-xl.flex.flex-col.mb-4
+                = "Weight Units - Optional"
+                %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ id: "weight_units", name: "product[weight_units[]]", value: nil }
 
     .flex.flex-row.justify-end.items-center.w-full.mb-2
         %button.bg-zinc-600.rounded-md.text-white.px-4.p-2{ id: "previousButton", onClick: "tabShift(-1)", type: "button" }
@@ -96,19 +98,10 @@
         var x = document.getElementsByClassName("tab");
         x[n].style.display = "block";
 
-        if (n == 0) {
-            document.getElementById("previousButton").style.display = "none";
-        } else {
-            document.getElementById("previousButton").style.display = "inline";
-        }
+        document.getElementById("previousButton").style.display = (n == 0) ? "none" : "inline";
+        document.getElementById("nextButton").innerHTML = (n == x.length - 1) ? "Submit" : "Next";
 
-        if (n == (x.length - 1)) {
-            document.getElementById("nextButton").innerHTML = "Submit";
-        } else {
-            document.getElementById("nextButton").innerHTML = "Next";
-        }
-
-        fixStepIndicator(n)
+        fixStepIndicator(n);
     }
 
     function tabShift(n) {
@@ -117,7 +110,7 @@
         if (n == 1 && !validateForm()) return false;
 
         x[currentTab].style.display = "none";
-        currentTab = currentTab + n;
+        currentTab += n;
 
         if (currentTab >= x.length) {
             document.getElementById("product-form").submit();
@@ -128,33 +121,70 @@
     }
 
     function validateForm() {
-        var x, y, i, valid = true;
-        x = document.getElementsByClassName("tab");
-        y = x[currentTab].getElementsByTagName("input");
+        var x = document.getElementsByClassName("tab");
+        var y = x[currentTab].getElementsByTagName("input");
+        var valid = true;
 
-        for (i = 0; i < y.length; i++) {
-            if (y[i].value == "" && y[i].getAttribute("required")) {
-                y[i].className += " invalid";
+        for (var i = 0; i < y.length; i++) {
+            if (y[i].value === "" && y[i].classList.contains("required")) {
+                y[i].classList.add("invalid");
+
                 valid = false;
             }
         }
 
         if (valid) {
-            for (i = 0; i < y.length; i++) {
+            for (var i = 0; i < y.length; i++) {
                 y[i].classList.remove("invalid");
             }
-            document.getElementsByClassName("step")[currentTab].className += " finish";
+            document.getElementsByClassName("step")[currentTab].classList.add("finish");
         }
 
         return valid;
     }
 
     function fixStepIndicator(n) {
-        var i, x = document.getElementsByClassName("step");
+        var x = document.getElementsByClassName("step");
 
-        for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" active", "");
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("active");
         }
 
-        x[n].className += " active";
+        x[n].classList.add("active");
     }
+
+    $('.allergen-autocomplete').autocomplete({
+        source: '/allergens/search',
+        select: function(event, ui) {
+            const allergen = ui.item.label;
+            const allergenId = ui.item.value;
+
+            if (allergen && !$('#allergen-' + allergen.replace(/\s+/g, '-')).length) {
+                $('#allergens-anchor').append(`
+                    <div class="flex flex-row items-center justify-start space-x-2" id="allergen-${allergen.replace(/\s+/g, '-')}">
+                        <input type="hidden" name="allergens[]" value="${allergenId}">
+                        <span class="text-md">${allergen}</span>
+                        <button type="button" class="text-primary-500 remove-allergen" id="remove-allergen-${allergen.replace(/\s+/g, '-')}">
+                        <i class="mdi mdi-close-circle-outline text-2xl"></i>
+                        </button>
+                    </div>
+                `);
+            }
+            else if (allergen) {
+                ErrorNotifier.get.show("Allergen already added", 4000)
+            }
+
+            $('.allergen-autocomplete').val('');
+
+            return false;
+        },
+        minLength: 2,
+        delay: 500,
+        autoFocus: true
+    });
+
+    $(document).on('click', '[id^="remove-allergen-"]', function() {
+        const allergen = this.id.replace('remove-allergen-', '');
+
+        $(`#allergen-${allergen.replace(/\s+/g, '-')}`).remove();
+    });
