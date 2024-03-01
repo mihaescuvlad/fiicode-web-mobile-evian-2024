@@ -15,9 +15,8 @@ class User::ReviewsController < UserApplicationController
   end
 
   def create
-    begin 
+    begin
       @review = Review.new(review_params)
-
       respond_to do |format|
         if @review.save
           format.html { redirect_to user_product_path(@review.product_id), notice: 'Review was successfully created.' }
@@ -68,9 +67,9 @@ class User::ReviewsController < UserApplicationController
   end
 
   def review_params
-    raise "You have to like or dislike a product." if params[:rating] == nil
-    rating = params[:rating] == "like" ? true : false
-
+    raise "You have to like or dislike a product." if !params[:thumb_value].in?(["UP", "DOWN"])
+    
+    rating = params[:thumb_value] == "UP"
     {
       reviewer_id: current_user.id,
       product_id: @product.id,

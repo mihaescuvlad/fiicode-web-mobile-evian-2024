@@ -51,28 +51,45 @@
 
   .flex.flex-col.justify-start.items-start{ class: "md:w-1/3 sm:w-full h-full mt-10" }
     %h1.text-2xl.font-semibold.mb-4
-      - current_review = @reviews.find_by(reviewer_id: current_user.id, product_id: @product.id) rescue nil
       = "Reviews"
+    - if @current_user_review.present?
+      = controlled_form user_product_reviews_path(@product), method: "post", class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full h-[20rem] mb-10" do
+        %label.mb-2
+          = "Your review about #{@product.name}"
+        = @current_user_review.comment
+        - if @current_user_review.rating
+          %span.mdi.mdi-thumb-up.text-primary-500.text-3xl
+        - else
+          %span.mdi.mdi-thumb-down.text-red-700.text-3xl
+    - elsif current_user.present?
+      = controlled_form user_product_reviews_path(@product), method: "post", class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full h-[20rem] mb-10" do
+        %label.mb-2
+          = "Write a review for #{@product.name}"
+        %textarea.bg-slate-50{ class: "w-full h-2/3 mb-2 rounded-lg", style: "resize: none;", name: "comment", id: "review-text" }
+        .flex.flex-row.items-center.justify-between.w-full.mt-4
+          %label
+            = "Do you recommend this product?"
+          %span.mdi.mdi-thumb-up-outline.text-primary-500.text-3xl{:onclick => "updateThumb('UP')", class: "cursor-pointer", id: "thumb-up"}
+          %span.mdi.mdi-thumb-down-outline.text-red-700.text-3xl{:onclick => "updateThumb('DOWN')", class: "cursor-pointer", id: "thumb-down"}
+          %input{:type => "hidden", :id => "thumb-value", :name => "thumb_value", :value => ""}
 
-    = controlled_form "/products/#{@product.id}/reviews/#{current_review.id if current_review.present?}", id: "review-form", method: current_review.present? ? :put : :post, class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full h-[20rem] mb-10" do
-      = csrf_meta_tags 
-      %label.mb-2
-        = "Write a review for #{@product.name}"
-      %textarea#review-text.bg-slate-50{ class: "w-full h-2/3 mb-2 rounded-lg", style: "resize: none;", name: "comment" }
-        = current_review&.comment
-      .flex.flex-row.items-center.justify-between.w-full.mt-4
-        %label
-          = "Do you recommend this product?"
-        .flex#thumbs-buttons.flex-row.items-center.justify-start{ class: "w-1/2" }
-          %input#thumbs-up-btn.mr-4.border-teal-700.rounded-lg.hidden{type: "radio", name: "rating", value: "like" }
-          %label.p-1{ style: "color: 266aff; opacity: 0.85;", for: "thumbs-up-btn", class: "checked:border"}
-            = material_icon.shape('thumb_up').md_36
-          %input#thumbs-down-btn.border-rose-500.rounded-lg.hidden{ type: "radio", name: "rating", value: "dislike" }
-          %label.p-1{ style: "color: ff2626; opacity: 0.85;", for: "thumbs-down-btn", class: "checked:border" }
-            = material_icon.shape('thumb_down').md_36
-        %button{ type: "submit", class: "bg-primary-500 text-white rounded-lg p-2 px-4" }
-          = current_review.present? ? "Update" : "Submit"
+          %button{ type: "submit", class: "bg-primary-500 text-white rounded-lg p-2 px-4" }
+            = "Submit"
 
+    -# = controlled_form "/products/#{@product.id}/reviews/#{@current_user_review.id if @current_user_review.present?}", id: "review-form", method: @current_user_review.present? ? :put : :post, class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full h-[20rem] mb-10" do
+    -#   %label.mb-2
+    -#     = "Write a review for #{@product.name}"
+    -#   %textarea.bg-slate-50{ class: "w-full h-2/3 mb-2 rounded-lg", style: "resize: none;", name: "comment", id: "review-text" }
+    -#   .flex.flex-row.items-center.justify-between.w-full.mt-4
+    -#     %label
+    -#       = "Do you recommend this product?"
+    -#     %span.mdi.mdi-thumb-up-outline.text-primary-500.text-3xl{:onclick => "updateThumb('up')", class: "pointer-events-auto", id: "thumb-up"}
+    -#     %span.mdi.mdi-thumb-down-outline.text-red-700.text-3xl{:onclick => "updateThumb('down')", class: "pointer-events-auto", id: "thumb-down"}
+    -#     %input{:type => "hidden", :id => "thumbValue", :name => "thumb_value"}
+
+    -#     %button{ type: "submit", class: "bg-primary-500 text-white rounded-lg p-2 px-4" }
+    -#       = "Submit"
+        
     .flex.flex-col.items-start.w-full
       - if @reviews.present?
         - @reviews.each do |review|
@@ -97,34 +114,47 @@
         %p No reviews available. You can help by adding a review.
 
 :javascript
-  document.addEventListener("DOMContentLoaded", function() {
-      var listItems = document.querySelectorAll('#weight-units li');
-      var button = document.querySelector("#weight-units-list-button > span")
-      var weightUnitsList = document.getElementById('weight-units');
 
-      function updateServingSize(element) {
-          var buttonText = element.innerText.trim();
-          button.innerText = buttonText;
-          weightUnitsList.style.display = 'none';
-      }
+  $(document).ready(function() {
+    var listItems = document.querySelectorAll('#weight-units li');
+    var button = document.querySelector("#weight-units-list-button > span")
+    var weightUnitsList = document.getElementById('weight-units');
 
-      button.addEventListener('click', function() {
-          if (weightUnitsList.style.display === 'none' || weightUnitsList.style.display === '') {
-              weightUnitsList.style.display = 'block';
-          } else {
-              weightUnitsList.style.display = 'none';
-          }
-      });
+    function updateServingSize(element) {
+        var buttonText = element.innerText.trim();
+        button.innerText = buttonText;
+        weightUnitsList.style.display = 'none';
+    }
 
-      listItems.forEach(function(item) {
-          item.addEventListener('click', function() {
-              updateServingSize(this);
-          });
-      });
+    button.addEventListener('click', function() {
+        if (weightUnitsList.style.display === 'none' || weightUnitsList.style.display === '') {
+            weightUnitsList.style.display = 'block';
+        } else {
+            weightUnitsList.style.display = 'none';
+        }
+    });
 
-      document.body.addEventListener('click', function(event) {
-          if (!event.target.closest('#weight-units-list-button') && !event.target.closest('#weight-units')) {
-              weightUnitsList.style.display = 'none';
-          }
-      });
+    listItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            updateServingSize(this);
+        });
+    });
+
+    document.body.addEventListener('click', function(event) {
+        if (!event.target.closest('#weight-units-list-button') && !event.target.closest('#weight-units')) {
+            weightUnitsList.style.display = 'none';
+        }
+    });
   });
+
+  function updateThumb(value) {
+    var thumbValue = document.getElementById('thumb-value');
+    thumbValue.value = value;
+    if (value === 'UP') {
+      $("#thumb-down").removeClass("mdi-thumb-down").addClass("mdi-thumb-down-outline");
+      $("#thumb-up").removeClass("mdi-thumb-up-outline").addClass("mdi-thumb-up");
+    } else {
+      $("#thumb-down").removeClass("mdi-thumb-down-outline").addClass("mdi-thumb-down");
+      $("#thumb-up").removeClass("mdi-thumb-up").addClass("mdi-thumb-up-outline");
+    }
+  }
