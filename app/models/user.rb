@@ -16,13 +16,7 @@ class User
   field :country, type: String
   field :city, type: String
   field :profile_picture, type: BSON::Binary
-  field :login_id, type: BSON::ObjectId
-
-  field :administrator, type: Boolean
-
-  def login
-    Login.find(login_id)
-  end
+  belongs_to :login, class_name: 'Login', inverse_of: :user
 
   def allergens
     return [] if allergens_ids.blank?
