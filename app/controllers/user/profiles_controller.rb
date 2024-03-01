@@ -24,7 +24,8 @@ class User::ProfilesController < UserApplicationController
         render json: { message: 'Password and password confirmation do not match' }, status: :bad_request and return
       end
 
-      @login.set_password(params[:password])
+      @login.password = params[:password]
+      @login.save!
       render json: { message: 'Password updated' }, status: :ok
     end
   end
