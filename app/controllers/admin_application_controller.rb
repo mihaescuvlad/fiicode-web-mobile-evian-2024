@@ -1,9 +1,8 @@
 class AdminApplicationController < ApplicationController
   layout 'admin_application'
 
-  def ensure_privileges!
-    unless current_user.administrator?
-      render html: '<h1 class="text-lg">Access Denied</h1>'.html_safe, layout: 'admin_application', status: :unauthorized and return
-    end
+  def current_login
+    return nil if session[:login_id].blank?
+    @current_login ||= Admin.find(session[:login_id]["$oid"]) rescue nil
   end
 end

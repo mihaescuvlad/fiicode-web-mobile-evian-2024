@@ -25,8 +25,8 @@ Rails.application.routes.draw do
   end
 
   scope module: 'admin', constraints: ->(req) { Context.get_context(req) == :admin }, name_path: 'admin', as: 'admin' do
-    root to: 'greet#index'
-    match '/', to: 'greet#index', via: :all
+    root to: 'welcome#index'
+    match '/', to: 'welcome#index', via: :all
 
     match '/login', to: 'sessions#login', via: %i[post get]
   end

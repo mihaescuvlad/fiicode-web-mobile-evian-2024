@@ -1,41 +1,27 @@
-class Login
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include ActiveModel::SecurePassword
-
+class Login < BaseLogin
   field :email, type: String
-  field :username, type: String
-  field :account_id, type: BSON::ObjectId
-  field :email_uc, type: String, default: -> { email.upcase.strip if email.present? }
-  field :password, type: String
-  field :user_id, type: BSON::ObjectId
+  has_one :user, class_name: 'User', inverse_of: :login
 
-  before_create :strip_email
+  validates_uniqueness_of :email, case_sensitive: false
+  validates_presence_of :email, :user
 
-  validates_uniqueness_of :email, :username, case_sensitive: false
-  validates_presence_of :email, :password
+  def initialize(attrs = {})
+    attrs.include?(:email) or raise ArgumentError
 
-  def set_password(password)
-    hashed_password = Password.update(password)
-    update_attributes!(password: hashed_password)
+    super
+    self.email = attrs[:email]
   end
 
-  def strip_email
-    self.email = self.email.strip
-    self.email_uc = self.email_uc.strip
+  def email=(email)
+    write_attribute(:email, email.downcase.strip)
   end
 
   def self.authenticate(email, password)
     return nil unless email && password
 
-    login = Login.where(email_uc: email.upcase.strip).first
+    login = self.where(email: email.downcase.strip).first
     return nil unless login && Password.check(password, login.password)
 
-    login.password = nil
     login
-  end
-
-  def user
-    User.find(user_id)
   end
 end
