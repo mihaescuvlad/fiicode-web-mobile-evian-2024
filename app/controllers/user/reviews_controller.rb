@@ -1,8 +1,7 @@
 class User::ReviewsController < UserApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[create edit update destroy]
   before_action :set_product
   before_action :set_review, only: %i[edit update destroy]
-  before_action :review_params, only: %i[edit update destroy]
 
   def index
     @reviews = Review.all
@@ -33,27 +32,17 @@ class User::ReviewsController < UserApplicationController
 
   def update
     begin
-      respond_to do |format|
-        if review.update(review_params)
-          format.html { redirect_to user_product_path(@review.product_id), notice: "Review was successfully updated." }
-          format.json { render :show, status: :ok, location: @review }
-        else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @review.errors, status: :unprocessable_entity }
-        end
-      end
+      @review.update!(review_params)
+      redirect_to user_product_path(@review.product_id), method: :get
     rescue
       render json: { message: "Something went wrong with updating your review. Please take a break, read a book and try again later." }, status: :bad_request and return
     end
-  end
+  end  
 
   def destroy
-    @product.destroy!
+    @review.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to user_product_path(@review.product_id)
   end
 
   private

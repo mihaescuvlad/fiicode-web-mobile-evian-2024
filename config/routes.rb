@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
 
     resources :products do
-      resources :reviews, via: :all
+      resources :reviews
     end
   end
 

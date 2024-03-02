@@ -1,5 +1,5 @@
 class User::ProductsController < UserApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[ create edit update destroy ]
   before_action :set_product, only: %i[ show edit update destroy ]
 
   def index
@@ -13,7 +13,7 @@ class User::ProductsController < UserApplicationController
     @weight_units = @product.weight_units.map { |measurement_id| Measurement.find(measurement_id).unit }
 
     @reviews = Review.where(product_id: @product.id)
-    @current_user_review = @reviews.find_by(user_id: current_user.id) rescue nil if current_user.present?
+    @current_user_review = @reviews.find_by(reviewer_id: current_user.id) rescue nil
   end
 
   def new
