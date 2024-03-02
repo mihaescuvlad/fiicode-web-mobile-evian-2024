@@ -1,4 +1,4 @@
-.flex.flex-col.justify-center.items-center.h-full.w-full.overflow-auto
+.flex.flex-col.justify-center.items-center.w-full.overflow-auto
   .flex.flex-col.justify-center.items-center.place-self-center.w-full
     %h1.text-3xl.font-semibold.mt-10
       = "#{@product.name}"
@@ -35,7 +35,7 @@
             %td{ class: "border border-slate-300 p-2 font-semibold w-1/3"}
               = "Allergens"
             %td{ class: "border border-slate-300 p-2 text-slate-700 w-2/3"}
-              - allergen_names = value.map { |allergen_id| Allergen.find(allergen_id).name }
+              - allergen_names = value.map { |allergen_id| Allergen.find_by(off_id: allergen_id).name }
               = allergen_names.join(', ')
               %br/
           - elsif attribute == "submitted_by"
@@ -54,7 +54,7 @@
       = "Reviews"
 
     / .flex.flex-col.items-start.shadow-xl.rounded-lg.p-4.border-2.bg-slate-100.w-full{ class: "h-[20rem] mb-10" }
-    %form#review-form{ action: "/product/products/#{@product.id}/reviews", method: 'post', class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full h-[20rem] mb-10" }
+    %form#review-form{ action: "/products/#{@product.id}/reviews", method: 'post', class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full h-[20rem] mb-10" }
       = csrf_meta_tags 
       %label.mb-2
         = "Write a review for #{@product.name}"
