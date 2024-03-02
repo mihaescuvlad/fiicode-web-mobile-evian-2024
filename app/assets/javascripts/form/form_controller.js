@@ -2,6 +2,7 @@ FormController = class {
     static #forms = {};
 
     #form;
+    #disabled_inputs;
     #middleware;
 
     /**
@@ -12,6 +13,7 @@ FormController = class {
 
         this.#form = document.getElementById(formId);
         this.#middleware = [];
+        this.#disabled_inputs = Array.from(document.querySelectorAll(`#${this.#form.id} input`)).filter(input => input.disabled);
 
         this.#form.addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -43,9 +45,11 @@ FormController = class {
 
     /** @param {boolean} disable True if the form should be disabled, false if it should be enabled */
     set disabled(disable) {
-        document.querySelectorAll(`#${this.#form.id} input, #${this.#form.id} button`).forEach((element) => {
-            element.disabled = disable;
-        })
+        Array.from(document.querySelectorAll(`#${this.#form.id} input, #${this.#form.id} button`))
+            .filter(input => this.#disabled_inputs.indexOf(input) < 0)
+            .forEach((element) => {
+                element.disabled = disable;
+            })
     }
 
     static get(formId) {

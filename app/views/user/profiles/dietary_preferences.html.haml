@@ -16,8 +16,8 @@
               = text_field_tag 'user_name', nil, class: 'user-autocomplete rounded-lg p-2 w-full', placeholder: 'Add allergens'
           #allergens-anchor.w-full.flex.flex-wrap.gap-2
             - current_user.allergens.each do |a|
-              - allergen = a[:name]
-              - a_id = a[:id]
+              - allergen = a.name
+              - a_id = a.off_id
               - css_friendly = allergen.gsub(/\s+/, '-')
               .flex.flex-row.items-center.justify-start.space-x-2{ id: "allergen-#{css_friendly}" }
                 = hidden_field_tag "allergens[]", a_id, id: "input-#{css_friendly}"

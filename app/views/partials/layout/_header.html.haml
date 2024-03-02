@@ -8,7 +8,9 @@
   %nav.container.mx-auto.h-8.px-2.flex.justify-center.items-center.gap-10
     %h1.text-lg.uppercase.font-bold
       Ce mancam?
-    %input.hidden.sm:block.flex-1.rounded-full.text-black.text-sm{placeholder: "Search for a food item", type: "text"}
+    .hidden.sm:block.flex-1.rounded-full.text-black.text-sm
+      = text_field_tag :search, nil, class: "search-autocomplete w-full p-2 rounded-lg", placeholder: "Search for a food item", type: "text"
+    
     %ul.hidden.sm:flex.items-center.gap-4
       - links.each do |link|
         %li
@@ -37,4 +39,17 @@
     updateLink();
 
     window.addEventListener('resize', updateLink);
+
+    $('.search-autocomplete').autocomplete({
+      source: '/products/search',
+      minLength: 2,
+      delay: 500,
+      autoFocus: true
+    });
+
+    $('.search-autocomplete').on('autocompleteselect', function(event, ui) {
+      event.preventDefault();
+      window.location.href = "/products/" + ui.item.value.$oid;
+    });
+
   });
