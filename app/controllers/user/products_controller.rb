@@ -1,5 +1,5 @@
 class User::ProductsController < UserApplicationController
-  before_action :authenticate_user!, only: %i[ create edit update destroy ]
+  before_action :authenticate_user!, only: %i[ new edit create update destroy ]
   before_action :set_product, only: %i[ show edit update destroy ]
 
   def index
@@ -58,6 +58,11 @@ class User::ProductsController < UserApplicationController
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def search
+    @products = Product.where(name: /#{params[:term]}/i)
+    render json: @products.map { |product| { label: product.name, value: product.id } }
   end
 
   private
