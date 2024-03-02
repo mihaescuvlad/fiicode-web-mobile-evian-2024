@@ -30,7 +30,7 @@ class User::ProductsController < UserApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to user_product_path(@product.id), notice: "Product was successfully created." }
+        format.html { redirect_to user_product_path(@product.id), status: :created }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,8 +42,8 @@ class User::ProductsController < UserApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to user_product_path(@product.id), notice: "Product was successfully updated." }
-        format.json { render :show, status: :ok, location: @product }
+        format.html { redirect_to user_product_path(@product.id), status: :no_content }
+        format.json { render :show, status: :no_content, location: @product }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class User::ProductsController < UserApplicationController
     @product.destroy!
 
     respond_to do |format|
-      format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
+      format.html { redirect_to products_url, status: :no_content }
       format.json { head :no_content }
     end
   end
