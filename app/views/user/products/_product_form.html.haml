@@ -73,17 +73,13 @@
     .flex.flex-col.content-center.w-full{ class: "tab" }
         %label.text-xl.flex.flex-col.mb-4
             = "Allergens - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ id: "allergens", class: 'allergen-autocomplete', value: nil }
+            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ id: "allergens", class: "allergen-autocomplete", value: nil }
             #allergens-anchor.w-full.flex.flex-wrap.gap-2
-        /
-            %label.text-xl.flex.flex-col.mb-4
-                = "Weight Units - Optional"
-                %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ id: "weight_units", name: "product[weight_units[]]", value: nil }
 
     .flex.flex-row.justify-end.items-center.w-full.mb-2
         %button.bg-zinc-600.rounded-md.text-white.px-4.p-2{ id: "previousButton", onClick: "tabShift(-1)", type: "button" }
             = "Previous"
-        %button.bg-lime-600.rounded-md.text-white.px-4.p-2.ml-2{ id: "nextButton", onClick: "tabShift(1)", type: "button" }
+        %button.bg-primary-500.rounded-md.text-white.px-4.p-2.ml-2{ id: "nextButton", onClick: "tabShift(1)", type: "button" }
             = "Next"
     
     .flex.flex-row.justify-center.w-full 
@@ -91,67 +87,74 @@
             %span{ class: "step" }
 
 :javascript
-    var currentTab = 0;
-    showTab(currentTab);
-
-    function showTab(n) {
-        var x = document.getElementsByClassName("tab");
-        x[n].style.display = "block";
-
-        document.getElementById("previousButton").style.display = (n == 0) ? "none" : "inline";
-        document.getElementById("nextButton").innerHTML = (n == x.length - 1) ? "Submit" : "Next";
-
-        fixStepIndicator(n);
-    }
-
-    function tabShift(n) {
-        var x = document.getElementsByClassName("tab");
-
-        if (n == 1 && !validateForm()) return false;
-
-        x[currentTab].style.display = "none";
-        currentTab += n;
-
-        if (currentTab >= x.length) {
-            document.getElementById("product-form").submit();
-            return false;
-        }
-
+    {
+        let currentTab = 0;
+        let tabs = document.getElementsByClassName("tab")
+        let steps = document.getElementsByClassName("step")
         showTab(currentTab);
-    }
 
-    function validateForm() {
-        var x = document.getElementsByClassName("tab");
-        var y = x[currentTab].getElementsByTagName("input");
-        var valid = true;
+        function showTab(n) {
+            tabs[n].style.display = "block";
 
-        for (var i = 0; i < y.length; i++) {
-            if (y[i].value === "" && y[i].classList.contains("required")) {
-                y[i].classList.add("invalid");
+            document.getElementById("previousButton").style.display = (n == 0) ? "none" : "inline";
+            document.getElementById("nextButton").innerHTML = (n == tabs.length - 1) ? "Submit" : "Next";
 
-                valid = false;
+            fixStepIndicator(n);
+        }
+
+        function tabShift(n) {
+            let x = document.getElementsByClassName("tab");
+
+            if (n == 1 && !validateForm()) return false;
+
+            tabs[currentTab].style.display = "none";
+            currentTab += n;
+
+            if (currentTab >= tabs.length) {
+                document.getElementById("product-form").submit();
+                return false;
             }
+
+            showTab(currentTab);
+            return true;
         }
 
-        if (valid) {
-            for (var i = 0; i < y.length; i++) {
-                y[i].classList.remove("invalid");
+        function validateForm() {
+            let inputsOnTab = tabs[currentTab].getElementsByTagName("input");
+            let valid = true;
+
+            for (let i = 0; i < inputsOnTab.length; i++) {
+                if (inputsOnTab[i].value === "" && inputsOnTab[i].classList.contains("required")) {
+                    inputsOnTab[i].classList.add("invalid");
+
+                    valid = false;
+                }
             }
-            document.getElementsByClassName("step")[currentTab].classList.add("finish");
+
+            if (valid) {
+                for (let i = 0; i < inputsOnTab.length; i++) {
+                    inputsOnTab[i].classList.remove("invalid");
+                }
+                document.getElementsByClassName("step")[currentTab].classList.add("finish");
+            }
+
+            return valid;
         }
 
-        return valid;
-    }
+        function fixStepIndicator(n) {
+            for (let i = 0; i < steps.length; i++) {
+                steps[i].classList.remove("active");
+            }
 
-    function fixStepIndicator(n) {
-        var x = document.getElementsByClassName("step");
-
-        for (var i = 0; i < x.length; i++) {
-            x[i].classList.remove("active");
+            steps[n].classList.add("active");
         }
-
-        x[n].classList.add("active");
     }
+
+    $(document).on('click', '[id^="remove-allergen-"]', function() {
+        const allergen = this.id.replace('remove-allergen-', '');
+
+        $(`#allergen-${allergen.replace(/\s+/g, '-')}`).remove();
+    });
 
     $('.allergen-autocomplete').autocomplete({
         source: '/allergens/search',
@@ -162,7 +165,7 @@
             if (allergen && !$('#allergen-' + allergen.replace(/\s+/g, '-')).length) {
                 $('#allergens-anchor').append(`
                     <div class="flex flex-row items-center justify-start space-x-2" id="allergen-${allergen.replace(/\s+/g, '-')}">
-                        <input type="hidden" name="allergens[]" value="${allergenId}">
+                        <input type="hidden" name="product[allergens][]" value="${allergenId}">
                         <span class="text-md">${allergen}</span>
                         <button type="button" class="text-primary-500 remove-allergen" id="remove-allergen-${allergen.replace(/\s+/g, '-')}">
                         <i class="mdi mdi-close-circle-outline text-2xl"></i>
