@@ -12,7 +12,7 @@ class User::ProfilesController < UserApplicationController
       current_user.update_attributes!(
         params.permit(:first_name, :last_name, :weight, :height, :city, :country)
       )
-      render json: { message: 'Profile updated' }, status: :no_content
+      render json: { message: 'Profile updated' }, status: :ok
     end
   end
 
@@ -26,7 +26,7 @@ class User::ProfilesController < UserApplicationController
 
       @login.password = params[:password]
       @login.save!
-      render json: { message: 'Password updated' }, status: :no_content
+      render json: { message: 'Password updated' }, status: :ok
     end
   end
 
@@ -38,7 +38,7 @@ class User::ProfilesController < UserApplicationController
       current_user.dietary_preferences = params[:dietary_preferences]
       current_user.save!
 
-      render json: { message: 'Dietary preferences updated' }, status: :no_content
+      render json: { message: 'Dietary preferences updated' }, status: :ok
     end
   end
 

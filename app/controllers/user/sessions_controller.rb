@@ -35,7 +35,8 @@ class User::SessionsController < UserApplicationController
         render json: { message: e.message }, status: :bad_request and return
       end
 
-      redirect_to '/', status: :created and return
+      redirect_to '/' and return
     end
+
   end
 end
