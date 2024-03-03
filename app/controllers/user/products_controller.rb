@@ -11,8 +11,9 @@ class User::ProductsController < UserApplicationController
     @allergen_names = Allergen.pluck(:_id, :name).to_h
     @weight_units_strings = Measurement.pluck(:_id, :unit).to_h
     @weight_units = @product.weight_units.map { |measurement_id| Measurement.find(measurement_id).unit }
-    @user_names = User.pluck(:_id, :name).to_h
+
     @reviews = Review.where(product_id: @product.id)
+    @current_user_review = @reviews.find_by(reviewer_id: current_user.id) rescue nil
   end
 
   def new
@@ -40,6 +41,8 @@ class User::ProductsController < UserApplicationController
   end
 
   def update
+    @product = Product.new(product_params)
+
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to user_product_path(@product.id), notice: "Product was successfully updated." }
