@@ -1,5 +1,8 @@
 .container.mx-auto.px-4.py-8
-  %h1.text-2xl.font-semibold.mb-4.text-center All Products
+  .flex.flex-col.justify-center.items-center.w-full
+    %h1.text-2xl.font-semibold.mb-4.text-center All Products
+    %button.flex.place-self-end.my-4.border.bg-primary-500.rounded-md.text-white.px-4.p-2
+      = link_to "Add Product", new_user_product_path
 
   .overflow-x-auto
     %table.border.border-slate-600.border-collapse.w-full.table-auto

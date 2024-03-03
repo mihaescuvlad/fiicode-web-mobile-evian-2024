@@ -7,8 +7,9 @@ class Product
   field :name, type: String
   field :price, type: Float
   field :weight, type: Float
-  field :weight_units, type: Array
-  field :serving_quantity, type: Integer
+  field :weight_units, type: Array, default: [  BSON::ObjectId('65d320c04bbf6989c52c9571'),
+                                                BSON::ObjectId('65d320ca4bbf6989c52c9572'),
+                                                BSON::ObjectId('65d320f74bbf6989c52c9576')]
   field :allergens, type: Array
   field :calories, type: Float
   field :fat, type: Float
@@ -26,13 +27,8 @@ class Product
   field :calcium, type: Float
   field :iron, type: Float
   field :submitted_by, type: BSON::ObjectId
-  field :approved, type: Boolean
-  field :rating, type: Float
-
-
-  def servings
-    (weight / serving_quantity).floor
-  end
+  field :approved, type: Boolean, default: false
+  field :rating, type: Float, default: 0.0
 
   def self.from_open_food_facts(ean)
     OpenFoodFacts.product(ean)

@@ -1,5 +1,4 @@
 .flex.flex-col.justify-center.items-center.w-full.overflow-auto
-
   .flex.flex-col.justify-center.items-center.place-self-center.w-full
     %h1.text-3xl.font-semibold.mt-10
       = "#{@product.name}"
@@ -37,7 +36,7 @@
             %td{ class: "border border-slate-300 p-2 font-semibold w-1/3"}
               = "Allergens"
             %td{ class: "border border-slate-300 p-2 text-slate-700 w-2/3"}
-              - allergen_names = value.map { |allergen_id| Allergen.find(allergen_id).name }
+              - allergen_names = value.map { |allergen_id| Allergen.find_by(off_id: allergen_id).name }
               = allergen_names.join(', ')
               %br/
           - elsif attribute == "submitted_by"
@@ -84,7 +83,6 @@
               %span.mdi.mdi-thumb-up-outline.text-primary-500.text-3xl{:onclick => "updateThumb('UP', 'edit-')", class: "cursor-pointer", id: "edit-thumb-up"}
               %span.mdi.mdi-thumb-down-outline.text-red-500.text-3xl{:onclick => "updateThumb('DOWN', 'edit-')", class: "cursor-pointer", id: "edit-thumb-down"}
             %input{:type => "hidden", :id => "edit-thumb-value", :name => "thumb_value", :value => ""}
-
             %button{ type: "submit", class: "bg-primary-500 text-white rounded-lg p-2 px-4", id: 'update-review' }
               = "Update"
     - if current_user.present? && @current_user_review.blank?
@@ -99,7 +97,6 @@
             %span.mdi.mdi-thumb-up-outline.text-primary-500.text-3xl{:onclick => "updateThumb('UP')", class: "cursor-pointer", id: "thumb-up"}
             %span.mdi.mdi-thumb-down-outline.text-red-500.text-3xl{:onclick => "updateThumb('DOWN')", class: "cursor-pointer", id: "thumb-down"}
           %input{:type => "hidden", :id => "thumb-value", :name => "thumb_value", :value => ""}
-
           %button{ type: "submit", class: "bg-primary-500 text-white rounded-lg p-2 px-4" }
             = "Submit"
         
