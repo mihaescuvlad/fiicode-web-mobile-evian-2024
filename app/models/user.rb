@@ -52,7 +52,7 @@ class User
       s.start_transaction
       self.save!
       user.save!
-      notify_follow(user)
+      Notification.create_follow_notification!(self, user)
       s.commit_transaction
     end
   end
@@ -61,11 +61,5 @@ class User
     return [] if allergens_ids.blank?
 
     Allergen.where(:off_id.in => allergens_ids)
-  end
-
-  private
-
-  def notify_follow(user)
-    Notification.create!(user: user, message: "#{self.full_name} started following you", link: "/hub/user/#{user.id}", icon: :account)
   end
 end

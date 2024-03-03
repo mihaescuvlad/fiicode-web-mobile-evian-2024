@@ -90,12 +90,7 @@ class Post
 
   def notify_mentions
     mentions.each do |user|
-      Notification.create(user: user, message: "You were mentioned in a post", link: post_path(self), icon: :at)
+      Notification.create_mention_notification!(user, self)
     end
-  end
-
-  def post_path(post)
-    warn "This is a temporary method."
-    "/posts/#{post.id}"
   end
 end
