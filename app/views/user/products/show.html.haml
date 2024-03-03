@@ -32,7 +32,7 @@
         - humanized_attribute = attribute.humanize.split.map(&:capitalize).join(' ')
         - product_row_class = row_index.even? ? "bg-slate-50" : "bg-slate-100"
         %tr{ class: product_row_class}
-          - if attribute == "allergens"
+          - if attribute == "allergens" && value.present?
             %td{ class: "border border-slate-300 p-2 font-semibold w-1/3"}
               = "Allergens"
             %td{ class: "border border-slate-300 p-2 text-slate-700 w-2/3"}
@@ -46,7 +46,27 @@
               - user = User.find(value)
               = user.first_name
               %br/
-          - else
+          - elsif attribute == "rating"
+            %td{ class: "border border-slate-300 p-2 font-semibold"}
+              = "User Rating"
+            %td{ class: "border border-slate-300 p-2 text-slate-700"}
+              - total_reviews = @reviews.count
+              - if total_reviews > 0
+                - positive_review_percentage = (value.to_f / total_reviews * 100).to_i
+                - if positive_review_percentage.between?(45, 55)
+                  = "Neutral"
+                - elsif positive_review_percentage.between?(56, 90)
+                  = "Positive"
+                - elsif positive_review_percentage.between?(10, 44)
+                  = "Negative"
+                - elsif positive_review_percentage > 90
+                  = "Overwhelmingly Positive"
+                - else
+                  = "Overwhelmingly Negative"
+              - else
+                = "No Reviews"
+              %br/
+          - elsif attribute != "allergens"
             %td{ class: "border border-slate-300 p-2 font-semibold"}= humanized_attribute
             %td{ class: "border border-slate-300 p-2 text-slate-700"}= value.present? ? value : "0"
 
@@ -158,10 +178,8 @@
       $('#review-form').removeClass('hidden');
       if ("#{@current_user_review&.rating}" == "true") {
         updateThumb('UP', 'edit-');
-        //$("#edit-thumb-up").removeClass("mdi-thumb-up-outline").addClass("mdi-thumb-up");
       } else if ("#{@current_user_review&.rating}" == "false") {
         updateThumb('DOWN', 'edit-');
-        //$("#edit-thumb-down").removeClass("mdi-thumb-down-outline").addClass("mdi-thumb-down");
       }
     });
   });

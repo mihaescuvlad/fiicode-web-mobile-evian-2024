@@ -28,7 +28,7 @@ class Product
   field :iron, type: Float
   field :submitted_by, type: BSON::ObjectId
   field :approved, type: Boolean, default: false
-  field :rating, type: Float, default: 0.0
+  field :rating, type: Integer, default: 0.0
 
   def self.from_open_food_facts(ean)
     OpenFoodFacts.product(ean)
