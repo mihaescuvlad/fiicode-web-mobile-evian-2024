@@ -2,18 +2,25 @@ class User::ProductsController < UserApplicationController
   before_action :authenticate_user!, only: %i[ new edit create update destroy ]
   before_action :set_product, only: %i[ show edit update destroy ]
 
+  
+  FATS = %i[ fat saturated_fat polysaturated_fat monosaturated_fat trans_fat ].freeze
+  CARBOHYDRATES = %i[ carbohydrates fiber sugar ].freeze
+  VITAMINS_MINERALS = %i[ vitamin_A vitamin_C calcium ].freeze
+  ESSENTIAL_NUTRIENTS = %i[ protein sodium iron ].freeze
+
   def index
     @products = Product.all
   end
 
   def show
     @product = Product.find(params[:id])
-    @allergen_names = Allergen.pluck(:_id, :name).to_h
     @weight_units_strings = Measurement.pluck(:_id, :unit).to_h
     @weight_units = @product.weight_units.map { |measurement_id| Measurement.find(measurement_id).unit }
 
+    @product_allergens = Allergen.where(:off_id.in => @product.allergens || [])
     @reviews = Review.where(product_id: @product.id)
     @current_user_review = @reviews.find_by(reviewer_id: current_user.id) rescue nil
+    @product_submitter = User.find(@product.submitted_by)
   end
 
   def new
