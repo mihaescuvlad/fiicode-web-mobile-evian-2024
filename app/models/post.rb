@@ -5,13 +5,27 @@ class Post
   validates_presence_of :title
   after_create :notify_mentions
 
+  field :title, type: String
+  field :content, type: String
+  field :images, type: Array, default: []
+  has_one :author, class_name: 'User', inverse_of: :posts
+
+  field :hashtags, type: Array
+
+  has_many :ratings do
+    def vote(user)
+      where(user: user).first.vote
+    end
+  end
+
+  has_many :responses, class_name: 'Post', inverse_of: :response_to
+  belongs_to :response_to, class_name: 'Post', inverse_of: :responses, optional: true
+
   def initialize(attrs = {})
     raise ArgumentError unless attrs.keys.include?(:title)
 
     super
   end
-
-  field :title, type: String
 
   def title=(title)
     raise ArgumentError, "Title cannot be blank" if title.blank?
@@ -28,8 +42,6 @@ class Post
     sanitized.html_safe
   end
 
-  field :content, type: String
-
   def content=(content)
     raise ArgumentError, "Content cannot be blank" if content.blank?
 
@@ -45,18 +57,6 @@ class Post
     sanitized.html_safe
   end
 
-  field :images, type: Array, default: []
-
-  has_one :author, class_name: 'User', inverse_of: :posts
-  has_many :ratings do
-    def vote(user)
-      where(user: user).first.vote
-    end
-  end
-
-  has_many :responses, class_name: 'Post', inverse_of: :response_to
-  belongs_to :response_to, class_name: 'Post', inverse_of: :responses, optional: true
-
   def response_to=(post)
     if post.response_to != nil
       raise ArgumentError, "Post cannot be a response to another response"
@@ -64,8 +64,6 @@ class Post
       write_attribute("response_to_id", post.id)
     end
   end
-
-  field :hashtags, type: Array
 
   def hashtags=(_)
     raise NoMethodError

@@ -10,10 +10,6 @@ class User
   field :first_name, type: String
   field :last_name, type: String
 
-  def full_name
-    "#{first_name} #{last_name}"
-  end
-
   field :weight, type: Integer
   field :height, type: Integer
   field :gender, type: String
@@ -30,6 +26,10 @@ class User
   field :interests, type: Array, default: []
   field :followers_ids, type: Array, default: []
   field :following_ids, type: Array, default: []
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 
   def followers
     User.where(:_id.in => followers_ids)
