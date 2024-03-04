@@ -1,0 +1,31 @@
+.flex.flex-col.w-full.h-full
+    - if @submitted_products.blank?
+        .flex.justify-center.items-center.text-3xl.font-bold.my-8
+            You have not submitted any products yet.
+        .my-8.flex.justify-center.items-center
+            %button.bg-primary-500.text-white.py-2.px-4.rounded-lg.flex.flex-row.justify-center.items-center
+                .mdi.mdi-plus-circle.mr-2.text-xl
+                = link_to 'Submit a product', new_user_product_path
+    - else
+        .flex.flex-col.justify-center.items-center
+            %button.bg-primary-500.text-white.py-2.px-4.rounded-lg.my-8.flex.flex-row.justify-center.items-center
+                .mdi.mdi-plus-circle.mr-2.text-xl
+                = link_to 'Submit a product', new_user_product_path
+            .flex.flex-col.justify-center.items-center{class: "w-2/5"}
+                .text-2xl.font-bold
+                    Waiting approval submissions
+                .flex.flex-col.justify-center.items-center.w-full
+                    - @submitted_products.each do |product|
+                        .flex.flex-col.justify-center.items-center.w-full.shadow-lg.bg-white.rounded-lg.p-4.my-4.space-y-4
+                            .text-xl.font-semibold
+                                = product.name
+                            .text-slate-700
+                                Product submitted on
+                                = product.created_at.strftime("%B %d, %Y")
+                            .text-lg{class: "text-primary-500 font-semibold underline cursor-pointer hover:text-primary-600 hover:underline"}
+                                = link_to 'See more details', user_product_path(product)
+                            .flex.flex-row.justify-center.items-center.space-x-4
+                                %button.bg-primary-500.text-white.py-2.px-4.rounded-lg
+                                    = link_to 'Edit', edit_user_product_path(product)
+                                %button.bg-red-500.text-white.py-2.px-4.rounded-lg
+                                    = link_to 'Delete', user_product_path(product), method: :delete, data: { confirm: 'Are you sure?' }

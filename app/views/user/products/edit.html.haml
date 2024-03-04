@@ -1,0 +1,149 @@
+.flex.flex-col.justify-start.items-center.h-full.w-full
+  %h1.text-2xl.font-semibold
+    = "Edit product informations"
+  = form_tag user_product_path(@product), method: :put, class: "max-w-[70%] mx-auto my-8" do |f|
+    %div{class: "bg-white shadow overflow-hidden sm:rounded-lg"}
+      %div{class: "border-t border-gray-200 px-4 py-5 sm:p-0"}
+        %label.flex.flex-row.mb-4.items-center.jusitfy-center.p-4.space-x-4
+          .text-sm.font-medium.text-gray-500
+            = "Allergens"
+          %input.text-l.border.border-gray-300.rounded-md.p-1.mt-2{ id: "allergens", class: "allergen-autocomplete", value: nil }
+          #allergens-anchor.w-full.flex.flex-wrap.gap-2
+            = hidden_field_tag "product[allergens][]", nil
+            - @product_allergens.each do |a|
+              - allergen = a.name
+              - a_id = a.off_id
+              - css_friendly = allergen.gsub(/\s+/, '-')
+              .flex.flex-row.items-center.justify-start.space-x-2{ id: "allergen-#{css_friendly}" }
+                = hidden_field_tag "product[allergens][]", a_id, id: "input-#{css_friendly}"
+                = allergen
+                %button.remove-allergen{ type: "button", id: "remove-allergen-#{css_friendly}", class: "text-primary-500" }
+                  %i.mdi.mdi-close-circle-outline.text-2xl
+        %dl{class: "sm:divide-y sm:divide-gray-200"}
+          .grid.grid-cols-1.md:grid-cols-4
+            .space-y-4.p-4
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Product Name
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = text_field_tag "product[name]", @product.name, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Brand
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = text_field_tag "product[brand]", @product.brand, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Price
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[price]", @product.price, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Weight
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[weight]", @product.weight, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+            
+            .space-y-4.p-4
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Calories
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[calories]", @product.calories, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Fat
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[fat]", @product.fat, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Carbohydrates
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[carbohydrates]", @product.carbohydrates, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Protein
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[protein]", @product.protein, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+
+            .space-y-4.p-4
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Saturated Fat
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[saturated_fat]", @product.saturated_fat, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Polysaturated Fat
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[polysaturated_fat]", @product.polysaturated_fat, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Monosaturated Fat
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[monosaturated_fat]", @product.monosaturated_fat, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Trans Fat
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[trans_fat]", @product.trans_fat, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+
+            .space-y-4.p-4
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Fiber
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[fiber]", @product.fiber, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Sugar
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[sugar]", @product.sugar, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Sodium
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[sodium]", @product.sodium, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Vitamin A
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[vitamin_A]", @product.vitamin_A, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Vitamin C
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[vitamin_C]", @product.vitamin_C, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Calcium
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[calcium]", @product.calcium, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+              .sm:grid.sm:grid-cols-3.sm:gap-4.items-center
+                %dt{class: "text-sm font-medium text-gray-500"} Iron
+                %dd{class: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"}
+                  = number_field_tag "product[iron]", @product.iron, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", min: 0
+    .flex.flex-row.justify-center.items-center.space-x-4.my-8
+      %button.bg-primary-500.text-white.py-2.px-4.rounded-lg{ type: "submit" }
+        = "Update"
+      %button.bg-red-500.text-white.py-2.px-4.rounded-lg
+        = link_to 'Cancel', user_submissions_path
+
+
+:javascript
+  $('.allergen-autocomplete').autocomplete({
+    source: '/allergens/search',
+    select: function(event, ui) {
+        const allergen = ui.item.label;
+        const allergenId = ui.item.value;
+
+        if (allergen && !$('#allergen-' + allergen.replace(/\s+/g, '-')).length) {
+            $('#allergens-anchor').append(`
+                <div class="flex flex-row items-center justify-start space-x-2" id="allergen-${allergen.replace(/\s+/g, '-')}">
+                    <input type="hidden" name="product[allergens][]" value="${allergenId}">
+                    <span class="text-md">${allergen}</span>
+                    <button type="button" class="text-primary-500 remove-allergen" id="remove-allergen-${allergen.replace(/\s+/g, '-')}">
+                    <i class="mdi mdi-close-circle-outline text-2xl"></i>
+                    </button>
+                </div>
+            `);
+        }
+        else if (allergen) {
+            ErrorNotifier.get.show("Allergen already added", 4000)
+        }
+
+        $('.allergen-autocomplete').val('');
+
+        return false;
+    },
+    minLength: 2,
+    delay: 500,
+    autoFocus: true
+  });
+
+  $(document).on('click', '[id^="remove-allergen-"]', function() {
+    const allergen = this.id.replace('remove-allergen-', '');
+
+    $(`#allergen-${allergen.replace(/\s+/g, '-')}`).remove();
+  });

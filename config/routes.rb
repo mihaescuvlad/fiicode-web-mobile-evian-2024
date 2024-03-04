@@ -23,6 +23,8 @@ Rails.application.routes.draw do
       get :search, on: :collection
       resources :reviews
     end
+
+    resources :submissions, only: %i[index show]
   end
 
   scope module: 'admin', constraints: ->(req) { Context.get_context(req) == :admin }, name_path: 'admin', as: 'admin' do
