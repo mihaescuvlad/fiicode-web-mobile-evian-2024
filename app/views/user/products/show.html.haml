@@ -30,10 +30,9 @@
     .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2
       %div{ class: "p-2 font-semibold"}= "Price"
       %div{ class: "p-2 text-slate-700"}= @product.price
-    - user_allergic_to_product = current_user.present? && current_user.allergens_ids.present? && @product.allergens.present? && current_user.allergens_ids.any? { |allergen| @product.allergens.include?(allergen) }
     .flex.flex-row.rounded-lg.p-2.justify-between.items-center.mb-2{ class: "bg-slate-50" }
       .flex.flex-row.items-center
-        - if user_allergic_to_product
+        - if @user_allergic_to_product
           .mdi.mdi-alert-circle.text-red-500.text-3xl
         .p-2.font-semibold= "Allergens"
       - if @product_allergens.present?
@@ -41,7 +40,7 @@
           = @product_allergens.map { |allergen| allergen.name }.join(", ")
       - else
         %div{ class: "p-2 text-slate-700"}= "None"
-    - if user_allergic_to_product
+    - if @user_allergic_to_product
       .text-slate-700.text-sm.mb-4.text-right
         = "You are allergic to this product. Please consult your doctor before consuming this product."
     .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2
