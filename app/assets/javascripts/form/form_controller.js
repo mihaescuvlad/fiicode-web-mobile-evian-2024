@@ -22,11 +22,13 @@ FormController = class {
             const data = this.#convertFormDataToObject(formData);
 
             this.disabled = true;
+
             let endpoint = this.#form.action;
             const isGet = this.#form.getAttribute("method").toUpperCase() === 'GET';
             if (isGet) {
                 endpoint += '?' + new URLSearchParams(data).toString();
             }
+
             const body = isGet ? {} : {body: JSON.stringify(data)};
 
             const res = await fetch(endpoint, {
@@ -57,14 +59,15 @@ FormController = class {
     }
 
     async #runChain(res) {
+        const headers = res.headers;
         const contentType = res.headers.get('Content-Type').split(';')[0]
         const status = res.status
         const endpoint = (new URL(res.url)).pathname
         let data = await res.text();
 
-        const chain = [this.#parseJson, ...this.#middleware, this.#notifyJson, this.#renderHtml()];
+        const chain = [this.#parseJson, ...this.#middleware, this.#renderHtml(), this.#notifyJson];
         for (const middleware of chain) {
-            data = middleware(data, {contentType, status, endpoint});
+            data = middleware(data, {contentType, status, endpoint, headers});
             if (data instanceof Promise)
                 data = await data;
 
@@ -103,6 +106,12 @@ FormController = class {
         return object;
     }
 
+    #seconds(s) {
+        return new Promise((res) => {
+            setTimeout(() => res(null), s * 1000)
+        })
+    }
+
     /******************************
      HERE BEGIN DEFAULT MIDDLEWARES
      ******************************/
@@ -117,7 +126,7 @@ FormController = class {
      *  If the response is a json object and has a message property, it will
      *  be shown as a success or error notification, depending on the http status.
      */
-    #notifyJson(data, {contentType, status}) {
+    async #notifyJson(data, {contentType, status, headers}) {
         if (status >= 500) {
             ErrorNotifier.get.show('Something went wrong.');
             return data
@@ -127,18 +136,26 @@ FormController = class {
         if (contentType === 'application/json') {
             msg = data.message ?? ""
         } else if (contentType === 'text/html') {
-            // TODO: [FII-44] Parse header for a message
+            msg = headers.get('Alert-Message') ?? ""
         }
 
         if (!msg)
             return data
 
-        if (status >= 200 && status < 300)
-            SuccessNotifier.get.show(msg);
-        else
-            ErrorNotifier.get.show(msg);
+        while (true) {
+            let notifier;
+            if (status >= 200 && status < 300)
+                notifier = SuccessNotifier.get;
+            else
+                notifier = ErrorNotifier.get;
 
-        return data
+            if (notifier) {
+                notifier.show(msg);
+                return data
+            }
+
+            await this.#seconds(0.5)
+        }
     }
 
     /**
@@ -161,17 +178,17 @@ FormController = class {
                 return data
 
             const qSelector = form.getAttribute("htmlfor")
-            if (!qSelector) {
-                document.open()
-                history.replaceState({}, '', endpoint)
-                document.write(data)
-                document.close()
+            if (qSelector) {
+                const container = document.querySelector(qSelector)
+                container.innerHTML = data
 
-                return null
+                return data
             }
 
-            const container = document.querySelector(qSelector)
-            container.innerHTML = data
+            document.open()
+            history.replaceState({}, '', endpoint)
+            document.write(data)
+            document.close()
             return data
         }
     }

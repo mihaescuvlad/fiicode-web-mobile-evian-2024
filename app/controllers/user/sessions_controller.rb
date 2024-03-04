@@ -8,7 +8,7 @@ class User::SessionsController < UserApplicationController
       if login
         session[:login_id] = login.id
         session[:expires_at] = Time.current + 24.hour
-        redirect_to '/'
+        redirect_to '/', notice: "Logged in successfully" and return
       else
         render json: { message: "Invalid credentials" }, status: :unauthorized and return
       end
