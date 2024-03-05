@@ -9,46 +9,65 @@
     .flex.flex-row
       .flex.flex-col{ class: "w-1/2 px-4" }
         %label.mb-4
-          = "Number of servings" 
-        %input{type: "number", name: "servings", id: "servings", required: true, class: "rounded-lg p-2 w-full border border-slate-700 bg-slate-50", min: "0", value: "1"}
+          = "Number of servings"
+        %input{type: "number", name: "servings", id: "servings", required: true, class: "rounded-lg p-2 w-full border-0 bg-slate-50 focus:ring-primary-500", min: "0", value: "1"}
       .flex.flex-col{ class: "w-1/2 px-4" }
         %label#listbox-label
         = "Serving size"
         .relative.mt-4
-          %button#weight-units-list-button.relative.w-full.cursor-default.rounded-lg.bg-white.pl-3.pr-10.text-left.text-gray-900.bg-slate-50.shadow-sm.ring-1.ring-inset.ring-slate-700.focus:outline-none.focus:ring-2.focus:ring-indigo-500.sm:text-sm.sm:leading-6{"aria-expanded" => "true", "aria-haspopup" => "listbox", "aria-labelledby" => "listbox-label", class: "py-2", type: "button"}
+          %button#weight-units-list-button.relative.w-full.rounded-lg.pl-3.pr-10.text-left.bg-slate-50.shadow-sm{"aria-expanded" => "true", "aria-haspopup" => "listbox", "aria-labelledby" => "listbox-label", class: "py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 sm:text-sm sm:leading-6", type: "button"}
             %span.flex.items-center
               = @weight_units.find { |unit| unit.match?(/^100\s+\S+/) } # Regex sequence for finding any string starting with 100 + whitespace + characters
             %span.pointer-events-none.absolute.inset-y-0.right-0.ml-3.flex.items-center.pr-2
               = material_icon.shape('arrow_drop_down').md_24
           %ul#weight-units.absolute.z-10.mt-1.max-h-56.w-full.overflow-auto.rounded-lg.bg-slate-50.py-1.text-base.shadow-lg.ring-1.ring-black.ring-opacity-5.focus:outline-none.sm:text-sm{"aria-activedescendant" => "listbox-option-3", "aria-labelledby" => "listbox-label", role: "listbox", tabindex: "-1", style: "display: none;"}
             - @weight_units.each_with_index do |unit, index|
-              %li{ id: "listbox-option-#{index}", class: "text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-gray-200", role: "option" }
+              %li{ id: "listbox-option-#{index}", class: "relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-gray-200", role: "option" }
                 .flex.items-center
                   %span.font-normal.ml-3.block.truncate= unit
 
-  %table.table-auto.border.border-slate-300{ class: "md:w-1/3 sm:w-full" }
-    %tbody
-      - @product.attributes.except('_id', 'brand', 'name', 'weight', 'weight_units', 'approved', 'created_at', 'updated_at').each_with_index do |(attribute, value), row_index|
-        - humanized_attribute = attribute.humanize.split.map(&:capitalize).join(' ')
-        - product_row_class = row_index.even? ? "bg-slate-50" : "bg-slate-100"
-        %tr{ class: product_row_class}
-          - if attribute == "allergens"
-            %td{ class: "border border-slate-300 p-2 font-semibold w-1/3"}
-              = "Allergens"
-            %td{ class: "border border-slate-300 p-2 text-slate-700 w-2/3"}
-              - allergen_names = value.map { |allergen_id| Allergen.find_by(off_id: allergen_id).name }
-              = allergen_names.join(', ')
-              %br/
-          - elsif attribute == "submitted_by"
-            %td{ class: "border border-slate-300 p-2 font-semibold"}
-              = "Submitted by"
-            %td{ class: "border border-slate-300 p-2 text-slate-700"}
-              - user = User.find(value)
-              = user.first_name
-              %br/
-          - else
-            %td{ class: "border border-slate-300 p-2 font-semibold"}= humanized_attribute
-            %td{ class: "border border-slate-300 p-2 text-slate-700"}= value.present? ? value : "0"
+  %div.w-full{ class: "md:w-1/2" }
+    .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2
+      %div{ class: "p-2 font-semibold"}= "Price"
+      %div{ class: "p-2 text-slate-700"}= @product.price
+    .flex.flex-row.rounded-lg.p-2.justify-between.items-center.mb-2{ class: "bg-slate-50" }
+      .flex.flex-row.items-center
+        - if @user_allergic_to_product
+          .mdi.mdi-alert-circle.text-red-500.text-3xl
+        .p-2.font-semibold= "Allergens"
+      - if @product_allergens.present?
+        %div{ class: "p-2 text-slate-700"}
+          = @product_allergens.map { |allergen| allergen.name }.join(", ")
+      - else
+        %div{ class: "p-2 text-slate-700"}= "None"
+    - if @user_allergic_to_product
+      .text-slate-700.text-sm.mb-4.text-right
+        = "You are allergic to this product. Please consult your doctor before consuming this product."
+    .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2
+      %div{ class: "p-2 font-semibold"}= "Calories"
+      %div{ class: "p-2 text-slate-700"}= @product.calories
+    .grid.gap-4.w-full.mt-4{ class: "md:grid-cols-2" }
+      .flex.flex-col.rounded-lg.space-y-2.w-full
+        - User::ProductsController::FATS.each do |fat_type|
+          .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
+            %div{ class: "p-2 font-semibold"}= "#{fat_type.to_s.humanize}"
+            %div{ class: "p-2 text-slate-700"}= @product.send(fat_type) || 0
+      .flex.flex-col.rounded-lg.space-y-2.w-full
+        - User::ProductsController::CARBOHYDRATES.each do |carb|
+          .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
+            %div{ class: "p-2 font-semibold"}= "#{carb.to_s.humanize}"
+            %div{ class: "p-2 text-slate-700"}= @product.send(carb) || 0
+    .grid.gap-4.w-full.mt-4{ class: "md:grid-cols-2" }
+      .flex.flex-col.rounded-lg.space-y-2.w-full
+        - User::ProductsController::ESSENTIAL_NUTRIENTS.each do |nutrient|
+          .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
+            %div{ class: "p-2 font-semibold"}= "#{nutrient.to_s.humanize}"
+            %div{ class: "p-2 text-slate-700"}= @product.send(nutrient) || 0
+      .flex.flex-col.rounded-lg.space-y-2.w-full
+        - User::ProductsController::VITAMINS_MINERALS.each do |vitamin_mineral|
+          .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
+            %div{ class: "p-2 font-semibold"}= "#{vitamin_mineral.to_s.humanize}"
+            %div{ class: "p-2 text-slate-700"}= @product.send(vitamin_mineral) || 0
 
   - if @product.approved
     .flex.flex-col.justify-start.items-start{ class: "md:w-2/5 sm:w-full h-full mt-10" }
