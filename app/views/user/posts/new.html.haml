@@ -1,0 +1,28 @@
+.flex.flex-col.justify-center.items-center{ class: "h-full w-full" }
+  .flex.flex-col.justify-center.p-4.w-full.max-w-xl.gap-4
+    - if @response_to.present? then
+      %div.w-full
+        %h2.text-lg
+          %span
+            Responding to
+          %span
+            = '@' + @response_to.author.login.username
+        %p
+          = @response_to.title
+    = controlled_form '/hub/post/create',
+      class: "flex flex-col justify-center items-start shadow-xl rounded-md p-4 border-1 bg-white w-full gap-4",
+      method: :post do
+      .text-center.text-xl.font-bold.w-full
+        Create a new post
+      .fields.space-y-1.w-full
+        .field
+          %label{for: "title"}
+            Title
+          %input{type: "text", name: "title", id: "title", required: true, class: "rounded-md p-2 w-full"}
+        .field
+          %label{for: "content"}
+            Text
+          %textarea{type: "text", name: "content", id: "content", class: "rounded-md p-2 h-32 w-full resize-none"}
+      .flex.flex-row.justify-end.w-full
+        %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2"}
+          Submit

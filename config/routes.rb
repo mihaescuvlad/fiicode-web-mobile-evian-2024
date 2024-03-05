@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     match '/', to: 'welcome#index', via: :all
     match '/search', to: 'welcome#search', via: :all
     match '/scan', to: 'welcome#scan', via: :all
-    match '/hub', to: 'welcome#hub', via: :all
     match '/login', to: 'sessions#login', via: %i[post get]
     match '/register', to: 'sessions#register', via: %i[post get]
     match '/logout', to: 'sessions#logout', via: :all
@@ -23,6 +22,12 @@ Rails.application.routes.draw do
       get :search, on: :collection
       resources :reviews
     end
+
+    get '/hub', to: 'posts#index'
+    get '/hub/following', to: 'posts#following'
+    get '/hub/post/new', to: 'posts#new'
+    post '/hub/post/create', to: 'posts#create'
+
   end
 
   scope module: 'admin', constraints: ->(req) { Context.get_context(req) == :admin }, name_path: 'admin', as: 'admin' do

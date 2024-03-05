@@ -2,19 +2,45 @@ class Post
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  scope :newest_first, -> { order_by(created_at: :desc) }
+  scope :by_notoriety, -> { order_by(notoriety: :desc) }
+
   validates_presence_of :title
   after_create :notify_mentions
 
   field :title, type: String
   field :content, type: String
   field :images, type: Array, default: []
-  has_one :author, class_name: 'User', inverse_of: :posts
+  belongs_to :author, class_name: 'User', inverse_of: :posts
 
   field :hashtags, type: Array
+
+  field :viewer_ids, type: Array, default: []
 
   has_many :ratings do
     def vote(user)
       where(user: user).first.vote
+    end
+
+    def votes(vote, timeframe = nil)
+      query = where(vote: vote)
+      if timeframe
+        query = query.where(:created_at.gte => DateTime.now - timeframe)
+      end
+
+      query.length
+    end
+
+    def upvotes(timeframe = nil)
+      votes(:up_vote, timeframe)
+    end
+
+    def downvotes(timeframe = nil)
+      votes(:down_vote, timeframe)
+    end
+
+    def ratio(timeframe = nil)
+      upvotes(timeframe) - downvotes(timeframe)
     end
   end
 
@@ -43,7 +69,9 @@ class Post
   end
 
   def content=(content)
-    raise ArgumentError, "Content cannot be blank" if content.blank?
+    if content.blank?
+      write_attribute(:content, nil) and return
+    end
 
     set_hashtags
     write_attribute(:content, content)
@@ -53,6 +81,8 @@ class Post
     sanitized = ActionController::Base.helpers.sanitize(content)
 
     # TODO: [FII-49] Convert mentions and hashtags to links
+
+    sanitized = sanitized.split("\n").map { |line| "<p>#{line}</p>" }.join.html_safe
 
     sanitized.html_safe
   end
@@ -69,12 +99,43 @@ class Post
     raise NoMethodError
   end
 
+  def viewer_ids=(_)
+    raise NoMethodError
+  end
+
+  def view(user)
+    viewer_ids << user.id unless viewer_ids.include?(user.id)
+  end
+
+  def views
+    viewer_ids.length
+  end
+
   def mentions
     "#{title}\n#{content}".scan(/@\w+/)
                           .map { |mention| mention[1..] }
                           .map { |username| Login.where(username: username).first }
                           .filter { |login| login != nil }
                           .map { |login| login.user }
+  end
+
+  def notoriety
+    comment_weight = 10
+    vote_weight = 1
+    timeframe = 1.days
+
+    responses.length(timeframe) * comment_weight + ratings.ratio(timeframe).abs * vote_weight
+  end
+
+  def self.recommend_following(user, chunk = 0)
+    chunk_size = 5
+
+    @posts = Post
+               .where(:author.in => user.following)
+               .where(:response_to.exists => false)
+               .newest_first
+               .limit(chunk_size)
+               .offset(chunk * chunk_size)
   end
 
   private

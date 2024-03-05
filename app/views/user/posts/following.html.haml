@@ -1,0 +1,3 @@
+.container.mx-auto.p-4.max-w-2xl.flex.flex-col.items-center.gap-6
+  - @posts.each do |post|
+    = render "user/posts/post", post: post
