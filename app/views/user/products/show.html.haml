@@ -1,14 +1,14 @@
-.flex.flex-col.justify-center.items-center.w-full.overflow-auto
+.flex.flex-col.justify-center.items-center.w-full
   .flex.flex-col.justify-center.items-center.place-self-center.w-full
     %h1.text-3xl.font-semibold.mt-10
       = "#{@product.name}"
-    %h1.text-xl.font-semibold.mb-8
+    %h1.text-xl.font-semibold.mb-8.overflow-hidden.text-ellipsis.whitespace-nowrap
       = "(#{@product.brand} - #{@product.weight}g)"
 
-  .flex.flex-col.justify-between.items-center{ class: "md:w-2/5 sm:w-full mb-8" }
+  .flex.flex-col.justify-between.items-center{ class: "md:w-2/5 w-full mb-8" }
     .flex.flex-row
       .flex.flex-col{ class: "w-1/2 px-4" }
-        %label.mb-4
+        %label.mb-4.max-w-xs.overflow-hidden.text-ellipsis.whitespace-nowrap
           = "Number of servings"
         %input{type: "number", name: "servings", id: "servings", required: true, class: "rounded-lg p-2 w-full border-0 bg-slate-50 focus:ring-primary-500", min: "0", value: "1"}
       .flex.flex-col{ class: "w-1/2 px-4" }
@@ -26,7 +26,7 @@
                 .flex.items-center
                   %span.font-normal.ml-3.block.truncate= unit
 
-  %div.w-full{ class: "md:w-1/2" }
+  .w-full{ class: "md:w-1/2" }
     .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2
       %div{ class: "p-2 font-semibold"}= "Price"
       %div{ class: "p-2 text-slate-700"}= @product.price
@@ -69,79 +69,79 @@
             %div{ class: "p-2 font-semibold"}= "#{vitamin_mineral.to_s.humanize}"
             %div{ class: "p-2 text-slate-700"}= @product.send(vitamin_mineral) || 0
 
-  .flex.flex-col.justify-start.items-start{ class: "md:w-2/5 sm:w-full h-full mt-10" }
-    %h1.text-2xl.font-semibold.mb-4
-      = "Reviews"
-    - if @current_user_review.present?
-      = form_tag user_product_review_path(@product, @current_user_review), method: "put", class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full mb-10" do
-        #readonly-review.w-full
-          .flex.flex-row.justify-start.content-center.rounded-lg.p-2.border-2.mb-3.bg-gray-200{ class: "w-full max-h-64" }
-            - if @current_user_review.rating
-              .mdi.mdi-thumb-up.text-primary-500.text-3xl.mr-4
-              %p.text-slate-800.text-lg.font-medium.mt-1
-                = "You recommended this product"
-            - else
-              .mdi.mdi-thumb-down.text-red-500.text-3xl.mr-4
-              %p.text-slate-800.text-lg.font-medium.mt-1
-                = "You did not recommend this product"
-          #readonly-comment
-            = @current_user_review.comment.present? ? @current_user_review.comment : ""
-          .flex.flex-row.justify-center.items-center.w-full.space-x-4.mt-4
-            %button{ type: "button", class: "bg-primary-500 text-white rounded-lg p-2", id: "edit-review" }
-              = "Edit"
-            = link_to "Delete", user_product_review_path(@product, @current_user_review), method: :delete, class: "bg-red-500 text-white rounded-lg p-2", data: { confirm: "Are you sure?" }
-        #review-form.w-full.hidden
-          %label.mb-2
-            = "Update your review"
-          %textarea.bg-slate-50{ class: "w-full h-2/3 mb-2 rounded-lg", style: "resize: none;", name: "comment", id: "review-text" }
-            = @current_user_review.comment || ""
-          .flex.flex-row.items-center.justify-between.w-full.mt-4
-            %label
-              = "Do you recommend this product?"
-            .flex.flex-row.space-x-4
-              %span.mdi.mdi-thumb-up-outline.text-primary-500.text-3xl{:onclick => "updateThumb('UP', 'edit-')", class: "cursor-pointer", id: "edit-thumb-up"}
-              %span.mdi.mdi-thumb-down-outline.text-red-500.text-3xl{:onclick => "updateThumb('DOWN', 'edit-')", class: "cursor-pointer", id: "edit-thumb-down"}
-            %input{:type => "hidden", :id => "edit-thumb-value", :name => "thumb_value", :value => ""}
-            %button{ type: "submit", class: "bg-primary-500 text-white rounded-lg p-2 px-4", id: 'update-review' }
-              = "Update"
-    - if current_user.present? && @current_user_review.blank?
-      = controlled_form user_product_reviews_path(@product), method: "post", class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full mb-10" do
-        %label.mb-2
-          = "Write a review for #{@product.name}"
-        %textarea.bg-slate-50{ class: "w-full h-2/3 mb-2 rounded-lg", style: "resize: none;", name: "comment", id: "review-text" }
-        .flex.flex-row.items-center.justify-between.w-full.mt-4
-          %label
-            = "Do you recommend this product?"
-          .flex.flex-row.space-x-4
-            %span.mdi.mdi-thumb-up-outline.text-primary-500.text-3xl{:onclick => "updateThumb('UP')", class: "cursor-pointer", id: "thumb-up"}
-            %span.mdi.mdi-thumb-down-outline.text-red-500.text-3xl{:onclick => "updateThumb('DOWN')", class: "cursor-pointer", id: "thumb-down"}
-          %input{:type => "hidden", :id => "thumb-value", :name => "thumb_value", :value => ""}
-          %button{ type: "submit", class: "bg-primary-500 text-white rounded-lg p-2 px-4" }
-            = "Submit"
-        
-    .flex.flex-col.items-start.w-full
-      - if @reviews.present?
-        - @reviews.each do |review|
-          - next if review.comment.blank? || review.reviewer_id == @current_user_review&.reviewer_id
-          - reviewer = User.find_by(id: review.reviewer_id)&.first_name
-          .flex.flex-col.items-start.shadow-xl.rounded-lg.p-4.border-2.bg-slate-100.w-full{ class: "mb-4 max-h-64" }
-            .flex.flex-row.justify-start.content-center.rounded-lg.p-2.border-2.mb-3.bg-gray-200{ class: "w-full" }
-              - if review.rating
+  - if @product.status == :APPROVED
+    .flex.flex-col.justify-start.items-start{ class: "md:w-2/5 w-full h-full mt-10" }
+      %h1.text-2xl.font-semibold.mb-4
+        = "Reviews"
+      - if @current_user_review.present?
+        = form_tag user_product_review_path(@product, @current_user_review), method: "put", class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full mb-10" do
+          #readonly-review.w-full
+            .flex.flex-row.justify-start.items-center.rounded-lg.p-2.border-2.mb-3.bg-gray-200{ class: "w-full max-h-64" }
+              - if @current_user_review.rating
                 .mdi.mdi-thumb-up.text-primary-500.text-3xl.mr-4
                 %p.text-slate-800.text-lg.font-medium.mt-1
-                  = "Recommended by #{reviewer}"
+                  = "You recommended this product"
               - else
                 .mdi.mdi-thumb-down.text-red-500.text-3xl.mr-4
                 %p.text-slate-800.text-lg.font-medium.mt-1
-                  = "Not Recommended by #{reviewer}"
-            .mb-4.overflow-scroll
-              = review.comment
-      - else
-        .flex.justify-center.items-center.w-full
-          No reviews available. You can help by adding a review.
-.flex.justify-center.items-center.w-full.p-10
-  .text-slate-700.text-sm
-    = "This product was submitted by #{@product_submitter&.first_name}"
+                  = "You did not recommend this product"
+            #readonly-comment
+              = @current_user_review.comment.present? ? @current_user_review.comment : ""
+            .flex.flex-row.justify-center.items-center.w-full.space-x-4.mt-4
+              %button{ type: "button", class: "bg-primary-500 text-white rounded-lg p-2", id: "edit-review" }
+                = "Edit"
+              = link_to "Delete", user_product_review_path(@product, @current_user_review), method: :delete, class: "bg-red-500 text-white rounded-lg p-2", data: { confirm: "Are you sure?" }
+          #review-form.w-full.hidden
+            .flex.flex-row.justify-between.items-center.mb-4
+              %label.mb-2
+                = "Update your review"
+              = link_to user_product_path(@product) do
+                .mdi.mdi-close.text-black.text-2xl
+            %textarea.bg-slate-50{ class: "w-full h-2/3 mb-2 rounded-lg", style: "resize: none;", name: "comment", id: "review-text" }
+              = @current_user_review.comment || ""
+            .flex.flex-row.items-center.justify-between.w-full.mt-4
+              %label{ class: "hidden sm:block" }
+                = "Do you recommend this product?"
+              .flex.flex-row.space-x-4
+                %span.mdi.mdi-thumb-up-outline.text-primary-500.text-3xl{:onclick => "updateThumb('UP', 'edit-')", class: "cursor-pointer", id: "edit-thumb-up"}
+                %span.mdi.mdi-thumb-down-outline.text-red-500.text-3xl{:onclick => "updateThumb('DOWN', 'edit-')", class: "cursor-pointer", id: "edit-thumb-down"}
+              %input{:type => "hidden", :id => "edit-thumb-value", :name => "thumb_value", :value => ""}
+              %button{ type: "submit", class: "bg-primary-500 text-white rounded-lg p-2 px-4", id: 'update-review' }
+                = "Update"
+      - if current_user.present? && @current_user_review.blank?
+        = controlled_form user_product_reviews_path(@product), method: "post", class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full mb-10" do
+          %label.mb-2
+            = "Write a review for #{@product.name}"
+          %textarea.bg-slate-50{ class: "w-full h-2/3 mb-2 rounded-lg", style: "resize: none;", name: "comment", id: "review-text" }
+          .flex.flex-row.items-center.justify-between.w-full.mt-4
+            %label{ class: "hidden sm:block" } 
+              = "Do you recommend this product?"
+            .flex.flex-row.space-x-4
+              %span.mdi.mdi-thumb-up-outline.text-primary-500.text-3xl{:onclick => "updateThumb('UP')", class: "cursor-pointer", id: "thumb-up"}
+              %span.mdi.mdi-thumb-down-outline.text-red-500.text-3xl{:onclick => "updateThumb('DOWN')", class: "cursor-pointer", id: "thumb-down"}
+            %input{:type => "hidden", :id => "thumb-value", :name => "thumb_value", :value => ""}
+            %button{ type: "submit", class: "bg-primary-500 text-white rounded-lg p-2 px-4" }
+              = "Submit"
+          
+      .flex.flex-col.items-start.w-full
+        - if @reviews.present?
+          - @reviews.each do |review|
+            - next if review.comment.blank? || review.reviewer_id == @current_user_review&.reviewer_id
+            - reviewer = User.find_by(id: review.reviewer_id)&.first_name
+            .flex.flex-col.items-start.shadow-xl.rounded-lg.p-4.border-2.bg-slate-100.w-full{ class: "mb-4 max-h-64" }
+              .flex.flex-row.justify-start.content-center.rounded-lg.p-2.border-2.mb-3.bg-gray-200{ class: "w-full" }
+                - if review.rating
+                  .mdi.mdi-thumb-up.text-primary-500.text-3xl.mr-4
+                  %p.text-slate-800.text-lg.font-medium.mt-1
+                    = "Recommended by #{reviewer}"
+                - else
+                  .mdi.mdi-thumb-down.text-red-500.text-3xl.mr-4
+                  %p.text-slate-800.text-lg.font-medium.mt-1
+                    = "Not Recommended by #{reviewer}"
+              .mb-4.overflow-scroll
+                = review.comment
+        - else
+          %p No reviews available. You can help by adding a review.
 
 :javascript
 

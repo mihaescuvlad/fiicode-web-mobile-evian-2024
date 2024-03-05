@@ -1,0 +1,7 @@
+header {
+  & #profile-section:hover {
+    & > .dropdown-menu {
+      display: flex;
+    }
+  }
+}
