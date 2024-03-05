@@ -1,10 +1,10 @@
 .flex.flex-col.justify-start.items-center.h-full.w-full
   %h1.text-2xl.font-semibold
     = "Edit product informations"
-  = form_tag user_product_path(@product), method: :put, class: "max-w-[70%] mx-auto my-8" do |f|
+  = form_tag user_product_path(@product), method: :put, class: "md:max-w-[70%] mx-auto my-8 w-full" do |f|
     %div{class: "bg-white shadow overflow-hidden sm:rounded-lg"}
       %div{class: "border-t border-gray-200 px-4 py-5 sm:p-0"}
-        %label.flex.flex-row.mb-4.items-center.jusitfy-center.p-4.space-x-4
+        %label.flex.flex-col.mb-4.items-center.jusitfy-center.p-4.space-x-4{class: "md:flex-row"}
           .text-sm.font-medium.text-gray-500
             = "Allergens"
           %input.text-l.border.border-gray-300.rounded-md.p-1.mt-2{ id: "allergens", class: "allergen-autocomplete", value: nil }
