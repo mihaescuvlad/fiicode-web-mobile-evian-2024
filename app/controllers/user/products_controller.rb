@@ -13,7 +13,7 @@ class User::ProductsController < UserApplicationController
   end
 
   def show
-    if @product.approved == false && (current_user.blank? || @product.submitted_by != current_user.id)
+    if @product.status == :PENDING && (current_user.blank? || @product.submitted_by != current_user.id)
       redirect_to user_products_path and return
     end
 
