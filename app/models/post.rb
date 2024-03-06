@@ -2,6 +2,9 @@ class Post
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  scope :top_level, -> { where(response_to: nil) }
+  scope :response, ->() { self.not(top_level) }
+
   scope :newest_first, -> { order_by(created_at: :desc) }
   scope :by_notoriety, -> { order_by(notoriety: :desc) }
 
@@ -124,7 +127,7 @@ class Post
 
     @posts = Post
                .where(:author.in => user.following)
-               .where(:response_to.exists => false)
+               .top_level
                .newest_first
                .limit(chunk_size)
                .offset(chunk * chunk_size)

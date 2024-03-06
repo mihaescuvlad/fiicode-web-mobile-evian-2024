@@ -29,6 +29,9 @@ Rails.application.routes.draw do
       resources :posts, only: %i[show new create]
       post 'posts/:post_id/rating', to: 'ratings#create'
       delete 'posts/:post_id/rating', to: 'ratings#destroy'
+      resources :users, only: %i[show] do
+        get '/follow', to: 'users#follow'
+      end
     end
 
   end

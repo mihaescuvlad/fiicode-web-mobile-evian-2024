@@ -6,13 +6,15 @@
   .flex-1.space-y-4
     %div.space-y-1
       %h3.text-lg
-        %span
-          = '@' + post.author.login.username
+        %span.text-primary-500
+          = link_to user_hub_user_path(post.author) do
+            = '@' + post.author.login.username
         - if post.response_to.present? then
           %span
             replying to
-          %span
-            = '@' + post.response_to.author.login.username
+          %span.text-primary-500
+            = link_to user_hub_user_path(post.response_to.author) do
+              = '@' + post.response_to.author.login.username
 
       %h1.text-xl
         = post.title_as_html
