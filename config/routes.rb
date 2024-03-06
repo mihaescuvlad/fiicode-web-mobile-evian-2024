@@ -23,10 +23,13 @@ Rails.application.routes.draw do
       resources :reviews
     end
 
-    get '/hub', to: 'posts#index'
-    get '/hub/following', to: 'posts#following'
-    get '/hub/post/new', to: 'posts#new'
-    post '/hub/post/create', to: 'posts#create'
+    namespace :hub do
+      get '/', to: 'hub#index'
+      get 'following', to: 'hub#following'
+      resources :posts, only: %i[show new create]
+      post 'posts/:post_id/rating', to: 'ratings#create'
+      delete 'posts/:post_id/rating', to: 'ratings#destroy'
+    end
 
   end
 

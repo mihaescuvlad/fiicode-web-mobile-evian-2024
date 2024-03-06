@@ -9,12 +9,14 @@
             = '@' + @response_to.author.login.username
         %p
           = @response_to.title
-    = controlled_form '/hub/post/create',
+    = controlled_form user_hub_posts_path,
       class: "flex flex-col justify-center items-start shadow-xl rounded-md p-4 border-1 bg-white w-full gap-4",
       method: :post do
       .text-center.text-xl.font-bold.w-full
         Create a new post
       .fields.space-y-1.w-full
+        - if @response_to.present? then
+          = hidden_field_tag 'response_to_id', @response_to.id
         .field
           %label{for: "title"}
             Title

@@ -19,7 +19,7 @@ class Post
 
   has_many :ratings do
     def vote(user)
-      where(user: user).first.vote
+      find_by(user: user).vote rescue nil
     end
 
     def votes(vote, timeframe = nil)
@@ -85,14 +85,6 @@ class Post
     sanitized = sanitized.split("\n").map { |line| "<p>#{line}</p>" }.join.html_safe
 
     sanitized.html_safe
-  end
-
-  def response_to=(post)
-    if post.response_to != nil
-      raise ArgumentError, "Post cannot be a response to another response"
-    else
-      write_attribute("response_to_id", post.id)
-    end
   end
 
   def hashtags=(_)
