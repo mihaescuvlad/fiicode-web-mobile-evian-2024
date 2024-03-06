@@ -23,16 +23,16 @@
           = @user.following.length
         %span.text-sm
           Following
-
-    - if current_user == @user
-      %button.follow-btn.bg-slate-600.rounded-lg.w-full.text-white.py-1{href: user_user_profile_path}
-        Update profile
-    - elsif current_user.following?(@user)
-      %button.follow-btn.bg-slate-600.rounded-lg.w-full.text-white.py-1{href: user_hub_user_follow_url(@user)}
-        Unfollow
-    - else
-      %button.follow-btn.bg-primary-400.rounded-lg.w-full.text-white.py-1{href: user_hub_user_follow_url(@user)}
-        Follow
+    - if current_user.present?
+      - if current_user == @user
+        %button.follow-btn.bg-slate-600.rounded-lg.w-full.text-white.py-1{href: user_user_profile_path}
+          Update profile
+      - elsif current_user.following?(@user)
+        %button.follow-btn.bg-slate-600.rounded-lg.w-full.text-white.py-1{href: user_hub_user_follow_url(@user)}
+          Unfollow
+      - else
+        %button.follow-btn.bg-primary-400.rounded-lg.w-full.text-white.py-1{href: user_hub_user_follow_url(@user)}
+          Follow
   %h1.text-2xl
     = "Posts (#{@user.posts.top_level.length})"
   - @user.posts.top_level.newest_first.each do |post|

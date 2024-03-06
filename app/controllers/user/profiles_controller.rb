@@ -47,6 +47,7 @@ class User::ProfilesController < UserApplicationController
   def set_links
     @links = [{ href: user_user_profile_path, text: "Profile", icon: "account" },
               { href: account_user_profile_path, text: "Account", icon: "lock" },
-              { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food" }]
+              { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food" },
+              { href: user_hub_user_path(current_user), text: "Hub page", icon: "forum" }]
   end
 end
