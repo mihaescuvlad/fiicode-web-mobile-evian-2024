@@ -55,33 +55,51 @@ class Post {
         if (![Post.upvote, Post.downvote, null].includes(vote))
             throw new Error("Invalid vote type");
 
+        const updateGUI = () => {
+            const impact = (vote ? vote.weight : 0) - (this.vote ? this.vote.weight : 0);
+
+            this.votesRatio += impact;
+
+            [Post.upvote, Post.downvote].forEach((v) => {
+                this.#domElement.querySelector(`.${v.className}`).classList.remove(v.activeClass);
+                this.#domElement.querySelector(`.${v.className}`).classList.add(v.inactiveClass);
+            });
+
+            if (!vote)
+                return;
+
+            this.#domElement.querySelector(`.${vote.className}`).classList.remove(vote.inactiveClass);
+            this.#domElement.querySelector(`.${vote.className}`).classList.add(vote.activeClass);
+        }
+
         if (vote === null) {
             $.ajax({
                 url: `/hub/posts/${this.#domElement.id}/rating`,
                 type: 'DELETE',
+                complete: (_, status) => {
+                    if (status !== "nocontent") {
+                        ErrorNotifier.get.show("Failed to remove vote, please try again later");
+                    } else {
+                        updateGUI();
+                    }
+                }
             })
-
         } else {
             $.ajax({
                 url: `/hub/posts/${this.#domElement.id}/rating`,
                 type: 'POST',
                 data: {vote: vote.id},
+                complete: ({responseJSON: res}, status) => {
+                    if (status !== "success") {
+                        if (res && res.message)
+                            ErrorNotifier.get.show(res.message);
+                        else
+                            ErrorNotifier.get.show("Failed to vote, please try again later");
+                    } else {
+                        updateGUI();
+                    }
+                }
             });
         }
-
-        const impact = (vote ? vote.weight : 0) - (this.vote ? this.vote.weight : 0);
-
-        this.votesRatio += impact;
-
-        [Post.upvote, Post.downvote].forEach((v) => {
-            this.#domElement.querySelector(`.${v.className}`).classList.remove(v.activeClass);
-            this.#domElement.querySelector(`.${v.className}`).classList.add(v.inactiveClass);
-        });
-
-        if (!vote)
-            return;
-
-        this.#domElement.querySelector(`.${vote.className}`).classList.remove(vote.inactiveClass);
-        this.#domElement.querySelector(`.${vote.className}`).classList.add(vote.activeClass);
     }
 }

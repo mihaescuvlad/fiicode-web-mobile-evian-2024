@@ -1,7 +1,10 @@
 class User::Hub::PostsController < UserApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
+
   def show
     @post = Post.find(params[:id.to_s]) rescue not_found
-    @post.view(current_user)
+
+    @post.view(current_user) if current_user.present?
   end
 
   def new
