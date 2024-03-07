@@ -2,7 +2,7 @@
   = javascript_include_tag 'user/hub/posts/post'
 - @user_hub_posts_post_def = true
 
-.flex.flex-col.shadow-lg.rounded-lg.bg-white.p-4.gap-3.cursor-pointer.w-full{class: "hover:bg-slate-100", id: post.id, onclick: "window.location.href = '#{user_hub_post_path(post)}'"}
+.flex.flex-col.shadow.rounded-lg.bg-white.p-4.gap-3.cursor-pointer.w-full{class: "hover:bg-slate-100", id: post.id, onclick: "window.location.href = '#{user_hub_post_path(post)}'"}
   .flex-1.space-y-4
     %div.space-y-1
       %h3.text-lg

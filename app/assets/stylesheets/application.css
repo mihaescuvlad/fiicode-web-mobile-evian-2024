@@ -13,8 +13,3 @@
  *= require_tree .
  *= require_self
  */
-body {
-  background: url("https://st2.depositphotos.com/4410397/6968/v/950/depositphotos_69684757-stock-illustration-food-line-icon-pattern-set.jpg")
-    repeat;
-  background-size: 200px 200px; /* Or any specific size */
-}
