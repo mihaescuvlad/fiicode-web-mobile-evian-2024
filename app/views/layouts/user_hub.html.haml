@@ -5,6 +5,10 @@
         Following
       %a.text-xl.py-3.rounded-r-lg.bg-white.cursor-pointer.text-center{class: "hover:bg-slate-100 w-1/2", href: '#'}
         Interests
+    %a.flex.items-center.gap-1.justify-center.w-full.py-3.rounded-lg.bg-white.cursor-pointer.text-xl{class: "hover:bg-slate-100", href: new_user_hub_post_path}
+      %span
+        Say something
+      %span.mdi.mdi-chat-plus-outline.text-2xl
     = yield
 
 = render template: "layouts/user_application"
