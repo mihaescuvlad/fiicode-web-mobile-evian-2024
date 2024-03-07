@@ -59,14 +59,14 @@ class Post
   def title=(title)
     raise ArgumentError, "Title cannot be blank" if title.blank?
 
-    set_hashtags
     write_attribute(:title, title)
+    set_hashtags
   end
 
   def title_as_html
     sanitized = ActionController::Base.helpers.sanitize(title)
 
-    # TODO: [FII-49] Convert mentions and hashtags to links
+    replace_links!(sanitized)
 
     sanitized.html_safe
   end
@@ -76,14 +76,14 @@ class Post
       write_attribute(:content, nil) and return
     end
 
-    set_hashtags
     write_attribute(:content, content)
+    set_hashtags
   end
 
   def content_as_html
     sanitized = ActionController::Base.helpers.sanitize(content)
 
-    # TODO: [FII-49] Convert mentions and hashtags to links
+    replace_links!(sanitized)
 
     sanitized = sanitized.split("\n").map { |line| "<p>#{line}</p>" }.join.html_safe
 
@@ -138,8 +138,20 @@ class Post
   def set_hashtags
     write_attribute(
       :hashtags,
-      "#{title}\n#{content}".scan(/#\w+/).map { |hashtag| hashtag[1..] }
+      "#{title} #{content}".scan(/#\w+/).map { |hashtag| hashtag[1..] }
     )
+  end
+
+  def replace_links!(str)
+    self.hashtags.each do |hashtag|
+      str.sub!("\##{hashtag}", "<a class='text-primary-500' href='/hub/hashtag/#{hashtag}'>\##{hashtag}</a>")
+    end
+
+    self.mentions.each do |user|
+      str.sub!("@#{user.login.username}", "<a class='text-primary-500' href='/hub/users/#{user.id}'>@#{user.login.username}</a>")
+    end
+
+    str
   end
 
   def notify_mentions

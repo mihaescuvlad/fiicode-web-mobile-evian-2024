@@ -10,4 +10,11 @@ class User::Hub::HubController < UserApplicationController
   def following
     @posts = Post.recommend_following(current_user)
   end
+
+  def hashtag
+    @hashtag = params[:hashtag]
+    @posts = Post.where(:hashtags.in => [@hashtag])
+                 .top_level
+                 .by_notoriety
+  end
 end

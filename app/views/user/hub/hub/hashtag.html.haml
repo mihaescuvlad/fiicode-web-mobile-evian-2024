@@ -1,0 +1,4 @@
+%h1.w-full.text-2xl
+  = "\##{@hashtag} (#{@posts.length})"
+- @posts.each do |post|
+  = render '/user/hub/posts/post', post: post
