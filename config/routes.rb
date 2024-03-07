@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     match '/', to: 'welcome#index', via: :all
     match '/search', to: 'welcome#search', via: :all
     match '/scan', to: 'welcome#scan', via: :all
-    match '/hub', to: 'welcome#hub', via: :all
     match '/login', to: 'sessions#login', via: %i[post get]
     match '/register', to: 'sessions#register', via: %i[post get]
     match '/logout', to: 'sessions#logout', via: :all
