@@ -9,7 +9,7 @@ class Post
   scope :by_notoriety, -> { order_by(notoriety: :desc) }
 
   validates_presence_of :title
-  after_create :notify_mentions
+  after_create :notify
 
   field :title, type: String
   field :content, type: String
@@ -154,9 +154,13 @@ class Post
     str
   end
 
-  def notify_mentions
+  def notify
     mentions.each do |user|
       Notification.create_mention_notification!(user, self)
+    end
+
+    if response_to.present?
+      Notification.create_response_notification!(response_to.author, self)
     end
   end
 end

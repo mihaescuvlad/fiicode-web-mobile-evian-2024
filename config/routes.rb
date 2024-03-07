@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       match :user, on: :collection, via: %i[get put]
       match :account, on: :collection, via: %i[get put]
       match :dietary_preferences, on: :collection, via: %i[get put]
+      match :notifications, on: :collection, via: %i[get]
     end
 
     resources :allergens, only: %i[index show] do
