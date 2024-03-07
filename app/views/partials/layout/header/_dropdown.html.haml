@@ -1,4 +1,4 @@
-- links = [{label: "My Submissions", path: "/my-submissions"},
+- links = [{label: "My Submissions", path: user_submissions_path},
           {label: "My Hub page",
            path: if current_user.present? then user_hub_user_path(current_user) else "#" end}]
 

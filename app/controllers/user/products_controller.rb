@@ -2,18 +2,30 @@ class User::ProductsController < UserApplicationController
   before_action :authenticate_user!, only: %i[ new edit create update destroy ]
   before_action :set_product, only: %i[ show edit update destroy ]
 
+  
+  FATS = %i[ fat saturated_fat polysaturated_fat monosaturated_fat trans_fat ].freeze
+  CARBOHYDRATES = %i[ carbohydrates fiber sugar ].freeze
+  VITAMINS_MINERALS = %i[ vitamin_A vitamin_C calcium ].freeze
+  ESSENTIAL_NUTRIENTS = %i[ protein sodium iron ].freeze
+
   def index
     @products = Product.all
   end
 
   def show
-    @product = Product.find(params[:id])
+    if @product.status == :PENDING && (current_user.blank? || @product.submitted_by != current_user.id)
+      redirect_to user_products_path and return
+    end
+
     @allergen_names = Allergen.pluck(:_id, :name).to_h
     @weight_units_strings = Measurement.pluck(:_id, :unit).to_h
     @weight_units = @product.weight_units.map { |measurement_id| Measurement.find(measurement_id).unit }
 
+    @product_allergens = Allergen.where(:off_id.in => @product.allergens || [])
     @reviews = Review.where(product_id: @product.id)
     @current_user_review = @reviews.find_by(reviewer_id: current_user.id) rescue nil
+    @product_submitter = User.find(@product.submitted_by)
+    @user_allergic_to_product = current_user.present? && current_user.allergens_ids.present? && @product.allergens.present? && current_user.allergens_ids.any? { |allergen| @product.allergens.include?(allergen) }
   end
 
   def new
@@ -21,6 +33,7 @@ class User::ProductsController < UserApplicationController
   end
 
   def edit
+    @product_allergens = Allergen.where(:off_id.in => @product.allergens).to_a
   end
 
   def create
@@ -41,11 +54,9 @@ class User::ProductsController < UserApplicationController
   end
 
   def update
-    @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to user_product_path(@product.id), notice: "Product was successfully updated." }
+        format.html { redirect_to user_submissions_path }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,6 +85,6 @@ class User::ProductsController < UserApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :allergens, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron)
+      params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [])
     end
 end

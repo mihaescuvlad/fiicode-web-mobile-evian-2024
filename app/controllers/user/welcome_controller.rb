@@ -3,7 +3,6 @@ class User::WelcomeController < UserApplicationController
   end
 
   def search
-    clear_session
   end
 
   def scan
