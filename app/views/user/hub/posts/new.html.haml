@@ -5,7 +5,7 @@
         %h2.text-lg
           %span
             Responding to
-          %span
+          %a.text-primary-500{href: user_hub_user_path(@response_to.author)}
             = '@' + @response_to.author.login.username
         %p
           = @response_to.title
