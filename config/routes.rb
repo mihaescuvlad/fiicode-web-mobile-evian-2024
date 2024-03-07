@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       get '/', to: 'hub#index'
       get 'following', to: 'hub#following'
       get 'hashtag/:hashtag', to: 'hub#hashtag'
+      get 'for_you', to: 'hub#for_you'
       resources :posts, only: %i[show new create]
       post 'posts/:post_id/rating', to: 'ratings#create'
       delete 'posts/:post_id/rating', to: 'ratings#destroy'

@@ -3,8 +3,8 @@
     .flex.w-full
       %a.text-xl.py-3.rounded-l-lg.cursor-pointer.text-center{class: "hover:bg-slate-100 w-1/2 " + (current_page?(user_hub_following_path) ? "bg-slate-300" : "bg-white"), href: user_hub_following_path}
         Following
-      %a.text-xl.py-3.rounded-r-lg.bg-white.cursor-pointer.text-center{class: "hover:bg-slate-100 w-1/2", href: '#'}
-        Interests
+      %a.text-xl.py-3.rounded-r-lg.bg-white.cursor-pointer.text-center{class: "hover:bg-slate-100 w-1/2", href: user_hub_for_you_path}
+        For you
     %a.flex.items-center.gap-1.justify-center.w-full.py-3.rounded-lg.bg-white.cursor-pointer.text-xl{class: "hover:bg-slate-100", href: new_user_hub_post_path}
       %span
         Say something
