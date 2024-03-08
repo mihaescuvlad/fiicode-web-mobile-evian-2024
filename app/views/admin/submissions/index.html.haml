@@ -1,21 +1,21 @@
 .flex.flex-col.justify-center.items-center
-	.flex.flex-col.justify-center.items-center{class: 'md: w-1/3 w-full'}
-		.text-2xl.font-bold.mb-4
-			= "Unapproved Submissions"
-		.flex.flex-col.justify-center.items-center.space-y-4.w-full
-			- if @submissions.any?
-				- @submissions.each do |submission|
-					.rounded-lg.shadow-lg.bg-white.p-4.w-full
-						.flex.flex-col.justify-center.items-center.space-y-4
-							.font-semibold.text-xl
-								= submission.name
-							.text-slate-700
-								= submission.created_at.strftime("%B %d, %Y")
-							.flex.flex-row.items-center.space-x-1
-								.text-slate-700
-									Submitted by
-								.font-semibold
-									= User.find(submission.submitted_by).first_name
-							= link_to 'Show', admin_product_path(submission), class: 'bg-primary-500 text-white py-2 px-4 rounded-lg'
-			- else
-				= "No submissions to approve"
+  .flex.flex-col.justify-center.items-center{class: 'md: w-1/3 w-full'}
+    .text-2xl.font-bold.mb-4
+      = "Unapproved Submissions"
+    .flex.flex-col.justify-center.items-center.space-y-4.w-full
+      - if @submissions.any?
+        - @submissions.each do |submission|
+          .rounded-lg.shadow.bg-white.p-4.w-full
+            .flex.flex-col.justify-center.items-center.space-y-4
+              .font-semibold.text-xl
+                = submission.name
+              .text-slate-700
+                = submission.created_at.strftime("%B %d, %Y")
+              .flex.flex-row.items-center.space-x-1
+                .text-slate-700
+                  Submitted by
+                .font-semibold
+                  = User.find(submission.submitted_by).first_name
+              = link_to 'Show', admin_product_path(submission), class: 'bg-primary-500 text-white py-2 px-4 rounded-lg'
+      - else
+        = "No submissions to approve"
