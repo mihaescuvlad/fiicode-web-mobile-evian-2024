@@ -8,7 +8,7 @@ class User::SessionsController < UserApplicationController
       if login
         session[:login_id] = login.id
         session[:expires_at] = Time.current + 24.hour
-        redirect_to '/'
+        redirect_to '/', notice: "Glad to have you back, #{login.user.last_name}!" and return
       else
         render json: { message: "Invalid credentials" }, status: :unauthorized and return
       end
@@ -29,13 +29,13 @@ class User::SessionsController < UserApplicationController
 
         User.create!(first_name: params[:first_name], last_name: params[:last_name], login: login)
         login.save!
+        redirect_to '/', notice: "Welcome, #{login.user.last_name}!" and return
       rescue Mongoid::Errors::Validations => e
-        render json: { message: "Email or username are already used, try again!!" }, status: :unauthorized and return
+        render json: { message: "Email or username are already used, try again!" }, status: :unauthorized and return
       rescue ArgumentError => e
         render json: { message: e.message }, status: :bad_request and return
       end
 
-      redirect_to '/' and return
     end
 
   end

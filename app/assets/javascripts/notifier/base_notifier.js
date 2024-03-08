@@ -55,6 +55,10 @@ BaseNotifier = class {
         p_tag.innerText = text;
     }
 
+    get valid() {
+        return this.#dom_object !== null;
+    }
+
     /**
      * Displays notification for a given time
      * @param {string} text Text to display in the notification

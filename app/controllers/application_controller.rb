@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   layout 'user_application'
 
+  before_action :write_notice_to_header
+
   def authenticate_user!
     if session[:login_id].blank?
       clear_session
@@ -24,5 +26,11 @@ class ApplicationController < ActionController::Base
     session[:expires_at] = nil
   end
 
+  private
+
+  def write_notice_to_header
+    response.set_header('Alert-Message', flash[:notice]) if flash[:notice]
+    response.set_header('Alert-Message', flash[:alert]) if flash[:alert]
+  end
 end
 

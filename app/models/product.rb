@@ -2,6 +2,8 @@ class Product
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  APPROVED_STATUSES = %i[pending approved rejected]
+
   field :ean, type: String, as: :id
   field :brand, type: String
   field :name, type: String
@@ -27,8 +29,8 @@ class Product
   field :calcium, type: Float
   field :iron, type: Float
   field :submitted_by, type: BSON::ObjectId
-  field :approved, type: Boolean, default: false
-  field :rating, type: Integer, default: 0.0
+  field :status, type: Symbol, default: :pending
+  field :rating, type: Integer, default: 0
 
   def self.from_open_food_facts(ean)
     OpenFoodFacts.product(ean)

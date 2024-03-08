@@ -1,6 +1,6 @@
 class Login < BaseLogin
   field :email, type: String
-  has_one :user, class_name: 'User', inverse_of: :login
+  has_one :user
 
   validates_uniqueness_of :email, case_sensitive: false
   validates_presence_of :email, :user
