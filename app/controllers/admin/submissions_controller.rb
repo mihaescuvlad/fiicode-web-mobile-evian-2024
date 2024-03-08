@@ -1,8 +1,8 @@
 class Admin::SubmissionsController < AdminApplicationController
 
-    before_action :authenticate_user!
-    
-    def index
-        @submissions = Product.where(status: :PENDING)
-    end
+  before_action :authenticate_user!
+
+  def index
+    @submissions = Product.where(status: :pending)
+  end
 end

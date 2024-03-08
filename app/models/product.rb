@@ -1,6 +1,10 @@
+require 'set'
+
 class Product
   include Mongoid::Document
   include Mongoid::Timestamps
+
+  before_save :notify_review
 
   APPROVED_STATUSES = %i[pending approved rejected]
 
@@ -33,7 +37,23 @@ class Product
 
   belongs_to :submitted_by, class_name: "User", inverse_of: :submissions
 
+  def status=(status)
+    raise ArgumentError unless APPROVED_STATUSES.include?(status)
+    super
+  end
+
   def self.from_open_food_facts(ean)
     OpenFoodFacts.product(ean)
+  end
+
+  private
+
+  def notify_review
+    return unless status != :pending
+
+    saved_product = Product.find(id) rescue return
+    return unless saved_product.status != status
+
+    Notification.create_product_review_notification!(self)
   end
 end

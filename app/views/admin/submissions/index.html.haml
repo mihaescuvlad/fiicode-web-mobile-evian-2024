@@ -15,7 +15,7 @@
                 .text-slate-700
                   Submitted by
                 .font-semibold
-                  = User.find(submission.submitted_by).first_name
+                  = submission.submitted_by.first_name
               = link_to 'Show', admin_product_path(submission), class: 'bg-primary-500 text-white py-2 px-4 rounded-lg'
       - else
         = "No submissions to approve"
