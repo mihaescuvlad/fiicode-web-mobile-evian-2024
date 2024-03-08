@@ -16,7 +16,6 @@ gem "mongoid", "~> 8.1.0"
 gem "sassc", "~> 2.4"
 gem "jquery-rails"
 gem "jquery-ui-rails"
-gem "material_icons", "~> 4.0.0"
 gem "http"
 
 group :development, :test do

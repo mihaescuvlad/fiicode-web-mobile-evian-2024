@@ -2,8 +2,6 @@ class Notification
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  private_class_method :new, :create, :create!
-
   belongs_to :user
   field :message, type: String
   field :link, type: String

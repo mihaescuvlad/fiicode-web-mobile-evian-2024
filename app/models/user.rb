@@ -39,6 +39,10 @@ class User
     User.where(:_id.in => following_ids)
   end
 
+  def following?(user)
+    following_ids.include?(user.id)
+  end
+
   def follow_and_save!(user)
     unless self.following_ids.include?(user.id)
       self.following_ids << user.id
@@ -53,6 +57,18 @@ class User
       self.save!
       user.save!
       Notification.create_follow_notification!(self, user)
+      s.commit_transaction
+    end
+  end
+
+  def unfollow_and_save!(user)
+    self.following_ids.delete(user.id)
+    user.followers_ids.delete(self.id)
+
+    User.with_session do |s|
+      s.start_transaction
+      self.save!
+      user.save!
       s.commit_transaction
     end
   end

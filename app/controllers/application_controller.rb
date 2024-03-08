@@ -32,5 +32,9 @@ class ApplicationController < ActionController::Base
     response.set_header('Alert-Message', flash[:notice]) if flash[:notice]
     response.set_header('Alert-Message', flash[:alert]) if flash[:alert]
   end
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
 end
 
