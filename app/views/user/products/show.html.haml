@@ -51,13 +51,13 @@
       %div{ class: "p-2 text-slate-700"}
         - total_reviews = @reviews.count
         - if total_reviews > 0
-          - positive_review_percentage = (@product.rating / total_reviews * 100).to_i
+          - positive_review_percentage = (@product.rating.to_f / total_reviews * 100)
           - if positive_review_percentage.between?(45, 55)
             = "Neutral (#{@product.rating}/#{total_reviews} users recommend this product)"
           - elsif positive_review_percentage.between?(56, 90)
             = "Positive (#{@product.rating}/#{total_reviews} users recommend this product)"
           - elsif positive_review_percentage.between?(10, 44)
-            = "Negative (#{val@product.ratingue}/#{total_reviews} users recommend this product)"
+            = "Negative (#{@product.rating}/#{total_reviews} users recommend this product)"
           - elsif positive_review_percentage > 90
             = "Overwhelmingly Positive (#{@product.rating}/#{total_reviews} users recommend this product)"
           - else

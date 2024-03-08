@@ -10,6 +10,8 @@ class User::ProductsController < UserApplicationController
 
   def index
     @products = Product.all
+    @filtered_products = filter_products(@products)
+    @top_products = @filtered_products.take(9);
   end
 
   def show
@@ -80,6 +82,22 @@ class User::ProductsController < UserApplicationController
   end
 
   private
+    def filter_products(products)
+      products.sort_by do |product|
+        reviews = Review.where(product_id: product.id)
+        total_reviews = reviews.count
+
+        positive_review_percentage = total_reviews.zero? ? -1 : (product.rating.to_f / total_reviews * 100)
+
+        if current_user.allergens.any? { |allergen| product.allergens }
+          corrected_percentage = positive_review_percentage - 35
+          positive_review_percentage = [corrected_percentage, -1].max
+        end
+
+        -positive_review_percentage
+      end
+    end
+
     def set_product
       @product = Product.find(params[:id])
     end

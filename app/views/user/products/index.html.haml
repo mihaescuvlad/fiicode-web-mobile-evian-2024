@@ -1,17 +1,9 @@
 .container.mx-auto.px-4.py-8
   .flex.flex-col.justify-center.items-center.w-full
-    %h1.text-2xl.font-semibold.mb-4.text-center All Products
-    %button.flex.place-self-end.my-4.border.bg-primary-500.rounded-md.text-white.px-4.p-2
-      = link_to "Add Product", new_user_product_path
+    %h1.text-2xl.font-semibold.mb-6.py-1.text-center.w-full.rounded-2xl.bg-white.bg-clip-border.text-gray-700.shadow-lg 
+      = "Top delicious and healthy foods for you"
 
-  .overflow-x-auto
-    %table.border.border-slate-600.border-collapse.w-full.table-auto
-      %thead
-        %tr.bg-gray-400
-          %th.py-3.px-4.font-medium.text-left Product Name
-      %tbody
-        - @products.each_with_index do |product, row_index|
-          - product_row_class = row_index.even? ? "bg-slate-100" : "bg-slate-200"
-          %tr{ class: product_row_class }
-            %td.py-3.px-4
-              = link_to product.name, user_product_path(product)
+    .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-3.gap-8
+      - @top_products.each do |product|
+        .col-span-1.sm:col-span-2.md:col-span-1.lg:col-span-1.xl:col-span-1
+          = product_card(product)
