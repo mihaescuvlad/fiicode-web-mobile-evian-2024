@@ -1,4 +1,6 @@
-%a.flex.items-center.p-2.gap-2.bg-white.rounded-lg.shadow{ class: "hover:bg-slate-100 sm:shadow-none", href: notification.link}
+- transparent ||= false
+
+%a.flex.items-center.p-2.gap-2.shadow{ class: " sm:shadow-none " + if transparent then "bg-transparent hover:bg-black/10" else "bg-white rounded-lg hover:bg-slate-100g" end, href: notification.link}
   .mdi{ class: "mdi-#{notification.icon} text-2xl" }
-  .text-lg
+  .text-lg.truncate
     = notification.message
