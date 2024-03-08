@@ -11,7 +11,7 @@ class User::ProductsController < UserApplicationController
   def index
     @products = Product.all
     @filtered_products = filter_products(@products)
-    @top_products = @filtered_products.take(9);
+    @top_products = @filtered_products.take(9)
   end
 
   def show
@@ -88,13 +88,10 @@ class User::ProductsController < UserApplicationController
         total_reviews = reviews.count
 
         positive_review_percentage = total_reviews.zero? ? -1 : (product.rating.to_f / total_reviews * 100)
+        allergen_penalty = current_user.present? && current_user.allergens_ids.present? && (current_user.allergens_ids & product.allergens).any? ? 35 : 0
+        overall_score = (positive_review_percentage - allergen_penalty) * total_reviews
 
-        if current_user.allergens.any? { |allergen| product.allergens }
-          corrected_percentage = positive_review_percentage - 35
-          positive_review_percentage = [corrected_percentage, -1].max
-        end
-
-        -positive_review_percentage
+        -overall_score
       end
     end
 

@@ -1,7 +1,10 @@
 .container.mx-auto.px-4.py-8
   .flex.flex-col.justify-center.items-center.w-full
     %h1.text-2xl.font-semibold.mb-6.py-1.text-center.w-full.rounded-2xl.bg-white.bg-clip-border.text-gray-700.shadow-lg 
-      = "Top delicious and healthy foods for you"
+      - if current_user.present?
+        = "Top delicious and healthy foods for you"
+      - else
+        = "Top rated foods"
 
     .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-3.gap-8
       - @top_products.each do |product|
