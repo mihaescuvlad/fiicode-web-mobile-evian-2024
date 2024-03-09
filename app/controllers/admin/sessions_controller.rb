@@ -7,7 +7,7 @@ class Admin::SessionsController < AdminApplicationController
       login = Admin.authenticate(params[:user], params[:password])
       if login
         session[:login_id] = login.id
-        session[:expires_at] = Time.current + 24.hour
+        session[:expires_at] = Time.current + 96.hour
 
         redirect_to '/' and return
       else

@@ -1,29 +1,49 @@
 require 'http'
 
-module OpenFoodFacts
+class OpenFoodFacts
   @@API = 'https://world.openfoodfacts.org/api/v3'.freeze
 
   def self.product(ean)
     begin
-      product = get("/product/#{ean}")[:product.to_s]
+      product = get(@@API, "/product/#{ean}")["product"]
     rescue
       return nil
     end
 
-    allergens = product[:allergens_tags.to_s].map { |a| a.gsub("en:", "") }
-    allergens.map! { |a| Allergen.where(off_counterpart: a).first }.filter! { |a| not a.nil? }
+    map_product_to_model(product)
+  end
+
+  def self.search_by_name(name)
+    response = get("https://world.openfoodfacts.org//cgi/search.pl", "?search_terms=#{name}&json=1")
+    return nil if response.nil?
+
+    product(response["products"][0]["_id"])
+  end
+
+  def self.get(api, endpoint)
+    res = HTTP.get(api + endpoint)
+    unless res.status.success?
+      return nil
+    end
+
+    JSON.parse res.body
+  end
+
+  private
+  
+  def self.map_product_to_model(product)
+    allergens = product[:allergens_tags.to_s].select { |allergen| allergen.start_with?('en:') }
 
     Product.new(
-      ean: ean,
-      brand: product[:brands.to_s],
-      name: product[:product_name.to_s],
-      allergens: allergens.map { |a| a._id },
+      ean: product[:_id.to_s],
+      brand: product[:brands.to_s] != '' ? product[:brands.to_s] : 'Unknown',
+      name: product[:product_name.to_s] != '' ? product[:product_name.to_s] : 'Unknown',
+      allergens: allergens,
       weight: product[:product_quantity.to_s],
-      serving_quantity: product[:serving_quantity.to_s],
       calories: product[:nutriments.to_s]["energy-kcal_100g"],
       protein: product[:nutriments.to_s]["proteins_100g"],
       fat: product[:nutriments.to_s]["fat_100g"],
-      saturated_fat: product[:nutriments.to_s]["saturated_fat_100g"],
+      saturated_fat: product[:nutriments.to_s]["saturated-fat_100g"],
       carbohydrates: product[:nutriments.to_s]["carbohydrates_100g"],
       fiber: product[:nutriments.to_s]["fiber_100g"],
       sugar: product[:nutriments.to_s]["sugars_100g"],
@@ -31,12 +51,4 @@ module OpenFoodFacts
     )
   end
 
-  def self.get(endpoint)
-    res = HTTP.get(@@API + endpoint)
-    unless res.status.success?
-      return nil
-    end
-
-    JSON.parse res.body
-  end
 end

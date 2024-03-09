@@ -1,0 +1,81 @@
+.flex.flex-col.justify-start.items-center.h-full.w-full.flex.flex-col.h-screen
+  .flex.flex-col.shadow-lg.bg-white.rounded-lg.p-4.space-y-4.justify-center.items-center
+    .text-2xl.font-semibold.mb-4{class: "backdrop-blur-[2px] p-2 rounded-lg"}
+      = "Scan a product or enter the product details manually"
+    
+    %button#start_scan{ class: "rounded-md p-2 bg-primary-500 text-white" }
+      %i.mdi.mdi-barcode-scan.text-2xl
+      %span= "Scan Product Barcode"
+    .container#camera_form{ style: "position: relative; width: 300px; height: 100px; overflow: hidden;", hidden: true }
+      %video#camera{ autoplay: true, style: "position: absolute; top: -30%; left: 0; width: 100%; height: auto; transform: translateY(-30%);" }
+    %button#stop_scan{ class: "rounded-md p-2 bg-red-500 text-white mt-2", hidden: true }
+      %i.mdi.mdi-barcode-scan-off.text-2xl
+      %span= "Stop Scanning"
+    = form_tag create_product_user_products_path, method: :post, class: "flex flex-col justify-center items-center space-y-4", id: "search_product_form" do
+      .flex.flex-row.justify-center.items-center.space-x-4
+        .flex.flex-col
+          %label.text-slate-700
+            = "Search product by barcode"
+          %input{ type: "text", id: "barcode", name: "ean", class: "rounded-md p-2 border border-slate-300" }
+        .flex.flex-col
+          %label.text-slate-700
+            = "Search product by name"
+          %input{ type: "text", id: "name", name: "name", class: "rounded-md p-2 border border-slate-300" }
+      %button{ type: "submit", class: "rounded-md p-2 bg-primary-500 text-white" }
+        = "Search"
+:javascript
+  document.addEventListener('DOMContentLoaded', function () {
+    const startScan = document.getElementById('start_scan');
+    const video = document.getElementById('camera_form');
+    let scanner;
+
+    startScan.addEventListener('click', function () {
+      setTimeout(() => {
+        if (!scanner) {
+          scanner = new ZXing.BrowserMultiFormatReader();
+          scanner.listVideoInputDevices().then((videoInputDevices) => {
+            scanner.decodeFromVideoDevice(videoInputDevices[0].deviceId, 'camera', (result, err) => {
+              if (result) {
+                scanner.stopAsyncDecode();
+                scanner.stopContinuousDecode();
+                scanner.reset();
+                $.ajax({
+                  url: "#{search_by_ean_user_products_path}",
+                  method: 'GET',
+                  data: { ean: result.text }
+                }).done((data) => {
+                  window.location.href = data.url;
+                }).fail((err) => {
+                  console.error(err);
+                });
+              }
+              if (err && !(err instanceof ZXing.NotFoundException)) {
+                console.error(err);
+              }
+            });
+            video.style.display = 'block';
+            stopScan.style.display = 'block';
+            startScan.style.display = 'none';
+            $('#search_product_form').hide();
+          }).catch((err) => {
+            console.error(err);
+          });
+        }
+      }, 200);
+    });
+
+    const stopScan = document.getElementById('stop_scan');
+
+    stopScan.addEventListener('click', function () {
+      if (scanner) {
+        scanner.stopAsyncDecode();
+        scanner.stopContinuousDecode();
+        scanner.reset();
+        scanner = null;
+        video.style.display = 'none';
+        startScan.style.display = 'block';
+        $('#search_product_form').show();
+        stopScan.style.display = 'none';
+      }
+    });
+  });

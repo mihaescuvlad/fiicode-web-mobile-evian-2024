@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     end
 
     resources :products do
+      match :create_product, on: :collection, via: %i[get post]
+      get :search_by_ean, on: :collection
       get :search, on: :collection
       resources :reviews
     end
