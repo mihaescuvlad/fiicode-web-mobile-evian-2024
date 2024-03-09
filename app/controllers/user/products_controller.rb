@@ -2,7 +2,6 @@ class User::ProductsController < UserApplicationController
   before_action :authenticate_user!, only: %i[ new edit create update destroy ]
   before_action :set_product, only: %i[ show edit update destroy ]
 
-  
   FATS = %i[ fat saturated_fat polysaturated_fat monosaturated_fat trans_fat ].freeze
   CARBOHYDRATES = %i[ carbohydrates fiber sugar ].freeze
   VITAMINS_MINERALS = %i[ vitamin_A vitamin_C calcium ].freeze
@@ -13,7 +12,7 @@ class User::ProductsController < UserApplicationController
   end
 
   def show
-    if @product.status == :PENDING && (current_user.blank? || @product.submitted_by != current_user.id)
+    if @product.status == :PENDING && (current_user.blank? || @product.submitted_by != current_user)
       redirect_to user_products_path and return
     end
 
@@ -38,7 +37,7 @@ class User::ProductsController < UserApplicationController
 
   def create
     @product = Product.new(product_params)
-    @product.submitted_by = current_user.id
+    @product.submitted_by = current_user
 
     @product.allergens = params[:product][:allergens].presence || []
 
@@ -80,11 +79,12 @@ class User::ProductsController < UserApplicationController
   end
 
   private
-    def set_product
-      @product = Product.find(params[:id])
-    end
 
-    def product_params
-      params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [])
-    end
+  def set_product
+    @product = Product.find(params[:id])
+  end
+
+  def product_params
+    params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [])
+  end
 end

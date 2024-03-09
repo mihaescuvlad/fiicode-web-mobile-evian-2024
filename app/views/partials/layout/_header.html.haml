@@ -10,7 +10,7 @@
       Ce mancam?
     .hidden.sm:block.flex-1.rounded-full.text-black.text-sm
       = text_field_tag :search, nil, class: "search-autocomplete w-full p-2 rounded-lg", placeholder: "Search for a food item", type: "text"
-    
+
     %ul.hidden.sm:flex.items-center.gap-4
       - links.each do |link|
         %li
@@ -20,10 +20,14 @@
             %span.hidden.text-sm.capitalize.lg:inline-block
               = link[:label]
     #profile-section.hidden.sm:flex.items-center.h-full.gap-4.relative
-      %i.mdi.mdi-bell-outline.text-2xl
-      = link_to "/profile", id: 'profile-path' do
-        %i.mdi.mdi-account-circle-outline.text-2xl
-      = render "partials/layout/header/dropdown"
+      %span#notifications-section
+        = link_to notifications_user_profile_path do
+          %i.mdi.mdi-bell-outline.text-2xl
+        = render "partials/layout/header/notifications_dropdown"
+      %span#settings-section
+        = link_to user_profile_path, id: 'profile-path' do
+          %i.mdi.mdi-account-circle-outline.text-2xl
+        = render "partials/layout/header/profile_dropdown"
 
 :javascript
   $(document).ready(function() {
