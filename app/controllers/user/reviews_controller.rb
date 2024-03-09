@@ -16,6 +16,11 @@ class User::ReviewsController < UserApplicationController
   def create
     begin
       @review = Review.new(review_params)
+
+      product = Product.find(@review.product_id)
+      product.rating += @review.rating ? 1 : 0
+      product.save!
+
       respond_to do |format|
         if @review.save
           format.html { redirect_to user_product_path(@review.product_id), notice: 'Review was successfully created.' }
@@ -32,7 +37,13 @@ class User::ReviewsController < UserApplicationController
 
   def update
     begin
+      old_rating = @review.rating
       @review.update!(review_params)
+
+      product = Product.find(@review.product_id)
+      product.rating += (old_rating != @review.rating) ? (@review.rating ? 1 : -1) : 0
+      product.save!
+
       redirect_to user_product_path(@review.product_id), method: :get
     rescue
       render json: { message: "Something went wrong with updating your review. Please take a break, read a book and try again later." }, status: :bad_request and return
@@ -40,6 +51,10 @@ class User::ReviewsController < UserApplicationController
   end  
 
   def destroy
+    product = Product.find(@review.product_id)
+    product.rating += @review.rating ? -1 : 0
+    product.save!
+
     @review.destroy!
 
     redirect_to user_product_path(@review.product_id)

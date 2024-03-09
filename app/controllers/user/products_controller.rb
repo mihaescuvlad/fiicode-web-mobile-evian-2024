@@ -3,7 +3,6 @@ class User::ProductsController < UserApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
   skip_before_action :verify_authenticity_token, only: %i[ create update ]
 
-  
   FATS = %i[ fat saturated_fat polysaturated_fat monosaturated_fat trans_fat ].freeze
   CARBOHYDRATES = %i[ carbohydrates fiber sugar ].freeze
   VITAMINS_MINERALS = %i[ vitamin_A vitamin_C calcium ].freeze
@@ -11,10 +10,12 @@ class User::ProductsController < UserApplicationController
 
   def index
     @products = Product.all
+    @filtered_products = filter_products(@products)
+    @top_products = @filtered_products.take(9)
   end
 
   def show
-    if @product.status == :PENDING && (current_user.blank? || @product.submitted_by != current_user.id)
+    if @product.status == :PENDING && (current_user.blank? || @product.submitted_by != current_user)
       redirect_to user_products_path and return
     end
 
@@ -116,11 +117,24 @@ class User::ProductsController < UserApplicationController
   end
 
   private
+    def filter_products(products)
+      products.sort_by do |product|
+        reviews = Review.where(product_id: product.id)
+        total_reviews = reviews.count
+
+        positive_review_percentage = total_reviews.zero? ? -1 : (product.rating.to_f / total_reviews * 100)
+        allergen_penalty = current_user.present? && current_user.allergens_ids.present? && (current_user.allergens_ids & product.allergens).any? ? 35 : 0
+        overall_score = (positive_review_percentage - allergen_penalty) * total_reviews
+
+        -overall_score
+      end
+    end
+
     def set_product
       @product = Product.find(params[:id])
     end
 
-    def product_params
-      params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [])
-    end
+  def product_params
+    params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [])
+  end
 end

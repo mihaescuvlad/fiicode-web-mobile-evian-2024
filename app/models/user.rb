@@ -17,6 +17,9 @@ class User
   field :country, type: String
   field :city, type: String
   field :profile_picture, type: BSON::Binary
+
+  has_many :submissions, class_name: 'Product', inverse_of: :submitted_by
+
   belongs_to :login
   has_many :notifications
 

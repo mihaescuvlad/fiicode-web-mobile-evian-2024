@@ -45,6 +45,24 @@
     .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2
       %div{ class: "p-2 font-semibold"}= "Calories"
       %div{ class: "p-2 text-slate-700"}= @product.calories
+    .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2
+      %div{ class: "p-2 font-semibold"}= "User Rating"
+      %div{ class: "p-2 text-slate-700"}
+        - total_reviews = @reviews.count
+        - if total_reviews > 0
+          - positive_review_percentage = (@product.rating.to_f / total_reviews * 100)
+          - if positive_review_percentage.between?(45, 55)
+            = "Neutral (#{@product.rating}/#{total_reviews} users recommend this product)"
+          - elsif positive_review_percentage.between?(56, 90)
+            = "Positive (#{@product.rating}/#{total_reviews} users recommend this product)"
+          - elsif positive_review_percentage.between?(10, 44)
+            = "Negative (#{@product.rating}/#{total_reviews} users recommend this product)"
+          - elsif positive_review_percentage > 90
+            = "Overwhelmingly Positive (#{@product.rating}/#{total_reviews} users recommend this product)"
+          - else
+            = "Overwhelmingly Negative (#{@product.rating}/#{total_reviews} users recommend this product)"
+        - else
+          = "No Reviews"
     .grid.gap-4.w-full.mt-4{ class: "md:grid-cols-2" }
       .flex.flex-col.rounded-lg.space-y-2.w-full
         - User::ProductsController::FATS.each do |fat_type|
@@ -68,7 +86,7 @@
             %div{ class: "p-2 font-semibold"}= "#{vitamin_mineral.to_s.humanize}"
             %div{ class: "p-2 text-slate-700"}= @product.send(vitamin_mineral) || 0
 
-  - if @product.status == :APPROVED
+  - if @product.status == :approved
     .flex.flex-col.justify-start.items-start{ class: "md:w-2/5 w-full h-full mt-10" }
       %h1.text-2xl.font-semibold.mb-4
         = "Reviews"
@@ -180,10 +198,8 @@
       $('#review-form').removeClass('hidden');
       if ("#{@current_user_review&.rating}" == "true") {
         updateThumb('UP', 'edit-');
-        //$("#edit-thumb-up").removeClass("mdi-thumb-up-outline").addClass("mdi-thumb-up");
       } else if ("#{@current_user_review&.rating}" == "false") {
         updateThumb('DOWN', 'edit-');
-        //$("#edit-thumb-down").removeClass("mdi-thumb-down-outline").addClass("mdi-thumb-down");
       }
     });
   });
