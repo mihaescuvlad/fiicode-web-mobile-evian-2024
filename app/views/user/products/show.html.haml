@@ -86,7 +86,7 @@
             %div{ class: "p-2 font-semibold"}= "#{vitamin_mineral.to_s.humanize}"
             %div{ class: "p-2 text-slate-700"}= @product.send(vitamin_mineral) || 0
 
-  - if @product.status == :approved
+  - if @product.status == :APPROVED
     .flex.flex-col.justify-start.items-start{ class: "md:w-2/5 w-full h-full mt-10" }
       %h1.text-2xl.font-semibold.mb-4
         = "Reviews"

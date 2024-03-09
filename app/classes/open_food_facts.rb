@@ -15,7 +15,7 @@ class OpenFoodFacts
 
   def self.search_by_name(name)
     response = get("https://world.openfoodfacts.org//cgi/search.pl", "?search_terms=#{name}&json=1")
-    return nil if response[0].nil?
+    return nil if response["products"][0].nil?
 
     product(response["products"][0]["_id"])
   end
