@@ -48,7 +48,9 @@ class User::ProductsController < UserApplicationController
       else
         @product = OpenFoodFacts.search_by_name(params[:name])
       end
-      redirect_to user_product_path(@product.ean) and return if Product.find_by(ean: @product.ean).present? rescue nil
+      redirect_to create_product_user_products_path and return if @product.nil?
+      matching_product = Product.find_by(ean: @product.ean) rescue nil
+      redirect_to user_product_path(matching_product) and return if matching_product.present? rescue nil
       if @product.present?
         redirect_to new_user_product_path(ean: @product.ean) and return
       else
@@ -61,6 +63,7 @@ class User::ProductsController < UserApplicationController
     new_product_params = product_params
     new_product_params[:ean] = params[:ean]
     new_product_params[:allergens] = params[:allergens].presence || []
+    new_product_params[:ingredients] = params[:ingredients].split(' ').presence || []
     new_product_params.each { |key, value| new_product_params[key] = value.strip.gsub(/[\n\r]+/, '') if value.is_a?(String) }
     @product = Product.new(new_product_params)
     @product.submitted_by = current_user.id

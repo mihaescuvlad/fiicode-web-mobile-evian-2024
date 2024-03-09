@@ -1,9 +1,9 @@
-.flex.flex-col.justify-start.items-center.h-full.w-full.flex.flex-col.h-screen
+.flex.flex-col.justify-start.items-center.h-full.w-full.flex.flex-col.h-screen.mx-auto.p-4
   .flex.flex-col.shadow-lg.bg-white.rounded-lg.p-4.space-y-4.justify-center.items-center
     .text-2xl.font-semibold.mb-4{class: "backdrop-blur-[2px] p-2 rounded-lg"}
       = "Scan a product or enter the product details manually"
     
-    %button#start_scan{ class: "rounded-md p-2 bg-primary-500 text-white" }
+    %button#start_scan{ class: "rounded-md p-2 bg-primary-500 text-white flex-row flex justify-center items-center space-x-2" }
       %i.mdi.mdi-barcode-scan.text-2xl
       %span= "Scan Product Barcode"
     .container#camera_form{ style: "position: relative; width: 300px; height: 100px; overflow: hidden;", hidden: true }

@@ -17,6 +17,7 @@ class Product
                                               BSON::ObjectId('65d320ca4bbf6989c52c9572'),
                                               BSON::ObjectId('65d320f74bbf6989c52c9576')]
   field :allergens, type: Array
+  field :ingredients, type: Array
   field :calories, type: Float
   field :fat, type: Float
   field :saturated_fat, type: Float

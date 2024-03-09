@@ -15,7 +15,7 @@ class OpenFoodFacts
 
   def self.search_by_name(name)
     response = get("https://world.openfoodfacts.org//cgi/search.pl", "?search_terms=#{name}&json=1")
-    return nil if response.nil?
+    return nil if response[0].nil?
 
     product(response["products"][0]["_id"])
   end
@@ -33,12 +33,13 @@ class OpenFoodFacts
   
   def self.map_product_to_model(product)
     allergens = product[:allergens_tags.to_s].select { |allergen| allergen.start_with?('en:') }
-
+    ingredients = product[:ingredients_tags.to_s].select { |ingredient| ingredient.start_with?('en:') }
     Product.new(
       ean: product[:_id.to_s],
       brand: product[:brands.to_s] != '' ? product[:brands.to_s] : 'Unknown',
       name: product[:product_name.to_s] != '' ? product[:product_name.to_s] : 'Unknown',
       allergens: allergens,
+      ingredients: ingredients,
       weight: product[:product_quantity.to_s],
       calories: product[:nutriments.to_s]["energy-kcal_100g"],
       protein: product[:nutriments.to_s]["proteins_100g"],
