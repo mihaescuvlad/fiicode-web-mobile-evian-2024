@@ -33,7 +33,7 @@ class Product
   field :calcium, type: Float
   field :iron, type: Float
   field :status, type: Symbol, default: :pending
-  field :rating, type: Float, default: 0.0
+  field :rating, type: Integer, default: 0
 
   belongs_to :submitted_by, class_name: "User", inverse_of: :submissions
 

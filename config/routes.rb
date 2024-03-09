@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   scope module: 'user', constraints: ->(req) { Context.get_context(req) == :user }, name_path: 'user', as: 'user' do
-    root to: 'welcome#index'
+    root to: 'products#index'
     match '/', to: 'welcome#index', via: :all
     match '/search', to: 'welcome#search', via: :all
     match '/scan', to: 'welcome#scan', via: :all
