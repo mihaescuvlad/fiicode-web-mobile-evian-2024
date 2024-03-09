@@ -18,8 +18,7 @@
           %button#weight-units-list-button.relative.w-full.rounded-lg.pl-3.pr-10.text-left.bg-slate-50.shadow-sm{"aria-expanded" => "true", "aria-haspopup" => "listbox", "aria-labelledby" => "listbox-label", class: "py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 sm:text-sm sm:leading-6", type: "button"}
             %span.flex.items-center
               = @weight_units.find { |unit| unit.match?(/^100\s+\S+/) } # Regex sequence for finding any string starting with 100 + whitespace + characters
-            %span.pointer-events-none.absolute.inset-y-0.right-0.ml-3.flex.items-center.pr-2
-              = material_icon.shape('arrow_drop_down').md_24
+            %span.pointer-events-none.absolute.inset-y-0.right-0.ml-3.flex.items-center.pr-2.mdi.mdi-menu-down.text-xl
           %ul#weight-units.absolute.z-10.mt-1.max-h-56.w-full.overflow-auto.rounded-lg.bg-slate-50.py-1.text-base.shadow-lg.ring-1.ring-black.ring-opacity-5.focus:outline-none.sm:text-sm{"aria-activedescendant" => "listbox-option-3", "aria-labelledby" => "listbox-label", role: "listbox", tabindex: "-1", style: "display: none;"}
             - @weight_units.each_with_index do |unit, index|
               %li{ id: "listbox-option-#{index}", class: "relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-gray-200", role: "option" }
@@ -87,7 +86,7 @@
             %div{ class: "p-2 font-semibold"}= "#{vitamin_mineral.to_s.humanize}"
             %div{ class: "p-2 text-slate-700"}= @product.send(vitamin_mineral) || 0
 
-  - if @product.status == :pending
+  - if @product.status == :approved
     .flex.flex-col.justify-start.items-start{ class: "md:w-2/5 w-full h-full mt-10" }
       %h1.text-2xl.font-semibold.mb-4
         = "Reviews"
@@ -132,7 +131,7 @@
             = "Write a review for #{@product.name}"
           %textarea.bg-slate-50{ class: "w-full h-2/3 mb-2 rounded-lg", style: "resize: none;", name: "comment", id: "review-text" }
           .flex.flex-row.items-center.justify-between.w-full.mt-4
-            %label{ class: "hidden sm:block" } 
+            %label{ class: "hidden sm:block" }
               = "Do you recommend this product?"
             .flex.flex-row.space-x-4
               %span.mdi.mdi-thumb-up-outline.text-primary-500.text-3xl{:onclick => "updateThumb('UP')", class: "cursor-pointer", id: "thumb-up"}
@@ -140,7 +139,7 @@
             %input{:type => "hidden", :id => "thumb-value", :name => "thumb_value", :value => ""}
             %button{ type: "submit", class: "bg-primary-500 text-white rounded-lg p-2 px-4" }
               = "Submit"
-          
+
       .flex.flex-col.items-start.w-full
         - if @reviews.present?
           - @reviews.each do |review|

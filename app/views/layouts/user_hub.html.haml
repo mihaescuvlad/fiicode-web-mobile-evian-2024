@@ -1,0 +1,14 @@
+- content_for :content do
+  .container.mx-auto.p-4.max-w-2xl.flex.flex-col.items-center.gap-6
+    .flex.w-full.shadow.rounded-lg.overflow-hidden
+      %a.text-xl.py-3.cursor-pointer.text-center{class: "hover:bg-slate-100 w-1/2 " + (current_page?(user_hub_following_path) ? "bg-slate-300" : "bg-white"), href: user_hub_following_path}
+        Following
+      %a.text-xl.py-3.bg-white.cursor-pointer.text-center{class: "hover:bg-slate-100 w-1/2", href: user_hub_for_you_path}
+        For you
+    %a.flex.items-center.gap-1.justify-center.w-full.py-3.shadow.rounded-lg.bg-white.cursor-pointer.text-xl{class: "hover:bg-slate-100", href: new_user_hub_post_path}
+      %span
+        Say something
+      %span.mdi.mdi-chat-plus-outline.text-2xl
+    = yield
+
+= render template: "layouts/user_application"

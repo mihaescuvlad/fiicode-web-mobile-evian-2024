@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     match '/', to: 'welcome#index', via: :all
     match '/search', to: 'welcome#search', via: :all
     match '/scan', to: 'welcome#scan', via: :all
-    match '/hub', to: 'welcome#hub', via: :all
     match '/login', to: 'sessions#login', via: %i[post get]
     match '/register', to: 'sessions#register', via: %i[post get]
     match '/logout', to: 'sessions#logout', via: :all
@@ -13,6 +12,7 @@ Rails.application.routes.draw do
       match :user, on: :collection, via: %i[get put]
       match :account, on: :collection, via: %i[get put]
       match :dietary_preferences, on: :collection, via: %i[get put]
+      match :notifications, on: :collection, via: %i[get]
     end
 
     resources :allergens, only: %i[index show] do
@@ -25,6 +25,19 @@ Rails.application.routes.draw do
     end
 
     resources :submissions, only: %i[index show]
+
+    namespace :hub do
+      get '/', to: 'hub#index'
+      get 'following', to: 'hub#following'
+      get 'hashtag/:hashtag', to: 'hub#hashtag'
+      get 'for_you', to: 'hub#for_you'
+      resources :posts, only: %i[show new create]
+      post 'posts/:post_id/rating', to: 'ratings#create'
+      delete 'posts/:post_id/rating', to: 'ratings#destroy'
+      resources :users, only: %i[show] do
+        get '/follow', to: 'users#follow'
+      end
+    end
   end
 
   scope module: 'admin', constraints: ->(req) { Context.get_context(req) == :admin }, name_path: 'admin', as: 'admin' do

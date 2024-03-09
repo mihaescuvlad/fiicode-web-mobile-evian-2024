@@ -1,6 +1,12 @@
 header {
-  & #profile-section:hover {
-    & > .dropdown-menu {
+  & #settings-section:hover {
+    & > .profile-dropdown-menu {
+      display: flex;
+    }
+  }
+
+  & #notifications-section:hover {
+    & > .notifications-dropdown-menu {
       display: flex;
     }
   }

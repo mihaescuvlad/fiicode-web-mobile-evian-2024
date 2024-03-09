@@ -42,11 +42,17 @@ class User::ProfilesController < UserApplicationController
     end
   end
 
+  def notifications
+    @notifications = current_user.notifications.newest_first
+  end
+
   protected
 
   def set_links
     @links = [{ href: user_user_profile_path, text: "Profile", icon: "account" },
               { href: account_user_profile_path, text: "Account", icon: "lock" },
-              { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food" }]
+              { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food" },
+              { href: user_hub_user_path(current_user), text: "Hub page", icon: "forum" },
+              { href: notifications_user_profile_path, text: "Notifications", icon: "bell" }]
   end
 end
