@@ -8,6 +8,7 @@ from .objectid import PydanticObjectId
 class User(BaseModel):
     id: Optional[PydanticObjectId] = Field(None, alias="_id")
     allergens_ids: List[str]
+    favorites: List[PydanticObjectId]
 
 class Product(BaseModel):
     id: Optional[PydanticObjectId] = Field(None, alias="_id")

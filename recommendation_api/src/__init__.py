@@ -34,10 +34,10 @@ def resource_not_found(e):
 def list_products(user_id):
     user = users.find_one_or_404({"_id": PydanticObjectId(user_id)})
     user_allergens = user.get("allergens_ids", []) or []
+    user_basket_ids = user.get("favorites", []) or []
 
     all_products = [Product(**doc) for doc in products.find()]
-
-    user_basket = all_products[-4:]
+    user_basket = [product for product in all_products if product.id in user_basket_ids]
 
     top_recommendations = recommend_products(user_basket, all_products, user_allergens)
     
@@ -49,10 +49,11 @@ def list_products(user_id):
 def list_products_page(page, user_id):
     user = users.find_one_or_404({"_id": PydanticObjectId(user_id)})
     user_allergens = user.get("allergens_ids", []) or []
+    user_basket_ids = user.get("favorites", []) or []
 
     all_products = [Product(**doc) for doc in products.find()]
-    user_basket = all_products[-4:]
-
+    user_basket = [product for product in all_products if product.id in user_basket_ids]
+    
     per_page = 9
 
     top_recommendations = recommend_products(user_basket, all_products, user_allergens, len(all_products))
