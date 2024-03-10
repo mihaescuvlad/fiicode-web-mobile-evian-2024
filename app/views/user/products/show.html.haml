@@ -1,7 +1,13 @@
 .flex.flex-col.justify-center.items-center.w-full
   .flex.flex-col.justify-center.items-center.place-self-center.w-full
-    %h1.text-3xl.font-semibold.mt-10
+    %h1.text-3xl.font-semibold.mt-10.flex.flex-row.justify-center.items-center
       = "#{@product.name}"
+      - if current_user.present?
+        %button{ type:"button", class:"h-8 w-8 select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-red-500 transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none max-h-[32px] max-w-[32px] hover:bg-red-500/10 active:bg-red-500/30"}
+          - if current_user.favorites.include?(@product.id)
+            %i.mdi.mdi-heart.cursor-pointer.text-red-500.text-2xl{ id: "favorites-icon" }
+          - else
+            %i.mdi.mdi-heart-outline.cursor-pointer.text-red-500.text-2xl{ id: "favorites-icon" }
     %h1.text-xl.font-semibold.mb-8.overflow-hidden.text-ellipsis.whitespace-nowrap
       = "(#{@product.brand} - #{@product.weight})"
 
@@ -201,6 +207,34 @@
       } else if ("#{@current_user_review&.rating}" == "false") {
         updateThumb('DOWN', 'edit-');
       }
+    });
+
+    $('#favorites-icon').click(function() {
+      var productId = "#{@product.id}";
+      if ($("#favorites-icon").hasClass('mdi-heart')) {
+        $.ajax({
+          url: productId + '/remove_from_favorites',
+          type: 'PATCH',
+          success: function(response) {
+            $("#favorites-icon").removeClass('mdi-heart').addClass('mdi-heart-outline');
+          },
+          error: function(response) {
+            $("#favorites-icon").removeClass('mdi-heart-outline').addClass('mdi-heart');
+          }
+        });
+        return;
+      }
+      
+      $.ajax({
+        url: productId + '/add_to_favorites',
+        type: 'PATCH',
+        success: function(response) {
+          $("#favorites-icon").removeClass('mdi-heart-outline').addClass('mdi-heart');
+        },
+        error: function(response) {
+          $("#favorites-icon").removeClass('mdi-heart').addClass('mdi-heart-outline');
+        }
+      });
     });
   });
 

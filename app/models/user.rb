@@ -6,6 +6,7 @@ class User
 
   field :dietary_preferences, type: Symbol
   field :allergens_ids, type: Array, default: []
+  field :favorites, type: Array, default: []
 
   field :first_name, type: String
   field :last_name, type: String

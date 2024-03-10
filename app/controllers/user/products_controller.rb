@@ -1,6 +1,6 @@
 class User::ProductsController < UserApplicationController
   before_action :authenticate_user!, only: %i[ new edit create update destroy ]
-  before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :set_product, only: %i[ show edit update destroy add_to_favorites remove_from_favorites ]
   skip_before_action :verify_authenticity_token, only: %i[ create update ]
 
   FATS = %i[ fat saturated_fat polysaturated_fat monosaturated_fat trans_fat ].freeze
@@ -118,6 +118,18 @@ class User::ProductsController < UserApplicationController
     else
       render json: { url: new_user_product_path(ean: params[:ean]) } and return
     end
+  end
+
+  def add_to_favorites
+    current_user.favorites << @product.id
+    current_user.save!
+    render json: { message: 'Product added to favorites' }, status: :ok
+  end
+
+  def remove_from_favorites
+    current_user.favorites.delete(@product.id)
+    current_user.save!
+    render json: { message: 'Product removed from favorites' }, status: :ok
   end
 
   private

@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     end
 
     resources :products do
+      patch :add_to_favorites, on: :member
+      patch :remove_from_favorites, on: :member
       match :create_product, on: :collection, via: %i[get post]
       get :search_by_ean, on: :collection
       get :search, on: :collection
