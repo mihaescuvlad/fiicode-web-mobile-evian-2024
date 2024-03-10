@@ -17,6 +17,7 @@ gem "sassc", "~> 2.4"
 gem "jquery-rails"
 gem "jquery-ui-rails"
 gem "http"
+gem "bcrypt"
 
 group :development, :test do
   gem "debug"

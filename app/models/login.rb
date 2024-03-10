@@ -16,12 +16,10 @@ class Login < BaseLogin
     write_attribute(:email, email.downcase.strip)
   end
 
-  def self.authenticate(email, password)
-    return nil unless email && password
+  def self.authenticate_by_email(email, password)
+    login = Login.find_by(email: email.downcase.strip) rescue nil
+    return nil unless login.present?
 
-    login = self.where(email: email.downcase.strip).first
-    return nil unless login && Password.check(password, login.password)
-
-    login
+    self.authenticate(login.username, password)
   end
 end

@@ -1,193 +1,159 @@
-- content_for :head do
-    = stylesheet_link_tag 'product_form.css', media: 'all'
+= form_tag user_products_path, method: :post, class: "flex flex-col justify-center items-center place-self-center w-full space-y-4", id: "new-product-form" do
+  = hidden_field_tag :ean, @matching_product.ean
+  = hidden_field_tag :ingredients, @matching_product.ingredients
+  = hidden_field_tag :nutriscore, @matching_product.nutriscore
+  .flex.flex-col.justify-center.items-center.place-self-center.w-full.space-y-4
+    %h1.text-3xl.font-semibold.mt-10{ contenteditable: true, id: "product-name" }
+      = "#{@matching_product.name}"
+    %h1.text-xl.font-semibold.mb-8.overflow-hidden.text-ellipsis.whitespace-nowrap
+      = "("
+      %span{ contenteditable: true, id: "product-brand" }
+        = "#{@matching_product.brand}"
+      = " - "
+      %span{ contenteditable: true, id: "product-weight" }
+        = "#{@matching_product.weight}"
+      = ")"
 
-= controlled_form "/products", id: "product-form", model: product, method: :post, class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 md:w-1/4 sm:w-full" do
-    .flex.flex-col.content-center.w-full{ class: "tab" }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Product name"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ id: "name", name: "product[name]" }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Product brand"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ id: "brand", name: "product[brand]" }
-
-    .flex.flex-col.content-center.w-full{ class: "tab" }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Price"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "price", name: "product[price]", min: "0" }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Weight (g)"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "weight", name: "product[weight]", min: "0" }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Serving Size (g)"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "servings_quantity", name: "product[serving_quantity]", min: "0" }
-
-    .flex.flex-col.content-center.w-full{ class: "tab" }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Calories"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "calories", name: "product[calories]", min: "0" }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Fat"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "fat", name: "product[fat]", min: "0" }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Carbohydrates"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "carbohydrates", name: "product[carbohydrates]", min: "0" }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Protein"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.required.mt-2{ type: "number", id: "protein", name: "product[protein]", min: "0" }
-
-    .flex.flex-col.content-center.w-full{ class: "tab" }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Saturated fat - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "saturated_fat", name: "product[saturated_fat]", min: "0", value: nil }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Polysaturated fat - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "polysaturated_fat", name: "product[polysaturated_fat]", min: "0", value: nil }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Monosaturated fat - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "monosaturated_fat", name: "product[monosaturated_fat]", min: "0", value: nil }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Trans fat - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "trans_fat", name: "product[trans_fat]", min: "0", value: nil }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Fiber - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "fiber", name: "product[fiber]", min: "0", value: nil }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Sugar - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "sugar", name: "product[sugar]", min: "0", value: nil }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Sodium - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "sodium", name: "product[sodium]", min: "0", value: nil }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Vitamin A - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "vitamin_A", name: "product[vitamin_A]", min: "0", value: nil }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Vitamin C - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "vitamin_C", name: "product[vitamin_C]", min: "0", value: nil }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Calcium - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "calcium", name: "product[calcium]", min: "0", value: nil }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Iron - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ type: "number", id: "iron", name: "product[iron]", min: "0", value: nil }
-
-    .flex.flex-col.content-center.w-full{ class: "tab" }
-        %label.text-xl.flex.flex-col.mb-4
-            = "Allergens - Optional"
-            %input.text-l.border.border-slate-700.rounded-md.p-1.bg-slate-50.mt-2{ id: "allergens", class: "allergen-autocomplete", value: nil }
-            #allergens-anchor.w-full.flex.flex-wrap.gap-2
-
-    .flex.flex-row.justify-end.items-center.w-full.mb-2
-        %button.bg-zinc-600.rounded-md.text-white.px-4.p-2{ id: "previousButton", onClick: "tabShift(-1)", type: "button" }
-            = "Previous"
-        %button.bg-primary-500.rounded-md.text-white.px-4.p-2.ml-2{ id: "nextButton", onClick: "tabShift(1)", type: "button" }
-            = "Next"
+  .w-full{ class: "md:w-1/2" }
+    .flex.flex-row.rounded-full.p-2.items-center.mb-2.space-x-2{ class: "backdrop-blur-[1px] w-fit" }
+      .mdi.mdi-text-box-edit-outline.text-2xl
+      .font-semibold{ class: "text-slate-700" }= "You can edit the product details by pressing directly on the text fields."
+    .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2
+      %div{ class: "p-2 font-semibold" }= "Price"
+      %div{ class: "p-2 text-slate-700", contenteditable: true, id: "product-price" }= @matching_product.price || 0
+    .flex.flex-row.rounded-lg.p-2.justify-between.items-center.mb-2{ class: "bg-slate-50", id: "allergens-box" }
+      .flex.flex-row.items-center
+        .p-2.font-semibold= "Allergens"
+      .flex.flex-row.items-center
+        %div{ class: "p-2 text-slate-700 flex flex-row items-center" }
+          #allergens-anchor.w-full.flex.flex-wrap.gap-2
+            - @product_allergens.each do |a|
+              - allergen = a.name
+              - a_id = a.off_id
+              - css_friendly = allergen.gsub(/\s+/, '-')
+              .flex.flex-row.items-center.justify-start.space-x-1{ id: "allergen-#{css_friendly}" }
+                = hidden_field_tag "allergens[]", a_id, id: "input-#{css_friendly}"
+                = allergen
+                %button.remove-allergen{ type: "button", id: "remove-allergen-#{css_friendly}", class: "text-slate-700" }
+                  %i.mdi.mdi-close.text-xl
+          #allergens-anchor
+        .mdi.mdi-plus-circle-outline.text-primary-500.text-xl.cursor-pointer{ id: "show-allergens-input" }
+    .mb-4.hidden{ id: 'allergens-input' }
+      .flex.flex-row.items-center.justify-end
+        .mdi.mdi-close.text-xl.text-slate-700.cursor-pointer{ id: "close-allergens-input" }
+        = text_field_tag "", nil, id: "allergens", class: "allergen-autocomplete rounded-md bg-slate-50 p-2 border border-slate-300"
+    - if @user_allergic_to_product
+      .text-slate-700.text-sm.mb-4.text-right
+        = "You are allergic to this product. Please consult your doctor before consuming this product."
+    .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2
+      %div{ class: "p-2 font-semibold"}= "Calories"
+      %div{ class: "p-2 text-slate-700 italic", contenteditable: true, id: "product-calories" }= @matching_product.calories || 0
+    .grid.gap-4.w-full.mt-4{ class: "md:grid-cols-2" }
+      .flex.flex-col.rounded-lg.space-y-2.w-full
+        - User::ProductsController::FATS.each do |fat_type|
+          .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
+            %div{ class: "p-2 font-semibold"}= "#{fat_type.to_s.humanize}"
+            %div{ class: "p-2 text-slate-700 italic", contenteditable: true, id: "product-#{fat_type}" }= @matching_product.send(fat_type) || 0
+      .flex.flex-col.rounded-lg.space-y-2.w-full
+        - User::ProductsController::CARBOHYDRATES.each do |carb|
+          .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
+            %div{ class: "p-2 font-semibold"}= "#{carb.to_s.humanize}"
+            %div{ class: "p-2 text-slate-700 italic", contenteditable: true, id: "product-#{carb}" }= @matching_product.send(carb) || 0
+    .grid.gap-4.w-full.mt-4{ class: "md:grid-cols-2" }
+      .flex.flex-col.rounded-lg.space-y-2.w-full
+        - User::ProductsController::ESSENTIAL_NUTRIENTS.each do |nutrient|
+          .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
+            %div{ class: "p-2 font-semibold"}= "#{nutrient.to_s.humanize}"
+            %div{ class: "p-2 text-slate-700 italic", contenteditable: true, id: "product-#{nutrient}" }= @matching_product.send(nutrient) || 0
+      .flex.flex-col.rounded-lg.space-y-2.w-full
+        - User::ProductsController::VITAMINS_MINERALS.each do |vitamin_mineral|
+          .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
+            %div{ class: "p-2 font-semibold"}= "#{vitamin_mineral.to_s.humanize}"
+            %div{ class: "p-2 text-slate-700 italic", contenteditable: true, id: "product-#{vitamin_mineral}" }= @matching_product.send(vitamin_mineral) || 0
+  %button{ class: "bg-primary-500 text-white rounded-lg p-2 m-4 w-fit", type: "submit" }
+    = "Add Product"
     
-    .flex.flex-row.justify-center.w-full 
-        - (1..5).each do |step|
-            %span{ class: "step" }
-
+  .text-slate-700.text-sm.mb-4
+    = "Please ensure the details are correct before submitting."
 :javascript
-    {
-        let currentTab = 0;
-        let tabs = document.getElementsByClassName("tab")
-        let steps = document.getElementsByClassName("step")
-        showTab(currentTab);
+  $(document).ready(function() {
+    $("#new-product-form").on("submit", function(e) {
+      const product = {
+        name: $("#product-name").text(),
+        brand: $("#product-brand").text(),
+        weight: $("#product-weight").text(),
+        price: $("#product-price").text(),
+        calories: $("#product-calories").text(),
+        fat: $("#product-fat").text(),
+        saturated_fat: $("#product-saturated_fat").text(),
+        polysaturated_fat: $("#product-polysaturated_fat").text(),
+        monosaturated_fat: $("#product-monosaturated_fat").text(),
+        trans_fat: $("#product-trans_fat").text(),
+        carbohydrates: $("#product-carbohydrates").text(),
+        fiber: $("#product-fiber").text(),
+        sugar: $("#product-sugar").text(),
+        protein: $("#product-protein").text(),
+        sodium: $("#product-sodium").text(),
+        vitamin_A: $("#product-vitamin_A").text(),
+        vitamin_C: $("#product-vitamin_C").text(),
+        calcium: $("#product-calcium").text(),
+        iron: $("#product-iron").text(),
+      };
+      Object.keys(product).forEach(function(key) {
+        const input = $('<input>').attr({
+          type: 'hidden',
+          name: 'product[' + key + ']',
+          value: product[key]
+        });
+        $("#new-product-form").append(input);
+      });
+    });
 
-        function showTab(n) {
-            tabs[n].style.display = "block";
 
-            document.getElementById("previousButton").style.display = (n == 0) ? "none" : "inline";
-            document.getElementById("nextButton").innerHTML = (n == tabs.length - 1) ? "Submit" : "Next";
+    $('#show-allergens-input').on('click', function() {
+      $('#allergens-input').show();
+      $('#allergens').focus();
+      $('#show-allergens-input').hide();
+      $('#allergens-box').removeClass('mb-2');
+    });
 
-            fixStepIndicator(n);
-        }
-
-        function tabShift(n) {
-            let x = document.getElementsByClassName("tab");
-
-            if (n == 1 && !validateForm()) return false;
-
-            tabs[currentTab].style.display = "none";
-            currentTab += n;
-
-            if (currentTab >= tabs.length) {
-                document.getElementById("product-form").submit();
-                return false;
-            }
-
-            showTab(currentTab);
-            return true;
-        }
-
-        function validateForm() {
-            let inputsOnTab = tabs[currentTab].getElementsByTagName("input");
-            let valid = true;
-
-            for (let i = 0; i < inputsOnTab.length; i++) {
-                if (inputsOnTab[i].value === "" && inputsOnTab[i].classList.contains("required")) {
-                    inputsOnTab[i].classList.add("invalid");
-
-                    valid = false;
-                }
-            }
-
-            if (valid) {
-                for (let i = 0; i < inputsOnTab.length; i++) {
-                    inputsOnTab[i].classList.remove("invalid");
-                }
-                document.getElementsByClassName("step")[currentTab].classList.add("finish");
-            }
-
-            return valid;
-        }
-
-        function fixStepIndicator(n) {
-            for (let i = 0; i < steps.length; i++) {
-                steps[i].classList.remove("active");
-            }
-
-            steps[n].classList.add("active");
-        }
-    }
-
-    $(document).on('click', '[id^="remove-allergen-"]', function() {
-        const allergen = this.id.replace('remove-allergen-', '');
-
-        $(`#allergen-${allergen.replace(/\s+/g, '-')}`).remove();
+    $('#close-allergens-input').on('click', function() {
+      $('#allergens-input').hide();
+      $('#show-allergens-input').show();
+      $('#allergens-box').addClass('mb-2');
     });
 
     $('.allergen-autocomplete').autocomplete({
-        source: '/allergens/search',
-        select: function(event, ui) {
-            const allergen = ui.item.label;
-            const allergenId = ui.item.value;
+      source: '/allergens/search',
+      select: function(event, ui) {
+        const allergen = ui.item.label;
+        const allergenId = ui.item.value;
 
-            if (allergen && !$('#allergen-' + allergen.replace(/\s+/g, '-')).length) {
-                $('#allergens-anchor').append(`
-                    <div class="flex flex-row items-center justify-start space-x-2" id="allergen-${allergen.replace(/\s+/g, '-')}">
-                        <input type="hidden" name="product[allergens][]" value="${allergenId}">
-                        <span class="text-md">${allergen}</span>
-                        <button type="button" class="text-primary-500 remove-allergen" id="remove-allergen-${allergen.replace(/\s+/g, '-')}">
-                        <i class="mdi mdi-close-circle-outline text-2xl"></i>
-                        </button>
-                    </div>
-                `);
-            }
-            else if (allergen) {
-                ErrorNotifier.get.show("Allergen already added", 4000)
-            }
-
-            $('.allergen-autocomplete').val('');
-
-            return false;
-        },
-        minLength: 2,
-        delay: 500,
-        autoFocus: true
+        if (allergen && !$('#allergen-' + allergen.replace(/\s+/g, '-')).length) {
+          $('#allergens-anchor').append(`
+            <div class="flex flex-row items-center justify-start" id="allergen-${allergen.replace(/\s+/g, '-')}">
+              <input type="hidden" name="allergens[]" value="${allergenId}">
+              <span class="text-md">${allergen}</span>
+              <button type="button" class="text-slate-700 remove-allergen" id="remove-allergen-${allergen.replace(/\s+/g, '-')}">
+                <i class="mdi mdi-close text-xl"></i>
+              </button>
+            </div>
+          `);
+        }
+        else if (allergen) {
+          ErrorNotifier.get.show("Allergen already added", 4000)
+        }
+        $('.allergen-autocomplete').val('');
+        return false;
+      },
+      minLength: 2,
+      delay: 500,
+      autoFocus: true
     });
 
-    $(document).on('click', '[id^="remove-allergen-"]', function() {
-        const allergen = this.id.replace('remove-allergen-', '');
+  });
 
-        $(`#allergen-${allergen.replace(/\s+/g, '-')}`).remove();
-    });
+  $(document).on('click', '[id^="remove-allergen-"]', function() {
+    const allergen = this.id.replace('remove-allergen-', '');
+    $(`#allergen-${allergen.replace(/\s+/g, '-')}`).remove();
+  });

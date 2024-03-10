@@ -24,9 +24,9 @@ class Notification
 
   def self.create_product_review_notification!(product)
     verdict = product.status
-    raise ArgumentError unless %i[approved rejected].include?(verdict)
+    raise ArgumentError unless %i[APPROVED REJECTED].include?(verdict)
 
-    if verdict == :approved
+    if verdict == :APPROVED
       Notification.create!(user: product.submitted_by, message: "Your product #{product.name} was approved", link: "/products/#{product.id}", icon: "check-outline")
     else
       Notification.create!(user: product.submitted_by, message: "Your product #{product.name} was rejected", link: "/products/#{product.id}", icon: "close-outline")

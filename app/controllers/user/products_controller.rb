@@ -1,6 +1,7 @@
 class User::ProductsController < UserApplicationController
   before_action :authenticate_user!, only: %i[ new edit create update destroy ]
-  before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :set_product, only: %i[ show edit update destroy add_to_favorites remove_from_favorites ]
+  skip_before_action :verify_authenticity_token, only: %i[ create update ]
 
   FATS = %i[ fat saturated_fat polysaturated_fat monosaturated_fat trans_fat ].freeze
   CARBOHYDRATES = %i[ carbohydrates fiber sugar ].freeze
@@ -31,17 +32,42 @@ class User::ProductsController < UserApplicationController
 
   def new
     @product = Product.new
+    @product.ean = params[:ean]
+    @matching_product = OpenFoodFacts.product(params[:ean])
+    @product_allergens = Allergen.where(:off_id.in => @matching_product.allergens).to_a
   end
 
   def edit
     @product_allergens = Allergen.where(:off_id.in => @product.allergens).to_a
   end
 
-  def create
-    @product = Product.new(product_params)
-    @product.submitted_by = current_user
+  def create_product
+    if request.post?
+      if params[:ean].present?
+        @product = OpenFoodFacts.product(params[:ean])
+      else
+        @product = OpenFoodFacts.search_by_name(params[:name])
+      end
+      redirect_to create_product_user_products_path and return if @product.nil?
+      matching_product = Product.find_by(ean: @product.ean) rescue nil
+      redirect_to user_product_path(matching_product) and return if matching_product.present? rescue nil
+      if @product.present?
+        redirect_to new_user_product_path(ean: @product.ean) and return
+      else
+        redirect_to new_user_product_path(ean: params[:ean]), notice: "Product not found in Open Food Facts database. Please fill in the details manually."
+      end
+    end
+  end
 
-    @product.allergens = params[:product][:allergens].presence || []
+  def create
+    new_product_params = product_params
+    new_product_params[:ean] = params[:ean]
+    new_product_params[:nutriscore] = params[:nutriscore]
+    new_product_params[:allergens] = params[:allergens].presence || []
+    new_product_params[:ingredients] = params[:ingredients].split(' ').presence || []
+    new_product_params.each { |key, value| new_product_params[key] = value.strip.gsub(/[\n\r]+/, '') if value.is_a?(String) }
+    @product = Product.new(new_product_params)
+    @product.submitted_by = current_user.id
 
     respond_to do |format|
       if @product.save
@@ -55,8 +81,13 @@ class User::ProductsController < UserApplicationController
   end
 
   def update
+    new_product_params = product_params
+    new_product_params[:ean] = params[:ean]
+    new_product_params[:allergens] = params[:allergens].presence || []
+    new_product_params.each { |key, value| new_product_params[key] = value.strip.gsub(/[\n\r]+/, '') if value.is_a?(String) }
+
     respond_to do |format|
-      if @product.update(product_params)
+      if @product.update(new_product_params)
         format.html { redirect_to user_submissions_path }
         format.json { render :show, status: :ok, location: @product }
       else
@@ -80,6 +111,27 @@ class User::ProductsController < UserApplicationController
     render json: @products.map { |product| { label: product.name, value: product.id } }
   end
 
+  def search_by_ean
+    @product = Product.find_by(ean: params[:ean]) rescue nil
+    if @product.present?
+      render json: { url: user_product_path(@product.id) } and return
+    else
+      render json: { url: new_user_product_path(ean: params[:ean]) } and return
+    end
+  end
+
+  def add_to_favorites
+    current_user.favorites << @product.id
+    current_user.save!
+    render json: { message: 'Product added to favorites' }, status: :ok
+  end
+
+  def remove_from_favorites
+    current_user.favorites.delete(@product.id)
+    current_user.save!
+    render json: { message: 'Product removed from favorites' }, status: :ok
+  end
+
   private
     def filter_products(products)
       products.sort_by do |product|
@@ -99,6 +151,6 @@ class User::ProductsController < UserApplicationController
     end
 
   def product_params
-    params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [])
+    params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [], ingredients: [])
   end
 end
