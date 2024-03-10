@@ -62,6 +62,7 @@ class User::ProductsController < UserApplicationController
   def create
     new_product_params = product_params
     new_product_params[:ean] = params[:ean]
+    new_product_params[:nutriscore] = params[:nutriscore]
     new_product_params[:allergens] = params[:allergens].presence || []
     new_product_params[:ingredients] = params[:ingredients].split(' ').presence || []
     new_product_params.each { |key, value| new_product_params[key] = value.strip.gsub(/[\n\r]+/, '') if value.is_a?(String) }
@@ -138,6 +139,6 @@ class User::ProductsController < UserApplicationController
     end
 
   def product_params
-    params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [])
+    params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [], ingredients: [])
   end
 end

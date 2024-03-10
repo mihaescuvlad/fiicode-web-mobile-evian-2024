@@ -38,6 +38,7 @@ class OpenFoodFacts
       ean: product[:_id.to_s],
       brand: product[:brands.to_s] != '' ? product[:brands.to_s] : 'Unknown',
       name: product[:product_name.to_s] != '' ? product[:product_name.to_s] : 'Unknown',
+      nutriscore: product[:nutrition_grades.to_s],
       allergens: allergens,
       ingredients: ingredients,
       weight: product[:product_quantity.to_s],

@@ -35,6 +35,7 @@ class Product
   field :iron, type: Float
   field :status, type: Symbol, default: :PENDING
   field :rating, type: Integer, default: 0
+  field :nutriscore, type: String
 
   belongs_to :submitted_by, class_name: "User", inverse_of: :submissions
 
