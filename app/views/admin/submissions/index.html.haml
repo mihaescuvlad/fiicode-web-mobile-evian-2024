@@ -2,7 +2,7 @@
   .flex.flex-col.justify-center.items-center{class: 'md: w-1/3 w-full'}
     .text-2xl.font-bold.mb-4
       = "Unapproved Submissions"
-    .flex.flex-col.justify-center.items-center.space-y-4.w-full
+    .flex.flex-col.justify-center.items-center.space-y-4{class: "md:w-1/3 w-full"}
       - if @submissions.any?
         - @submissions.each do |submission|
           .rounded-lg.shadow.bg-white.p-4.w-full

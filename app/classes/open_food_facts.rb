@@ -15,7 +15,7 @@ class OpenFoodFacts
 
   def self.search_by_name(name)
     response = get("https://world.openfoodfacts.org//cgi/search.pl", "?search_terms=#{name}&json=1")
-    return nil if response[0].nil?
+    return nil if response["products"][0].nil?
 
     product(response["products"][0]["_id"])
   end
@@ -38,6 +38,7 @@ class OpenFoodFacts
       ean: product[:_id.to_s],
       brand: product[:brands.to_s] != '' ? product[:brands.to_s] : 'Unknown',
       name: product[:product_name.to_s] != '' ? product[:product_name.to_s] : 'Unknown',
+      nutriscore: product[:nutrition_grades.to_s],
       allergens: allergens,
       ingredients: ingredients,
       weight: product[:product_quantity.to_s],

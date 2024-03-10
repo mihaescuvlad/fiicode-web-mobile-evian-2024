@@ -35,6 +35,7 @@ class Product
   field :iron, type: Float
   field :status, type: Symbol, default: :PENDING
   field :rating, type: Integer, default: 0
+  field :nutriscore, type: String
 
   belongs_to :submitted_by, class_name: "User", inverse_of: :submissions
 
@@ -54,7 +55,7 @@ class Product
   private
 
   def notify_review
-    return unless status != :pending
+    return unless status != :PENDING
 
     saved_product = Product.find(id) rescue return
     return unless saved_product.status != status
