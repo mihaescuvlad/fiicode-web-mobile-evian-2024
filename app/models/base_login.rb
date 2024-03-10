@@ -1,15 +1,19 @@
+require 'bcrypt'
+
 class BaseLogin
   include Mongoid::Document
   include Mongoid::Timestamps
-  include ActiveModel::SecurePassword
+  include BCrypt
 
   field :username, type: String
-  field :password, type: String
+  field :hashed_password, type: String
 
   validates_uniqueness_of :username, case_sensitive: false
-  validates_presence_of :username, :password
+  validates_presence_of :username, :hashed_password
 
   def initialize(attrs = {})
+    raise NoMethodError("Cannot initialize base class") unless self.class < BaseLogin
+
     [:username, :password].all? { |key| attrs.include?(key) } or raise ArgumentError
 
     super()
@@ -34,11 +38,26 @@ class BaseLogin
       puts "Annoying restriction disabled in development environment: #{weak_password_msg}"
     end
 
-    write_attribute(:hashed_password, Password.update(password))
+    @password = Password.create(password)
+    write_attribute(:hashed_password, @password)
   end
 
   def password
-    read_attribute(:hashed_password)
+    @password ||= Password.new(read_attribute(:hashed_password))
   end
 
+  def self.authenticate(username, password)
+    raise NoMethodError("Cannot call factory on the base class") unless self < BaseLogin
+
+    return nil unless username && password
+
+    login = self.find_by(username: username.strip) rescue nil
+    return nil unless login && login.password == password
+
+    login
+  end
+
+  def _migrate_password(password)
+    self.password = password
+  end
 end
