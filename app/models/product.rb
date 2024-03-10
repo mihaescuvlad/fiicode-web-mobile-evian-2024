@@ -3,20 +3,21 @@ require 'set'
 class Product
   include Mongoid::Document
   include Mongoid::Timestamps
-
+  
   before_save :notify_review
 
-  APPROVED_STATUSES = %i[pending approved rejected]
+  APPROVED_STATUSES = %i[PENDING APPROVED REJECTED]
 
   field :ean, type: String, as: :id
   field :brand, type: String
   field :name, type: String
   field :price, type: Float
-  field :weight, type: Float
+  field :weight, type: String
   field :weight_units, type: Array, default: [BSON::ObjectId('65d320c04bbf6989c52c9571'),
                                               BSON::ObjectId('65d320ca4bbf6989c52c9572'),
                                               BSON::ObjectId('65d320f74bbf6989c52c9576')]
   field :allergens, type: Array
+  field :ingredients, type: Array
   field :calories, type: Float
   field :fat, type: Float
   field :saturated_fat, type: Float
@@ -32,8 +33,9 @@ class Product
   field :vitamin_C, type: Float
   field :calcium, type: Float
   field :iron, type: Float
-  field :status, type: Symbol, default: :pending
+  field :status, type: Symbol, default: :PENDING
   field :rating, type: Integer, default: 0
+  field :nutriscore, type: String
 
   belongs_to :submitted_by, class_name: "User", inverse_of: :submissions
 
@@ -46,10 +48,14 @@ class Product
     OpenFoodFacts.product(ean)
   end
 
+  def approved?
+    status == :APPROVED
+  end
+
   private
 
   def notify_review
-    return unless status != :pending
+    return unless status != :PENDING
 
     saved_product = Product.find(id) rescue return
     return unless saved_product.status != status
