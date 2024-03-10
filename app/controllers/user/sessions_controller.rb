@@ -4,7 +4,7 @@ class User::SessionsController < UserApplicationController
 
   def login
     if request.post?
-      login = Login.authenticate(params[:email], params[:password])
+      login = Login.authenticate_by_email(params[:email], params[:password])
       if login
         session[:login_id] = login.id
         session[:expires_at] = Time.current + 24.hour
