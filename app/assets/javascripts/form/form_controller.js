@@ -65,7 +65,7 @@ FormController = class {
         const endpoint = (new URL(res.url)).pathname
         let data = await res.text();
 
-        const chain = [this.#parseJson, ...this.#middleware, this.#renderHtml(), this.#notifyJson];
+        const chain = [this.#parseJson, ...this.#middleware, this.#renderHtml(), this.#notifyJson()];
         for (const middleware of chain) {
             data = middleware(data, {contentType, status, endpoint, headers});
             if (data instanceof Promise)
@@ -126,35 +126,38 @@ FormController = class {
      *  If the response is a json object and has a message property, it will
      *  be shown as a success or error notification, depending on the http status.
      */
-    async #notifyJson(data, {contentType, status, headers}) {
-        if (status >= 500) {
-            ErrorNotifier.get.show('Something went wrong.');
-            return data
-        }
-
-        let msg = ""
-        if (contentType === 'application/json') {
-            msg = data.message ?? ""
-        } else if (contentType === 'text/html') {
-            msg = headers.get('Alert-Message') ?? ""
-        }
-
-        if (!msg)
-            return data
-
-        while (true) {
-            let notifier;
-            if (status >= 200 && status < 300)
-                notifier = SuccessNotifier.get;
-            else
-                notifier = ErrorNotifier.get;
-
-            if (notifier) {
-                notifier.show(msg);
+    #notifyJson() {
+        const seconds = this.#seconds;
+        return async (data, {contentType, status, headers}) => {
+            if (status >= 500) {
+                ErrorNotifier.get.show('Something went wrong.');
                 return data
             }
 
-            await this.#seconds(0.5)
+            let msg = ""
+            if (contentType === 'application/json') {
+                msg = data.message ?? ""
+            } else if (contentType === 'text/html') {
+                msg = headers.get('Alert-Message') ?? ""
+            }
+
+            if (!msg)
+                return data
+
+            while (true) {
+                let notifier;
+                if (status >= 200 && status < 300)
+                    notifier = SuccessNotifier.get;
+                else
+                    notifier = ErrorNotifier.get;
+
+                if (notifier) {
+                    notifier.show(msg);
+                    return data
+                }
+
+                await seconds(0.5)
+            }
         }
     }
 
