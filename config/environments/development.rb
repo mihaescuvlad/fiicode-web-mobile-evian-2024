@@ -50,7 +50,6 @@ Rails.application.configure do
 
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
-  config.logger = Logger.new('NUL')
 
   config.action_controller.perform_caching = true
   config.cache_store = :memory_store
@@ -68,7 +67,7 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-
+  config.action_controller.forgery_protection_origin_check = false
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
 end

@@ -8,7 +8,9 @@
   %nav.container.mx-auto.h-8.px-2.flex.justify-center.items-center.gap-10
     %h1.text-lg.uppercase.font-bold
       Ce mancam?
-    %input.hidden.sm:block.flex-1.rounded-full.text-black.text-sm{placeholder: "Search for a food item", type: "text"}
+    .hidden.sm:block.flex-1.rounded-full.text-black.text-sm
+      = text_field_tag :search, nil, class: "search-autocomplete w-full p-2 rounded-lg", placeholder: "Search for a food item", type: "text"
+
     %ul.hidden.sm:flex.items-center.gap-4
       - links.each do |link|
         %li
@@ -18,7 +20,40 @@
             %span.hidden.text-sm.capitalize.lg:inline-block
               = link[:label]
     #profile-section.hidden.sm:flex.items-center.h-full.gap-4.relative
-      %i.mdi.mdi-bell-outline.text-2xl
-      = link_to "/profile" do
-        %i.mdi.mdi-account-circle-outline.text-2xl
-      = render "partials/layout/header/dropdown"
+      %span#notifications-section
+        = link_to notifications_user_profile_path do
+          %i.mdi.mdi-bell-outline.text-2xl
+        = render "partials/layout/header/notifications_dropdown"
+      %span#settings-section
+        = link_to user_profile_path, id: 'profile-path' do
+          %i.mdi.mdi-account-circle-outline.text-2xl
+        = render "partials/layout/header/profile_dropdown"
+
+:javascript
+  $(document).ready(function() {
+    var updateLink = function() {
+      var profileLink = document.getElementById("profile-path");
+      if (window.innerWidth < 768) {
+        profileLink.setAttribute('href', "#{user_profile_path}");
+      } else {
+        profileLink.setAttribute('href', "#{user_user_profile_path}");
+      }
+    };
+
+    updateLink();
+
+    window.addEventListener('resize', updateLink);
+
+    $('.search-autocomplete').autocomplete({
+      source: '/products/search',
+      minLength: 2,
+      delay: 500,
+      autoFocus: true
+    });
+
+    $('.search-autocomplete').on('autocompleteselect', function(event, ui) {
+      event.preventDefault();
+      window.location.href = "/products/" + ui.item.value.$oid;
+    });
+
+  });

@@ -2,6 +2,7 @@ FormController = class {
     static #forms = {};
 
     #form;
+    #disabled_inputs;
     #middleware;
 
     /**
@@ -12,22 +13,22 @@ FormController = class {
 
         this.#form = document.getElementById(formId);
         this.#middleware = [];
+        this.#disabled_inputs = Array.from(document.querySelectorAll(`#${this.#form.id} input`)).filter(input => input.disabled);
 
         this.#form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
             const formData = new FormData(this.#form);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
+            const data = this.#convertFormDataToObject(formData);
 
             this.disabled = true;
+
             let endpoint = this.#form.action;
-            const isGet = this.#form.method.toUpperCase() === 'GET';
+            const isGet = this.#form.getAttribute("method").toUpperCase() === 'GET';
             if (isGet) {
                 endpoint += '?' + new URLSearchParams(data).toString();
             }
+
             const body = isGet ? {} : {body: JSON.stringify(data)};
 
             const res = await fetch(endpoint, {
@@ -35,7 +36,7 @@ FormController = class {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': formData["authenticity_token"]
                 },
-                method: this.#form.method,
+                method: this.#form.getAttribute("method"),
                 ...body
             });
 
@@ -46,9 +47,11 @@ FormController = class {
 
     /** @param {boolean} disable True if the form should be disabled, false if it should be enabled */
     set disabled(disable) {
-        document.querySelectorAll(`#${this.#form.id} input, #${this.#form.id} button`).forEach((element) => {
-            element.disabled = disable;
-        })
+        Array.from(document.querySelectorAll(`#${this.#form.id} input, #${this.#form.id} button`))
+            .filter(input => this.#disabled_inputs.indexOf(input) < 0)
+            .forEach((element) => {
+                element.disabled = disable;
+            })
     }
 
     static get(formId) {
@@ -56,14 +59,15 @@ FormController = class {
     }
 
     async #runChain(res) {
+        const headers = res.headers;
         const contentType = res.headers.get('Content-Type').split(';')[0]
         const status = res.status
         const endpoint = (new URL(res.url)).pathname
         let data = await res.text();
 
-        const chain = [this.#parseJson, ...this.#middleware, this.#notifyJson, this.#renderHtml()];
+        const chain = [this.#parseJson, ...this.#middleware, this.#renderHtml(), this.#notifyJson];
         for (const middleware of chain) {
-            data = middleware(data, {contentType, status, endpoint});
+            data = middleware(data, {contentType, status, endpoint, headers});
             if (data instanceof Promise)
                 data = await data;
 
@@ -82,6 +86,32 @@ FormController = class {
         return this;
     }
 
+
+    /**
+     * @param {FormData} formData
+     */
+    #convertFormDataToObject(formData) {
+        const object = {};
+        formData.forEach((value, key) => {
+            if (!object[key] && key.endsWith("[]"))
+                object[key] = []
+
+            if (!object[key])
+                object[key] = value;
+            else if (Array.isArray(object[key]))
+                object[key].push(value);
+            else
+                object[key] = [object[key], value];
+        });
+        return object;
+    }
+
+    #seconds(s) {
+        return new Promise((res) => {
+            setTimeout(() => res(null), s * 1000)
+        })
+    }
+
     /******************************
      HERE BEGIN DEFAULT MIDDLEWARES
      ******************************/
@@ -96,21 +126,36 @@ FormController = class {
      *  If the response is a json object and has a message property, it will
      *  be shown as a success or error notification, depending on the http status.
      */
-    #notifyJson(data, {contentType, status}) {
+    async #notifyJson(data, {contentType, status, headers}) {
         if (status >= 500) {
             ErrorNotifier.get.show('Something went wrong.');
             return data
         }
 
-        if (contentType !== 'application/json' || !data.message)
+        let msg = ""
+        if (contentType === 'application/json') {
+            msg = data.message ?? ""
+        } else if (contentType === 'text/html') {
+            msg = headers.get('Alert-Message') ?? ""
+        }
+
+        if (!msg)
             return data
 
-        if (status >= 200 && status < 300)
-            SuccessNotifier.get.show(data.message);
-        else
-            ErrorNotifier.get.show(data.message);
+        while (true) {
+            let notifier;
+            if (status >= 200 && status < 300)
+                notifier = SuccessNotifier.get;
+            else
+                notifier = ErrorNotifier.get;
 
-        return data
+            if (notifier) {
+                notifier.show(msg);
+                return data
+            }
+
+            await this.#seconds(0.5)
+        }
     }
 
     /**
@@ -128,22 +173,22 @@ FormController = class {
      */
     #renderHtml() {
         const form = this.#form
-        return (data, {contentType, endpoint}) => {
-            if (contentType !== 'text/html')
+        return (data, {contentType, endpoint, status}) => {
+            if (contentType !== 'text/html' || status >= 500)
                 return data
 
             const qSelector = form.getAttribute("htmlfor")
-            if (!qSelector) {
-                document.open()
-                history.replaceState({}, '', endpoint)
-                document.write(data)
-                document.close()
+            if (qSelector) {
+                const container = document.querySelector(qSelector)
+                container.innerHTML = data
 
-                return null
+                return data
             }
 
-            const container = document.querySelector(qSelector)
-            container.innerHTML = data
+            document.open()
+            history.replaceState({}, '', endpoint)
+            document.write(data)
+            document.close()
             return data
         }
     }

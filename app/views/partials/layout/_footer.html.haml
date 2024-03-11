@@ -1,8 +1,8 @@
-- links = [{ icon: :home, path: user_root_path },
- { icon: :search, path: '/search' },
- { icon: :qr_code_scanner, path: "/scan" },
- { icon: :forum, path: "/hub" },
- { icon: :account_circle, path: "/profile" }]
+- links = [{ icon: 'home-outline', path: user_root_path },
+ { icon: 'magnify', path: '/search' },
+ { icon: 'qrcode-scan', path: "/scan" },
+ { icon: 'forum-outline', path: "/hub" },
+ { icon: 'account-circle-outline', path: "/profile" }]
 
 %footer.bg-primary-500.p-2.sm:hidden
   %nav.size-full
@@ -10,4 +10,4 @@
       - links.each do |link|
         %li.grid.place-items-center
           = link_to link[:path], class: if current_page?(link[:path]) then "text-primary-300" else "text-white" end do
-            = material_icon.shape(link[:icon]).outlined.md_24
+            .mdi.text-2xl{ class: "mdi-#{link[:icon]}" }

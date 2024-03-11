@@ -1,0 +1,155 @@
+= form_tag user_product_path(@product), method: :put, class: "flex flex-col justify-center items-center place-self-center w-full space-y-4", id: "new-product-form" do
+  = hidden_field_tag :ean, @product.ean
+  .flex.flex-col.justify-center.items-center.place-self-center.w-full.space-y-4
+    %h1.text-3xl.font-semibold.mt-10{ contenteditable: true, id: "product-name" }
+      = "#{@product.name}"
+    %h1.text-xl.font-semibold.mb-8.overflow-hidden.text-ellipsis.whitespace-nowrap
+      = "("
+      %span{ contenteditable: true, id: "product-brand" }
+        = "#{@product.brand}"
+      = " - "
+      %span{ contenteditable: true, id: "product-weight" }
+        = "#{@product.weight}g"
+      = ")"
+
+  .w-full{ class: "md:w-1/2" }
+    .flex.flex-row.rounded-full.p-2.items-center.mb-2.space-x-2{ class: "backdrop-blur-[1px] w-fit" }
+      .mdi.mdi-text-box-edit-outline.text-2xl
+      .font-semibold{ class: "text-slate-700" }= "You can edit the product details by pressing directly on the text fields."
+    .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2
+      %div{ class: "p-2 font-semibold" }= "Price"
+      %div{ class: "p-2 text-slate-700", contenteditable: true, id: "product-price" }= @product.price || 0
+    .flex.flex-row.rounded-lg.p-2.justify-between.items-center.mb-2{ class: "bg-slate-50", id: "allergens-box" }
+      .flex.flex-row.items-center
+        .p-2.font-semibold= "Allergens"
+      .flex.flex-row.items-center
+        %div{ class: "p-2 text-slate-700 flex flex-row items-center" }
+          #allergens-anchor.w-full.flex.flex-wrap.gap-2
+            - @product_allergens.each do |a|
+              - allergen = a.name
+              - a_id = a.off_id
+              - css_friendly = allergen.gsub(/\s+/, '-')
+              .flex.flex-row.items-center.justify-start.space-x-1{ id: "allergen-#{css_friendly}" }
+                = hidden_field_tag "allergens[]", a_id, id: "input-#{css_friendly}"
+                = allergen
+                %button.remove-allergen{ type: "button", id: "remove-allergen-#{css_friendly}", class: "text-slate-700" }
+                  %i.mdi.mdi-close.text-xl
+          #allergens-anchor
+        .mdi.mdi-plus-circle-outline.text-primary-500.text-xl.cursor-pointer{ id: "show-allergens-input" }
+    .mb-4.hidden{ id: 'allergens-input' }
+      .flex.flex-row.items-center.justify-end
+        .mdi.mdi-close.text-xl.text-slate-700.cursor-pointer{ id: "close-allergens-input" }
+        = text_field_tag "", nil, id: "allergens", class: "allergen-autocomplete rounded-md bg-slate-50 p-2 border border-slate-300"
+    - if @user_allergic_to_product
+      .text-slate-700.text-sm.mb-4.text-right
+        = "You are allergic to this product. Please consult your doctor before consuming this product."
+    .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2
+      %div{ class: "p-2 font-semibold"}= "Calories"
+      %div{ class: "p-2 text-slate-700 italic", contenteditable: true, id: "product-calories" }= @product.calories || 0
+    .grid.gap-4.w-full.mt-4{ class: "md:grid-cols-2" }
+      .flex.flex-col.rounded-lg.space-y-2.w-full
+        - User::ProductsController::FATS.each do |fat_type|
+          .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
+            %div{ class: "p-2 font-semibold"}= "#{fat_type.to_s.humanize}"
+            %div{ class: "p-2 text-slate-700 italic", contenteditable: true, id: "product-#{fat_type}" }= @product.send(fat_type) || 0
+      .flex.flex-col.rounded-lg.space-y-2.w-full
+        - User::ProductsController::CARBOHYDRATES.each do |carb|
+          .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
+            %div{ class: "p-2 font-semibold"}= "#{carb.to_s.humanize}"
+            %div{ class: "p-2 text-slate-700 italic", contenteditable: true, id: "product-#{carb}" }= @product.send(carb) || 0
+    .grid.gap-4.w-full.mt-4{ class: "md:grid-cols-2" }
+      .flex.flex-col.rounded-lg.space-y-2.w-full
+        - User::ProductsController::ESSENTIAL_NUTRIENTS.each do |nutrient|
+          .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
+            %div{ class: "p-2 font-semibold"}= "#{nutrient.to_s.humanize}"
+            %div{ class: "p-2 text-slate-700 italic", contenteditable: true, id: "product-#{nutrient}" }= @product.send(nutrient) || 0
+      .flex.flex-col.rounded-lg.space-y-2.w-full
+        - User::ProductsController::VITAMINS_MINERALS.each do |vitamin_mineral|
+          .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
+            %div{ class: "p-2 font-semibold"}= "#{vitamin_mineral.to_s.humanize}"
+            %div{ class: "p-2 text-slate-700 italic", contenteditable: true, id: "product-#{vitamin_mineral}" }= @product.send(vitamin_mineral) || 0
+  %button{ class: "bg-primary-500 text-white rounded-lg p-2 mt-4 w-fit", type: "submit" }
+    = "Edit Product"
+:javascript
+
+  $(document).ready(function() {
+    $("#new-product-form").on("submit", function(e) {
+      const product = {
+        name: $("#product-name").text(),
+        brand: $("#product-brand").text(),
+        weight: $("#product-weight").text(),
+        price: $("#product-price").text(),
+        calories: $("#product-calories").text(),
+        fat: $("#product-fat").text(),
+        saturated_fat: $("#product-saturated_fat").text(),
+        polysaturated_fat: $("#product-polysaturated_fat").text(),
+        monosaturated_fat: $("#product-monosaturated_fat").text(),
+        trans_fat: $("#product-trans_fat").text(),
+        carbohydrates: $("#product-carbohydrates").text(),
+        fiber: $("#product-fiber").text(),
+        sugar: $("#product-sugar").text(),
+        protein: $("#product-protein").text(),
+        sodium: $("#product-sodium").text(),
+        vitamin_A: $("#product-vitamin_A").text(),
+        vitamin_C: $("#product-vitamin_C").text(),
+        calcium: $("#product-calcium").text(),
+        iron: $("#product-iron").text(),
+      };
+      Object.keys(product).forEach(function(key) {
+        const input = $('<input>').attr({
+          type: 'hidden',
+          name: 'product[' + key + ']',
+          value: product[key]
+        });
+        $("#new-product-form").append(input);
+      });
+    });
+
+
+    $('#show-allergens-input').on('click', function() {
+      $('#allergens-input').show();
+      $('#allergens').focus();
+      $('#show-allergens-input').hide();
+      $('#allergens-box').removeClass('mb-2');
+    });
+
+    $('#close-allergens-input').on('click', function() {
+      $('#allergens-input').hide();
+      $('#show-allergens-input').show();
+      $('#allergens-box').addClass('mb-2');
+    });
+
+    $('.allergen-autocomplete').autocomplete({
+      source: '/allergens/search',
+      select: function(event, ui) {
+        const allergen = ui.item.label;
+        const allergenId = ui.item.value;
+
+        if (allergen && !$('#allergen-' + allergen.replace(/\s+/g, '-')).length) {
+          $('#allergens-anchor').append(`
+            <div class="flex flex-row items-center justify-start" id="allergen-${allergen.replace(/\s+/g, '-')}">
+              <input type="hidden" name="allergens[]" value="${allergenId}">
+              <span class="text-md">${allergen}</span>
+              <button type="button" class="text-slate-700 remove-allergen" id="remove-allergen-${allergen.replace(/\s+/g, '-')}">
+                <i class="mdi mdi-close text-xl"></i>
+              </button>
+            </div>
+          `);
+        }
+        else if (allergen) {
+          ErrorNotifier.get.show("Allergen already added", 4000)
+        }
+        $('.allergen-autocomplete').val('');
+        return false;
+      },
+      minLength: 2,
+      delay: 500,
+      autoFocus: true
+    });
+
+  });
+
+  $(document).on('click', '[id^="remove-allergen-"]', function() {
+    const allergen = this.id.replace('remove-allergen-', '');
+    $(`#allergen-${allergen.replace(/\s+/g, '-')}`).remove();
+  });

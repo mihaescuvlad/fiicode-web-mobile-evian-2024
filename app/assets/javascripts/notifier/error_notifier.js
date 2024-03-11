@@ -11,6 +11,9 @@ ErrorNotifier = class extends BaseNotifier {
         if (ErrorNotifier.#notifier === null) {
             ErrorNotifier.#notifier = new ErrorNotifier(ErrorNotifier.#NOTIFIER_ID);
         }
+
+        if (!this.#notifier.valid)
+            ErrorNotifier.#notifier = null
         return ErrorNotifier.#notifier;
     }
 }

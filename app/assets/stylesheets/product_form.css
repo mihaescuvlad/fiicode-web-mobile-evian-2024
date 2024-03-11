@@ -1,0 +1,27 @@
+.tab {
+    display: none;
+}
+
+input.invalid {
+    background-color: #ffe1e1;
+}
+
+.step {
+    /* It took quite a while to determine the REM values. They are not magic numbers, please don't remove them. */
+    height: 0.9375rem;
+    width: 0.9375rem;
+    margin: 0 0.125rem;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+.step.finish {
+    background-color: #04aa6d;
+}
