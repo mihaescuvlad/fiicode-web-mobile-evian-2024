@@ -40,6 +40,9 @@ class User::SessionsController < UserApplicationController
     end
   end
 
+  def recover_account
+  end
+
   def confirm_email
     @login = Login.find_by(confirm_email_key: params[:token]) rescue not_found
     @login.confirm_email
@@ -47,8 +50,13 @@ class User::SessionsController < UserApplicationController
   end
 
   def request_password_reset
-    login = Login.find(params[:login]) rescue (head :not_found and return)
+    if params[:login].present?
+      login = Login.find(params[:login]) rescue (render json: { message: "Invalid login" }, status: :not_found and return)
+    else
+      login = Login.find_by(email: params[:email]) rescue (render json: { message: "No account found with this email address" }, status: :not_found and return)
+    end
     User::LoginMailer.with(login: login).reset_password_email.deliver_now
-    head :no_content
+    render json: { message: "We've mailed you the instructions to recover your account." }, status: :ok and return
+    redirect_to '/', notice: "We've mailed you the instructions to recover your account."
   end
 end

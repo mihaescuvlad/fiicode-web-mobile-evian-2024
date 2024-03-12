@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     match '/scan', to: 'welcome#scan', via: :all
     match '/login', to: 'sessions#login', via: %i[post get]
     match '/register', to: 'sessions#register', via: %i[post get]
+    match '/recover-account', to: 'sessions#recover_account', via: :get
     match '/confirm-email', to: 'sessions#confirm_email', via: :get
     match '/request-password-reset', to: 'sessions#request_password_reset', via: :get
     match '/logout', to: 'sessions#logout', via: :all
