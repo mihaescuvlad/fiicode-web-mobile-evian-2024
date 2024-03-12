@@ -45,4 +45,10 @@ class User::SessionsController < UserApplicationController
     @login.confirm_email
     @login.save!
   end
+
+  def request_password_reset
+    login = Login.find(params[:login]) rescue (head :not_found and return)
+    User::LoginMailer.with(login: login).reset_password_email.deliver_now
+    head :no_content
+  end
 end

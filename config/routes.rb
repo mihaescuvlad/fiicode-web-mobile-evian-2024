@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     match '/login', to: 'sessions#login', via: %i[post get]
     match '/register', to: 'sessions#register', via: %i[post get]
     match '/confirm-email', to: 'sessions#confirm_email', via: :get
+    match '/request-password-reset', to: 'sessions#request_password_reset', via: :get
     match '/logout', to: 'sessions#logout', via: :all
 
     resource :profile, only: %i[show index] do

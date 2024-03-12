@@ -1,6 +1,6 @@
 class User::ProfilesController < UserApplicationController
   layout 'user_profile'
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[show user dietary_preferences notifications]
   before_action :set_links
 
   def show
@@ -17,11 +17,28 @@ class User::ProfilesController < UserApplicationController
   end
 
   def account
-    @login = current_user.login
+    if params[:login].present? and params[:token].present?
+      @login = Login.find(params[:login]) rescue not_found
+      puts params, params[:token], @login.reset_password_key
+      unless params[:token].present? and @login.reset_password_key == params[:token]
+        redirect_to user_login_path, alert: "Invalid or expired password reset token" and return
+      end
+    elsif current_user.present?
+      @login = current_user.login
+    else
+      redirect_to user_login_path and return;
+    end
+
+    @token = params[:token]
+    @allowed_update = (params[:token].present? and @login.reset_password_key == params[:token])
 
     if request.put?
       if params[:password] != params[:password_confirmation]
         render json: { message: 'Password and password confirmation do not match' }, status: :bad_request and return
+      end
+
+      unless @allowed_update
+        render json: { message: 'Invalid or expired password reset token' }, status: :unauthorized and return
       end
 
       @login.password = params[:password]
@@ -49,10 +66,14 @@ class User::ProfilesController < UserApplicationController
   protected
 
   def set_links
-    @links = [{ href: user_user_profile_path, text: "Profile", icon: "account" },
-              { href: account_user_profile_path, text: "Account", icon: "lock" },
-              { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food" },
-              { href: user_hub_user_path(current_user), text: "Hub page", icon: "forum" },
-              { href: notifications_user_profile_path, text: "Notifications", icon: "bell" }]
+    if current_user.present?
+      @links = [{ href: user_user_profile_path, text: "Profile", icon: "account" },
+                { href: account_user_profile_path, text: "Account", icon: "lock" },
+                { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food" },
+                { href: user_hub_user_path(current_user), text: "Hub page", icon: "forum" },
+                { href: notifications_user_profile_path, text: "Notifications", icon: "bell" }]
+    else
+      @links = []
+    end
   end
 end
