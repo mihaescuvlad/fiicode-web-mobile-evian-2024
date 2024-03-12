@@ -148,6 +148,10 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
+    launchy (2.5.2)
+      addressable (~> 2.8)
+    letter_opener (1.9.0)
+      launchy (>= 2.2, < 3)
     llhttp-ffi (0.5.0)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
@@ -328,6 +332,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   jquery-ui-rails
+  letter_opener
   mongoid (~> 8.1.0)
   puma (>= 5.0)
   rails (~> 7.1.3)

@@ -1,3 +1,3 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "cemancam@tuto.io"
+  default from: "cemancam7@gmail.com"
 end

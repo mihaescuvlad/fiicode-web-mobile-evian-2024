@@ -17,19 +17,18 @@ class User::ProfilesController < UserApplicationController
   end
 
   def account
-    if params[:login].present? and params[:token].present?
-      @login = Login.find(params[:login]) rescue not_found
-      puts params, params[:token], @login.reset_password_key
-      unless params[:token].present? and @login.reset_password_key == params[:token]
-        redirect_to user_login_path, alert: "Invalid or expired password reset token" and return
-      end
-    elsif current_user.present?
+    if current_user.present?
       @login = current_user.login
+    elsif params[:login].present? and params[:token].present?
+      @login = Login.find(params[:login]) rescue not_found
     else
       redirect_to user_login_path and return;
     end
 
     @token = params[:token]
+    if @token.present? and @login.reset_password_key != @token
+      redirect_to user_login_path, alert: "Invalid or expired password reset token" and return
+    end
     @allowed_update = (params[:token].present? and @login.reset_password_key == params[:token])
 
     if request.put?
@@ -43,7 +42,11 @@ class User::ProfilesController < UserApplicationController
 
       @login.password = params[:password]
       @login.save!
-      render json: { message: 'Password updated' }, status: :ok
+      if current_user.present?
+        render json: { message: 'Password updated' }, status: :ok
+      else
+        redirect_to user_login_path, notice: "Password updated", status: :see_other
+      end
     end
   end
 
