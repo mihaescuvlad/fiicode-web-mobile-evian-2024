@@ -36,6 +36,7 @@ class User::ProductsController < UserApplicationController
         format.json { render json: { message: "The product does not exists." }, status: :unprocessable_entity }
         format.html { redirect_to create_product_user_products_path, notice: "The product does not exists." }
       end
+
       return
     end
 
@@ -75,6 +76,9 @@ class User::ProductsController < UserApplicationController
     new_product_params.each { |key, value| new_product_params[key] = value.strip.gsub(/[\n\r]+/, '') if value.is_a?(String) }
     @product = Product.new(new_product_params)
     @product.submitted_by = current_user.id
+    
+    @matching_product = OpenFoodFacts.product(params[:ean])
+    @product.status = :APPROVED if perfect_match?(@product, @matching_product) rescue false
 
     respond_to do |format|
       if @product.save
@@ -275,7 +279,14 @@ private
       product.define_singleton_method(:persisted?) { true }
       product
     end
-  end  
+  end
+  
+  def perfect_match?(product, matching_product)
+    product.name == matching_product.name && product.brand == matching_product.brand && product.weight == matching_product.weight && 
+      product.allergens.sort == matching_product.allergens.sort && product.calories == matching_product.calories && product.fat == matching_product.fat &&
+        product.saturated_fat == matching_product.saturated_fat && product.carbohydrates == matching_product.carbohydrates && product.fiber == matching_product.fiber &&
+          product.sugar == matching_product.sugar && product.protein == matching_product.protein && product.sodium == matching_product.sodium
+  end
 
   def set_product
     @product = Product.find(params[:id])
