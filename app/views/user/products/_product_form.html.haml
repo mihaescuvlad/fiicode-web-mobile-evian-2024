@@ -2,6 +2,8 @@
   = hidden_field_tag :ean, @matching_product.ean
   = hidden_field_tag :ingredients, @matching_product.ingredients
   = hidden_field_tag :nutriscore, @matching_product.nutriscore
+  = hidden_field_tag :vegan, @matching_product.vegan
+  = hidden_field_tag :vegetarian, @matching_product.vegetarian
   .flex.flex-col.justify-center.items-center.place-self-center.w-full.space-y-4
     %h1.text-3xl.font-semibold.mt-10{ contenteditable: true, id: "product-name" }
       = "#{@matching_product.name}"

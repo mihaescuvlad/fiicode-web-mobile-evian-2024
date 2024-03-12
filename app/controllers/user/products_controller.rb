@@ -20,8 +20,6 @@ class User::ProductsController < UserApplicationController
     end
 
     @allergen_names = Allergen.pluck(:_id, :name).to_h
-    @weight_units_strings = Measurement.pluck(:_id, :unit).to_h
-    @weight_units = @product.weight_units.map { |measurement_id| Measurement.find(measurement_id).unit }
 
     @product_allergens = Allergen.where(:off_id.in => @product.allergens || [])
     @reviews = Review.where(product_id: @product.id)
@@ -151,6 +149,6 @@ class User::ProductsController < UserApplicationController
     end
 
   def product_params
-    params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [], ingredients: [])
+    params.require(:product).permit(:brand, :name, :price, :weight, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, :vegan, :vegetarian, allergens: [], ingredients: [])
   end
 end

@@ -13,10 +13,9 @@ class Product
   field :name, type: String
   field :price, type: Float
   field :weight, type: String
-  field :weight_units, type: Array, default: [BSON::ObjectId('65d320c04bbf6989c52c9571'),
-                                              BSON::ObjectId('65d320ca4bbf6989c52c9572'),
-                                              BSON::ObjectId('65d320f74bbf6989c52c9576')]
   field :allergens, type: Array
+  field :vegan, type: Boolean
+  field :vegetarian, type: Boolean
   field :ingredients, type: Array
   field :calories, type: Float
   field :fat, type: Float

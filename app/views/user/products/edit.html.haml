@@ -1,5 +1,9 @@
 = form_tag user_product_path(@product), method: :put, class: "flex flex-col justify-center items-center place-self-center w-full space-y-4", id: "new-product-form" do
   = hidden_field_tag :ean, @product.ean
+  = hidden_field_tag :ingredients, @product.ingredients
+  = hidden_field_tag :nutriscore, @product.nutriscore
+  = hidden_field_tag :vegan, @product.vegan
+  = hidden_field_tag :vegetarian, @product.vegetarian
   .flex.flex-col.justify-center.items-center.place-self-center.w-full.space-y-4
     %h1.text-3xl.font-semibold.mt-10{ contenteditable: true, id: "product-name" }
       = "#{@product.name}"

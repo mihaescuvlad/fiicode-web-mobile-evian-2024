@@ -6,9 +6,6 @@ class Admin::ProductsController < AdminApplicationController
   end
 
   def show
-    @weight_units_strings = Measurement.pluck(:_id, :unit).to_h
-    @weight_units = @product.weight_units.map { |measurement_id| Measurement.find(measurement_id).unit }
-
     @product_allergens = Allergen.where(:off_id.in => @product.allergens || []).to_a
     @matching_product = OpenFoodFacts.product(@product.ean)
     @product_matching_allergens = Allergen.where(:off_id.in => @matching_product.allergens || []).to_a
