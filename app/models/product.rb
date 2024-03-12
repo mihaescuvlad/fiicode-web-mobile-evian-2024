@@ -21,9 +21,6 @@ class Product
   field :calories, type: Float
   field :fat, type: Float
   field :saturated_fat, type: Float
-  field :polysaturated_fat, type: Float
-  field :monosaturated_fat, type: Float
-  field :trans_fat, type: Float
   field :carbohydrates, type: Float
   field :fiber, type: Float
   field :sugar, type: Float

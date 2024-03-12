@@ -3,7 +3,7 @@ class User::ProductsController < UserApplicationController
   before_action :set_product, only: %i[ show edit update destroy add_to_favorites remove_from_favorites ]
   skip_before_action :verify_authenticity_token, only: %i[ create update ]
 
-  FATS = %i[ fat saturated_fat polysaturated_fat monosaturated_fat trans_fat ].freeze
+  FATS = %i[ fat saturated_fat ].freeze
   CARBOHYDRATES = %i[ carbohydrates fiber sugar ].freeze
   VITAMINS_MINERALS = %i[ vitamin_A vitamin_C calcium ].freeze
   ESSENTIAL_NUTRIENTS = %i[ protein sodium iron ].freeze
@@ -121,7 +121,7 @@ class User::ProductsController < UserApplicationController
   end
 
   def search
-    @products = Product.where(name: /#{params[:term]}/i)
+    @products = Product.where(name: /#{params[:term]}/i, status: :APPROVED).limit(5)
     render json: [{label: "None", value: "None"}] and return if @products.blank?
     render json: @products.map { |product| { label: product.name, value: product.id } }
   end
@@ -151,6 +151,11 @@ private
 
   def filter_products_with_aggregation(limit = 5, skip = 0)
     pipeline = [
+      {
+        '$match': {
+          'status': 'APPROVED'
+        }
+      },
       {
         '$lookup': {
           from: 'reviews',
@@ -263,10 +268,10 @@ private
           }
         }
       },      
-      # { '$unset': ['reviews', 'positive_reviews', 'total_reviews', 'positive_review_percentage', 'allergen_penalty', 'dietary_preference_penalty', 'nutriscore_adjustment'] },
+      { '$unset': ['reviews', 'positive_reviews', 'total_reviews', 'positive_review_percentage', 'allergen_penalty', 'dietary_preference_penalty', 'nutriscore_adjustment'] },
       { '$skip': skip },
       { '$limit': limit },
-      { '$sort': { 'overall_score': 1 } }
+      { '$sort': { 'overall_score': -1 } }
     ]
   
     map_aggregate_to_products(Product.collection.aggregate(pipeline))
@@ -293,6 +298,6 @@ private
   end
 
   def product_params
-    params.require(:product).permit(:brand, :name, :price, :weight, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [], ingredients: [])
+    params.require(:product).permit(:brand, :name, :price, :weight, :calories, :fat, :saturated_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [], ingredients: [])
   end
 end

@@ -51,7 +51,7 @@ def list_products_page(page, user_id):
     user_allergens = user.get("allergens_ids", []) or []
     user_basket_ids = user.get("favorites", []) or []
 
-    all_products = [Product(**doc) for doc in products.find()]
+    all_products = [Product(**doc) for doc in products.find({"status": "APPROVED"})]
     user_basket = [product for product in all_products if product.id in user_basket_ids]
     
     per_page = request.args.get("per_page", 10, type=int)
