@@ -3,6 +3,7 @@ require 'set'
 class Product
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
   
   before_save :notify_review
 
@@ -37,11 +38,6 @@ class Product
   field :nutriscore, type: String
 
   belongs_to :submitted_by, class_name: "User", inverse_of: :submissions
-
-  def status=(status)
-    raise ArgumentError unless APPROVED_STATUSES.include?(status)
-    super
-  end
 
   def self.from_open_food_facts(ean)
     OpenFoodFacts.product(ean)

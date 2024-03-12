@@ -9,9 +9,7 @@ class User::ProductsController < UserApplicationController
   ESSENTIAL_NUTRIENTS = %i[ protein sodium iron ].freeze
 
   def index
-    @products = Product.all
-    @filtered_products = filter_products(@products)
-    @top_products = @filtered_products.take(9)
+    @top_products = filter_products_with_aggregation rescue []
   end
 
   def show
@@ -70,6 +68,8 @@ class User::ProductsController < UserApplicationController
     new_product_params = product_params
     new_product_params[:ean] = params[:ean]
     new_product_params[:nutriscore] = params[:nutriscore]
+    new_product_params[:vegan] = params[:vegan]
+    new_product_params[:vegetarian] = params[:vegetarian]
     new_product_params[:allergens] = params[:allergens].presence || []
     new_product_params[:ingredients] = params[:ingredients].split(' ').presence || []
     new_product_params.each { |key, value| new_product_params[key] = value.strip.gsub(/[\n\r]+/, '') if value.is_a?(String) }
@@ -90,6 +90,9 @@ class User::ProductsController < UserApplicationController
   def update
     new_product_params = product_params
     new_product_params[:ean] = params[:ean]
+    new_product_params[:nutriscore] = params[:nutriscore]
+    new_product_params[:vegan] = params[:vegan]
+    new_product_params[:vegetarian] = params[:vegetarian]
     new_product_params[:allergens] = params[:allergens].presence || []
     new_product_params.each { |key, value| new_product_params[key] = value.strip.gsub(/[\n\r]+/, '') if value.is_a?(String) }
 
@@ -140,25 +143,145 @@ class User::ProductsController < UserApplicationController
     render json: { message: 'Product removed from favorites' }, status: :ok
   end
 
-  private
-    def filter_products(products)
-      products.sort_by do |product|
-        reviews = Review.where(product_id: product.id)
-        total_reviews = reviews.count
+private
 
-        positive_review_percentage = total_reviews.zero? ? -1 : (product.rating.to_f / total_reviews * 100)
-        allergen_penalty = current_user.present? && current_user.allergens_ids.present? && (current_user.allergens_ids & product.allergens).any? ? 35 : 0
-        overall_score = (positive_review_percentage - allergen_penalty) * total_reviews
-
-        -overall_score
-      end
+  def filter_products_with_aggregation(limit = 5, skip = 0)
+    pipeline = [
+      {
+        '$lookup': {
+          from: 'reviews',
+          localField: '_id',
+          foreignField: 'product_id',
+          as: 'reviews'
+        }
+      },
+      {
+        '$addFields': {
+          'total_reviews': { '$size': '$reviews' },
+          'positive_reviews': {
+            '$size': {
+              '$filter': {
+                'input': '$reviews',
+                'as': 'review',
+                'cond': '$$review.rating'
+              }
+            }
+          }
+        }
+      },
+      {
+        '$addFields': {
+          'positive_review_percentage': {
+            '$cond': {
+              'if': { '$eq': ['$total_reviews', 0] },
+              'then': -1,
+              'else': { '$multiply': [{ '$divide': ['$positive_reviews', '$total_reviews'] }, 100] }
+            }
+          }
+        }
+      },
+      {
+        '$addFields': {
+          'allergen_penalty': {
+            '$cond': {
+              'if': {
+                '$anyElementTrue': {
+                  '$map': {
+                    'input': '$allergens',
+                    'as': 'allergen',
+                    'in': { '$in': ['$$allergen', current_user.allergens_ids] }
+                  }
+                }
+              },
+              'then': 35,
+              'else': 0
+            }
+          }
+        }
+      },
+      {
+        "$addFields": {
+          "dietary_preference_penalty": {
+            "$switch": {
+              "branches": [
+                {
+                  "case": { "$and": [{ "$eq": ["$current_user.dietary_preferences", "VEGAN"] }, { "$eq": ["$vegan", false] }] },
+                  "then": 40
+                },
+                {
+                  "case": { "$and": [{ "$eq": ["$current_user.dietary_preferences", "VEGETARIAN"] }, { "$eq": ["$vegetarian", false] }] },
+                  "then": 40
+                }
+              ],
+              "default": 0
+            }
+          }
+        }
+      },
+      {
+        "$addFields": {
+          "nutriscore_adjustment": {
+            "$switch": {
+              "branches": [
+                { "case": { "$eq": ["$nutriscore", "a"] }, "then": 15 },
+                { "case": { "$eq": ["$nutriscore", "b"] }, "then": 10 },
+                { "case": { "$eq": ["$nutriscore", "c"] }, "then": 0 },
+                { "case": { "$eq": ["$nutriscore", "d"] }, "then": -10 },
+                { "case": { "$eq": ["$nutriscore", "e"] }, "then": -20 }
+              ],
+              "default": 0
+            }
+          }
+        }
+      },
+      {
+        "$addFields": {
+          "overall_score": {
+            "$multiply": [
+              {
+                "$add": [
+                  {
+                    "$subtract": [
+                      {
+                        "$subtract": [
+                          "$positive_review_percentage",
+                          "$allergen_penalty"
+                        ]
+                      },
+                      "$dietary_preference_penalty"
+                    ]
+                  },
+                  "$nutriscore_adjustment"
+                ]
+              },
+              "$total_reviews"
+            ]
+          }
+        }
+      },      
+      # { '$unset': ['reviews', 'positive_reviews', 'total_reviews', 'positive_review_percentage', 'allergen_penalty', 'dietary_preference_penalty', 'nutriscore_adjustment'] },
+      { '$skip': skip },
+      { '$limit': limit },
+      { '$sort': { 'overall_score': 1 } }
+    ]
+  
+    map_aggregate_to_products(Product.collection.aggregate(pipeline))
+  end
+  
+  def map_aggregate_to_products(aggregated_products)
+    aggregated_products.map do |doc|
+      product_attrs = doc.symbolize_keys
+      product = Product.new(product_attrs)
+      product.define_singleton_method(:persisted?) { true }
+      product
     end
+  end  
 
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
   def product_params
-    params.require(:product).permit(:brand, :name, :price, :weight, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, :vegan, :vegetarian, allergens: [], ingredients: [])
+    params.require(:product).permit(:brand, :name, :price, :weight, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [], ingredients: [])
   end
 end

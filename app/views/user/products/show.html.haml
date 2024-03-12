@@ -154,38 +154,7 @@
           %p No reviews available. You can help by adding a review.
 
 :javascript
-
   $(document).ready(function() {
-    var listItems = document.querySelectorAll('#weight-units li');
-    var button = document.querySelector("#weight-units-list-button > span")
-    var weightUnitsList = document.getElementById('weight-units');
-
-    function updateServingSize(element) {
-        var buttonText = element.innerText.trim();
-        button.innerText = buttonText;
-        weightUnitsList.style.display = 'none';
-    }
-
-    button.addEventListener('click', function() {
-        if (weightUnitsList.style.display === 'none' || weightUnitsList.style.display === '') {
-            weightUnitsList.style.display = 'block';
-        } else {
-            weightUnitsList.style.display = 'none';
-        }
-    });
-
-    listItems.forEach(function(item) {
-        item.addEventListener('click', function() {
-            updateServingSize(this);
-        });
-    });
-
-    document.body.addEventListener('click', function(event) {
-        if (!event.target.closest('#weight-units-list-button') && !event.target.closest('#weight-units')) {
-            weightUnitsList.style.display = 'none';
-        }
-    });
-
     $('#edit-review').click(function() {
       $('#readonly-review').addClass('hidden');
       $('#review-form').removeClass('hidden');

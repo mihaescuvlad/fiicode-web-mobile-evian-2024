@@ -35,8 +35,8 @@ class OpenFoodFacts
   def self.map_product_to_model(product)
     allergens = product[:allergens_tags.to_s].select { |allergen| allergen.start_with?('en:') } rescue []
     ingredients = product[:ingredients_tags.to_s].select { |ingredient| ingredient.start_with?('en:') } rescue []
-    vegan = product[:ingredients_analysis_tags.to_s].any? { |tag| tag == "en:vegan" } rescue false
-    vegetarian = product[:ingredients_analysis_tags.to_s].any? { |tag| tag == "en:vegetarian" } rescue false
+    vegan = !product[:ingredients_analysis_tags.to_s].any? { |tag| tag == "en:non-vegan" } rescue true
+    vegetarian = !product[:ingredients_analysis_tags.to_s].any? { |tag| tag == "en:non-vegetarian" } rescue true
     
     Product.new(
       ean: product[:_id.to_s],
