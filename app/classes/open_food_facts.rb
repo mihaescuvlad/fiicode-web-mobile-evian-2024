@@ -10,6 +10,7 @@ class OpenFoodFacts
       return nil
     end
 
+    return nil if product.nil? || product.empty?
     map_product_to_model(product)
   end
 
@@ -32,10 +33,10 @@ class OpenFoodFacts
   private
   
   def self.map_product_to_model(product)
-    allergens = product[:allergens_tags.to_s].select { |allergen| allergen.start_with?('en:') }
-    ingredients = product[:ingredients_tags.to_s].select { |ingredient| ingredient.start_with?('en:') }
-    vegan = product[:ingredients_analysis_tags.to_s].any? { |tag| tag == "en:vegan" }
-    vegetarian = product[:ingredients_analysis_tags.to_s].any? { |tag| tag == "en:vegetarian" }
+    allergens = product[:allergens_tags.to_s].select { |allergen| allergen.start_with?('en:') } rescue []
+    ingredients = product[:ingredients_tags.to_s].select { |ingredient| ingredient.start_with?('en:') } rescue []
+    vegan = product[:ingredients_analysis_tags.to_s].any? { |tag| tag == "en:vegan" } rescue false
+    vegetarian = product[:ingredients_analysis_tags.to_s].any? { |tag| tag == "en:vegetarian" } rescue false
     
     Product.new(
       ean: product[:_id.to_s],

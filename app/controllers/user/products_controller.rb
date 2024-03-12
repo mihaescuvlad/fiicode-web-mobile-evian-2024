@@ -32,6 +32,15 @@ class User::ProductsController < UserApplicationController
     @product = Product.new
     @product.ean = params[:ean]
     @matching_product = OpenFoodFacts.product(params[:ean])
+
+    if @matching_product.nil?
+      respond_to do |format|
+        format.json { render json: { message: "The product does not exists." }, status: :unprocessable_entity }
+        format.html { redirect_to create_product_user_products_path, notice: "The product does not exists." }
+      end
+      return
+    end
+
     @product_allergens = Allergen.where(:off_id.in => @matching_product.allergens).to_a
   end
 
@@ -106,6 +115,7 @@ class User::ProductsController < UserApplicationController
 
   def search
     @products = Product.where(name: /#{params[:term]}/i)
+    render json: [{label: "None", value: "None"}] and return if @products.blank?
     render json: @products.map { |product| { label: product.name, value: product.id } }
   end
 

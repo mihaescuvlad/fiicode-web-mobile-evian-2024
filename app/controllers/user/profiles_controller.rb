@@ -49,11 +49,11 @@ class User::ProfilesController < UserApplicationController
   protected
 
   def set_links
-    @links = [{ href: user_user_profile_path, text: "Profile", icon: "account" },
-              { href: account_user_profile_path, text: "Account", icon: "lock" },
-              { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food" },
-              { href: user_hub_user_path(current_user), text: "Hub page", icon: "forum" },
-              { href: notifications_user_profile_path, text: "Notifications", icon: "bell" },
-              { href: user_basket_path, text: "Basket", icon: "cart"}]
+    @links = [{ href: user_user_profile_path, text: "Profile", icon: "account", md: true },
+              { href: account_user_profile_path, text: "Account", icon: "lock", md: true },
+              { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food", md: true },
+              { href: user_hub_user_path(current_user), text: "Hub page", icon: "forum", md: false },
+              { href: notifications_user_profile_path, text: "Notifications", icon: "bell", md: false },
+              { href: user_basket_path, text: "Basket", icon: "cart", md: false}]
   end
 end
