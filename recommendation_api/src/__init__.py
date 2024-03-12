@@ -54,7 +54,7 @@ def list_products_page(page, user_id):
     all_products = [Product(**doc) for doc in products.find()]
     user_basket = [product for product in all_products if product.id in user_basket_ids]
     
-    per_page = 9
+    per_page = request.args.get("per_page", 10, type=int)
 
     top_recommendations = recommend_products(user_basket, all_products, user_allergens, len(all_products))
     total_pages = (len(top_recommendations) + per_page - 1) // per_page
@@ -64,18 +64,9 @@ def list_products_page(page, user_id):
 
     recommendations_for_page = top_recommendations[start_index:end_index]
 
-    links = {
-        "self": {"href": url_for(".list_products_page", page=page, user_id=user_id, _external=True)},
-        "last": {"href": url_for(".list_products_page", page=total_pages, user_id=user_id, _external=True)}
-    }
-    if page > 1:
-        links["prev"] = {"href": url_for(".list_products_page", page=page - 1, user_id=user_id, _external=True)}
-    if page < total_pages:
-        links["next"] = {"href": url_for(".list_products_page", page=page + 1, user_id=user_id, _external=True)}
-
     return {
         "products": [product.id.to_json() for product in recommendations_for_page],
-        "_links": links
+        "total_pages": total_pages
     }
 
 @app.route("/posts", methods=["GET"])

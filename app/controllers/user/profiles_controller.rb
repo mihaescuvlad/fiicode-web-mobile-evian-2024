@@ -53,6 +53,7 @@ class User::ProfilesController < UserApplicationController
               { href: account_user_profile_path, text: "Account", icon: "lock" },
               { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food" },
               { href: user_hub_user_path(current_user), text: "Hub page", icon: "forum" },
-              { href: notifications_user_profile_path, text: "Notifications", icon: "bell" }]
+              { href: notifications_user_profile_path, text: "Notifications", icon: "bell" },
+              { href: user_basket_path, text: "Basket", icon: "cart"}]
   end
 end

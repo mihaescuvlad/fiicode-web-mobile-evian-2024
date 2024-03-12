@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       match :notifications, on: :collection, via: %i[get]
     end
 
+    resource :basket
+
     resources :allergens, only: %i[index show] do
       get :search, on: :collection
     end

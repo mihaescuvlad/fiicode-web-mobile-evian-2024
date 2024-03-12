@@ -69,7 +69,7 @@ module CardsHelper
   end
 
   def favorite_product_icon(product)
-    if current_user.favorites.include?(product.id)
+    if current_user.present? && current_user.favorites.include?(product.id)
       content_tag(:i, '', class: 'mdi mdi-heart', style: 'font-size: 1.5rem;', id: "heart-icon-#{product.id}")
     else
       content_tag(:i, '', class: 'mdi mdi-heart-outline', style: 'font-size: 1.5rem;', id: "heart-icon-#{product.id}")
