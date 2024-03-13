@@ -6,7 +6,7 @@ class Post
   scope :response, ->() { self.not(top_level) }
 
   scope :newest_first, -> { order_by(created_at: :desc) }
-  scope :most_flagged, -> { where(:reporter_ids.ne => []).order_by(reporter_ids: :desc) }
+  scope :most_flagged, -> { where(:reporter_ids.ne => []).where(:review_locked_until.lte => DateTime.now).order_by(reporter_ids: :desc) }
 
   validates_presence_of :title
   after_create :notify
@@ -21,6 +21,7 @@ class Post
   field :viewer_ids, type: Array, default: []
 
   field :reporter_ids, type: Array, default: []
+  field :review_locked_until, type: DateTime, default: DateTime.now
 
   has_many :ratings do
     def vote(user)
@@ -46,7 +47,7 @@ class Post
     end
   end
 
-  has_many :responses, class_name: 'Post', inverse_of: :response_to
+  has_many :responses, class_name: 'Post', inverse_of: :response_to, dependent: :destroy
   belongs_to :response_to, class_name: 'Post', inverse_of: :responses, optional: true
 
   def initialize(attrs = {})
@@ -111,6 +112,14 @@ class Post
 
   def reported_by?(user)
     reporter_ids.include?(user.id) rescue false
+  end
+
+  def review_lock
+    self.review_locked_until = 5.minutes.from_now
+  end
+
+  def review_unlock
+    self.review_locked_until = DateTime.now
   end
 
   def mentions

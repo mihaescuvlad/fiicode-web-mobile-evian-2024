@@ -53,6 +53,10 @@ Rails.application.routes.draw do
     match '/logout', to: 'sessions#logout', via: %i[post]
 
     resources :submissions
+    resources :posts do
+      delete :ignore_post, on: :member
+      delete :cleanse_reports, on: :member
+    end
 
     resources :products do
       put :approve, on: :member
