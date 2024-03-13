@@ -9,5 +9,5 @@
     %ul.size-full.flex.justify-around.items-center
       - links.each do |link|
         %li.grid.place-items-center
-          = link_to link[:path], class: if current_page?(link[:path]) then "text-primary-300" else "text-white" end do
+          = link_to link[:path], class: (link[:path] == "/" ? (request.path == "/" ? "text-primary-300" : "text-white") : (request.path.include?(link[:path]) ? "text-primary-300" : "text-white")) do
             .mdi.text-2xl{ class: "mdi-#{link[:icon]}" }

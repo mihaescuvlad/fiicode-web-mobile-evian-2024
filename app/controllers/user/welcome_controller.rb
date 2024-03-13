@@ -5,10 +5,4 @@ class User::WelcomeController < UserApplicationController
   def search
   end
 
-  def scan
-  end
-
-  def hub
-  end
-
 end
