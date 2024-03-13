@@ -20,6 +20,7 @@ class Post {
             return this.id;
         }
     }
+    static shareClassName = "share-btn";
     #domElement
 
     constructor(id) {
@@ -29,6 +30,18 @@ class Post {
             this.#domElement.querySelector(`.${vote.className}`).addEventListener("click", (e) => {
                 e.stopPropagation();
                 this.vote = this.vote !== vote ? vote : null;
+            });
+        });
+
+        const shareButton = this.#domElement.querySelector(`.${Post.shareClassName}`);
+        shareButton.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const url = new URL(`https://${window.location.hostname}`)
+            url.pathname = shareButton.getAttribute('href');
+            navigator.clipboard.writeText(url.toString()).then(() => {
+                SuccessNotifier.get.show("Link copied to clipboard");
+            }).catch(() => {
+                ErrorNotifier.get.show("Failed to copy link to clipboard");
             });
         });
     }
