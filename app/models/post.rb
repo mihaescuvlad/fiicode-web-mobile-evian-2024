@@ -25,25 +25,22 @@ class Post
       find_by(user: user).vote rescue nil
     end
 
-    def votes(vote, timeframe = nil)
+    def votes(vote)
       query = where(vote: vote)
-      if timeframe
-        query = query.where(:created_at.gte => DateTime.now - timeframe)
-      end
 
       query.length
     end
 
-    def upvotes(timeframe = nil)
-      votes(:up_vote, timeframe)
+    def upvotes
+      votes(:up_vote)
     end
 
-    def downvotes(timeframe = nil)
-      votes(:down_vote, timeframe)
+    def downvotes
+      votes(:down_vote)
     end
 
-    def ratio(timeframe = nil)
-      upvotes(timeframe) - downvotes(timeframe)
+    def ratio
+      upvotes - downvotes
     end
   end
 
@@ -112,14 +109,6 @@ class Post
                           .map { |username| Login.where(username: username).first }
                           .filter { |login| login != nil }
                           .map { |login| login.user }
-  end
-
-  def notoriety
-    comment_weight = 10
-    vote_weight = 1
-    timeframe = 1.days
-
-    responses.length(timeframe) * comment_weight + ratings.ratio(timeframe).abs * vote_weight
   end
 
   def self.recommend_following(user, chunk = 0)
