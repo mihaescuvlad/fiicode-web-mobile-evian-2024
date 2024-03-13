@@ -142,6 +142,9 @@ def list_posts_page(page, user_id):
 
     recommendations_for_page = top_recommendations[start_index:end_index]
 
+    total_pages = (len(top_recommendations) + per_page - 1) // per_page
+
     return {
         "posts": [post.id.to_json() for post in recommendations_for_page],
+        "total_pages": total_pages
     }
