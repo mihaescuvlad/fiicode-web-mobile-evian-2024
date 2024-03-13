@@ -1,16 +1,20 @@
-from datetime import datetime
 import os
+import threading
+import time
+import schedule
+from pymongo.collection import Collection
 
-from pymongo.collection import Collection, ReturnDocument
-
-import flask
 from flask import Flask, request, url_for, jsonify
 from flask_pymongo import PyMongo
 from pymongo.errors import DuplicateKeyError
 
-from .model import Product, Post
+from .model import Product, Post, UserForum
 from .objectid import PydanticObjectId
+
 from .product_recommender import recommend_products
+
+from .posts_embeddings import update_embeddings
+from .posts_recommender import recommend_posts
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
@@ -18,7 +22,31 @@ pymongo = PyMongo(app)
 
 products: Collection = pymongo.db.products
 users: Collection = pymongo.db.users
+
 posts: Collection = pymongo.db.posts
+embeddings: Collection = pymongo.db.embeddings
+ratings: Collection = pymongo.db.ratings
+
+def run_in_background(interval=1):
+    cease_continuous_run = threading.Event()
+
+    class ScheduleThread(threading.Thread):
+        @classmethod
+        def run(cls):
+            while not cease_continuous_run.is_set():
+                schedule.run_pending()
+                time.sleep(interval)
+
+    continuous_thread = ScheduleThread()
+    continuous_thread.start()
+    return cease_continuous_run
+
+def update_embeddings_job():
+    update_embeddings(embeddings, posts)
+
+schedule.every().day.at("00:00").do(update_embeddings_job)
+
+run_in_background()
 
 @app.errorhandler(404)
 def resource_not_found(e):
@@ -78,13 +106,54 @@ def list_products_page(page, user_id):
         "_links": links
     }
 
-@app.route("/posts", methods=["GET"])
-def list_posts():
-    """
-    GET a list of recommended forum posts for a user.
-    """
-    all_posts = posts.find()
+@app.route("/posts/<string:user_id>", methods=["GET"])
+def list_posts(user_id):
+    user = users.find_one_or_404({"_id": PydanticObjectId(user_id)})
+    current_user_forum = UserForum(_id=user["_id"], following_ids=user["following_ids"])
+
+    liked_ratings = ratings.find({"user_id": current_user_forum.id, "vote": "up_vote"})
+    disliked_ratings = ratings.find({"user_id": current_user_forum.id, "vote": "down_vote"})
+
+    liked_posts = [rating["post_id"] for rating in liked_ratings]
+    disliked_posts = [rating["post_id"] for rating in disliked_ratings]
+
+    top_recommendations = recommend_posts(liked_posts, disliked_posts, current_user_forum.following_ids, embeddings)
+    
+    return {
+        "products": [product.id.to_json() for product in top_recommendations],
+    }
+
+@app.route("/posts/page/<int:page>/<string:user_id>", methods=["GET"])
+def list_posts_page(page, user_id):
+    user = users.find_one_or_404({"_id": PydanticObjectId(user_id)})
+    current_user_forum = UserForum(_id=user["_id"], following_ids=user["following_ids"])
+
+    liked_ratings = ratings.find({"user_id": current_user_forum.id, "vote": "up_vote"})
+    disliked_ratings = ratings.find({"user_id": current_user_forum.id, "vote": "down_vote"})
+
+    liked_posts = [rating["post_id"] for rating in liked_ratings]
+    disliked_posts = [rating["post_id"] for rating in disliked_ratings]
+    
+    per_page = 9
+
+    top_recommendations = recommend_posts(liked_posts, disliked_posts, current_user_forum.following_ids, embeddings)
+    total_pages = (len(top_recommendations) + per_page - 1) // per_page
+
+    start_index = per_page * (page - 1)
+    end_index = min(start_index + per_page, len(top_recommendations))
+
+    recommendations_for_page = top_recommendations[start_index:end_index]
+
+    links = {
+        "self": {"href": url_for(".list_posts_page", page=page, user_id=user_id, _external=True)},
+        "last": {"href": url_for(".list_posts_page", page=total_pages, user_id=user_id, _external=True)}
+    }
+    if page > 1:
+        links["prev"] = {"href": url_for(".list_posts_page", page=page - 1, user_id=user_id, _external=True)}
+    if page < total_pages:
+        links["next"] = {"href": url_for(".list_posts_page", page=page + 1, user_id=user_id, _external=True)}
 
     return {
-        "posts": [Post(**post).to_json() for post in all_posts],
+        "posts": [product.id.to_json() for product in recommendations_for_page],
+        "_links": links
     }
