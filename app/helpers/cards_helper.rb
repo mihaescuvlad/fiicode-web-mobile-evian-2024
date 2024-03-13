@@ -7,12 +7,13 @@ module CardsHelper
           concat(content_tag(:p, rating_text(product), class: 'font-sans text-base font-normal leading-relaxed text-primary-900 antialiased gap-1.5'))
         end)
 
-        concat(content_tag(:button, type: 'button', class: '!absolute top-0 right-0 h-8 w-8 select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-red-500 transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none max-h-[32px] max-w-[32px] hover:bg-red-500/10 active:bg-red-500/30') do
-          concat(content_tag(:span, class: '-translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2') do
-            concat(favorite_product_icon(product))
+        if current_user.present?
+          concat(content_tag(:button, type: 'button', class: '!absolute top-0 right-0 h-8 w-8 select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-red-500 transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none max-h-[32px] max-w-[32px] hover:bg-red-500/10 active:bg-red-500/30') do
+            concat(content_tag(:span, class: '-translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2') do
+              concat(favorite_product_icon(product))
+            end)
           end)
-        end)
-
+        end
         concat(content_tag(:hr, '', class: 'border-1 border-gray-400 rounded-lg mt-2'))
       end)
 

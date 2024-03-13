@@ -11,7 +11,7 @@
     %button#stop_scan{ class: "rounded-md p-2 bg-red-500 text-white mt-2", hidden: true }
       %i.mdi.mdi-barcode-scan-off.text-2xl
       %span= "Stop Scanning"
-    = form_tag create_product_user_products_path, method: :post, class: "flex flex-col justify-center items-center space-y-4", id: "search_product_form" do
+    = controlled_form create_product_user_products_path, method: :post, class: "flex flex-col justify-center items-center space-y-4", id: "search_product_form" do
       .flex.flex-row.justify-center.items-center.space-x-4
         .flex.flex-col
           %label.text-slate-700
