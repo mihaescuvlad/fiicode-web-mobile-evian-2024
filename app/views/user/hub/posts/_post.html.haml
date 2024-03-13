@@ -21,7 +21,7 @@
     %p
       = post.content_as_html
   .flex.justify-end.items-center.gap-4
-    %span.report-btn.mdi.text-2xl{class: "hover:text-primary-500 " + if post.reported_by?(current_user) then 'mdi-flag' else 'mdi-flag-outline' end}
+    %span.report-btn.mdi.text-2xl{class: "hover:text-primary-500 " + if post.reported_by?(current_user) then 'mdi-flag text-primary-400' else 'mdi-flag-outline' end}
     %span.share-btn.mdi.mdi-share-outline.text-2xl{class: "hover:text-primary-500", href: user_hub_post_path(post)}
     %div.flex.items-center.gap-1
       %span.mdi.mdi-eye-outline.text-2xl{class: "hover:text-primary-500"}
@@ -32,10 +32,10 @@
       %span
         = post.responses.length
     .flex.items-center.gap-1
-      %a.uparrow.mdi.text-2xl{ href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :up_vote then "mdi-arrow-up-bold-circle" else "mdi-arrow-up-bold-circle-outline" end}
+      %a.uparrow.mdi.text-2xl{ href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :up_vote then "mdi-arrow-up-bold-circle text-primary-400" else "mdi-arrow-up-bold-circle-outline" end}
       %span.counter
         = number_to_human(post.ratings.ratio, units: {thousand: "K", million: "M", billion: "B"})
-      %a.downarrow.mdi.text-2xl{href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :down_vote then "mdi-arrow-down-bold-circle" else "mdi-arrow-down-bold-circle-outline" end}
+      %a.downarrow.mdi.text-2xl{href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :down_vote then "mdi-arrow-down-bold-circle text-primary-400" else "mdi-arrow-down-bold-circle-outline" end}
 
 %script
   = "new Post('#{post.id}')".html_safe

@@ -1,51 +1,97 @@
 class Post {
-    static upvote = {
+    #DomElementByClass = {
+        obj: this,
+        get element() {
+            return this.obj.#domElement.querySelector(`.${this.className}`);
+        }
+    }
+
+    #Toggleable = {
+        __proto__: this.#DomElementByClass,
+
+        shown: 'shown',
+        hidden: 'hidden',
+
+        set active(value) {
+            if (![this.shown, this.hidden].includes(value))
+                throw new Error("Invalid value for active");
+
+            const [toAdd, toRemove] = (value === this.shown) ? [this.activeClasses, this.inactiveClasses] : [this.inactiveClasses, this.activeClasses];
+
+            toRemove.forEach(cls => this.element.classList.remove(cls));
+            toAdd.forEach(cls => this.element.classList.add(cls));
+        },
+
+        get active() {
+            if (this.activeClasses.every(cls => this.element.classList.contains(cls)))
+                return this.shown;
+            if (this.inactiveClasses.every(cls => this.element.classList.contains(cls)))
+                return this.hidden;
+
+            throw new Error("Invalid state");
+        }
+    }
+
+    #voteCounter = {
+        __proto__: this.#DomElementByClass,
+        className: 'counter'
+    }
+
+    #upvote = {
+        __proto__: this.#Toggleable,
+
         id: "upvote",
         className: "uparrow",
-        activeClass: "mdi-arrow-up-bold-circle",
-        inactiveClass: "mdi-arrow-up-bold-circle-outline",
+        activeClasses: ["mdi-arrow-up-bold-circle", "text-primary-400"],
+        inactiveClasses: ["mdi-arrow-up-bold-circle-outline"],
         weight: 1,
         valueOf: function () {
             return this.id;
         }
     }
 
-    static downvote = {
+    #downvote = {
+        __proto__: this.#Toggleable,
+
         id: "downvote",
         className: "downarrow",
-        activeClass: "mdi-arrow-down-bold-circle",
-        inactiveClass: "mdi-arrow-down-bold-circle-outline",
+        activeClasses: ["mdi-arrow-down-bold-circle", "text-primary-400"],
+        inactiveClasses: ["mdi-arrow-down-bold-circle-outline"],
         weight: -1,
         valueOf: function () {
             return this.id;
         }
     }
 
-    static report = {
+    #report = {
+        __proto__: this.#Toggleable,
+
         className: "report-btn",
-        activeClass: "mdi-flag",
-        inactiveClass: "mdi-flag-outline",
+        activeClasses: ["mdi-flag", "text-primary-400"],
+        inactiveClasses: ["mdi-flag-outline"],
     }
 
-    static shareClassName = "share-btn";
+    #share = {
+        __proto__: this.#Toggleable,
+        className: "share-btn"
+    }
 
     #domElement
 
     constructor(id) {
         this.#domElement = document.getElementById(id);
 
-        [Post.downvote, Post.upvote].forEach((vote) => {
-            this.#domElement.querySelector(`.${vote.className}`).addEventListener("click", (e) => {
+        [this.#downvote, this.#upvote].forEach((vote) => {
+            vote.element.addEventListener("click", (e) => {
                 e.stopPropagation();
                 this.vote = this.vote !== vote ? vote : null;
             });
         });
 
-        const shareButton = this.#domElement.querySelector(`.${Post.shareClassName}`);
-        shareButton.addEventListener("click", (e) => {
+        this.#share.element.addEventListener("click", (e) => {
             e.stopPropagation();
             const url = new URL(`https://${window.location.hostname}`)
-            url.pathname = shareButton.getAttribute('href');
+            url.pathname = this.#share.element.getAttribute('href');
             navigator.clipboard.writeText(url.toString()).then(() => {
                 SuccessNotifier.get.show("Link copied to clipboard", 1000);
             }).catch(() => {
@@ -53,31 +99,31 @@ class Post {
             });
         });
 
-        this.#domElement.querySelector(`.${Post.report.className}`).addEventListener("click", (e) => {
+        this.#report.element.addEventListener("click", (e) => {
             e.stopPropagation();
             this.report();
         });
     }
 
     get votesRatio() {
-        return +this.#domElement.querySelector(".counter").textContent;
+        return +this.#voteCounter.element.textContent;
     }
 
     set votesRatio(cnt) {
-        this.#domElement.querySelector(".counter").textContent = cnt;
+        this.#voteCounter.element.textContent = cnt;
     }
 
     get vote() {
-        if (this.#domElement.querySelector(`.${Post.upvote.className}`).classList.contains(Post.upvote.activeClass))
-            return Post.upvote;
-        if (this.#domElement.querySelector(`.${Post.downvote.className}`).classList.contains(Post.downvote.activeClass))
-            return Post.downvote;
+        if (this.#upvote.active === this.#upvote.shown)
+            return this.#upvote;
+        if (this.#downvote.active === this.#downvote.shown)
+            return this.#downvote;
 
         return null;
     }
 
     set vote(vote) {
-        if (![Post.upvote, Post.downvote, null].includes(vote))
+        if (![this.#upvote, this.#downvote, null].includes(vote))
             throw new Error("Invalid vote type");
 
         const updateGUI = () => {
@@ -85,16 +131,14 @@ class Post {
 
             this.votesRatio += impact;
 
-            [Post.upvote, Post.downvote].forEach((v) => {
-                this.#domElement.querySelector(`.${v.className}`).classList.remove(v.activeClass);
-                this.#domElement.querySelector(`.${v.className}`).classList.add(v.inactiveClass);
+            [this.#upvote, this.#downvote].forEach((v) => {
+                v.active = v.hidden;
             });
 
             if (!vote)
                 return;
 
-            this.#domElement.querySelector(`.${vote.className}`).classList.remove(vote.inactiveClass);
-            this.#domElement.querySelector(`.${vote.className}`).classList.add(vote.activeClass);
+            vote.active = vote.shown;
         }
 
         if (vote === null) {
@@ -129,8 +173,7 @@ class Post {
     }
 
     report() {
-        const reportButton = this.#domElement.querySelector(`.${Post.report.className}`);
-        if (reportButton.classList.contains(Post.report.activeClass)) {
+        if (this.#report.active === this.#report.shown) {
             ErrorNotifier.get.show("You have already reported this post");
             return;
         }
@@ -140,8 +183,7 @@ class Post {
             type: 'POST',
             complete: ({status}) => {
                 if (status >= 200 && status < 300) {
-                    reportButton.classList.remove(Post.report.inactiveClass);
-                    reportButton.classList.add(Post.report.activeClass);
+                    this.#report.active = this.#report.shown;
                     SuccessNotifier.get.show("Post reported successfully");
                 } else {
                     if (status == 401)
