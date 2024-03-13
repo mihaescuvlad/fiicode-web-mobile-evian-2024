@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       get 'hashtag/:hashtag', to: 'hub#hashtag'
       get 'for_you', to: 'hub#for_you'
       resources :posts, only: %i[show new create]
+      post 'posts/:id/report', to: 'posts#report'
       post 'posts/:post_id/rating', to: 'ratings#create'
       delete 'posts/:post_id/rating', to: 'ratings#destroy'
       resources :users, only: %i[show] do

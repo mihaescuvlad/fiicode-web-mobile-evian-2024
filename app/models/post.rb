@@ -6,6 +6,7 @@ class Post
   scope :response, ->() { self.not(top_level) }
 
   scope :newest_first, -> { order_by(created_at: :desc) }
+  scope :most_flagged, -> { where(:reporter_ids.ne => []).order_by(reporter_ids: :desc) }
 
   validates_presence_of :title
   after_create :notify
@@ -18,6 +19,8 @@ class Post
   field :hashtags, type: Array
 
   field :viewer_ids, type: Array, default: []
+
+  field :reporter_ids, type: Array, default: []
 
   has_many :ratings do
     def vote(user)
@@ -100,6 +103,14 @@ class Post
 
   def views
     viewer_ids.length
+  end
+
+  def report(user)
+    reporter_ids << user.id unless reporter_ids.include?(user.id)
+  end
+
+  def reported_by?(user)
+    reporter_ids.include?(user.id) rescue false
   end
 
   def mentions

@@ -21,6 +21,7 @@
     %p
       = post.content_as_html
   .flex.justify-end.items-center.gap-4
+    %span.report-btn.mdi.text-2xl{class: "hover:text-primary-500 " + if post.reported_by?(current_user) then 'mdi-flag' else 'mdi-flag-outline' end}
     %span.share-btn.mdi.mdi-share-outline.text-2xl{class: "hover:text-primary-500", href: user_hub_post_path(post)}
     %div.flex.items-center.gap-1
       %span.mdi.mdi-eye-outline.text-2xl{class: "hover:text-primary-500"}

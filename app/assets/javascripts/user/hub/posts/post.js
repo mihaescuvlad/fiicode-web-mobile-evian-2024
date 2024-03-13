@@ -20,7 +20,15 @@ class Post {
             return this.id;
         }
     }
+
+    static report = {
+        className: "report-btn",
+        activeClass: "mdi-flag",
+        inactiveClass: "mdi-flag-outline",
+    }
+
     static shareClassName = "share-btn";
+
     #domElement
 
     constructor(id) {
@@ -44,6 +52,11 @@ class Post {
                 ErrorNotifier.get.show("Failed to copy link to clipboard", 2000);
             });
         });
+
+        this.#domElement.querySelector(`.${Post.report.className}`).addEventListener("click", (e) => {
+            e.stopPropagation();
+            this.report();
+        });
     }
 
     get votesRatio() {
@@ -62,7 +75,6 @@ class Post {
 
         return null;
     }
-
 
     set vote(vote) {
         if (![Post.upvote, Post.downvote, null].includes(vote))
@@ -114,5 +126,30 @@ class Post {
                 }
             });
         }
+    }
+
+    report() {
+        const reportButton = this.#domElement.querySelector(`.${Post.report.className}`);
+        if (reportButton.classList.contains(Post.report.activeClass)) {
+            ErrorNotifier.get.show("You have already reported this post");
+            return;
+        }
+
+        $.ajax({
+            url: `/hub/posts/${this.#domElement.id}/report`,
+            type: 'POST',
+            complete: ({status}) => {
+                if (status >= 200 && status < 300) {
+                    reportButton.classList.remove(Post.report.inactiveClass);
+                    reportButton.classList.add(Post.report.activeClass);
+                    SuccessNotifier.get.show("Post reported successfully");
+                } else {
+                    if (status == 401)
+                        ErrorNotifier.get.show("You need to be logged in to report a post");
+                    else
+                        ErrorNotifier.get.show("Failed to report post, please try again later");
+                }
+            }
+        });
     }
 }
