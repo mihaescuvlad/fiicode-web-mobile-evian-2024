@@ -5,6 +5,7 @@ class User::Hub::PostsController < UserApplicationController
     @post = Post.find(params[:id.to_s]) rescue not_found
 
     @post.view(current_user) if current_user.present?
+    @post.save!
   end
 
   def new

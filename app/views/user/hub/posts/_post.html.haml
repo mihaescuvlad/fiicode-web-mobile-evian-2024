@@ -22,6 +22,10 @@
       = post.content_as_html
   .flex.justify-end.items-center.gap-4
     %span.share-btn.mdi.mdi-share-outline.text-2xl{class: "hover:text-primary-500", href: user_hub_post_path(post)}
+    %div.flex.items-center.gap-1
+      %span.mdi.mdi-eye-outline.text-2xl{class: "hover:text-primary-500"}
+      %span
+        = post.views
     %a.flex.items-center.gap-1{href: new_user_hub_post_path(response_to: post.id)}
       %span.mdi.mdi-comment-outline.text-2xl{class: "hover:text-primary-500"}
       %span
