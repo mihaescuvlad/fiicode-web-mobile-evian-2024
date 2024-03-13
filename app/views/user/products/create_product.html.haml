@@ -12,11 +12,13 @@
       %i.mdi.mdi-barcode-scan-off.text-2xl
       %span= "Stop Scanning"
     = controlled_form create_product_user_products_path, method: :post, class: "flex flex-col justify-center items-center space-y-4", id: "search_product_form" do
-      .flex.flex-row.justify-center.items-center.space-x-4
+      .flex.flex-col.justify-center.items-center.space-y-4{class: "md:flex-row md:space-x-4 md:space-y-0 md:justify-center md:items-center w-full"}
         .flex.flex-col
           %label.text-slate-700
             = "Search product by barcode"
           %input{ type: "text", id: "barcode", name: "ean", class: "rounded-md p-2 border border-slate-300" }
+        .text-slate-700.flex.flex-col.items-center.justify-center.mt-4
+          = "or"
         .flex.flex-col
           %label.text-slate-700
             = "Search product by name"
