@@ -133,7 +133,7 @@ def list_posts_page(page, user_id):
     liked_posts = results[0]["post_ids"] if results else []
     disliked_posts = results[1]["post_ids"] if len(results) > 1 else []
     
-    per_page = 9
+    per_page = request.args.get("per_page", 10, type=int)
 
     top_recommendations = recommend_posts(liked_posts, disliked_posts, current_user_forum.following_ids, embeddings)
 
