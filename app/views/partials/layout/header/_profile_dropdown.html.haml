@@ -7,7 +7,7 @@
   .profile-dropdown-menu.absolute.top-full.-right-5.p-4.hidden.z-50
     .w-64.py-4.bg-primary-500.flex.flex-col.duration-300.gap-4.rounded-b-lg
       .flex.flex-row.justify-between.items-center.px-4.text-2xl
-        = link_to user_profile_path do
+        = link_to user_user_profile_path do
           = current_user.first_name
         = link_to '/logout' do
           %i.mdi.mdi-logout-variant

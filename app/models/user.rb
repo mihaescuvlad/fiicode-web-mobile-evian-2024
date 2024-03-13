@@ -2,7 +2,7 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  DIETARY_PREFERENCES_VALUES = [:vegetarian, :vegan, :pescetarian, :gluten_free, :dairy_free, :nut_free, :soy_free, :egg_free, :shellfish_free, :no_restrictions]
+  DIETARY_PREFERENCES_VALUES = [:NONE, :VEGETARIAN, :VEGAN]
 
   field :dietary_preferences, type: Symbol
   field :allergens_ids, type: Array, default: []
