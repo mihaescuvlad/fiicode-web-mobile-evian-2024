@@ -111,16 +111,20 @@ def list_posts(user_id):
     user = users.find_one_or_404({"_id": PydanticObjectId(user_id)})
     current_user_forum = UserForum(_id=user["_id"], following_ids=user["following_ids"])
 
-    liked_ratings = ratings.find({"user_id": current_user_forum.id, "vote": "up_vote"})
-    disliked_ratings = ratings.find({"user_id": current_user_forum.id, "vote": "down_vote"})
+    pipeline = [
+        {"$match": {"user_id": current_user_forum.id, "vote": {"$in": ["up_vote", "down_vote"]}}},
+        {"$group": {"_id": "$vote", "post_ids": {"$push": "$post_id"}}}
+    ]
 
-    liked_posts = [rating["post_id"] for rating in liked_ratings]
-    disliked_posts = [rating["post_id"] for rating in disliked_ratings]
+    results = list(ratings.aggregate(pipeline))
+
+    liked_posts = results[0]["post_ids"] if results else []
+    disliked_posts = results[1]["post_ids"] if len(results) > 1 else []
 
     top_recommendations = recommend_posts(liked_posts, disliked_posts, current_user_forum.following_ids, embeddings)
     
     return {
-        "products": [product.id.to_json() for product in top_recommendations],
+        "posts": [post.id.to_json() for post in top_recommendations],
     }
 
 @app.route("/posts/page/<int:page>/<string:user_id>", methods=["GET"])
@@ -128,32 +132,25 @@ def list_posts_page(page, user_id):
     user = users.find_one_or_404({"_id": PydanticObjectId(user_id)})
     current_user_forum = UserForum(_id=user["_id"], following_ids=user["following_ids"])
 
-    liked_ratings = ratings.find({"user_id": current_user_forum.id, "vote": "up_vote"})
-    disliked_ratings = ratings.find({"user_id": current_user_forum.id, "vote": "down_vote"})
+    pipeline = [
+        {"$match": {"user_id": current_user_forum.id, "vote": {"$in": ["up_vote", "down_vote"]}}},
+        {"$group": {"_id": "$vote", "post_ids": {"$push": "$post_id"}}}
+    ]
 
-    liked_posts = [rating["post_id"] for rating in liked_ratings]
-    disliked_posts = [rating["post_id"] for rating in disliked_ratings]
+    results = list(ratings.aggregate(pipeline))
+
+    liked_posts = results[0]["post_ids"] if results else []
+    disliked_posts = results[1]["post_ids"] if len(results) > 1 else []
     
     per_page = 9
 
     top_recommendations = recommend_posts(liked_posts, disliked_posts, current_user_forum.following_ids, embeddings)
-    total_pages = (len(top_recommendations) + per_page - 1) // per_page
 
     start_index = per_page * (page - 1)
     end_index = min(start_index + per_page, len(top_recommendations))
 
     recommendations_for_page = top_recommendations[start_index:end_index]
 
-    links = {
-        "self": {"href": url_for(".list_posts_page", page=page, user_id=user_id, _external=True)},
-        "last": {"href": url_for(".list_posts_page", page=total_pages, user_id=user_id, _external=True)}
-    }
-    if page > 1:
-        links["prev"] = {"href": url_for(".list_posts_page", page=page - 1, user_id=user_id, _external=True)}
-    if page < total_pages:
-        links["next"] = {"href": url_for(".list_posts_page", page=page + 1, user_id=user_id, _external=True)}
-
     return {
-        "posts": [product.id.to_json() for product in recommendations_for_page],
-        "_links": links
+        "posts": [post.id.to_json() for post in recommendations_for_page],
     }
