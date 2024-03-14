@@ -13,12 +13,12 @@
         %p
         = @user.bio
     .flex.justify-evenly
-      .flex.flex-col.align-center
+      = link_to user_hub_user_followers_path(@user), class: "flex flex-col align-center" do
         %span.text-center.text-lg
           = @user.followers.length
         %span.text-sm
           Followers
-      .flex.flex-col.align-center
+      = link_to user_hub_user_following_path(@user), class: "flex flex-col align-center" do
         %span.text-center.text-lg
           = @user.following.length
         %span.text-sm
