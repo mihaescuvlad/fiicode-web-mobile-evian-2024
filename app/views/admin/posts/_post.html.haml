@@ -1,0 +1,29 @@
+.flex.flex-col.shadow.rounded-lg.bg-white.p-4.gap-3.w-full
+  .flex-1.space-y-4
+    %div.space-y-1
+      %h3.text-lg
+        %span.text-primary-500
+          = '@' + post.author.login.username
+        - if post.response_to.present? then
+          %span
+            replying to
+          %span.text-primary-500
+            = '@' + post.response_to.author.login.username
+
+      %h1.text-xl
+        = post.title
+    %p
+      = post.content
+  .flex.justify-end.items-center.gap-4
+    = link_to ignore_post_admin_post_path(id: @post.id, idx: @idx), method: :delete, class: "flex items-center gap-1 hover:text-primary-500" do
+      %span.mdi.mdi-close-outline.text-2xl{class: "hover:text-primary-500"}
+      %span
+        Skip post
+    = link_to cleanse_reports_admin_post_path(id: @post.id, idx: @idx), method: :delete, class: "flex items-center gap-1 hover:text-primary-500" do
+      %span.mdi.mdi-check-outline.text-2xl{class: "hover:text-primary-500"}
+      %span
+        Allow post
+    = link_to admin_post_path(id: @post.id, idx: @idx), method: :delete, class: "flex items-center gap-1 hover:text-primary-500" do
+      %span.mdi.mdi-delete-outline.text-2xl{class: "hover:text-primary-500"}
+      %span
+        Delete post

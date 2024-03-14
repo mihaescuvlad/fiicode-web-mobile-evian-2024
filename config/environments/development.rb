@@ -54,7 +54,6 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
   config.cache_store = :memory_store
 
-
   # Suppress logger output for asset requests.
   config.assets.quiet = true
   config.hosts = nil
@@ -70,4 +69,8 @@ Rails.application.configure do
   config.action_controller.forgery_protection_origin_check = false
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  config.action_mailer.default_url_options = { host: "www.cemancam.local" }
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
 end
