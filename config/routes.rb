@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get 'hashtag/:hashtag', to: 'hub#hashtag'
       get 'for_you', to: 'hub#for_you'
       resources :posts, only: %i[show new create]
+      post 'posts/:id/report', to: 'posts#report'
       post 'posts/:post_id/rating', to: 'ratings#create'
       delete 'posts/:post_id/rating', to: 'ratings#destroy'
       resources :users, only: %i[show] do
@@ -56,6 +57,10 @@ Rails.application.routes.draw do
     match '/logout', to: 'sessions#logout', via: %i[post]
 
     resources :submissions
+    resources :posts do
+      delete :ignore_post, on: :member
+      delete :cleanse_reports, on: :member
+    end
 
     resources :products do
       put :approve, on: :member
