@@ -1,6 +1,6 @@
 class User::ProfilesController < UserApplicationController
   layout 'user_profile'
-  before_action :authenticate_user!, only: %i[show user dietary_preferences notifications]
+  before_action :authenticate_user!, except: :account
   before_action :set_links
 
   def show
