@@ -15,13 +15,13 @@ class RecommendationsApi
     response["products"]
   end
 
-  def self.paginated_products(user, page = 1)
+  def self.paginated_products(user, page = 1, per_page = 10)
     page = 1 if page.blank?
     if user.blank?
       return []
     end
-
-    response = get(@@API, "/products/page/" + page.to_s + "/" + user._id.to_s + "?per_page=10")
+    
+    response = get(@@API, "/products/page/" + page.to_s + "/" + user._id.to_s + "?per_page=" + per_page.to_s)
   end
 
   def self.get(api, endpoint)

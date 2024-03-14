@@ -3,7 +3,7 @@
     %h1.text-3xl.font-semibold.mt-10.flex.flex-row.justify-center.items-center
       = "#{@product.name}"
       - if current_user.present? && @product.status == :APPROVED
-        %button{ type:"button", class:"h-8 w-8 select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-red-500 transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none max-h-[32px] max-w-[32px] hover:bg-red-500/10 active:bg-red-500/30"}
+        %button{ type:"button", class:"h-8 w-8 select-none rounded-full text-center align-middle text-xs font-medium uppercase text-red-500 transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none max-h-[32px] max-w-[32px] hover:bg-red-500/10 active:bg-red-500/30"}
           - if current_user.favorites.include?(@product.id)
             %i.mdi.mdi-heart.cursor-pointer.text-red-500.text-2xl{ id: "favorites-icon" }
           - else
@@ -148,7 +148,7 @@
                   .mdi.mdi-thumb-down.text-red-500.text-3xl.mr-4
                   %p.text-slate-800.text-lg.font-medium.mt-1
                     = "Not Recommended by #{reviewer}"
-              .mb-4.overflow-scroll
+              .mb-4.overflow-y-auto
                 = review.comment
         - else
           %p No reviews available. You can help by adding a review.
