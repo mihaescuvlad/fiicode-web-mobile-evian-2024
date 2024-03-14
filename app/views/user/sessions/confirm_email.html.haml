@@ -1,0 +1,10 @@
+.flex.justify-center.items-center.size-full
+  .shadow.rounded-lg.bg-white.p-4
+    %h1.text-xl
+      = "Welcome to CeMancam, #{@login.username}!"
+    %p
+      %span
+        You can
+      = link_to "log in", user_login_path, class: "text-blue-500 inline-block"
+      %span
+        now.

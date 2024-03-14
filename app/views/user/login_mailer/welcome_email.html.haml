@@ -1,0 +1,9 @@
+%h1
+  = "Welcome to CeMancam, #{@login.username}!"
+
+%p
+  Thank you for joining CeMancam. Your account has been created and you can log in with the following credentials after you have activated your account by clicking the link below.
+= link_to "Activate my profile", @join_url
+
+%p
+  If it is not you who requested this, please ignore this email and your account will not be activated.

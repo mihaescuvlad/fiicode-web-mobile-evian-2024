@@ -12,7 +12,7 @@ class BaseLogin
   validates_presence_of :username, :hashed_password
 
   def initialize(attrs = {})
-    raise NoMethodError("Cannot initialize base class") unless self.class < BaseLogin
+    raise NoMethodError, "Cannot initialize base class" unless self.class < BaseLogin
 
     [:username, :password].all? { |key| attrs.include?(key) } or raise ArgumentError
 
@@ -47,7 +47,7 @@ class BaseLogin
   end
 
   def self.authenticate(username, password)
-    raise NoMethodError("Cannot call factory on the base class") unless self < BaseLogin
+    raise NoMethodError, "Cannot call factory on the base class" unless self < BaseLogin
 
     return nil unless username && password
 
