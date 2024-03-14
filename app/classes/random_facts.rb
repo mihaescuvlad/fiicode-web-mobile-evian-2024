@@ -10,7 +10,7 @@ class RandomFacts
     http.use_ssl = true
 
     request = Net::HTTP::Get.new(url)
-    request["X-RapidAPI-Key"] = 'd5e2803287msh35ed8b5a089fe70p14b31ejsnab89ccf26e2d'
+    request["X-RapidAPI-Key"] = Rails.application.credentials.dig(:apis, :rapid_api_key)
     request["X-RapidAPI-Host"] = 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 
     response = http.request(request)

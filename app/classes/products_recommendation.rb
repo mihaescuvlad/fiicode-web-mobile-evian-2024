@@ -42,41 +42,6 @@ module ProductsRecommendation
       }
     }
   
-    # pipeline << {
-    #   '$addFields': {
-    #     'allergen_penalty': {
-    #       '$cond': {
-    #         'if': {
-    #           '$anyElementTrue': {
-    #             '$map': {
-    #               'input': '$allergens',
-    #               'as': 'allergen',
-    #               'in': { '$in': ['$$allergen', user.allergens_ids] }
-    #             }
-    #           }
-    #         },
-    #         'then': 35,
-    #         'else': 0
-    #       }
-    #     }
-    #   }
-    # } if user.allergens_ids.present?
-
-    # dietary_preference_branches = []
-    # dietary_preference_branches << { "case": { "$and": [{ "$eq": ["$vegan", false] }] }, "then": 40 } if user.dietary_preferences == :VEGAN
-    # dietary_preference_branches << { "case": { "$and": [{ "$eq": ["$vegetarian", false] }] }, "then": 40 } if user.dietary_preferences == :VEGETARIAN
-  
-    # pipeline << {
-    #   "$addFields": {
-    #     "dietary_preference_penalty": {
-    #       "$switch": {
-    #         "branches": dietary_preference_branches,
-    #         "default": 0
-    #       }
-    #     }
-    #   }
-    # } if dietary_preference_branches.any?
-
     pipeline << {
       "$addFields": {
         "nutriscore_adjustment": {
