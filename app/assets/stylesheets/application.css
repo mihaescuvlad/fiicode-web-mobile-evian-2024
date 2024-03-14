@@ -10,19 +10,20 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require_tree
  *= require_self
  */
+
+
 body {
-  background: url("https://st2.depositphotos.com/4410397/6968/v/950/depositphotos_69684757-stock-illustration-food-line-icon-pattern-set.jpg")
-    repeat;
-  background-size: 700px 700px; /* Or any specific size */
+    background: url("https://st2.depositphotos.com/4410397/6968/v/950/depositphotos_69684757-stock-illustration-food-line-icon-pattern-set.jpg") repeat;
+    background-size: 700px 700px; /* Or any specific size */
 }
 
 .logo {
-  background: url("https://png2.cleanpng.com/sh/e593d5fa34ea95a014fa9cdc20c55858/L0KzQYm3VcMxN6ZvkZH0aYP2gLBuTgBieqVARelyboTogn73ggJsNZVuhtDucj3pf7FrTfhwfJZxRddqdD3wdX68gsBnOGM9TKMCZnG4Q3A3UsY1PWY7UKMAMke6QYG6VMAxQWk3RuJ3Zx==/kisspng-party-winter-park-dinner-food-hotel-eat-me-5b0f028417fa53.0264556815277103400982.png");
-  background-size: cover;
-  width: 50px;
-  height: 50px;
-  background-position: center;
+    background: url("https://png2.cleanpng.com/sh/e593d5fa34ea95a014fa9cdc20c55858/L0KzQYm3VcMxN6ZvkZH0aYP2gLBuTgBieqVARelyboTogn73ggJsNZVuhtDucj3pf7FrTfhwfJZxRddqdD3wdX68gsBnOGM9TKMCZnG4Q3A3UsY1PWY7UKMAMke6QYG6VMAxQWk3RuJ3Zx==/kisspng-party-winter-park-dinner-food-hotel-eat-me-5b0f028417fa53.0264556815277103400982.png");
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    background-position: center;
 }
