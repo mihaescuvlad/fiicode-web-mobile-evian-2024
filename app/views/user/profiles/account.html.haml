@@ -1,5 +1,7 @@
 .container.mx-auto.max-w-xl.px-4
   = controlled_form account_user_profile_path, method: :put, class: "size-full" do
+    = hidden_field_tag :login, @login.id
+    = hidden_field_tag :token, @token
     .flex.flex-col.justify-between.size-full
       .grid.gap-4{class:"md:grid-cols-2"}
         %div
@@ -14,11 +16,33 @@
           %div
             %label.text-sm{for: "password"}
               = "New Password"
-            %input{type: "password", name: "password", id: "password", class: "rounded-lg p-2 w-full"}
+            %input{type: "password", name: "password", id: "password", class: "rounded-lg p-2 w-full disabled:bg-gray-200", disabled: !@allowed_update}
           %div
             %label.text-sm{for: "password_confirmation"}
               = "Confirm Password"
-            %input{type: "password", name: "password_confirmation", id: "password_confirmation", class: "rounded-lg p-2 w-full"}
+            %input{type: "password", name: "password_confirmation", id: "password_confirmation", class: "rounded-lg p-2 w-full disabled:bg-gray-200", disabled: !@allowed_update}
+        - unless @allowed_update
+          %p.col-span-2
+            = "To update your password, <span id='request-change' href='#{user_request_password_reset_path(login: @login.id)}' class='text-primary-400 cursor-pointer'>request change</span> to get a reset link sent to your email.".html_safe
+
       .flex.flex-row.justify-center.items-center.mt-4.space-x-4
-        %button{ class: "bg-primary-500 text-white rounded-lg p-2 mt-4 w-fit", type: "submit" }
-          = "Save Changes"
+        - if @allowed_update
+          %button{ class: "bg-primary-500 text-white rounded-lg p-2 mt-4 w-fit", type: "submit" }
+            = "Save Changes"
+        - else
+          %button{ class: "bg-gray-200 text-gray-500 rounded-lg p-2 mt-4 w-fit", type: "button", disabled: true }
+            = "Save Changes"
+
+:javascript
+  document.getElementById('request-change').addEventListener('click', function(e) {
+    $.ajax({
+      url: e.target.getAttribute('href'),
+      type: 'GET',
+      success: function() {
+        SuccessNotifier.get.show('Password reset link sent to your email');
+      },
+      error: function() {
+        ErrorNotifier.get.show('Failed to send password reset link');
+      }
+    });
+  });

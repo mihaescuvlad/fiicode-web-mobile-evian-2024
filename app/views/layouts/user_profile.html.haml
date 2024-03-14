@@ -1,24 +1,32 @@
-- content_for :content do
-  .size-full{class: "sm:mx-auto sm:px-8 sm:max-w-5xl"}
-    .size-full{class: "flex flex-col justify-center gap-4"}
-      #profile-settings-msg.hidden{class: "sm:block"}
-        .text-2xl.font-bold
-          = 'Profile Settings'
-        .text-gray-500
-          = 'Change your profile and account settings.'
-      .size-full{ class: "sm:shadow-lg sm:bg-white sm:rounded-lg sm:flex sm:p-4 sm:h-96 sm:flex-row sm:space-x-8 sm:space-y-0" }
-        .hidden{class: "sm:flex sm:justify-between sm:flex-col sm:border-r sm:pr-4"}
-          .tabs.flex.gap-4{ class: "flex-col max-[600px]:overflow-x-auto" }
-            - @links.each do |link|
-              = link_to link[:href], class: "text-#{current_page?(link[:href]) ? 'primary-500' : 'black'} #{!link[:md] ? 'md:hidden' : ''}" do
-                %button{ class: "tab flex flex-row items-center focus:outline-none" }
-                  .mdi.text-2xl.mr-2{class: "mdi-#{link[:icon]}-outline"}
-                  %span= link[:text]
-          %div
-            = link_to "/logout", method: :post, class: "flex flex-row items-center" do
-              %i.mdi.mdi-logout-variant.text-2xl.mr-2
-              %span Logout
-        .size-full
-          = yield
+- unless @links.empty?
+  - content_for :content do
+    .size-full{class: "sm:mx-auto sm:px-8 sm:max-w-5xl"}
+      .size-full{class: "flex flex-col justify-center gap-4"}
+        #profile-settings-msg.hidden{class: "sm:block"}
+          .text-2xl.font-bold
+            = 'Profile Settings'
+          .text-gray-500
+            = 'Change your profile and account settings.'
+        .size-full{ class: "sm:shadow-lg sm:bg-white sm:rounded-lg sm:flex sm:p-4 sm:h-96 sm:flex-row sm:space-x-8 sm:space-y-0" }
+          .hidden{class: "sm:flex sm:justify-between sm:flex-col sm:border-r sm:pr-4"}
+            .tabs.flex.gap-4{ class: "flex-col max-[600px]:overflow-x-auto" }
+              - @links.each do |link|
+                = link_to link[:href], class: "text-#{current_page?(link[:href]) ? 'primary-500' : 'black'}" do
+                  %button{ class: "tab flex flex-row items-center focus:outline-none" }
+                    .mdi.text-2xl.mr-2{class: "mdi-#{link[:icon]}-outline"}
+                    %span= link[:text]
+            %div
+              = link_to "/logout", method: :post, class: "flex flex-row items-center" do
+                %i.mdi.mdi-logout-variant.text-2xl.mr-2
+                %span Logout
+          .size-full
+            = yield
+- else
+  - content_for :content do
+    .size-full{class: "sm:mx-auto sm:px-8 sm:max-w-2xl"}
+      .size-full{class: "flex flex-col justify-center gap-4"}
+        .size-full{ class: "sm:shadow-lg sm:bg-white sm:rounded-lg sm:flex sm:p-4 sm:h-96 sm:flex-row sm:space-x-8 sm:space-y-0" }
+          .size-full
+            = yield
 
 = render template: "layouts/user_application"

@@ -23,7 +23,7 @@
   %body.w-full.h-full.bg-slate-200.flex.flex-col
     = render "partials/notifier/success_notifier"
     = render "partials/notifier/error_notifier"
-    
+
     %header.bg-primary-500.p-4.text-white
       %nav.container.mx-auto.h-8.flex.justify-between.items-center
         .font-bold.flex.flex-col.items-center
@@ -32,8 +32,12 @@
           .text-sm
             Admin
         - if current_login.present?
-          .flex.flex-row.items-center.justify-center.space-x-2
-            = link_to admin_submissions_path, class: "flex items-center" do
+          .flex.flex-row.items-center.justify-center.gap-4
+            = link_to admin_posts_path, class: "flex items-center gap-1" do
+              %i.mdi.text-2xl{ class: "mdi-forum-outline" }
+              %span.text-sm.capitalize
+                Hub posts
+            = link_to admin_submissions_path, class: "flex items-center gap-1" do
               %i.mdi.text-2xl{ class: "mdi-clipboard-list-outline" }
               %span.text-sm.capitalize
                 Submissions
