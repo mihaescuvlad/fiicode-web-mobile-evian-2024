@@ -1,13 +1,15 @@
 - links = [{ icon: "home-outline", label: "home", path: user_root_path },
-           { icon: "forum-outline", label: "hub", path: "/hub" }]
+           { icon: "forum-outline", label: "hub", path: "/hub" },
+           { icon: "cart-outline", label: "Basket", path: user_basket_path }]
 
 - content_for :head do
   = stylesheet_link_tag "layout/header"
 
 %header.bg-primary-500.p-4.text-white.sm:block
   %nav.container.mx-auto.h-8.px-2.flex.justify-center.items-center.gap-10
-    %h1.text-lg.uppercase.font-bold
-      Ce mancam?
+    = link_to '/' do
+      %h1
+        .logo
     .hidden.sm:block.flex-1.rounded-full.text-black.text-sm
       = text_field_tag :search, nil, class: "search-autocomplete w-full p-2 rounded-lg", placeholder: "Search for a food item", type: "text"
 

@@ -10,6 +10,7 @@ class OpenFoodFacts
       return nil
     end
 
+    return nil if product.nil? || product.empty?
     map_product_to_model(product)
   end
 
@@ -32,8 +33,11 @@ class OpenFoodFacts
   private
   
   def self.map_product_to_model(product)
-    allergens = product[:allergens_tags.to_s].select { |allergen| allergen.start_with?('en:') }
-    ingredients = product[:ingredients_tags.to_s].select { |ingredient| ingredient.start_with?('en:') }
+    allergens = product[:allergens_tags.to_s].select { |allergen| allergen.start_with?('en:') } rescue []
+    ingredients = product[:ingredients_tags.to_s].select { |ingredient| ingredient.start_with?('en:') } rescue []
+    vegan = !product[:ingredients_analysis_tags.to_s].any? { |tag| tag == "en:non-vegan" } rescue true
+    vegetarian = !product[:ingredients_analysis_tags.to_s].any? { |tag| tag == "en:non-vegetarian" } rescue true
+    
     Product.new(
       ean: product[:_id.to_s],
       brand: product[:brands.to_s] != '' ? product[:brands.to_s] : 'Unknown',
@@ -50,6 +54,8 @@ class OpenFoodFacts
       fiber: product[:nutriments.to_s]["fiber_100g"],
       sugar: product[:nutriments.to_s]["sugars_100g"],
       sodium: product[:nutriments.to_s]["sodium_100g"],
+      vegan: vegan,
+      vegetarian: vegetarian
     )
   end
 

@@ -3,7 +3,6 @@ Rails.application.routes.draw do
     root to: 'products#index'
     match '/', to: 'welcome#index', via: :all
     match '/search', to: 'welcome#search', via: :all
-    match '/scan', to: 'welcome#scan', via: :all
     match '/login', to: 'sessions#login', via: %i[post get]
     match '/register', to: 'sessions#register', via: %i[post get]
     match '/recover-account', to: 'sessions#recover_account', via: :get
@@ -17,6 +16,8 @@ Rails.application.routes.draw do
       match :dietary_preferences, on: :collection, via: %i[get put]
       match :notifications, on: :collection, via: %i[get]
     end
+
+    resource :basket
 
     resources :allergens, only: %i[index show] do
       get :search, on: :collection

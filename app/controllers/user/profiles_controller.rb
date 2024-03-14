@@ -1,6 +1,6 @@
 class User::ProfilesController < UserApplicationController
   layout 'user_profile'
-  before_action :authenticate_user!, except: :account
+  before_action :authenticate_user!
   before_action :set_links
 
   def show
@@ -70,11 +70,12 @@ class User::ProfilesController < UserApplicationController
 
   def set_links
     if current_user.present?
-      @links = [{ href: user_user_profile_path, text: "Profile", icon: "account" },
-                { href: account_user_profile_path, text: "Account", icon: "lock" },
-                { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food" },
-                { href: user_hub_user_path(current_user), text: "Hub page", icon: "forum" },
-                { href: notifications_user_profile_path, text: "Notifications", icon: "bell" }]
+      @links = [{ href: user_user_profile_path, text: "Profile", icon: "account", md: true },
+                { href: account_user_profile_path, text: "Account", icon: "lock", md: true },
+                { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food", md: true },
+                { href: user_hub_user_path(current_user), text: "Hub page", icon: "forum", md: false },
+                { href: notifications_user_profile_path, text: "Notifications", icon: "bell", md: false },
+                { href: user_basket_path, text: "Basket", icon: "cart", md: false}]
     else
       @links = []
     end
