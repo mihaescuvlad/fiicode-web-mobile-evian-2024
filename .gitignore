@@ -62,3 +62,9 @@ storage/development.sqlite3
 /config/credentials/development.key
 public/assets/*
 log/development.log
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

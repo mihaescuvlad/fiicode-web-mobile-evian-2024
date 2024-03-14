@@ -1,4 +1,4 @@
-BaseNotifier = class {
+export default window.BaseNotifier = class {
     static #activeNotifier = null;
 
     #dom_object;

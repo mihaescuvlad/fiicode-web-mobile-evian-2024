@@ -4,12 +4,10 @@
   %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
   = csrf_meta_tags
   = csp_meta_tag
+  = javascript_pack_tag 'application'
   = stylesheet_link_tag "application", "data-turbo-track" => "reload"
   = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track" => "reload"
-  = javascript_include_tag "application", "data-turbo-track" => "reload"
   = stylesheet_link_tag "notifier/hidden"
-  = javascript_include_tag "notifier/base_notifier"
-  = javascript_include_tag "form/form_controller"
   %script{src: "https://code.jquery.com/jquery-3.6.0.min.js"}
   %script{src: "https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"}
   %script{src: "https://unpkg.com/@zxing/library@latest"}
