@@ -15,7 +15,6 @@ setup(
         "pydantic == 1.8.1",
         "MarkupSafe == 2.0.1",
         "scikit-learn == 1.4.0",
-        "transformers == 4.38.2",
-        "scheduler == 0.8.5"
+        "transformers == 4.38.2"
     ],
 )
