@@ -1,16 +1,20 @@
-from datetime import datetime
 import os
+import threading
+import time
+import schedule
+from pymongo.collection import Collection
 
-from pymongo.collection import Collection, ReturnDocument
-
-import flask
 from flask import Flask, request, url_for, jsonify
 from flask_pymongo import PyMongo
 from pymongo.errors import DuplicateKeyError
 
-from .model import Product, Post
+from .model import Product, Post, UserForum
 from .objectid import PydanticObjectId
+
 from .product_recommender import recommend_products
+
+from .posts_embeddings import update_embeddings
+from .posts_recommender import recommend_posts
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
@@ -18,7 +22,31 @@ pymongo = PyMongo(app)
 
 products: Collection = pymongo.db.products
 users: Collection = pymongo.db.users
+
 posts: Collection = pymongo.db.posts
+embeddings: Collection = pymongo.db.embeddings
+ratings: Collection = pymongo.db.ratings
+
+def run_in_background(interval=1):
+    cease_continuous_run = threading.Event()
+
+    class ScheduleThread(threading.Thread):
+        @classmethod
+        def run(cls):
+            while not cease_continuous_run.is_set():
+                schedule.run_pending()
+                time.sleep(interval)
+
+    continuous_thread = ScheduleThread()
+    continuous_thread.start()
+    return cease_continuous_run
+
+def update_embeddings_job():
+    update_embeddings(embeddings, posts)
+
+schedule.every().day.at("00:00").do(update_embeddings_job)
+
+run_in_background()
 
 @app.errorhandler(404)
 def resource_not_found(e):
@@ -69,13 +97,54 @@ def list_products_page(page, user_id):
         "total_pages": total_pages
     }
 
-@app.route("/posts", methods=["GET"])
-def list_posts():
-    """
-    GET a list of recommended forum posts for a user.
-    """
-    all_posts = posts.find()
+@app.route("/posts/<string:user_id>", methods=["GET"])
+def list_posts(user_id):
+    user = users.find_one_or_404({"_id": PydanticObjectId(user_id)})
+    current_user_forum = UserForum(_id=user["_id"], following_ids=user["following_ids"])
+
+    pipeline = [
+        {"$match": {"user_id": current_user_forum.id, "vote": {"$in": ["up_vote", "down_vote"]}}},
+        {"$group": {"_id": "$vote", "post_ids": {"$push": "$post_id"}}}
+    ]
+
+    results = list(ratings.aggregate(pipeline))
+
+    liked_posts = results[0]["post_ids"] if results else []
+    disliked_posts = results[1]["post_ids"] if len(results) > 1 else []
+
+    top_recommendations = recommend_posts(liked_posts, disliked_posts, current_user_forum.following_ids, embeddings)
+    
+    return {
+        "posts": [post.id.to_json() for post in top_recommendations],
+    }
+
+@app.route("/posts/page/<int:page>/<string:user_id>", methods=["GET"])
+def list_posts_page(page, user_id):
+    user = users.find_one_or_404({"_id": PydanticObjectId(user_id)})
+    current_user_forum = UserForum(_id=user["_id"], following_ids=user["following_ids"])
+
+    pipeline = [
+        {"$match": {"user_id": current_user_forum.id, "vote": {"$in": ["up_vote", "down_vote"]}}},
+        {"$group": {"_id": "$vote", "post_ids": {"$push": "$post_id"}}}
+    ]
+
+    results = list(ratings.aggregate(pipeline))
+
+    liked_posts = results[0]["post_ids"] if results else []
+    disliked_posts = results[1]["post_ids"] if len(results) > 1 else []
+    
+    per_page = request.args.get("per_page", 10, type=int)
+
+    top_recommendations = recommend_posts(liked_posts, disliked_posts, current_user_forum.following_ids, embeddings)
+
+    start_index = per_page * (page - 1)
+    end_index = min(start_index + per_page, len(top_recommendations))
+
+    recommendations_for_page = top_recommendations[start_index:end_index]
+
+    total_pages = (len(top_recommendations) + per_page - 1) // per_page
 
     return {
-        "posts": [Post(**post).to_json() for post in all_posts],
+        "posts": [post.id.to_json() for post in recommendations_for_page],
+        "total_pages": total_pages
     }

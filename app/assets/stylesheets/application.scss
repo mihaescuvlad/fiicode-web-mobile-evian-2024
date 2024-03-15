@@ -27,3 +27,8 @@ body {
     height: 50px;
     background-position: center;
 }
+
+.full-page-background {
+  background: url(asset-path("green-background.jpg")) no-repeat center center;
+  background-size: cover;
+}
