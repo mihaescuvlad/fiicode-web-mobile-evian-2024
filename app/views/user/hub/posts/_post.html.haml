@@ -32,10 +32,10 @@
       %span
         = post.responses.length
     .flex.items-center.gap-1
-      %a.uparrow.mdi.text-2xl{ href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :up_vote then "mdi-arrow-up-bold-circle text-primary-400" else "mdi-arrow-up-bold-circle-outline" end}
+      %a.uparrow.mdi.text-2xl{ href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :up_vote then "mdi-thumb-up text-primary-400" else "mdi-thumb-up-outline" end}
       %span.counter
         = number_to_human(post.ratings.ratio, units: {thousand: "K", million: "M", billion: "B"})
-      %a.downarrow.mdi.text-2xl{href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :down_vote then "mdi-arrow-down-bold-circle text-primary-400" else "mdi-arrow-down-bold-circle-outline" end}
+      %a.downarrow.mdi.text-2xl{href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :down_vote then "mdi-thumb-down text-primary-400" else "mdi-thumb-down-outline" end}
 
 %script
   = "new Post('#{post.id}')".html_safe
