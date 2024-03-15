@@ -18,6 +18,7 @@ gem "jquery-rails"
 gem "jquery-ui-rails"
 gem "http"
 gem "bcrypt"
+gem "react-rails"
 
 group :development, :test do
   gem "debug"
@@ -32,3 +33,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "shakapacker", "= 7.2"

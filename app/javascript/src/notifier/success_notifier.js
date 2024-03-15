@@ -1,4 +1,6 @@
-SuccessNotifier = class extends BaseNotifier {
+import BaseNotifier from './base_notifier';
+
+window.SuccessNotifier = class extends BaseNotifier {
     static #NOTIFIER_ID = 'success-notifier';
     static #HIDDEN_CLASS_NAME = 'hidden-notifier';
     static #notifier = null;

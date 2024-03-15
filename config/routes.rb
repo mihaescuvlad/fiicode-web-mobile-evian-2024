@@ -45,6 +45,8 @@ Rails.application.routes.draw do
       delete 'posts/:post_id/rating', to: 'ratings#destroy'
       resources :users, only: %i[show] do
         get '/follow', to: 'users#follow'
+        get '/followers', to: 'users#followers'
+        get '/following', to: 'users#following'
       end
     end
   end

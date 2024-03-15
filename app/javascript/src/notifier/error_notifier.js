@@ -1,4 +1,6 @@
-ErrorNotifier = class extends BaseNotifier {
+import BaseNotifier from './base_notifier';
+
+window.ErrorNotifier = class extends BaseNotifier {
     static #NOTIFIER_ID = 'error-notifier';
     static #HIDDEN_CLASS_NAME = 'hidden-notifier';
     static #notifier = null;

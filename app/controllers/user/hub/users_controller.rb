@@ -1,4 +1,6 @@
 class User::Hub::UsersController < UserApplicationController
+  before_action :authenticate_user!, only: %i[follow followers following]
+
   def show
     @user = User.find(params[:id]) rescue not_found
   end
@@ -11,6 +13,18 @@ class User::Hub::UsersController < UserApplicationController
       current_user.follow_and_save!(user)
     end
 
-    redirect_to action: :show, id: user.id
+    if request.head?
+      head :no_content
+    else
+      redirect_to action: :show, id: user.id
+    end
+  end
+
+  def followers
+    @user = User.find(params[:user_id]) rescue not_found
+  end
+
+  def following
+    @user = User.find(params[:user_id]) rescue not_found
   end
 end

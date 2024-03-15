@@ -1,0 +1,5 @@
+.container.mx-auto.p-4.max-w-2xl.flex.flex-col.gap-3
+  %h1.text-3xl.text-center
+    = "#{@user.last_name}'s followers (#{@user.followers.length})"
+  - @user.followers.each do |follower|
+    = render "user/hub/users/user_card", user: follower
