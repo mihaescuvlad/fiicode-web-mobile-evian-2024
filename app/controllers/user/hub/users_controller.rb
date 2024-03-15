@@ -13,7 +13,11 @@ class User::Hub::UsersController < UserApplicationController
       current_user.follow_and_save!(user)
     end
 
-    redirect_to action: :show, id: user.id
+    if request.head?
+      head :no_content
+    else
+      redirect_to action: :show, id: user.id
+    end
   end
 
   def followers

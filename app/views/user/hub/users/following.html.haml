@@ -1,17 +1,5 @@
 .container.mx-auto.p-4.max-w-2xl.flex.flex-col.gap-3
   %h1.text-3xl.text-center
     = "#{@user.last_name}'s followed accounts (#{@user.followers.length})"
-  - @user.followers.each do |follower|
-    = link_to user_hub_user_path(follower), class: "bg-white rounded-lg shadow w-full p-4 flex justify-between items-center" do
-      %h2.text-lg
-        = "@#{follower.login.username}"
-      - if current_user.present?
-        - if current_user == follower
-          %button.follow-btn.bg-slate-600.rounded-lg.w-32.text-white.py-1{href: user_user_profile_path}
-            Update profile
-        - elsif current_user.following?(follower)
-          %button.follow-btn.bg-slate-600.rounded-lg.w-32.text-white.py-1{href: user_hub_user_follow_url(follower)}
-            Unfollow
-        - else
-          %button.follow-btn.bg-primary-400.rounded-lg.w-32.text-white.py-1{href: user_hub_user_follow_url(follower)}
-            Follow
+  - @user.following.each do |follower|
+    = render "user/hub/users/user_card", user: follower
