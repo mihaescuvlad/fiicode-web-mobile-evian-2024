@@ -50,12 +50,16 @@
       source: '/products/search',
       minLength: 2,
       delay: 500,
-      autoFocus: true
+      autoFocus: true,
+      focus: function(event, ui) {
+        event.preventDefault();
+      },
+      select: function(event, ui) {
+        event.preventDefault();
+        window.location.href = ui.item.value;
+        $(this).val(ui.item.label);
+      }
     });
 
-    $('.search-autocomplete').on('autocompleteselect', function(event, ui) {
-      event.preventDefault();
-      window.location.href = "/products/" + ui.item.value.$oid;
-    });
 
   });
