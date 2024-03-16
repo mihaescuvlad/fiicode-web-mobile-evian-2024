@@ -3,9 +3,12 @@ class Admin::FeedbackMessagesController < AdminApplicationController
 
   def index
     params[:page] ||= 1
-    page_size = 10
-    @total_pages = (FeedbackMessage.where(read: false).count / page_size) || 1
-    @feedback_messages = FeedbackMessage.where(read: false).order(created_at: :asc).skip((params[:page].to_i - 1) * page_size).limit(page_size)
+    total_items = FeedbackMessage.where(read: false).count
+    items_per_page = 10
+    total_pages = (total_items.to_f / items_per_page).ceil
+    @total_pages = total_pages > 0 ? total_pages : 1
+
+    @feedback_messages = FeedbackMessage.where(read: false).order(created_at: :asc).skip((params[:page].to_i - 1) * items_per_page).limit(items_per_page)
   end
 
   def mark_as_read
