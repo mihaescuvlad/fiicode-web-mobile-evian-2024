@@ -21,7 +21,7 @@ class PydanticObjectId(ObjectId):
         field_schema.update(
             type="string",
         )
-    
+
     def to_json(self):
         return jsonable_encoder(self, exclude_none=True)
 

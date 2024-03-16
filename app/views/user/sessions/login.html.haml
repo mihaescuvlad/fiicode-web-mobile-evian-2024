@@ -1,22 +1,25 @@
 .flex.flex-col.justify-center.items-center{ class: "h-full w-full" }
-  .flex.flex-col.justify-center.items-center{ class: "w-8/12" }
-    = controlled_form '/login', id: "login-form",  method: :post do
-      .flex.flex-col.justify-center.items-start.shadow-xl.rounded-md.p-4.border-1.bg-white
-        .flex.flex-col.justify-center.items-center.text-xl.font-bold.mb-4.w-full
-          = "Login to your account"
-        %label{for: "email"}
-          = "Email"
-        %input{type: "email", name: "email", id: "email", required: true, class: "rounded-md p-2 w-full"}
+  .flex.flex-col.justify-center.items-center.w-full{ class: "sm:w-[22rem]"}
+    = controlled_form '/login', id: "login-form",  method: :post, class: "w-full h-full" do
+      .flex.flex-col.justify-center.items-start.shadow-xl.p-8.border-1.bg-white.w-full.h-full{ class: "rounded-[10%]"}
+        .text-3xl.mb-4.w-full.flex.items-center.justify-center
+          = "Welcome"
+        .flex.flex-col.justify-center.items-center.mb-4.w-full.text-slate-700
+          = "Login to your account to continue"
+        .flex.flex-col.items-center.justify-center.space-y-4.w-full
+          %div.relative.flex.items-center.w-full
+            %i.mdi.mdi-email-outline.absolute.ml-2.text-gray-400.text-xl
+            %input{type: "email", name: "email", id: "email", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Email"}
 
-        %label{for: "password"}
-          = "Password"
-        %input{type: "password", name: "password", id: "password", required: true, class: "rounded-md p-2 w-full"}
-        .text-right.w-full.mt-1.text-primary-500
-          = link_to "Forgot your password?", user_recover_account_path
-        .flex.flex-row.justify-between.items-center.mt-4
-          %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2"}
-            = "Login"
-    .flex.flex-row.justify-center.items-center.mt-4.text-xs
-      .mr-1
-        = "Don't have an account?"
-      = link_to "Sign up!", "/register", class: "text-primary-500"
+          %div.relative.flex.items-center.w-full.mt-4
+            %i.mdi.mdi-lock-outline.absolute.ml-2.text-gray-400.text-xl
+            %input{type: "password", name: "password", id: "password", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Password"}
+
+        .text-left.w-full.mt-2.text-primary-500.text-sm
+          = link_to "Forgot Your Password?", user_recover_account_path
+        %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2 w-full mt-4"}
+          = "Login"
+        .flex.flex-row.justify-center.items-center.mt-4.text-sm.w-full.space-x-1
+          .text-black
+            = "Don't have an account?"
+          = link_to "Sign up!", "/register", class: "text-primary-500"

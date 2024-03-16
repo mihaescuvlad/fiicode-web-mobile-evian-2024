@@ -3,12 +3,14 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
-from objectid import PydanticObjectId
+from .objectid import PydanticObjectId
+
 
 class User(BaseModel):
     id: Optional[PydanticObjectId] = Field(None, alias="_id")
     allergens_ids: List[str]
     favorites: List[PydanticObjectId]
+
 
 class Product(BaseModel):
     id: Optional[PydanticObjectId] = Field(None, alias="_id")
@@ -32,10 +34,12 @@ class Product(BaseModel):
         if data.get("_id") is None:
             data.pop("_id", None)
         return data
-    
+
+
 class UserForum(BaseModel):
     id: Optional[PydanticObjectId] = Field(None, alias="_id")
     following_ids: List[PydanticObjectId]
+
 
 class Post(BaseModel):
     id: Optional[PydanticObjectId] = Field(None, alias="_id")
@@ -53,14 +57,14 @@ class Post(BaseModel):
         if data.get("_id") is None:
             data.pop("_id", None)
         return data
-    
+
     def to_dict(self):
         post_dict = {
             "_id": self.id,
             "author_id": self.author_id,
             "title": self.title,
             "content": self.content,
-            "hashtags": self.hashtags
+            "hashtags": self.hashtags,
         }
         if self.response_to_id is not None:
             post_dict["response_to_id"] = self.response_to_id

@@ -5,7 +5,7 @@ module FormHelper
     end
 
     form_tag(url_for_options, options, &block).safe_concat(
-      "<script>document.getElementById('#{options[:id]}').method = '#{options[:method]}'; new FormController('#{options[:id]}');</script>".html_safe
+      "<script>$(document).ready(() => {document.getElementById('#{options[:id]}').method = '#{options[:method]}'; new FormController('#{options[:id]}')});</script>".html_safe
     )
   end
 end
