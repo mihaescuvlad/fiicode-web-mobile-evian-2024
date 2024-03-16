@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     match '/confirm-email', to: 'sessions#confirm_email', via: :get
     match '/request-password-reset', to: 'sessions#request_password_reset', via: :get
     match '/logout', to: 'sessions#logout', via: :all
+    match '/contact', to: 'welcome#contact', via: :post 
 
     resource :profile, only: %i[show index] do
       match :user, on: :collection, via: %i[get put]
@@ -67,6 +68,10 @@ Rails.application.routes.draw do
     resources :products do
       put :approve, on: :member
       put :reject, on: :member
+    end
+
+    resources :feedback_messages, only: %i[index] do
+      patch :mark_as_read, on: :member
     end
   end
 end

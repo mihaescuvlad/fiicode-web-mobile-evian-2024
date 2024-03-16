@@ -23,6 +23,8 @@
     = render "partials/notifier/success_notifier"
     = render "partials/notifier/error_notifier"
     = render "partials/layout/header"
-    %main.flex-1.overflow-y-auto.overflow-x-hidden
+    %main.flex-1.overflow-y-auto.overflow-x-hidden.justify-between
       = content_for?(:content) ? yield(:content) : yield
-    = render "partials/layout/footer"
+      .mt-24
+        = render "partials/layout/footer"
+    = render "partials/layout/mobile_nav"
