@@ -1,0 +1,67 @@
+.flex.flex-col.justify-center.items-center.space-y-4
+  .text-3xl.font-bold
+    = "Feedback Messages"
+  - @feedback_messages.each do |feedback_message|
+    .flex.flex-col.justify-center.items-center.bg-white.shadow-md.rounded-lg.p-4{ class: "w-[30rem]" }
+      .flex.flex-row.items-center.space-x-4.w-full
+        .flex.flex-row.justify-center.items-center.space-x-2.w-full.text-left
+          .mdi.mdi-account-outline.text-xl.text-gray-400
+          .text-lg.text-gray-500= feedback_message.name
+        .text-sm.text-gray-500.w-full.text-center
+          = feedback_message.created_at.strftime("%B %d, %Y")
+        .flex.flex-row.justify-center.items-center.space-x-2.w-full.text-right
+          .mdi.mdi-email-outline.text-xl.text-gray-400
+          .text-lg.text-gray-500= feedback_message.email
+      - if feedback_message.message.length > 300
+        .feedback-short.text-slate-700.text-center
+          = sanitize(feedback_message.message.first(300)) + "..."
+        .feedback-full.text-slate-700.hidden.text-center
+          = sanitize(feedback_message.message)
+        %button#show-more Show More
+      - else
+        .text-slate-700.text-center
+          = sanitize(feedback_message.message)
+      = link_to "Mark as Read", mark_as_read_admin_feedback_message_path(feedback_message), method: :patch, class: "bg-primary-500 text-white rounded-md p-2 w-full mt-4 text-center"
+  .flex.flex-wrap.items-center.justify-center.rounded-lg.bg-white.py-2.px-4.my-4
+    - if params[:page].to_i > 1
+      = link_to admin_feedback_messages_path(page: 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+        %i.mdi.mdi-chevron-double-left{title: "First Page"}
+
+    - if params[:page].to_i > 1
+      = link_to admin_feedback_messages_path(page: params[:page].to_i - 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+        %i.mdi.mdi-chevron-left{title: "Previous Page"}
+
+    - start_page = [params[:page].to_i - 2, 1].max
+    - end_page = [start_page + 4, @total_pages].min
+
+    - start_page.upto(end_page) do |page|
+      - if page == params[:page].to_i
+        %span.mx-1.px-2.py-1.text-sm.font-semibold.text-white.bg-primary-500.rounded= page
+      - else
+        = link_to admin_feedback_messages_path(page: page), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+          = page
+
+    - if params[:page].to_i < @total_pages
+      = link_to admin_feedback_messages_path(page: params[:page].to_i + 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+        %i.mdi.mdi-chevron-right{title: "Next Page"}
+
+    - if params[:page].to_i < @total_pages
+      = link_to admin_feedback_messages_path(page: @total_pages), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+        %i.mdi.mdi-chevron-double-right{title: "Last Page"}
+
+:javascript
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('#show-more').addEventListener('click', function() {
+      var shortText = document.querySelector('.feedback-short');
+      var fullText = document.querySelector('.feedback-full');
+      if (fullText.classList.contains('hidden')) {
+        fullText.classList.remove('hidden');
+        shortText.classList.add('hidden');
+        this.textContent = 'Show Less';
+      } else {
+        fullText.classList.add('hidden');
+        shortText.classList.remove('hidden');
+        this.textContent = 'Show More';
+      }
+    });
+  });

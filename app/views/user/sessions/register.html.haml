@@ -1,7 +1,7 @@
 .flex.flex-col.justify-center.items-center{ class: "h-full w-full" }
-  .flex.flex-col.justify-center.items-center{ class: "w-[25%] h-[75%]"}
+  .flex.flex-col.justify-center.items-center.w-full{ class: "sm:w-[22rem]"}
     = controlled_form '/register', id: 'register-form', method: :post, class: "w-full h-full" do
-      .flex.flex-col.justify-center.items-start.shadow-xl.p-4.border-1.bg-white.w-full.h-full{ class: "rounded-[10%]"}
+      .flex.flex-col.justify-center.items-start.shadow-xl.p-8.border-1.bg-white.w-full.h-full{ class: "rounded-[10%]"}
         .text-3xl.mb-4.w-full.flex.items-center.justify-center
           = "Register an account"
         .flex.flex-col.justify-center.items-center.mb-4.w-full.text-slate-700
@@ -27,10 +27,12 @@
           %div.relative.flex.items-center.w-full
             %i.mdi.mdi-lock-outline.absolute.ml-2.text-gray-400.text-xl
             %input{type: "password", name: "password", id: "password", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Password"}
-
+          %div.relative.flex.items-center.w-full
+            %i.mdi.mdi-lock-outline.absolute.ml-2.text-gray-400.text-xl
+            %input{type: "password", name: "password_confirmation", id: "password_confirmation", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Confirm Password"}
         %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2 w-full mt-4"}
           = "Register"
         .flex.flex-row.justify-center.items-center.mt-4.text-sm.w-full.space-x-1
           .text-black
-            = "Do you have an existing account?"
+            = "Already have an account?"
           = link_to "Log in!", "/login", class: "text-primary-500"

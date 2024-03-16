@@ -1,6 +1,6 @@
 class User::ProfilesController < UserApplicationController
   layout 'user_profile'
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[account]
   before_action :set_links
 
   def show
@@ -43,7 +43,7 @@ class User::ProfilesController < UserApplicationController
       @login.password = params[:password]
       @login.save!
       if current_user.present?
-        render json: { message: 'Password updated' }, status: :ok
+        redirect_to user_user_profile_path, notice: "Password updated", status: :see_other
       else
         redirect_to user_login_path, notice: "Password updated", status: :see_other
       end

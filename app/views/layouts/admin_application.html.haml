@@ -39,6 +39,10 @@
               %i.mdi.text-2xl{ class: "mdi-clipboard-list-outline" }
               %span.text-sm.capitalize
                 Submissions
+            = link_to admin_feedback_messages_path, class: "flex items-center gap-1" do
+              %i.mdi.text-2xl{ class: "mdi-email-outline" }
+              %span.text-sm.capitalize
+                Feedback
             #profile-section.hidden.sm:flex.items-center.h-full.gap-4.relative
               %i.mdi.mdi-account-circle-outline.text-2xl
               .dropdown-menu.absolute.top-full.-right-5.p-4.hidden

@@ -14,6 +14,14 @@ class User::WelcomeController < UserApplicationController
     end
   end
 
+  def contact
+    FeedbackMessage.create(params.permit(:email, :name, :message))
+    respond_to do |format|
+      format.json { render json: { message: 'Feedback sent!' }, status: :ok }
+      format.html { redirect_to '/', notice: 'Feedback sent!' }
+    end
+  end
+
   def search
   end
 
