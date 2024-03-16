@@ -3,8 +3,9 @@ class Admin::FeedbackMessagesController < AdminApplicationController
 
   def index
     params[:page] ||= 1
-    @total_pages = FeedbackMessage.where(read: false).count / 10 + 1
-    @feedback_messages = FeedbackMessage.where(read: false).order(created_at: :asc).skip((params[:page].to_i - 1) * 10).limit(10)
+    page_size = 10
+    @total_pages = (FeedbackMessage.where(read: false).count / page_size) || 1
+    @feedback_messages = FeedbackMessage.where(read: false).order(created_at: :asc).skip((params[:page].to_i - 1) * page_size).limit(page_size)
   end
 
   def mark_as_read
