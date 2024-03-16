@@ -15,14 +15,14 @@ class User::WelcomeController < UserApplicationController
   def recommended_products
     if current_user.present?
       recommendation_data = RecommendationsApi.paginated_products(current_user, 1, 3)
-      @recommended_products = Product.where(:_id.in => recommendation_data["products"])
+      recommended_products = Product.where(:_id.in => recommendation_data["products"])
     else
-      @recommended_products = []
+      recommended_products = []
     end
     
-    return if @recommended_products.blank?
+    return if recommended_products.blank?
     
-    render partial: 'recommended_products', locals: { recommended_products: @recommended_products }
+    render partial: 'recommended_products', locals: { recommended_products: recommended_products }
   end
 
 
