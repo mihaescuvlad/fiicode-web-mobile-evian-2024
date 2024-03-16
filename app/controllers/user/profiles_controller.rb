@@ -10,7 +10,7 @@ class User::ProfilesController < UserApplicationController
   def user
     if request.put?
       current_user.update_attributes!(
-        params.permit(:first_name, :last_name, :weight, :height, :city, :country)
+        params.permit(:first_name, :last_name, :weight, :height, :city, :country, :profile_picture)
       )
       render json: { message: 'Profile updated' }, status: :ok
     end

@@ -1,23 +1,37 @@
 .container.mx-auto.max-w-xl.px-4
-  = controlled_form user_user_profile_path, method: :put, class: "size-full" do
+  = form_for current_user, url: user_user_profile_path, method: :put, html: { multipart: true } do |f|
     .flex.flex-col.justify-between.size-full
-      .grid.gap-4{class:"sm:grid-cols-2"}
+      .grid.gap-x-4{class:"sm:grid-cols-2"}
+        .flex.flex-col.w-full.h-full.justify-center.items-center
+          - if current_user.profile_picture.present?
+            - file = current_user.profile_picture
+            - profile_picture_url = file.url
+          - else
+            - profile_picture_url = asset_path('account-circle-outline.png')
+          - puts profile_picture_url.inspect
+          %label.text-sm{for: "name"}
+            = "Profile Picture"
+          .flex.w-32.h-32.rounded-full.overflow-hidden
+            %img.w-32.h-32.rounded-full{src: profile_picture_url, id: "profilePicturePreview", alt: "User Avatar"}
+            %span.w-32.h-32.absolute.rounded-full.bg-slate-800.self-end.transition-opacity.duration-300{ class: "opacity-0 hover:opacity-65" }
+              %input.w-full.h-full.absolute.rounded-full.opacity-0.z-10{ type: "file", name: "profile_picture", id: "profile_picture", class: "cursor-pointer top-0", onchange: "showPreview(this);" }
+              .flex.flex-col.w-full.h-full.justify-center.text-center.text-white
+                = "Change Picture"
         %div
           %label.text-sm{for: "name"}
             = "First Name"
-          %input{type: "text", name: "first_name", id: "first_name", class: "rounded-lg p-2 w-full", value: "#{current_user.first_name}"}
-        %div
+          %input{type: "text", name: "first_name", id: "first_name", class: "rounded-lg p-2 w-full mb-4", value: "#{current_user.first_name}"}
           %label.text-sm{for: "full_name"}
             = "Last Name"
-          %input{type: "text", name: "last_name", id: "last_name", class: "rounded-lg p-2 w-full", value: "#{current_user.last_name}"}
+          %input{type: "text", name: "last_name", id: "last_name", class: "rounded-lg p-2 w-full mb-4", value: "#{current_user.last_name}"}
         %div
           %label.text-sm{for: "country"}
             = "Country"
-          %input{type: "text", name: "country", id: "country", class: "rounded-lg p-2 w-full", value: "#{current_user.country}"}
+          %input{type: "text", name: "country", id: "country", class: "rounded-lg p-2 w-full mb-4", value: "#{current_user.country}"}
         %div
           %label.text-sm{for: "city"}
             = "City"
-            %input{type: "text", name: "city", id: "city", class: "rounded-lg p-2 w-full", value: "#{current_user.city}"}
+          %input{type: "text", name: "city", id: "city", class: "rounded-lg p-2 w-full mb-4", value: "#{current_user.city}"}
         %div
           %label.text-sm{for: "height"}
             = "Height"
@@ -26,6 +40,33 @@
           %label.text-sm{for: "weight"}
             = "Weight"
           %input{type: "text", name: "weight", id: "weight", class: "rounded-lg p-2 w-full", value: "#{current_user.weight}"}
-      .flex.w-full.justify-center.mt-4.space-x-4
+      .flex.w-full.justify-center.space-x-4
         %button{ class: "bg-primary-500 text-white rounded-lg p-2 mt-4 w-fit", type: "submit" }
           = "Save Changes"
+
+:javascript
+  function showPreview(input) {
+    var file = input.files[0];
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profilePicturePreview').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+  }
+
+-# function showPreview(input) {
+-#   var file = input.files[0];
+-#   if (file) {
+-#     var reader = new FileReader();
+-#     reader.onload = function(e) {
+-#       document.getElementById('profilePicturePreview').src = e.target.result;
+      
+-#       // Update the profile picture input field value with the selected file
+-#       var profilePictureInput = document.getElementById('profile_picture');
+-#       profilePictureInput.files = input.files;
+-#     };
+-#     reader.readAsDataURL(file);
+-#   }
+-# }

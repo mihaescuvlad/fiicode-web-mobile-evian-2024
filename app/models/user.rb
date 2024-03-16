@@ -17,7 +17,8 @@ class User
   field :bio, type: String
   field :country, type: String
   field :city, type: String
-  field :profile_picture, type: BSON::Binary
+
+  mount_uploader :profile_picture, ProfilePictureUploader
 
   has_many :submissions, class_name: 'Product', inverse_of: :submitted_by
 
