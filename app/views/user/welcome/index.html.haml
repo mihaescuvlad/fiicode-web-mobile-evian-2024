@@ -112,7 +112,17 @@
   #recommended_products_container.flex.flex-col.justify-center.items-center.w-full
   
 :javascript
-  document.addEventListener('DOMContentLoaded', function() {
+  $(document).ready(function() {
+    $.ajax({
+      url: '/recommended-products',
+      type: 'GET',
+      success: function(response) {
+        if (response) {
+          $('#recommended_products_container').html(response);
+        }
+      }
+    });
+
     document.querySelector('#show-more').addEventListener('click', function() {
       var shortText = document.querySelector('.instructions-short');
       var fullText = document.querySelector('.instructions-full');
@@ -126,16 +136,4 @@
         this.textContent = 'Show More';
       }
     });
-  
-    $.ajax({
-      url: '/recommended-products',
-      type: 'GET',
-      success: function(response) {
-        if (response) {
-          $('#recommended_products_container').html(response);
-        }
-      }
-    });
-
   });
-
