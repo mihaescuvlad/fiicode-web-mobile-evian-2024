@@ -121,9 +121,10 @@ class User::ProductsController < UserApplicationController
   end
 
   def search
-    @products = Product.where(name: /#{params[:term]}/i, status: :APPROVED).limit(5)
-    render json: [{label: "None", value: "None"}] and return if @products.blank?
-    render json: @products.map { |product| { label: product.name, value: product.id } }
+    products = Product.where(name: /#{params[:term]}/i, status: :APPROVED).limit(5)
+    products = products.map { |product| { label: product.name, value: "/products/" + product.id.to_s } }
+    products << { label: "Can't find what you're searching for? Explore more options here!", value: "/search?query=#{params[:term]}" }
+    render json: products
   end
 
   def search_by_ean

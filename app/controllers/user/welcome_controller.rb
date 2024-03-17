@@ -18,6 +18,15 @@ class User::WelcomeController < UserApplicationController
   end
 
   def search
+    if params[:query].blank?
+      @products = []
+      @users = []
+      @posts = []
+      return
+    end
+    @products = Product.where(name: /#{params[:query]}/i).limit(5).to_a
+    @users = User.or({ first_name: /#{params[:query]}/i }, { last_name: /#{params[:query]}/i }).limit(5).to_a
+    @posts = Post.where(:hashtags.in => [params[:query]]).top_level.limit(5).to_a
   end
 
   def recommended_products
