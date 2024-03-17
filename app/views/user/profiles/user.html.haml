@@ -83,22 +83,34 @@
     displayRemoveButton(false);
   }
 
--# function removeProfilePicture() {
--#   if (confirm('Are you sure you want to remove your profile picture?')) {
--#     fetch('/profile_picture/remove', {
--#       method: 'DELETE',
--#       headers: {
--#         'Content-Type': 'application/json',
--#         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
--#       }
--#     })
--#     .then(response => {
--#       if (response.ok) {
--#         document.getElementById('profilePicturePreview').src = asset_path("account-circle-outline.png");
--#       } else {
--#         console.error('Failed to remove profile picture');
--#       }
--#     })
--#     .catch(error => console.error('Error removing profile picture:', error));
--#   }
--# }
+  document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var formData = new FormData(form);
+
+      fetch(form.action, {
+        method: form.method,
+        body: formData
+      })
+      .then(function(response) {
+        if (response.ok) {
+          sessionStorage.setItem('successShown', 'true');
+          window.location.reload();
+        } else {
+          ErrorNotifier.get.show('Something went wrong', 1000);
+        }
+      })
+      .catch(function(error) {
+        console.error('Error:', error);
+        ErrorNotifier.get.show('Something went wrong', 1000);
+      });
+    });
+
+    if (sessionStorage.getItem('successShown') === 'true') {
+      SuccessNotifier.get.show('Profile updated', 1000);
+      sessionStorage.removeItem('successShown');
+    }
+  });

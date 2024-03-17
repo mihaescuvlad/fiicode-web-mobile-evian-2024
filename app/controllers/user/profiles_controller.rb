@@ -84,7 +84,7 @@ class User::ProfilesController < UserApplicationController
     current_user.update_attributes!(
       user_params.merge(profile_picture: profile_picture_param)
     )
-    render json: { message: 'Profile updated' }, status: :ok
+    render status: :ok
   end
 
   def user_params
