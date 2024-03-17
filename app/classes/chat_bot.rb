@@ -10,6 +10,21 @@ module ChatBot
     JSON.parse(res.body)["id"]
   end
 
+  def self.get_messages(thread_id)
+    res = http_client.get(@@API + "/threads/#{thread_id}/messages")
+
+    data = JSON.parse(res.body)["data"]
+    roles = data.map { |m| m["role"] }
+    messages = data.map { |m| m["content"].first["text"]["value"] }
+    messages.map! { |m| decode(m) }
+
+    messages = roles.zip(messages)
+    messages.reverse!
+    messages.filter! { |_, m| Message === m }
+    messages.map! { |r, m| [r, m.message] }
+    messages.map! { |r, m| { role: r, message: m } }
+  end
+
   def self.send_message(message, thread_id = nil)
     thread_id ||= create_thread
 
@@ -57,8 +72,9 @@ module ChatBot
     elsif obj.is_a?(Array)
       obj.map! { |v| encode(v, false) }
     elsif obj.respond_to?(:attributes)
+      objClass = obj.class.name.split('::')[1..].join('::')
       obj = obj.attributes
-      obj[:_type] = obj.class.name
+      obj["_type"] = objClass
       obj = encode(obj, false)
     end
 
