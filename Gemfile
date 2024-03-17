@@ -18,6 +18,9 @@ gem "jquery-rails"
 gem "jquery-ui-rails"
 gem "http"
 gem "bcrypt"
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
+gem "mini_magick"
 gem "react-rails"
 
 group :development, :test do

@@ -1,7 +1,10 @@
 .flex.flex-col.shadow.rounded-lg.bg-white.p-4.gap-3.cursor-pointer.w-full{class: "hover:bg-slate-100", id: post.id, onclick: "window.location.href = '#{user_hub_post_path(post)}'"}
   .flex-1.space-y-4
     %div.space-y-1
-      %h3.text-lg
+      %h3.text-lg.flex.flex-row
+        - author_user_data = User.find_by(id: post.author_id)
+        - author_profile_picture = author_user_data&.profile_picture&.url || asset_path("account-circle-outline.png")
+        %img.w-8.h-8.rounded-full.mr-2{ src: author_profile_picture }
         %span.text-primary-500
           = link_to user_hub_user_path(post.author) do
             = '@' + post.author.login.username

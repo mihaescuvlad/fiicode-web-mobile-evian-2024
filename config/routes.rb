@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     end
 
     resources :submissions, only: %i[index show]
+    get '/upload/grid/*path', to: 'gridfs#serve' 
 
     namespace :hub do
       get '/', to: 'hub#index'

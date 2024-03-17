@@ -9,10 +9,7 @@ class User::ProfilesController < UserApplicationController
 
   def user
     if request.put?
-      current_user.update_attributes!(
-        params.permit(:first_name, :last_name, :weight, :height, :city, :country)
-      )
-      render json: { message: 'Profile updated' }, status: :ok
+      update_user_profile
     end
   end
 
@@ -79,5 +76,22 @@ class User::ProfilesController < UserApplicationController
     else
       @links = []
     end
+  end
+
+  private
+
+  def update_user_profile
+    current_user.update_attributes!(
+      user_params.merge(profile_picture: profile_picture_param)
+    )
+    render status: :ok
+  end
+
+  def user_params
+    params.permit(:first_name, :last_name, :weight, :height, :city, :country)
+  end
+
+  def profile_picture_param
+    params.dig(:user, :remove_profile_picture) == "true" ? nil : params[:profile_picture]
   end
 end

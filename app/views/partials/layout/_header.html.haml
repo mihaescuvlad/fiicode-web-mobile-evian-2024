@@ -28,7 +28,11 @@
         = render "partials/layout/header/notifications_dropdown"
       %span#settings-section
         = link_to user_profile_path, id: 'profile-path' do
-          %i.mdi.mdi-account-circle-outline.text-2xl
+          - if current_user.profile_picture.present?
+            - profile_picture_url = current_user.profile_picture.url
+            %img.w-6.h-6.rounded-full{ src: profile_picture_url }
+          - else
+            %i.mdi.mdi-account-circle-outline.text-2xl
         = render "partials/layout/header/profile_dropdown"
 
 :javascript
