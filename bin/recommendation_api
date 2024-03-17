@@ -1,0 +1,13 @@
+#!/bin/bash
+
+scriptdir=$(dirname $0)
+cd $scriptdir/..
+
+
+export MONGO_URI=$(rails credentials:show | shyaml get-value db.uri)
+export FLASK_DEBUG=true
+export FLASK_APP=recommendation_api/src
+export FLASK_ENV=development
+
+echo "Starting recommendations service..."
+bash -c ". ./recommendation_api/venv/bin/activate && flask run"

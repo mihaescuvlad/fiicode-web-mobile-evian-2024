@@ -1,35 +1,38 @@
 .flex.flex-col.justify-center.items-center{ class: "h-full w-full" }
-  .flex.flex-col.justify-center.items-center{ class: "w-11/12" }
-    = controlled_form '/register', id: 'register-form', method: :post do
-      .flex.flex-col.justify-center.items-start.shadow-xl.rounded-md.p-4.border-1.bg-white
-        .flex.flex-col.justify-center.items-center.text-xl.font-bold.mb-4.w-full
+  .flex.flex-col.justify-center.items-center.w-full{ class: "sm:w-[22rem]"}
+    = controlled_form '/register', id: 'register-form', method: :post, class: "w-full h-full" do
+      .flex.flex-col.justify-center.items-start.shadow-xl.p-8.border-1.bg-white.w-full.h-full{ class: "rounded-[10%]"}
+        .text-3xl.mb-4.w-full.flex.items-center.justify-center
           = "Register an account"
-        %label{for: "email"}
-          = "Email"
-        %input{type: "email", name: "email", id: "email", required: true, class: "rounded-md p-2 w-full"}
-        %label{for: "username"}
-          = "Username"
-        %input{type: "text", name: "username", id: "username", required: true, class: "rounded-md p-2 w-full"}
-        %label{for: "password"}
-          = "Password"
-        %input{type: "password", name: "password", id: "password", required: true, class: "rounded-md p-2 w-full"}
-        %label{for: "first_name"}
-          = "First Name"
-        %input{type: "text", name: "first_name", id: "first_name", required: true, class: "rounded-md p-2 w-full"}
-        %label{for: "last_name"}
-          = "Last Name"
-        %input{type: "text", name: "last_name", id: "last_name", required: true, class: "rounded-md p-2 w-full"}
-        %label{for: "country"}
-          = "Country"
-        %input{type: "text", name: "country", id: "country", required: true, class: "rounded-md p-2 w-full"}
-        %label{for: "city"}
-          = "City"
-        %input{type: "text", name: "city", id: "city", required: true, class: "rounded-md p-2 w-full"}
+        .flex.flex-col.justify-center.items-center.mb-4.w-full.text-slate-700
+          = "Fill in the details to create your account"
+        .flex.flex-col.items-center.justify-center.space-y-4.w-full
+          .flex.flex-row.justify-between.items-center.w-full.space-x-2
+            %div.relative.flex.items-center.w-full
+              %i.mdi.mdi-account-tag-outline.absolute.ml-2.text-gray-400.text-xl
+              %input{type: "text", name: "first_name", id: "first_name", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "First Name"}
 
-        .flex.flex-row.justify-between.items-center.mt-4
-          %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2"}
-            = "Register"
-    .flex.flex-row.justify-center.items-center.mt-4.text-xs
-      .mr-1
-        = "Do you have an existing account?"
-      = link_to "Log in!", "/login", class: "text-primary-500"
+            %div.relative.flex.items-center.w-full
+              %i.mdi.mdi-account-supervisor-outline.absolute.ml-2.text-gray-400.text-xl
+              %input{type: "text", name: "last_name", id: "last_name", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Last Name"}
+
+          %div.relative.flex.items-center.w-full
+            %i.mdi.mdi-email-outline.absolute.ml-2.text-gray-400.text-xl
+            %input{type: "email", name: "email", id: "email", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Email"}
+
+          %div.relative.flex.items-center.w-full
+            %i.mdi.mdi-card-account-details-outline.absolute.ml-2.text-gray-400.text-xl
+            %input{type: "text", name: "username", id: "username", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Username"}
+
+          %div.relative.flex.items-center.w-full
+            %i.mdi.mdi-lock-outline.absolute.ml-2.text-gray-400.text-xl
+            %input{type: "password", name: "password", id: "password", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Password"}
+          %div.relative.flex.items-center.w-full
+            %i.mdi.mdi-lock-outline.absolute.ml-2.text-gray-400.text-xl
+            %input{type: "password", name: "password_confirmation", id: "password_confirmation", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Confirm Password"}
+        %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2 w-full mt-4"}
+          = "Register"
+        .flex.flex-row.justify-center.items-center.mt-4.text-sm.w-full.space-x-1
+          .text-black
+            = "Already have an account?"
+          = link_to "Log in!", "/login", class: "text-primary-500"

@@ -1,6 +1,6 @@
 class User::ProfilesController < UserApplicationController
   layout 'user_profile'
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[account]
   before_action :set_links
 
   def show
@@ -9,10 +9,7 @@ class User::ProfilesController < UserApplicationController
 
   def user
     if request.put?
-      current_user.update_attributes!(
-        params.permit(:first_name, :last_name, :weight, :height, :city, :country, :profile_picture)
-      )
-      render json: { message: 'Profile updated' }, status: :ok
+      update_user_profile
     end
   end
 
@@ -43,7 +40,7 @@ class User::ProfilesController < UserApplicationController
       @login.password = params[:password]
       @login.save!
       if current_user.present?
-        render json: { message: 'Password updated' }, status: :ok
+        redirect_to user_user_profile_path, notice: "Password updated", status: :see_other
       else
         redirect_to user_login_path, notice: "Password updated", status: :see_other
       end
@@ -79,5 +76,22 @@ class User::ProfilesController < UserApplicationController
     else
       @links = []
     end
+  end
+
+  private
+
+  def update_user_profile
+    current_user.update_attributes!(
+      user_params.merge(profile_picture: profile_picture_param)
+    )
+    render json: { message: 'Profile updated' }, status: :ok
+  end
+
+  def user_params
+    params.permit(:first_name, :last_name, :weight, :height, :city, :country)
+  end
+
+  def profile_picture_param
+    params.dig(:user, :remove_profile_picture) == "true" ? nil : params[:profile_picture]
   end
 end

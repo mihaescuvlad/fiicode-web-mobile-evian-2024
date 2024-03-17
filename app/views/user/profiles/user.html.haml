@@ -1,5 +1,6 @@
 .container.mx-auto.max-w-xl.px-4
   = form_for current_user, url: user_user_profile_path, method: :put, html: { multipart: true } do |f|
+    = f.hidden_field :remove_profile_picture, id: "remove_profile_picture"
     .flex.flex-col.justify-between.size-full
       .grid.gap-x-4{class:"sm:grid-cols-2"}
         .flex.flex-col.w-full.h-full.justify-center.items-center
@@ -7,16 +8,18 @@
             - file = current_user.profile_picture
             - profile_picture_url = file.url
           - else
-            - profile_picture_url = asset_path('account-circle-outline.png')
-          - puts profile_picture_url.inspect
+            - profile_picture_url = asset_path("account-circle-outline.png")
           %label.text-sm{for: "name"}
             = "Profile Picture"
-          .flex.w-32.h-32.rounded-full.overflow-hidden
-            %img.w-32.h-32.rounded-full{src: profile_picture_url, id: "profilePicturePreview", alt: "User Avatar"}
-            %span.w-32.h-32.absolute.rounded-full.bg-slate-800.self-end.transition-opacity.duration-300{ class: "opacity-0 hover:opacity-65" }
-              %input.w-full.h-full.absolute.rounded-full.opacity-0.z-10{ type: "file", name: "profile_picture", id: "profile_picture", class: "cursor-pointer top-0", onchange: "showPreview(this);" }
-              .flex.flex-col.w-full.h-full.justify-center.text-center.text-white
-                = "Change Picture"
+          %div.relative
+            .flex.col.justify-center.items-center.w-32.h-32.rounded-full.overflow-hidden.border-2.border-gray-800
+              %img.w-32.h-32.rounded-full{id: "profilePicturePreview", src: profile_picture_url }
+                %span.w-32.h-32.absolute.rounded-full.bg-slate-800.transition-opacity.duration-300{ class: "opacity-0 hover:opacity-65" }
+                  %input.w-full.h-full.absolute.rounded-full.opacity-0.z-10{ type: "file", name: "profile_picture", id: "profile_picture", class: "cursor-pointer", onchange: "showPreview(this);" }
+                  .flex.flex-col.w-full.h-full.justify-center.text-center.text-white
+                    = "Change Picture"
+            %span.flex.flex-col.justify-center.items-center.absolute.bottom-0.right-2.transform.bg-red-400.border-2.border-gray-800.rounded-full{id: "removeProfileButton", name: "removeProfileButton", class: "w-7 h-7 cursor-pointer #{current_user.profile_picture.present? ? '' : 'hidden'}", onclick: "removeProfilePicture();"}
+              %span.mdi.mdi-close.text-xl
         %div
           %label.text-sm{for: "name"}
             = "First Name"
@@ -45,28 +48,57 @@
           = "Save Changes"
 
 :javascript
-  function showPreview(input) {
-    var file = input.files[0];
-    if (file) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('profilePicturePreview').src = e.target.result;
-        };
-        reader.readAsDataURL(file);
+  function displayRemoveButton(show) {
+    var removeButton = document.getElementById('removeProfileButton');
+    
+    if (show) {
+      removeButton.classList.remove('hidden');
+    } else {
+      removeButton.classList.add('hidden');
     }
   }
 
--# function showPreview(input) {
--#   var file = input.files[0];
--#   if (file) {
--#     var reader = new FileReader();
--#     reader.onload = function(e) {
--#       document.getElementById('profilePicturePreview').src = e.target.result;
-      
--#       // Update the profile picture input field value with the selected file
--#       var profilePictureInput = document.getElementById('profile_picture');
--#       profilePictureInput.files = input.files;
--#     };
--#     reader.readAsDataURL(file);
+  function showPreview(input) {
+    var file = input.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('profilePicturePreview').src = e.target.result;
+        displayRemoveButton(true);
+      };
+
+      document.getElementById('remove_profile_picture').value = "false";
+      reader.readAsDataURL(file);
+    } else {
+      displayRemoveButton(false);
+    }
+  }
+
+  function removeProfilePicture() {
+    var defaultImageUrl = "#{asset_path('account-circle-outline.png')}";
+
+    document.getElementById('profilePicturePreview').src = defaultImageUrl;
+
+    document.getElementById('remove_profile_picture').value = "true";
+    displayRemoveButton(false);
+  }
+
+-# function removeProfilePicture() {
+-#   if (confirm('Are you sure you want to remove your profile picture?')) {
+-#     fetch('/profile_picture/remove', {
+-#       method: 'DELETE',
+-#       headers: {
+-#         'Content-Type': 'application/json',
+-#         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+-#       }
+-#     })
+-#     .then(response => {
+-#       if (response.ok) {
+-#         document.getElementById('profilePicturePreview').src = asset_path("account-circle-outline.png");
+-#       } else {
+-#         console.error('Failed to remove profile picture');
+-#       }
+-#     })
+-#     .catch(error => console.error('Error removing profile picture:', error));
 -#   }
 -# }

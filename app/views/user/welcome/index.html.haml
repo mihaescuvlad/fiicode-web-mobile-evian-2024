@@ -1,10 +1,11 @@
-%div.w-full.flex.justify-center.items-center.full-page-background{class: "rounded-b-[5%] h-[105vh]"}
-  %div.w-full.flex.flex-col.justify-center.items-center{class:"md: max-w-[55%]"}
-    .text-5xl.font-semibold.text-center.text-white
-      = "Explore the best of our community"
-    .text-md.text-white.font-semibold.text-center
-      = "Create your profile and start contributing to our community. We make sure to recommend only products that match your preferences and that are approved by our community."
-    .flex.flex-col.items-center.justify-center.space-y-4.mt-4{class: "md:flex-row md:space-x-4 md:space-y-0"}
+%div.w-full.flex.justify-center.items-center.full-page-background{class: "rounded-b-[5%] h-[100vh]"}
+  %div.w-full.flex.flex-col.justify-center.items-center{class:"md:justify-start text-left max-w-[80%] md:items-start"}
+    %div{class:"md:max-w-[60%]"}
+      .text-5xl.font-semibold.text-white
+        = "Explore the best of our community"
+      .text-md.text-white.font-semibold
+        = "Create your profile and start contributing to our community. We make sure to recommend only products that match your preferences and that are approved by our community."
+    .flex.flex-col.items-center.space-y-4.mt-4{class: "md:flex-row md:space-x-4 md:space-y-0"}
       %button.text-black.p-2.rounded-lg{class: "bg-white/55 hover:bg-primary-800/75 hover:text-white"}
         = link_to dietary_preferences_user_profile_path do
           .flex.flex-row.items-center.justify-center.space-x-2

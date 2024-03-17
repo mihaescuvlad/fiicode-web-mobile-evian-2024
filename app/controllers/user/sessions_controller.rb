@@ -27,6 +27,9 @@ class User::SessionsController < UserApplicationController
   def register
     if request.post?
       begin
+        if params[:password] != params[:password_confirmation]
+          render json: { message: "Passwords do not match" }, status: :bad_request and return
+        end
         login = Login.new(params.permit([:username, :email, :password]))
         User.create!(first_name: params[:first_name], last_name: params[:last_name], login: login)
         login.save!

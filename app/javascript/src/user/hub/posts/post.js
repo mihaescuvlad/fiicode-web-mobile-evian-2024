@@ -208,3 +208,5 @@ class Post {
     });
   }
 }
+
+window.Post = Post;

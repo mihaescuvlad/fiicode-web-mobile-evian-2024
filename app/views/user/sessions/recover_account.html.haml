@@ -1,12 +1,17 @@
 .flex.flex-col.justify-center.items-center{ class: "h-full w-full" }
-  .flex.flex-col.justify-center.items-center{ class: "w-8/12" }
-    = controlled_form user_request_password_reset_path, id: "login-form",  method: :get do
-      .flex.flex-col.justify-center.items-start.shadow-xl.rounded-md.p-4.border-1.bg-white
+  .flex.flex-col.justify-center.items-center.w-full{ class: "sm:w-[22rem]" }
+    = controlled_form user_request_password_reset_path, id: "login-form",  method: :get, class: "w-full h-full" do
+      .flex.flex-col.justify-center.items-start.shadow-xl.p-8.border-1.bg-white{ class: "rounded-[10%]"}
         .flex.flex-col.justify-center.items-center.text-xl.font-bold.mb-4.w-full
           = "Recover your account"
-        %label{for: "email"}
-          = "Email"
-        %input{type: "email", name: "email", id: "email", required: true, class: "rounded-md p-2 w-full"}
-        .flex.flex-row.justify-between.items-center.mt-4
-          %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2"}
+        .flex.flex-col.items-center.justify-center.space-y-4.w-full
+          %div.relative.flex.items-center.w-full
+            %i.mdi.mdi-email-outline.absolute.ml-2.text-gray-400.text-xl
+            %input{type: "email", name: "email", id: "email", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Email"}
+        .flex.flex-row.justify-between.items-center.mt-4.w-full
+          %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2 w-full"}
             = "Recover Account"
+        .flex.flex-row.justify-center.items-center.mt-4.text-sm.w-full.space-x-1
+          .text-black
+            = "Remembered your password?"
+          = link_to "Log in!", "/login", class: "text-primary-500"

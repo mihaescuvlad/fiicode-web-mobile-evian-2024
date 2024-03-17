@@ -21,6 +21,7 @@ gem "bcrypt"
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
 gem "mini_magick"
+gem "react-rails"
 
 group :development, :test do
   gem "debug"
@@ -35,3 +36,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "shakapacker", "= 7.2"

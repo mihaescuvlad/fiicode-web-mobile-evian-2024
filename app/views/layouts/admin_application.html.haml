@@ -4,12 +4,10 @@
     %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
   = csrf_meta_tags
   = csp_meta_tag
+  = javascript_pack_tag 'application'
   = stylesheet_link_tag "application", "data-turbo-track" => "reload"
   = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track" => "reload"
-  = javascript_include_tag "application", "data-turbo-track" => "reload"
   = stylesheet_link_tag "notifier/hidden"
-  = javascript_include_tag "notifier/base_notifier"
-  = javascript_include_tag "form/form_controller"
   %script{src: "https://code.jquery.com/jquery-3.6.0.min.js"}
   %script{src: "https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"}
   %link{rel: "stylesheet", href: "https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"}
@@ -41,6 +39,10 @@
               %i.mdi.text-2xl{ class: "mdi-clipboard-list-outline" }
               %span.text-sm.capitalize
                 Submissions
+            = link_to admin_feedback_messages_path, class: "flex items-center gap-1" do
+              %i.mdi.text-2xl{ class: "mdi-email-outline" }
+              %span.text-sm.capitalize
+                Feedback
             #profile-section.hidden.sm:flex.items-center.h-full.gap-4.relative
               %i.mdi.mdi-account-circle-outline.text-2xl
               .dropdown-menu.absolute.top-full.-right-5.p-4.hidden
