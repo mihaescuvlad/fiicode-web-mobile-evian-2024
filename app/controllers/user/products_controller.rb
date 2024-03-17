@@ -9,7 +9,9 @@ class User::ProductsController < UserApplicationController
   ESSENTIAL_NUTRIENTS = %i[ protein sodium iron ].freeze
 
   def index
-    @top_products = filter_products_with_aggregation rescue []
+    params[:page] ||= 1
+    @top_products = ProductsRecommendation.filter_products_with_aggregation(current_user, 9, (params[:page].to_i - 1) * 9) rescue []
+    @total_pages = (Product.where(status: :APPROVED).count.to_f / 9).ceil
   end
 
   def show

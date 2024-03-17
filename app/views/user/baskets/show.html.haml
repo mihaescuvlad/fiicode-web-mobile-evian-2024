@@ -1,40 +1,71 @@
-.flex.flex-col.items-center.space-y-4
-  .text-3xl.font-bold
+.flex.flex-col.items-center.justify-center.space-y-4.mt-4
+  .text-2xl.font-semibold.rounded-lg.bg-white.p-4.shadow-md
     = "Your Favorites Products"
   .grid.grid-cols-1.gap-4{class: "md:grid-cols-2 lg:grid-cols-3"}
     - @basket_products.each do |product|
       = product_card(product)
-  .text-3xl.font-bold
-    = "Our Recommendations for you"
-  .grid.grid-cols-1.gap-4{class: "md:grid-cols-2 lg:grid-cols-3"}
-    - @products.each do |product|
-      = product_card(product)
-  .flex.flex-wrap.items-center.justify-center.rounded-lg.bg-white.py-2.px-4.my-4
-    - if params[:page].to_i > 1
-      = link_to user_basket_path(page: 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
-        %i.mdi.mdi-chevron-double-left{title: "First Page"}
+  - if @basket_products.empty?
+    .text-center.text-2xl.font-semibold.rounded-lg.bg-white.p-4.shadow-md.w-full{ class:"sm:w-1/2" } 
+      = "No products found in your favorites list. You can add products to your favorites list by clicking on the heart icon on the product card."
+  - else
+    .flex.flex-wrap.items-center.justify-center.rounded-lg.bg-white.py-2.px-4.my-4
+      - if params[:favorites_page].to_i > 1
+        = link_to user_basket_path(favorites_page: 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+          %i.mdi.mdi-chevron-double-left{title: "First Page"}
 
-    - if params[:page].to_i > 1
-      = link_to user_basket_path(page: params[:page].to_i - 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
-        %i.mdi.mdi-chevron-left{title: "Previous Page"}
+      - if params[:favorites_page].to_i > 1
+        = link_to user_basket_path(favorites_page: params[:favorites_page].to_i - 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+          %i.mdi.mdi-chevron-left{title: "Previous Page"}
 
-    - start_page = [params[:page].to_i - 2, 1].max
-    - end_page = [start_page + 4, @total_pages].min
+      - start_page = [params[:favorites_page].to_i - 2, 1].max
+      - end_page = [start_page + 4, @basket_total_pages].min
 
-    - start_page.upto(end_page) do |page|
-      - if page == params[:page].to_i
-        %span.mx-1.px-2.py-1.text-sm.font-semibold.text-white.bg-primary-500.rounded= page
-      - else
-        = link_to user_basket_path(page: page), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
-          = page
+      - start_page.upto(end_page) do |page|
+        - if page == params[:favorites_page].to_i
+          %span.mx-1.px-2.py-1.text-sm.font-semibold.text-white.bg-primary-500.rounded= page
+        - else
+          = link_to user_basket_path(favorites_page: page), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+            = page
 
-    - if params[:page].to_i < @total_pages
-      = link_to user_basket_path(page: params[:page].to_i + 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
-        %i.mdi.mdi-chevron-right{title: "Next Page"}
+      - if params[:page].to_i < @basket_total_pages
+        = link_to user_basket_path(favorites_page: params[:page].to_i + 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+          %i.mdi.mdi-chevron-right{title: "Next Page"}
 
-    - if params[:page].to_i < @total_pages
-      = link_to user_basket_path(page: @total_pages), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
-        %i.mdi.mdi-chevron-double-right{title: "Last Page"}
+      - if params[:page].to_i < @basket_total_pages
+        = link_to user_basket_path(favorites_page: @basket_total_pages), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+          %i.mdi.mdi-chevron-double-right{title: "Last Page"}
+  - if @products.present?
+    .text-2xl.font-semibold.rounded-lg.bg-white.p-4.shadow-md
+      = "Our Recommendations for you"
+    .grid.grid-cols-1.gap-4{class: "md:grid-cols-2 lg:grid-cols-3"}
+      - @products.each do |product|
+        = product_card(product)
+    .flex.flex-wrap.items-center.justify-center.rounded-lg.bg-white.py-2.px-4.my-4
+      - if params[:page].to_i > 1
+        = link_to user_basket_path(page: 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+          %i.mdi.mdi-chevron-double-left{title: "First Page"}
+
+      - if params[:page].to_i > 1
+        = link_to user_basket_path(page: params[:page].to_i - 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+          %i.mdi.mdi-chevron-left{title: "Previous Page"}
+
+      - start_page = [params[:page].to_i - 2, 1].max
+      - end_page = [start_page + 4, @total_pages].min
+
+      - start_page.upto(end_page) do |page|
+        - if page == params[:page].to_i
+          %span.mx-1.px-2.py-1.text-sm.font-semibold.text-white.bg-primary-500.rounded= page
+        - else
+          = link_to user_basket_path(page: page), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+            = page
+
+      - if params[:page].to_i < @total_pages
+        = link_to user_basket_path(page: params[:page].to_i + 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+          %i.mdi.mdi-chevron-right{title: "Next Page"}
+
+      - if params[:page].to_i < @total_pages
+        = link_to user_basket_path(page: @total_pages), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+          %i.mdi.mdi-chevron-double-right{title: "Last Page"}
 
 :javascript
   $(document).on('click', '[id^="heart-icon"]', function() {
