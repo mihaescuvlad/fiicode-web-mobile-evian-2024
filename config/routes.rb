@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     root to: 'welcome#index'
     match '/', to: 'welcome#index', via: :all
     match '/search', to: 'welcome#search', via: :all
+    match '/recommended-products', to: 'welcome#recommended_products', via: :get
     match '/login', to: 'sessions#login', via: %i[post get]
     match '/register', to: 'sessions#register', via: %i[post get]
     match '/recover-account', to: 'sessions#recover_account', via: :get

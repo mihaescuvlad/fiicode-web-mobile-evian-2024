@@ -7,11 +7,6 @@ class User::WelcomeController < UserApplicationController
       @food_fact = RandomFacts.random_recipe
       @food_fact.save
     end
-
-    if current_user.present?
-      recommendation_products = RecommendationsApi.paginated_products(current_user, 1, 3)
-      @recommended_products = Product.where(:_id.in => recommendation_products["products"])
-    end
   end
 
   def contact
@@ -24,6 +19,20 @@ class User::WelcomeController < UserApplicationController
 
   def search
   end
+
+  def recommended_products
+    if current_user.present?
+      recommendation_data = RecommendationsApi.paginated_products(current_user, 1, 3)
+      recommended_products = Product.where(:_id.in => recommendation_data["products"])
+    else
+      recommended_products = []
+    end
+    
+    return if recommended_products.blank?
+    
+    render partial: 'recommended_products', locals: { recommended_products: recommended_products }
+  end
+
 
 private
 
