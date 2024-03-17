@@ -23,6 +23,8 @@ class Product(BaseModel):
     carbohydrates: float
     protein: float
     rating: int
+    vegan: bool
+    vegetarian: bool
 
     def to_json(self):
         return jsonable_encoder(self, exclude_none=True)

@@ -1,4 +1,6 @@
 class User::BasketsController < UserApplicationController
+  before_action :authenticate_user!
+
   def show
     params[:page] ||= 1
     recommendation_products = RecommendationsApi.paginated_products(current_user, params[:page]) || {}
