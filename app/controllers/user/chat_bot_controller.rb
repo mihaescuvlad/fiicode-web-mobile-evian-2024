@@ -8,13 +8,4 @@ class User::ChatBotController < UserApplicationController
     message = { role: 'assistant', message: response }
     render json: message
   end
-
-  private
-
-  def ensure_chat_initialized
-    if session[:thread_id].blank?
-      reset_chat
-    end
-  end
-
 end

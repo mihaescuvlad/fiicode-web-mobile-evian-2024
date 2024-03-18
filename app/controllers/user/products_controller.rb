@@ -24,6 +24,9 @@ class User::ProductsController < UserApplicationController
     @current_user_review = @reviews.find_by(reviewer_id: current_user.id) rescue nil
     @product_submitter = User.find(@product.submitted_by)
     @user_allergic_to_product = current_user.present? && current_user.allergens_ids.present? && @product.allergens.present? && current_user.allergens_ids.any? { |allergen| @product.allergens.include?(allergen) }
+
+    ensure_chat_initialized
+    ChatBot.send_context(@product, session[:thread_id])
   end
 
   def new
@@ -76,7 +79,7 @@ class User::ProductsController < UserApplicationController
     new_product_params.each { |key, value| new_product_params[key] = value.strip.gsub(/[\n\r]+/, '') if value.is_a?(String) }
     @product = Product.new(new_product_params)
     @product.submitted_by = current_user.id
-    
+
     @matching_product = OpenFoodFacts.product(params[:ean])
     @product.status = :APPROVED if perfect_match?(@product, @matching_product) rescue false
 
@@ -122,7 +125,7 @@ class User::ProductsController < UserApplicationController
 
   def search
     @products = Product.where(name: /#{params[:term]}/i, status: :APPROVED).limit(5)
-    render json: [{label: "None", value: "None"}] and return if @products.blank?
+    render json: [{ label: "None", value: "None" }] and return if @products.blank?
     render json: @products.map { |product| { label: product.name, value: product.id } }
   end
 
@@ -147,13 +150,13 @@ class User::ProductsController < UserApplicationController
     render json: { message: 'Product removed from favorites' }, status: :ok
   end
 
-private
+  private
 
   def perfect_match?(product, matching_product)
-    product.name == matching_product.name && product.brand == matching_product.brand && product.weight == matching_product.weight && 
+    product.name == matching_product.name && product.brand == matching_product.brand && product.weight == matching_product.weight &&
       product.allergens.sort == matching_product.allergens.sort && product.calories == matching_product.calories && product.fat == matching_product.fat &&
-        product.saturated_fat == matching_product.saturated_fat && product.carbohydrates == matching_product.carbohydrates && product.fiber == matching_product.fiber &&
-          product.sugar == matching_product.sugar && product.protein == matching_product.protein && product.sodium == matching_product.sodium
+      product.saturated_fat == matching_product.saturated_fat && product.carbohydrates == matching_product.carbohydrates && product.fiber == matching_product.fiber &&
+      product.sugar == matching_product.sugar && product.protein == matching_product.protein && product.sodium == matching_product.sodium
   end
 
   def set_product

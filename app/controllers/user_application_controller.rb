@@ -15,6 +15,12 @@ class UserApplicationController < ApplicationController
     session[:thread_id] = ChatBot.create_thread
   end
 
+  def ensure_chat_initialized
+    if session[:thread_id].blank?
+      reset_chat
+    end
+  end
+
   helper_method :current_user
 
   private

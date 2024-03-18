@@ -28,9 +28,13 @@ module ChatBot
     @messages_cache = messages
   end
 
-  def self.send_message(message, thread_id = nil)
-    thread_id ||= create_thread
+  def self.send_context(context, thread_id)
+    res = send(Context.new(context), thread_id)
+    raise "Unexpected response type: #{res.class}" unless res.is_a?(ContextAcknowledgement)
+    true
+  end
 
+  def self.send_message(message, thread_id)
     send(Message.new(message), thread_id).message
   end
 
@@ -133,6 +137,12 @@ module ChatBot
 
     def self.from_attributes(attributes)
       new(attributes["context"])
+    end
+  end
+
+  class ContextAcknowledgement
+    def self.from_attributes(_)
+      new
     end
   end
 end
