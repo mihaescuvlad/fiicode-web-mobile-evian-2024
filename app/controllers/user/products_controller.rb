@@ -79,7 +79,7 @@ class User::ProductsController < UserApplicationController
     new_product_params.each { |key, value| new_product_params[key] = value.strip.gsub(/[\n\r]+/, '') if value.is_a?(String) }
     @product = Product.new(new_product_params)
     @product.submitted_by = current_user.id
-
+    
     @matching_product = OpenFoodFacts.product(params[:ean])
     @product.status = :APPROVED if perfect_match?(@product, @matching_product) rescue false
 
@@ -124,9 +124,10 @@ class User::ProductsController < UserApplicationController
   end
 
   def search
-    @products = Product.where(name: /#{params[:term]}/i, status: :APPROVED).limit(5)
-    render json: [{ label: "None", value: "None" }] and return if @products.blank?
-    render json: @products.map { |product| { label: product.name, value: product.id } }
+    products = Product.where(name: /#{params[:term]}/i, status: :APPROVED).limit(5)
+    products = products.map { |product| { label: product.name, value: "/products/" + product.id.to_s } }
+    products << { label: "Can't find what you're searching for? Explore more options here!", value: "/search?query=#{params[:term]}" }
+    render json: products
   end
 
   def search_by_ean
@@ -150,13 +151,13 @@ class User::ProductsController < UserApplicationController
     render json: { message: 'Product removed from favorites' }, status: :ok
   end
 
-  private
+private
 
   def perfect_match?(product, matching_product)
-    product.name == matching_product.name && product.brand == matching_product.brand && product.weight == matching_product.weight &&
+    product.name == matching_product.name && product.brand == matching_product.brand && product.weight == matching_product.weight && 
       product.allergens.sort == matching_product.allergens.sort && product.calories == matching_product.calories && product.fat == matching_product.fat &&
-      product.saturated_fat == matching_product.saturated_fat && product.carbohydrates == matching_product.carbohydrates && product.fiber == matching_product.fiber &&
-      product.sugar == matching_product.sugar && product.protein == matching_product.protein && product.sodium == matching_product.sodium
+        product.saturated_fat == matching_product.saturated_fat && product.carbohydrates == matching_product.carbohydrates && product.fiber == matching_product.fiber &&
+          product.sugar == matching_product.sugar && product.protein == matching_product.protein && product.sodium == matching_product.sodium
   end
 
   def set_product

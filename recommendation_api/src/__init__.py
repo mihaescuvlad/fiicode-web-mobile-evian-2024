@@ -67,12 +67,13 @@ def list_products(user_id):
     user = users.find_one_or_404({"_id": PydanticObjectId(user_id)})
     user_allergens = user.get("allergens_ids", []) or []
     user_basket_ids = user.get("favorites", []) or []
+    user_dietary_preferences = user.get("dietary_preferences") or "NONE"
 
     all_products = [Product(**doc) for doc in products.find()]
     user_basket = [product for product in all_products if product.id in user_basket_ids]
 
-    top_recommendations = recommend_products(user_basket, all_products, user_allergens)
-
+    top_recommendations = recommend_products(user_basket, all_products, user_allergens, user_dietary_preferences)
+  
     return {
         "products": [product.id.to_json() for product in top_recommendations],
     }
@@ -83,15 +84,14 @@ def list_products_page(page, user_id):
     user = users.find_one_or_404({"_id": PydanticObjectId(user_id)})
     user_allergens = user.get("allergens_ids", []) or []
     user_basket_ids = user.get("favorites", []) or []
+    user_dietary_preferences = user.get("dietary_preferences") or "NONE"
 
     all_products = [Product(**doc) for doc in products.find({"status": "APPROVED"})]
     user_basket = [product for product in all_products if product.id in user_basket_ids]
 
     per_page = request.args.get("per_page", 10, type=int)
 
-    top_recommendations = recommend_products(
-        user_basket, all_products, user_allergens, len(all_products)
-    )
+    top_recommendations = recommend_products(user_basket, all_products, user_allergens, user_dietary_preferences, len(all_products))
     total_pages = (len(top_recommendations) + per_page - 1) // per_page
 
     start_index = per_page * (page - 1)
