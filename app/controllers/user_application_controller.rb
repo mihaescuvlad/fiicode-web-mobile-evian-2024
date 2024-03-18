@@ -1,5 +1,6 @@
 class UserApplicationController < ApplicationController
   layout 'user_application'
+  before_action :ensure_chat_initialized
   # after_action :set_cache_headers
 
   def current_login
@@ -13,6 +14,11 @@ class UserApplicationController < ApplicationController
 
   def reset_chat
     session[:thread_id] = ChatBot.create_thread
+  end
+
+  def clear_session
+    super
+    reset_chat
   end
 
   def ensure_chat_initialized
