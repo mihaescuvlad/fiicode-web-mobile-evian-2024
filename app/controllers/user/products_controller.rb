@@ -156,10 +156,11 @@ class User::ProductsController < UserApplicationController
 private
 
   def perfect_match?(product, matching_product)
-    product.name == matching_product.name && product.brand == matching_product.brand && product.weight == matching_product.weight && 
-      product.allergens.sort == matching_product.allergens.sort && product.calories == matching_product.calories && product.fat == matching_product.fat &&
-        product.saturated_fat == matching_product.saturated_fat && product.carbohydrates == matching_product.carbohydrates && product.fiber == matching_product.fiber &&
-          product.sugar == matching_product.sugar && product.protein == matching_product.protein && product.sodium == matching_product.sodium
+    product.name == matching_product.name && product.brand == matching_product.brand && product.weight == matching_product.weight &&
+      (product.allergens || []).sort == (matching_product.allergens || []).sort && (product.calories || 0) == (matching_product.calories || 0) && (product.fat || 0) == (matching_product.fat || 0) &&
+        (product.saturated_fat || 0) == (matching_product.saturated_fat || 0) && (product.carbohydrates || 0) == (matching_product.carbohydrates || 0) && (product.fiber || 0) == (matching_product.fiber || 0) &&
+          (product.sugar || 0) == (matching_product.sugar || 0) && (product.protein || 0) == (matching_product.protein || 0) && (product.sodium || 0) == (matching_product.sodium || 0)
+
   end
 
   def set_product
