@@ -1,4 +1,4 @@
-.flex.flex-col.w-full.justify-between.mt-4.space-y-4.bg-primary-700.p-8.text-white{ class:"md:flex-row md:space-x-4 space-y-0" }
+.flex.flex-col.w-full.justify-between.mt-4.space-y-4.bg-primary-500.p-8.text-white{ class:"md:flex-row md:space-x-4 space-y-0" }
   .flex.flex-col.items-center.justify-center.space-y-2.w-full
     %span
       = "Copyright © #{Time.now.year} CeMancam. All rights reserved."
@@ -37,7 +37,7 @@
             %i.mdi.mdi-account-outline.absolute.ml-2.text-gray-400.text-xl
             %input{type: "text", name: "name", id: "name", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full text-black", placeholder: "Name", required: true}
         %textarea{ name: "message", id: "message", class: "rounded-lg p-2 w-full text-black", placeholder: "Message", required: true }
-        %button{ class: "bg-primary-500 text-white rounded-lg p-2 w-full disabled:bg-gray-200 disabled:cursor-not-allowed", type: "submit", id: "contact-submit" }
+        %button{ class: "bg-primary-400 text-white rounded-lg p-2 w-full disabled:bg-gray-200 disabled:cursor-not-allowed", type: "submit", id: "contact-submit" }
           = "Send"
 
 :javascript
