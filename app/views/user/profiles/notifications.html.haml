@@ -1,3 +1,10 @@
 .size-full.overflow-y-scroll.flex.flex-col.p-2.gap-2{class: "sm:gap-0 sm:p-0 sm:pr-2"}
-  - @notifications.each do |notification|
-    = render partial: "notification", locals: {notification: notification}
+  - if @notifications.blank?
+    .flex.flex-col.items-center.justify-center.size-full
+      .flex.flex-col.items-center.justify-center.text-black.bg-white.p-4.rounded-lg.shadow{class: "sm:bg-transparent sm:shadow-none sm:text-slate-300"}
+        .mdi.mdi-bell-off-outline.text-6xl
+        .text-lg
+          No notifications
+  - else
+    - @notifications.each do |notification|
+      = render partial: "notification", locals: {notification: notification}
