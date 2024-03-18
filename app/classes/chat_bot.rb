@@ -11,8 +11,6 @@ module ChatBot
   end
 
   def self.get_messages(thread_id)
-    return @messages_cache if @messages_cache.present?
-
     res = http_client.get(@@API + "/threads/#{thread_id}/messages")
 
     data = JSON.parse(res.body)["data"]
@@ -25,7 +23,6 @@ module ChatBot
     messages.filter! { |_, m| Message === m }
     messages.map! { |r, m| [r, m.message] }
     messages.map! { |r, m| { role: r, message: m } }
-    @messages_cache = messages
   end
 
   def self.send_context(context, thread_id)
@@ -41,8 +38,6 @@ module ChatBot
   private
 
   def self.send(obj, thread_id)
-    @messages_cache = nil
-
     http_client.post(@@API + "/threads/#{thread_id}/messages", json: {
       role: "user",
       content: encode(obj)
