@@ -1,6 +1,6 @@
 %html
   %head
-  %title CeMancam
+  %title Food Awareness Program
   %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
   = csrf_meta_tags
   = csp_meta_tag
@@ -19,12 +19,13 @@
 
   = javascript_importmap_tags
 
-  %body.w-full.h-full.flex.flex-col
+  %body.w-screen.h-screen.flex.flex-col.overflow-hidden
     = render "partials/notifier/success_notifier"
     = render "partials/notifier/error_notifier"
     = render "partials/layout/header"
-    %main.flex-1.overflow-y-auto.overflow-x-hidden.justify-between
+    %main.flex-1.overflow-y-auto.overflow-x-hidden.transition-all{class: "sm:transition-none"}
       = content_for?(:content) ? yield(:content) : yield
       .mt-24
         = render "partials/layout/footer"
+    = render "partials/chat_bot"
     = render "partials/layout/mobile_nav"

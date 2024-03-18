@@ -10,7 +10,8 @@ Rails.application.routes.draw do
     match '/confirm-email', to: 'sessions#confirm_email', via: :get
     match '/request-password-reset', to: 'sessions#request_password_reset', via: :get
     match '/logout', to: 'sessions#logout', via: :all
-    match '/contact', to: 'welcome#contact', via: :post 
+    match '/contact', to: 'welcome#contact', via: :post
+    match '/chat/send_message', to: 'chat_bot#send_message', via: :post
 
     resource :profile, only: %i[show index] do
       match :user, on: :collection, via: %i[get put]

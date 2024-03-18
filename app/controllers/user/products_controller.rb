@@ -26,6 +26,9 @@ class User::ProductsController < UserApplicationController
     @current_user_review = @reviews.find_by(reviewer_id: current_user.id) rescue nil
     @product_submitter = User.find(@product.submitted_by)
     @user_allergic_to_product = current_user.present? && current_user.allergens_ids.present? && @product.allergens.present? && current_user.allergens_ids.any? { |allergen| @product.allergens.include?(allergen) }
+
+    ensure_chat_initialized
+    ChatBot.send_context(@product, session[:thread_id])
   end
 
   def new
