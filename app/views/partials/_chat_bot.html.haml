@@ -1,6 +1,26 @@
-.fixed.bottom-0.left-64.h-96.w-80.bg-white.shadow
-  %div{ class: "absolute left-0 top-0 w-full py-2 px-3 bg-primary-500 text-white -translate-y-full shadow flex justify-between items-center cursor-pointer" }
-    %h2.text-xl.select-none
-      My AI Assistant
-    .mdi.mdi-chevron-down.text-3xl
-  = react_component "chat_bot", {send_path: user_chat_send_message_path, messages: ChatBot.get_messages(session[:thread_id])}
+#chat-box.relative.w-full.bg-white.transition-all.flex.flex-col.hidden-chat.overflow-y-hidden{class: "sm:w-80 sm:fixed bottom-0 left-0"}
+  .header{ class: "w-full py-2 px-3 bg-primary-500 text-white flex justify-between items-center cursor-pointer" }
+    .flex.gap-1.items-center
+      .mdi.mdi-chat-question-outline.text-2xl
+      %h2.text-xl.select-none
+        My AI Assistant
+    .arrow.mdi.mdi-chevron-up.text-3xl
+  .content.transition-all.flex-1.min-h-0.hidden
+    = react_component "chat_bot", {send_path: user_chat_send_message_path, messages: ChatBot.get_messages(session[:thread_id])}
+
+:javascript
+  $("#chat-box .header").click(function() {
+    const chatBox = $("#chat-box");
+    chatBox.toggleClass("hidden-chat");
+    if(chatBox.hasClass("hidden-chat")) {
+        chatBox.removeClass("flex-1").removeClass("sm:h-96")
+        $("#chat-box .content").addClass("hidden")
+        $("#chat-box .arrow").removeClass("mdi-chevron-down").addClass("mdi-chevron-up")
+        $("main").addClass("flex-1").removeClass("sm:h-auto").removeClass("h-0")
+    }else {
+        chatBox.addClass("flex-1").addClass("sm:h-96")
+        $("#chat-box .content").removeClass("hidden")
+        $("#chat-box .arrow").removeClass("mdi-chevron-up").addClass("mdi-chevron-down")
+        $("main").removeClass("flex-1").addClass("sm:h-auto").addClass("h-0")
+    }
+  });
