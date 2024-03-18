@@ -37,8 +37,8 @@ const ChatBot = (props) => {
 
     return <div className="size-full flex flex-col">
         <div ref={messagesArea} className="flex-1 flex flex-col gap-1 overflow-y-auto p-2">
-            {display_messages.map(({role, message}) => (
-                <div className={`w-full flex ${role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            {display_messages.map(({role, message}, idx) => (
+                <div className={`w-full flex ${role === 'user' ? 'justify-end' : 'justify-start'}`} key={idx}>
                     <div
                         className={`bg-${role === 'assistant' ? 'primary-500' : 'white'} text-${role === 'assistant' ? 'white' : 'black'} max-w-64 shadow rounded-lg p-2`}>
                         {message}
