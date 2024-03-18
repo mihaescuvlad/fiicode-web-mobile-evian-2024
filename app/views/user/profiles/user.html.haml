@@ -15,7 +15,7 @@
             .flex.col.justify-center.items-center.w-32.h-32.rounded-full.overflow-hidden.border-2.border-gray-800
               %img.w-32.h-32.rounded-full{id: "profilePicturePreview", src: profile_picture_url }
                 %span.w-32.h-32.absolute.rounded-full.bg-slate-800.transition-opacity.duration-300{ class: "opacity-0 hover:opacity-65" }
-                  %input.w-full.h-full.absolute.rounded-full.opacity-0.z-10{ type: "file", name: "profile_picture", id: "profile_picture", class: "cursor-pointer", onchange: "showPreview(this);" }
+                  %input.w-full.h-full.absolute.rounded-full.opacity-0.z-10{ type: "file", accept: ".jpg, .jpeg, .gif, .png", name: "profile_picture", id: "profile_picture", class: "cursor-pointer", onchange: "showPreview(this);" }
                   .flex.flex-col.w-full.h-full.justify-center.text-center.text-white
                     = "Change Picture"
             %span.flex.flex-col.justify-center.items-center.absolute.bottom-0.right-2.transform.bg-red-400.border-2.border-gray-800.rounded-full{id: "removeProfileButton", name: "removeProfileButton", class: "w-7 h-7 cursor-pointer #{current_user.profile_picture.present? ? '' : 'hidden'}", onclick: "removeProfilePicture();"}

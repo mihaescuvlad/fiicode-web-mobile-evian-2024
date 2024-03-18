@@ -8,8 +8,8 @@
 %header.bg-primary-500.p-4.text-white.sm:block.z-50
   %nav.container.mx-auto.h-8.px-2.flex.justify-center.items-center.gap-10
     = link_to '/' do
-      %h1
-        .logo
+      %h1.text-2xl.font-bold.select-none
+        FAP
     .hidden.sm:block.flex-1.rounded-full.text-black.text-sm
       = text_field_tag :search, nil, class: "search-autocomplete w-full p-2 rounded-lg", placeholder: "Search for a food item", type: "text"
 
@@ -28,7 +28,7 @@
         = render "partials/layout/header/notifications_dropdown"
       %span#settings-section
         = link_to user_profile_path, id: 'profile-path' do
-          - if current_user.profile_picture.present?
+          - if current_user.present? and current_user.profile_picture.present?
             - profile_picture_url = current_user.profile_picture.url
             %img.w-6.h-6.rounded-full{ src: profile_picture_url }
           - else

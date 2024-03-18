@@ -6,6 +6,9 @@ class User::Hub::PostsController < UserApplicationController
 
     @post.view(current_user) if current_user.present?
     @post.save!
+
+    ensure_chat_initialized
+    ChatBot.send_context(@post, session[:thread_id])
   end
 
   def new
