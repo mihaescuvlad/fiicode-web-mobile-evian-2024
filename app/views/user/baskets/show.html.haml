@@ -5,7 +5,7 @@
     - @basket_products.each do |product|
       = product_card(product)
   - if @basket_products.empty?
-    .text-center.text-2xl.font-semibold.rounded-lg.bg-white.p-4.shadow-md.w-full{ class:"sm:w-1/2" } 
+    .text-center.text-2xl.font-semibold.rounded-lg.bg-white.p-4.shadow-md.w-full{ class:"sm:w-1/2" }
       = "No products found in your favorites list. You can add products to your favorites list by clicking on the heart icon from the product card."
   - else
     .flex.flex-wrap.items-center.justify-center.rounded-lg.bg-white.py-2.px-4.my-4

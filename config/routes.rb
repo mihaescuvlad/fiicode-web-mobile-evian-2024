@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       match :notifications, on: :collection, via: %i[get]
     end
 
+    resources :notifications, only: %i[destroy]
+
     resource :basket
 
     resources :allergens, only: %i[index show] do
@@ -36,7 +38,7 @@ Rails.application.routes.draw do
     end
 
     resources :submissions, only: %i[index show]
-    get '/upload/grid/*path', to: 'gridfs#serve' 
+    get '/upload/grid/*path', to: 'gridfs#serve'
 
     namespace :hub do
       get '/', to: 'hub#index'

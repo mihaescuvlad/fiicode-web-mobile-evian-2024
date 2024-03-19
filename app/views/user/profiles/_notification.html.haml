@@ -1,6 +1,26 @@
 - transparent ||= false
 
-%a.flex.items-center.p-2.gap-2.shadow-md{ class: " sm:shadow-none " + if transparent then "bg-transparent hover:bg-black/10" else "bg-white rounded-lg hover:bg-slate-100" end, href: notification.link}
+.flex.items-center.p-2.gap-2.shadow-md.cursor-pointer{ id: "notification-" + notification.id ,class: " sm:shadow-none " + if transparent then "bg-transparent hover:bg-black/10" else "bg-white rounded-lg hover:bg-slate-100" end, href: notification.link}
   .mdi{ class: "mdi-#{notification.icon} text-2xl" }
-  .text-lg.truncate
+  .text-lg.flex-1.truncate
     = notification.message
+  .mdi.mdi-close.text-xl{id: "close-notification-" + notification.id, href: user_notification_path(notification)}
+
+  :javascript
+    $(document).on('click', '[id^="notification-"]', function() {
+      window.location.href = $(this).attr("href")
+    })
+
+    $(document).on("click", '[id^="close-notification-"]', function(e) {
+      e.stopPropagation()
+      $.ajax({
+        url: $(this).attr("href"),
+        method: "DELETE",
+        success: function() {
+          $(this).parent().remove()
+        },
+        error: function() {
+          console.error("Error deleting notification")
+        }
+      });
+    });
