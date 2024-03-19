@@ -3,24 +3,24 @@
     = hidden_field_tag :login, @login.id
     = hidden_field_tag :token, @token
     .flex.flex-col.justify-between.size-full
-      .grid.gap-4{class:"md:grid-cols-2"}
-        %div
-          %label.text-sm{for: "email"}
-            = "Email"
-          %input{type: "email", name: "email", id: "email", class: "rounded-lg p-2 w-full disabled:bg-gray-200", value: "#{@login.email}", disabled: true}
-        %div
-          %label.text-sm{for: "username"}
-            = "Username"
-          %input{type: "text", name: "username", id: "username", class: "rounded-lg p-2 w-full disabled:bg-gray-200", value: "#{@login.username}", disabled: true}
-        %div{ class: "md:col-span-2 grid md:grid-cols-2 gap-4" }
+      .flex.flex-col.space-y-1.w-full.justify-center
+        .flex.flex-row.w-full.justify-between.items-center.space-x-4
           %div
-            %label.text-sm{for: "password"}
-              = "New Password"
-            %input{type: "password", name: "password", id: "password", class: "rounded-lg p-2 w-full disabled:bg-gray-200", disabled: !@allowed_update}
+            %label.text-sm{for: "email"}
+              = "Email"
+            %input{type: "email", name: "email", id: "email", class: "rounded-lg p-2 w-full disabled:bg-gray-200", value: "#{@login.email}", disabled: true}
           %div
-            %label.text-sm{for: "password_confirmation"}
-              = "Confirm Password"
-            %input{type: "password", name: "password_confirmation", id: "password_confirmation", class: "rounded-lg p-2 w-full disabled:bg-gray-200", disabled: !@allowed_update}
+            %label.text-sm{for: "username"}
+              = "Username"
+            %input{type: "text", name: "username", id: "username", class: "rounded-lg p-2 w-full disabled:bg-gray-200", value: "#{@login.username}", disabled: true}
+        %div
+          %label.text-sm{for: "password"}
+            = "New Password"
+          %input{type: "password", name: "password", id: "password", class: "rounded-lg p-2 w-full disabled:bg-gray-200", disabled: !@allowed_update}
+        %div
+          %label.text-sm{for: "password_confirmation"}
+            = "Confirm Password"
+          %input{type: "password", name: "password_confirmation", id: "password_confirmation", class: "rounded-lg p-2 w-full disabled:bg-gray-200", disabled: !@allowed_update}
         - unless @allowed_update
           %p.col-span-2
             = "To update your password, <span id='request-change' href='#{user_request_password_reset_path(login: @login.id)}' class='text-primary-400 cursor-pointer'>request change</span> to get a reset link sent to your email.".html_safe
