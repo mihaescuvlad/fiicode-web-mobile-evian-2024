@@ -81,10 +81,14 @@ class User::ProfilesController < UserApplicationController
   private
 
   def update_user_profile
-    current_user.update_attributes!(
-      user_params.merge(profile_picture: profile_picture_param)
-    )
+    if params[:profile_picture].present? || params.dig(:user, :remove_profile_picture) == "true"
+      current_user.update_attributes!(user_params.merge(profile_picture: profile_picture_param))
+    else
+      current_user.update_attributes!(user_params)
+    end
     render status: :ok
+  rescue
+    render status: :unprocessable_entity
   end
 
   def user_params
