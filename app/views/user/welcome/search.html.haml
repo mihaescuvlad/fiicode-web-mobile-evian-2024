@@ -20,7 +20,7 @@
       #tab1.tab-content{ class: ("w-full " + (active_tab == 'tab1' ? "" : "hidden")) }
         .flex.flex-col.items-center.justify-center.space-y-4.w-full
           - @products.each do |product|
-            .rounded-lg.bg-white.p-4.shadow.flex.flex-row.justify-between.items-center.w-full{class: "md:max-w-[85%]"}
+            .rounded-lg.bg-white.p-4.shadow-md.flex.flex-row.justify-between.items-center.w-full{class: "md:max-w-[85%]"}
               .flex.flex-col.items-center.text-center.w-full.text-left
                 .font-semibold
                   = product.name
@@ -36,7 +36,7 @@
       #tab2.tab-content{ class: ("w-full " + (active_tab == 'tab2' ? "" : "hidden")) }
         .flex.flex-col.items-center.justify-center.space-y-4.w-full
           - @users.each do |user|
-            .rounded-lg.bg-white.p-4.shadow.flex.flex-row.justify-between.items-center.w-full{class: "md:max-w-[85%]"}
+            .rounded-lg.bg-white.p-4.shadow-md.flex.flex-row.justify-between.items-center.w-full{class: "md:max-w-[85%]"}
               .flex.flex-col.items-center.text-center.w-full.text-left
                 .font-semibold
                   = user.first_name
@@ -50,7 +50,7 @@
       #tab3.tab-content{ class: ("w-full " + (active_tab == 'tab3' ? "" : "hidden")) }
         .flex.flex-col.items-center.justify-center.space-y-4.w-full
           - @posts.each do |post|
-            .rounded-lg.bg-white.p-4.shadow.flex.flex-row.justify-between.items-center.w-full{class: "md:max-w-[85%]"}
+            .rounded-lg.bg-white.p-4.shadow-md.flex.flex-row.justify-between.items-center.w-full{class: "md:max-w-[85%]"}
               .flex.flex-col.items-center.text-center.w-full.text-left
                 .font-semibold
                   = "@#{post.author.login.username}"

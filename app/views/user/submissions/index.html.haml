@@ -18,7 +18,7 @@
                     .flex.flex-col.justify-center.items-center.w-full
                         - @submitted_products.each do |product|
                             - next if product.approved?
-                            .flex.flex-col.justify-center.items-center.w-full.shadow-lg.bg-white.rounded-lg.p-4.my-4.space-y-4
+                            .flex.flex-col.justify-center.items-center.w-full.shadow-md.bg-white.rounded-lg.p-4.my-4.space-y-4
                                 .text-xl.font-semibold
                                     = product.name
                                 .text-slate-700
@@ -37,7 +37,7 @@
                     .flex.flex-col.justify-center.items-center.w-full
                         - @submitted_products.each do |product|
                             - next unless product.approved?
-                            .flex.flex-col.justify-center.items-center.w-full.shadow-lg.bg-white.rounded-lg.p-4.my-4.space-y-4
+                            .flex.flex-col.justify-center.items-center.w-full.shadow-md.bg-white.rounded-lg.p-4.my-4.space-y-4
                                 .text-xl.font-semibold
                                     = product.name
                                 .text-slate-700
