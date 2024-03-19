@@ -2,6 +2,8 @@ class Login < BaseLogin
   field :email, type: String
   has_one :user
 
+  validates_uniqueness_of :email
+
   def initialize(attrs = {})
     attrs.include?(:email) or raise ArgumentError
 
