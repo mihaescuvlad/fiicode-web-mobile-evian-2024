@@ -11,6 +11,10 @@ export default window.BaseNotifier = class {
         this.#closeTimeout = null;
         this.#hiddenClassName = hiddenClassName;
         this.#shown = false
+
+        this.#dom_object.addEventListener('click', () => {
+            this.shown = false;
+        });
     }
 
     /** @returns {boolean} True if the notification is hidden, false if it is displayed */
