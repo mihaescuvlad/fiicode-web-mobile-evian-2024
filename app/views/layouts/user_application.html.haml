@@ -24,7 +24,7 @@
     = render "partials/notifier/success_notifier"
     = render "partials/notifier/error_notifier"
     = render "partials/layout/header"
-    %main.flex.flex-col.flex-1.overflow-y-auto.overflow-x-hidden.transition-all{class: "sm:transition-none"}
+    %main.flex.flex-col.flex-1.overflow-y-auto.overflow-x-hidden.transition-all{class: "sm:transition-none sm:flex-1"}
       .flex-1
         = content_for?(:content) ? yield(:content) : yield
       = render "partials/layout/footer"
