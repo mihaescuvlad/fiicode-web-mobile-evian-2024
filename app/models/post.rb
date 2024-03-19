@@ -13,7 +13,6 @@ class Post
 
   field :title, type: String
   field :content, type: String
-  field :images, type: Array, default: []
   belongs_to :author, class_name: 'User', inverse_of: :posts
 
   field :hashtags, type: Array
