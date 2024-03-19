@@ -22,15 +22,15 @@
             %span.hidden.text-sm.capitalize.lg:inline-block
               = link[:label]
     #profile-section.hidden.sm:flex.items-center.h-full.gap-4.relative
-      %span#notifications-section
-        = link_to notifications_user_profile_path do
-          %i.mdi.mdi-bell-outline.text-2xl
-        = render "partials/layout/header/notifications_dropdown"
+      - if current_user.present?
+        %span#notifications-section
+          = link_to notifications_user_profile_path do
+            %i.mdi.mdi-bell-outline.text-2xl
+          = render "partials/layout/header/notifications_dropdown"
       %span#settings-section
         = link_to user_profile_path, id: 'profile-path' do
           - if current_user.present? and current_user.profile_picture.present?
-            - profile_picture_url = current_user.profile_picture.url
-            %img.w-6.h-6.rounded-full{ src: profile_picture_url }
+            %img.w-8.h-8.rounded-full{ src: current_user.profile_picture_url }
           - else
             %i.mdi.mdi-account-circle-outline.text-2xl
         = render "partials/layout/header/profile_dropdown"

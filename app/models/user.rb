@@ -32,6 +32,10 @@ class User
   field :followers_ids, type: Array, default: []
   field :following_ids, type: Array, default: []
 
+  def profile_picture_url
+    self.profile_picture&.url || ActionController::Base.helpers.asset_path("account-circle-outline.png")
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
