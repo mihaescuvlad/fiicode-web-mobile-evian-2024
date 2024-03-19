@@ -67,3 +67,21 @@
 
 
   });
+
+  $(document).on('click', '[id^="notification-"]', function() {
+    window.location.href = $(this).attr("href")
+  })
+
+  $(document).on("click", '[id^="close-notification-"]', function(e) {
+    e.stopPropagation()
+    $.ajax({
+      url: $(this).attr("href"),
+      method: "DELETE",
+      success: function() {
+        location.reload()
+      },
+      error: function() {
+        console.error("Error deleting notification")
+      }
+    });
+  });
