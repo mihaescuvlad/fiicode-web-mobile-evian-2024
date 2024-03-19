@@ -1,6 +1,6 @@
 %html
   %head
-    %title FAP Admin
+    %title Freshly Admin
     %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
   = csrf_meta_tags
   = csp_meta_tag
@@ -26,7 +26,7 @@
       %nav.container.mx-auto.h-8.flex.justify-between.items-center
         .font-bold.flex.flex-col.items-center
           %h1.text-lg.uppercase
-            FAP
+            Freshly
           .text-sm
             Admin
         - if current_login.present?

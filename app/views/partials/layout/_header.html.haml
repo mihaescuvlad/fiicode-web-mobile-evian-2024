@@ -9,7 +9,7 @@
   %nav.container.mx-auto.h-8.px-2.flex.justify-center.items-center.gap-10
     = link_to '/' do
       %h1.text-2xl.font-bold.select-none
-        FAP
+        Freshly
     .hidden.sm:block.flex-1.rounded-full.text-black.text-sm
       = text_field_tag :search, nil, class: "search-autocomplete w-full p-2 rounded-lg", placeholder: "Search for a food item", type: "text"
 
@@ -66,4 +66,22 @@
     });
 
 
+  });
+
+  $(document).on('click', '[id^="notification-"]', function() {
+    window.location.href = $(this).attr("href")
+  })
+
+  $(document).on("click", '[id^="close-notification-"]', function(e) {
+    e.stopPropagation()
+    $.ajax({
+      url: $(this).attr("href"),
+      method: "DELETE",
+      success: function() {
+        location.reload()
+      },
+      error: function() {
+        console.error("Error deleting notification")
+      }
+    });
   });
