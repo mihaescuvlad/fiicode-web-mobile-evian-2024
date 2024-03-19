@@ -71,7 +71,7 @@ class User::ProfilesController < UserApplicationController
                 { href: account_user_profile_path, text: "Account", icon: "lock", md: true },
                 { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food", md: true },
                 { href: user_hub_user_path(current_user), text: "Hub page", icon: "forum", md: false },
-                { href: notifications_user_profile_path, text: "Notifications", icon: "bell", md: false },
+                { href: notifications_user_profile_path, text: "Notifications", icon: "bell", md: true },
                 { href: user_basket_path, text: "Basket", icon: "cart", md: false}]
     else
       @links = []

@@ -11,7 +11,7 @@
           .hidden{class: "sm:flex sm:justify-between sm:flex-col sm:border-r sm:pr-4"}
             .tabs.flex.gap-4{ class: "flex-col max-[600px]:overflow-x-auto" }
               - @links.each do |link|
-                = link_to link[:href], class: "text-#{current_page?(link[:href]) ? 'primary-500' : 'black'}" do
+                = link_to link[:href], class: "text-#{current_page?(link[:href]) ? 'primary-500' : 'black'} #{link[:md] == false ? "hidden" : ""}" do
                   %button{ class: "tab flex flex-row items-center focus:outline-none" }
                     .mdi.text-2xl.mr-2{class: "mdi-#{link[:icon]}-outline"}
                     %span= link[:text]
