@@ -10,9 +10,9 @@ class User::BasketsController < UserApplicationController
     
     basket_product_ids = current_user.favorites
     favorite_total_pages = (basket_product_ids.count.to_f / 9).ceil
-
+    puts "favorite_total_pages: #{favorite_total_pages}"
     if params[:favorites_page].to_i > favorite_total_pages
-      params[:favorites_page] = favorite_total_pages
+      params[:favorites_page] = favorite_total_pages == 0 ? 1 : favorite_total_pages
     end
 
     @basket_products = Product.where(:_id.in => basket_product_ids).skip((params[:favorites_page].to_i - 1) * 9).limit(9)
