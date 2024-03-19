@@ -8,8 +8,7 @@
 %header.bg-primary-500.p-4.text-white.sm:block.z-50
   %nav.container.mx-auto.h-8.px-2.flex.justify-center.items-center.gap-10
     = link_to '/' do
-      %h1.text-2xl.font-bold.select-none
-        Freshly
+      = image_tag "logo.png", class: "h-36"
     .hidden.sm:block.flex-1.rounded-full.text-black.text-sm
       = text_field_tag :search, nil, class: "search-autocomplete w-full p-2 rounded-lg", placeholder: "Search for a food item", type: "text"
 
