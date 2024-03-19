@@ -5,19 +5,20 @@
   = hidden_field_tag :vegan, @matching_product.vegan
   = hidden_field_tag :vegetarian, @matching_product.vegetarian
   .flex.flex-col.justify-center.items-center.place-self-center.w-full.space-y-4
-    %h1.text-3xl.font-semibold.mt-10{ contenteditable: true, id: "product-name" }
-      = "#{@matching_product.name}"
-    %h1.text-xl.font-semibold.mb-8.overflow-hidden.text-ellipsis.whitespace-nowrap
-      = "("
-      %span{ contenteditable: true, id: "product-brand" }
-        = "#{@matching_product.brand}"
-      = " - "
-      %span{ contenteditable: true, id: "product-weight" }
-        = "#{@matching_product.weight}"
-      = ")"
+    .w-fit.p-4{ class: "backdrop-blur-[2px]" }
+      %h1.text-3xl.font-semibold.mt-10{ contenteditable: true, id: "product-name" }
+        = "#{@matching_product.name}"
+      %h1.text-xl.font-semibold.mb-8.overflow-hidden.text-ellipsis.whitespace-nowrap
+        = "("
+        %span{ contenteditable: true, id: "product-brand" }
+          = "#{@matching_product.brand}"
+        = " - "
+        %span{ contenteditable: true, id: "product-weight" }
+          = "#{@matching_product.weight}"
+        = ")"
 
   .w-full{ class: "md:w-1/2" }
-    .flex.flex-row.rounded-full.p-2.items-center.mb-2.space-x-2{ class: "backdrop-blur-[1px] w-fit" }
+    .flex.flex-row.rounded-full.p-2.items-center.mb-2.space-x-2{ class: "backdrop-blur-[2px] w-fit" }
       .mdi.mdi-text-box-edit-outline.text-2xl
       .font-semibold{ class: "text-slate-700" }= "You can edit the product details by pressing directly on the text fields."
     .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2

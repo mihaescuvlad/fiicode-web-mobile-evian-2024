@@ -1,8 +1,9 @@
-.flex.flex-col.w-full.h-full
+.flex.flex-col
     - if @submitted_products.blank?
-        .flex.justify-center.items-center.text-3xl.font-bold.my-8
-            You have not submitted any products yet.
-        .my-8.flex.justify-center.items-center
+        .flex.justify-center.items-center.text-2xl.font-bold.my-8
+            .rounded-lg.shadow-md.p-4.w-fit.font-bold{ class: "backdrop-blur-[2px]" }
+                You have not submitted any products yet.
+        .mt-8.flex.justify-center.items-center
             %button.bg-primary-500.text-white.py-2.px-4.rounded-lg.flex.flex-row.justify-center.items-center
                 .mdi.mdi-plus-circle.mr-2.text-xl
                 = link_to 'Submit a product', create_product_user_products_path
@@ -13,7 +14,7 @@
                 = link_to 'Submit a product', create_product_user_products_path
             .flex.flex-col.justify-center.items-center{class: "md:w-2/5 w-full"}
                 - if @submitted_products.any? { |product| !product.approved? }
-                    .text-2xl.font-bold
+                    .text-2xl.font-bold{ class: "backdrop-blur-[2px]" }
                         Waiting approval submissions
                     .flex.flex-col.justify-center.items-center.w-full
                         - @submitted_products.each do |product|
@@ -32,7 +33,7 @@
                                     %button.bg-red-500.text-white.py-2.px-4.rounded-lg
                                         = link_to 'Delete', user_product_path(product), method: :delete, data: { confirm: 'Are you sure?' }
                 - if @submitted_products.any?(&:approved?)
-                    .text-2xl.font-bold
+                    .text-2xl.font-bold{ class: "backdrop-blur-[2px]" }
                         Approved submissions
                     .flex.flex-col.justify-center.items-center.w-full
                         - @submitted_products.each do |product|

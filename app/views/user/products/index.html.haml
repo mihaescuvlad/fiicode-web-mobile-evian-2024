@@ -1,6 +1,6 @@
 .flex.flex-col.px-4.py-8.justify-center.items-center
   .flex.flex-col.justify-center.items-center.w-full.h-full
-    .text-2xl.font-semibold.mb-6.p-2.text-center.rounded-lg.bg-white.bg-clip-border.text-gray-700.shadow-md
+    .text-2xl.font-bold.mb-6.p-2.text-center.rounded-lg.bg-clip-border.text-gray-700.shadow-md{ class: "backdrop-blur-[2px]"}
       = "Top rated foods"
 
     .flex.grid.grid-cols-1{ class: "sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8" }
@@ -34,9 +34,6 @@
         - if params[:page].to_i < @total_pages
           = link_to user_products_path(page: @total_pages), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
             %i.mdi.mdi-chevron-double-right{title: "Last Page"}
-
-- if @top_products.blank?
-  %div.flex.h-full
 
 :javascript
   $(document).on('click', '[id^="heart-icon"]', function() {
