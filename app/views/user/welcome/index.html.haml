@@ -1,4 +1,4 @@
-%div.w-full.flex.justify-center.items-center.full-page-background{class: "rounded-b-[5%] h-[100vh]"}
+%div.w-full.flex.justify-center.items-center.full-page-background{class: "rounded-b-lg h-[100vh]"}
   %div.w-full.flex.flex-col.justify-center.items-center{class:"md:justify-start text-left max-w-[80%] md:items-start"}
     %div{class:"md:max-w-[60%]"}
       .text-5xl.font-semibold.text-white
@@ -110,7 +110,9 @@
         .text-slate-700
           = sanitize(@food_fact.instructions)
   #recommended_products_container.flex.flex-col.justify-center.items-center.w-full
-  
+%br
+
+
 :javascript
   $(document).ready(function() {
     $.ajax({
