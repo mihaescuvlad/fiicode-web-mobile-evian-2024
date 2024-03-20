@@ -1,4 +1,6 @@
-.flex.flex-col.shadow-md.rounded-lg.bg-white.p-4.gap-3.cursor-pointer.w-full{class: "hover:bg-slate-100", id: post.id, onclick: "window.location.href = '#{user_hub_post_path(post)}'"}
+- children ||= []
+
+.flex.flex-col.shadow-md.rounded-lg.bg-white.p-4.gap-3.cursor-pointer.w-full{ class: "hover:bg-slate-100", id: post.id, onclick: "window.location.href = '#{user_hub_post_path(post)}##{post.id}'" }
   .flex-1.space-y-4
     .flex.items-stretch
       - if post.author.profile_picture.present?
@@ -31,6 +33,12 @@
       %span.counter
         = number_to_human(post.ratings.ratio, units: {thousand: "K", million: "M", billion: "B"})
       %a.downarrow.mdi.text-2xl{href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :down_vote then "mdi-arrow-down-circle text-primary-400" else "mdi-arrow-down-circle-outline" end}
+- if children.present?
+  .pl-4.flex.w-full.items-stretch.gap-2
+    .w-2.bg-gray-500.rounded-lg
+    .flex.flex-col.gap-4.flex-1
+      - children.each do |child|
+        = child
 
 %script
   $(document).ready(function() {
