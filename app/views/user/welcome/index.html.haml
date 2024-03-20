@@ -139,3 +139,32 @@
       }
     });
   });
+
+  $(document).on('click', '[id^="heart-icon"]', function() {
+    const heartId = this.id;
+    const productId = this.id.replace('heart-icon-', '');
+    if ($("#" + heartId).hasClass('mdi-heart')) {
+      $.ajax({
+        url: 'products/' + productId + '/remove_from_favorites',
+        type: 'PATCH',
+        success: function(response) {
+          $("#" + heartId).removeClass('mdi-heart').addClass('mdi-heart-outline');
+        },
+        error: function(response) {
+          $("#" + heartId).removeClass('mdi-heart-outline').addClass('mdi-heart');
+        }
+      });
+      return;
+    }
+    
+    $.ajax({
+      url: 'products/' + productId + '/add_to_favorites',
+      type: 'PATCH',
+      success: function(response) {
+        $("#" + heartId).removeClass('mdi-heart-outline').addClass('mdi-heart');
+      },
+      error: function(response) {
+        $("#" + heartId).removeClass('mdi-heart').addClass('mdi-heart-outline');
+      }
+    });
+  });
