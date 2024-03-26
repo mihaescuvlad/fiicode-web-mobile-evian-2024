@@ -9,9 +9,9 @@ tokenizer = AutoTokenizer.from_pretrained("Twitter/twhin-bert-base")
 model = AutoModel.from_pretrained("Twitter/twhin-bert-base")
 
 
-def process_post_data(posts):
+def process_post_data(posts, max_seq_length=512):
     post_texts = [post.title + " " + post.content for post in posts]
-    inputs = tokenizer(post_texts, return_tensors="pt", padding=True, truncation=True)
+    inputs = tokenizer(post_texts, return_tensors="pt", padding=True, truncation=True, max_length=max_seq_length)
     return inputs
 
 
