@@ -4,7 +4,7 @@ class User::WelcomeController < UserApplicationController
     @top_posts = top_posts
     @food_fact = Recipe.desc(:created_at).first
     if @food_fact.nil? || @food_fact.created_at < 30.minutes.ago
-      @food_fact = RandomFacts.random_recipe
+      # @food_fact = RandomFacts.random_recipe
       if @food_fact.instructions.blank?
         offset = rand(Recipe.count)
         @food_fact = Recipe.skip(offset).first

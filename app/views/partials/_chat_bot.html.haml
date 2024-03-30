@@ -1,26 +1,71 @@
-#chat-box.relative.w-full.bg-white.transition-all.flex.flex-col.hidden-chat.overflow-y-hidden{class: "sm:w-80 sm:fixed bottom-0 left-0"}
-  .header{ class: "w-full py-2 px-3 bg-primary-500 text-white flex justify-between items-center cursor-pointer" }
-    .flex.gap-1.items-center
-      .mdi.mdi-chat-question-outline.text-2xl
-      %h2.text-xl.select-none
-        My AI Assistant
-    .arrow.mdi.mdi-chevron-up.text-3xl
-  .content.transition-all.flex-1.min-h-0.hidden
-    = react_component "chat_bot", {send_path: user_chat_send_message_path, messages: ChatBot.get_messages(session[:thread_id])}
+%div.fixed.bottom-16.left-4.z-50.w-full{class: "sm:bottom-4"}
+  #chat-box.bg-white.shadow-lg.rounded-lg.overflow-hidden.transition-opacity.opacity-0.transform.scale-95.mb-2{class: "sm:h-[35rem] h-[40rem] w-[90%] sm:w-[30rem]"}
+    .content
+      = react_component "chat_bot", {send_path: user_chat_send_message_path, messages: ChatBot.get_messages(session[:thread_id])}
+  %button#fab.p-8.bg-primary-500.text-white.rounded-lg.shadow-lg.cursor-pointer.flex.justify-center.items-center.overflow-hidden.relative{onclick: "toggleIcon()"}
+    %i.mdi.mdi-chat-outline.absolute.text-3xl
+    %i.mdi.mdi-menu-down.absolute.opacity-0.text-5xl
+
 
 :javascript
-  $("#chat-box .header").click(function() {
-    const chatBox = $("#chat-box");
-    chatBox.toggleClass("hidden-chat");
-    if(chatBox.hasClass("hidden-chat")) {
-        chatBox.removeClass("flex-1").removeClass("sm:h-96")
-        $("#chat-box .content").addClass("hidden")
-        $("#chat-box .arrow").removeClass("mdi-chevron-down").addClass("mdi-chevron-up")
-        $("main").addClass("flex-1").removeClass("sm:h-auto").removeClass("h-0")
-    }else {
-        chatBox.addClass("flex-1").addClass("sm:h-96")
-        $("#chat-box .content").removeClass("hidden")
-        $("#chat-box .arrow").removeClass("mdi-chevron-up").addClass("mdi-chevron-down")
-        $("main").removeClass("flex-1").addClass("sm:h-auto").addClass("h-0")
+  let isFirstScenario = true; // This flag will toggle between scenarios
+  let isChatOpen = false; // Track the chat box state
+
+  function toggleIcon() {
+    const [icon1, icon2] = document.querySelectorAll('#fab i');
+    const chatBox = document.getElementById('chat-box');
+    // Scenario 1: First icon goes up, second comes from bottom
+    if (isFirstScenario) {
+      icon1.style.animation = 'exitToTop 0.5s forwards';
+      icon2.style.animation = 'enterFromBottom 0.5s forwards';
+    } 
+    // Scenario 2: First icon comes from top, second goes bottom
+    else {
+      icon1.style.animation = 'enterFromTop 0.5s forwards';
+      icon2.style.animation = 'exitToBottom 0.5s forwards';
     }
-  });
+
+    if (isChatOpen) {
+      chatBox.style.opacity = '0';
+      chatBox.style.transform = 'scale(0.95)';
+    } else {
+      chatBox.style.opacity = '1';
+      chatBox.style.transform = 'scale(1)';
+    }
+    isChatOpen = !isChatOpen; // Toggle chat box state
+
+  // Ensure transformations apply smoothly
+  chatBox.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+
+    // Prepare for the next click by toggling the scenario flag
+    isFirstScenario = !isFirstScenario;
+
+    // After the animation ends, toggle opacity to keep the icons' visual state consistent with the animation
+    icon1.addEventListener('animationend', () => {
+      icon1.classList.toggle('opacity-0');
+      icon2.classList.toggle('opacity-0');
+    }, { once: true });
+  }
+
+:css
+  @keyframes exitToTop {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-100%); opacity: 0; }
+  }
+
+  @keyframes enterFromBottom {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes exitToBottom {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(100%); opacity: 0; }
+  }
+
+  @keyframes enterFromTop {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+
