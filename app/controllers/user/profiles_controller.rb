@@ -29,6 +29,17 @@ class User::ProfilesController < UserApplicationController
     @allowed_update = (params[:token].present? and @login.reset_password_key == params[:token])
 
     if request.put?
+      if params[:username].present? && params[:username] != @login.username
+        begin
+          @login.username = params[:username]
+          @login.confirmed_username = true
+          @login.save!
+          redirect_to user_user_profile_path, notice: "Nickname updated", status: :see_other and return
+        rescue Mongoid::Errors::Validations => e
+          render json: { message: "Username is already used, try again!" }, status: :unauthorized and return
+        end
+      end
+
       if params[:password] != params[:password_confirmation]
         render json: { message: 'Password and password confirmation do not match' }, status: :bad_request and return
       end

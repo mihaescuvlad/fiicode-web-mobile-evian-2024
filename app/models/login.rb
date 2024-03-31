@@ -1,5 +1,8 @@
 class Login < BaseLogin
   field :email, type: String
+  field :provider, type: String
+  field :uid, type: String
+  field :confirmed_username, type: Boolean, default: true
   has_one :user
 
   validates_uniqueness_of :email

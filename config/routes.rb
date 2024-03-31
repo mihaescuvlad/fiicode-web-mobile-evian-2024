@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     match '/recommended-products', to: 'welcome#recommended_products', via: :get
     match '/login', to: 'sessions#login', via: %i[post get]
     match '/register', to: 'sessions#register', via: %i[post get]
+    get '/auth/:provider/callback', to: 'sessions#create'
+    get '/auth/failure', to: 'sessions#failure'
     match '/recover-account', to: 'sessions#recover_account', via: :get
     match '/confirm-email', to: 'sessions#confirm_email', via: :get
     match '/request-password-reset', to: 'sessions#request_password_reset', via: :get

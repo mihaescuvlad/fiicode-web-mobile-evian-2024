@@ -2,6 +2,25 @@ class User::SessionsController < UserApplicationController
   before_action :authenticate_user!, only: %i[logout]
   before_action :prevent_access_for_authenticated_user!, only: %i[login register]
 
+  def create
+    auth = request.env['omniauth.auth']
+    login = find_or_create_from_omniauth(auth)
+
+    if login.present?
+      session[:login_id] = login.id
+      session[:expires_at] = Time.current + 24.hours
+      redirect_to '/', notice: "Glad to have you back, #{login.user.last_name}!"
+    else
+      redirect_to '/', alert: 'Authentication failed, please try again.'
+    end
+  rescue => e
+    redirect_to '/', alert: "Authentication error: #{e.message}"
+  end
+
+  def failure
+    redirect_to '/', alert: 'Authentication failed, please try again.'
+  end
+
   def login
     if request.post?
       begin
@@ -61,5 +80,25 @@ class User::SessionsController < UserApplicationController
     User::LoginMailer.with(login: login).reset_password_email.deliver_now
     render json: { message: "We've mailed you the instructions to recover your account." }, status: :ok and return
     redirect_to '/', notice: "We've mailed you the instructions to recover your account."
+  end
+
+  private 
+
+  def find_or_create_from_omniauth(auth)
+    login = Login.where(provider: auth.provider, uid: auth.uid).first rescue nil
+
+    login ||= Login.where(email: auth.info.email).first rescue nil
+
+    if login.blank?
+      login = Login.new(email: auth.info.email, password: SecureRandom.urlsafe_base64(32), username: SecureRandom.hex(6))
+      login.provider = auth.provider
+      login.uid = auth.uid
+      login.confirmed_username = false
+      User.create!(first_name: auth.info.first_name, last_name: auth.info.last_name, login: login)
+      login.save!
+      User::LoginMailer.with(login: login).welcome_email.deliver_now
+    end
+
+    login
   end
 end

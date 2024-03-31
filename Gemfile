@@ -22,6 +22,9 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
 gem "mini_magick"
 gem "react-rails"
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem 'omniauth-rails_csrf_protection'
 
 group :development, :test do
   gem "debug"
