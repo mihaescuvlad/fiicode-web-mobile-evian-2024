@@ -1,5 +1,5 @@
 %div.fixed.bottom-16.left-4.z-50.w-full{class: "sm:bottom-4"}
-  #chat-box.bg-white.shadow-lg.rounded-lg.overflow-hidden.transition-opacity.opacity-0.transform.scale-95.mb-2{class: "sm:h-[35rem] h-[40rem] w-[90%] sm:w-[30rem]"}
+  #chat-box.bg-white.shadow-lg.rounded-lg.overflow-hidden.transition-opacity.transform.scale-95.mb-2.hidden{class: "sm:h-[35rem] h-[40rem] w-[90%] sm:w-[30rem]"}
     .content
       = react_component "chat_bot", {send_path: user_chat_send_message_path, messages: ChatBot.get_messages(session[:thread_id])}
   %button#fab.p-8.bg-primary-500.text-white.rounded-lg.shadow-lg.cursor-pointer.flex.justify-center.items-center.overflow-hidden.relative{onclick: "toggleIcon()"}
@@ -8,18 +8,18 @@
 
 
 :javascript
-  let isFirstScenario = true; // This flag will toggle between scenarios
-  let isChatOpen = false; // Track the chat box state
+  let isFirstScenario = true;
+  let isChatOpen = false;
 
   function toggleIcon() {
     const [icon1, icon2] = document.querySelectorAll('#fab i');
     const chatBox = document.getElementById('chat-box');
-    // Scenario 1: First icon goes up, second comes from bottom
+
     if (isFirstScenario) {
       icon1.style.animation = 'exitToTop 0.5s forwards';
       icon2.style.animation = 'enterFromBottom 0.5s forwards';
     } 
-    // Scenario 2: First icon comes from top, second goes bottom
+
     else {
       icon1.style.animation = 'enterFromTop 0.5s forwards';
       icon2.style.animation = 'exitToBottom 0.5s forwards';
@@ -27,20 +27,19 @@
 
     if (isChatOpen) {
       chatBox.style.opacity = '0';
-      chatBox.style.transform = 'scale(0.95)';
+      setTimeout(() => { chatBox.style.display = 'none'; }, 500);
     } else {
-      chatBox.style.opacity = '1';
-      chatBox.style.transform = 'scale(1)';
+      chatBox.style.display = 'block';
+      setTimeout(() => {
+        chatBox.style.opacity = '1';
+        chatBox.style.transform = 'scale(1)';
+      }, 10);
     }
-    isChatOpen = !isChatOpen; // Toggle chat box state
+    isChatOpen = !isChatOpen;
+    chatBox.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
 
-  // Ensure transformations apply smoothly
-  chatBox.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-
-    // Prepare for the next click by toggling the scenario flag
     isFirstScenario = !isFirstScenario;
 
-    // After the animation ends, toggle opacity to keep the icons' visual state consistent with the animation
     icon1.addEventListener('animationend', () => {
       icon1.classList.toggle('opacity-0');
       icon2.classList.toggle('opacity-0');
@@ -67,5 +66,3 @@
     from { transform: translateY(-100%); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
   }
-
-

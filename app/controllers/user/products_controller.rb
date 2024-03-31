@@ -57,7 +57,7 @@ class User::ProductsController < UserApplicationController
       if params[:ean].present?
         @product = OpenFoodFacts.product(params[:ean])
       else
-        @product = OpenFoodFacts.search_by_name(params[:name])
+        redirect_to products_selection_user_products_path(name: params[:name], page: 1), method: :get and return
       end
       redirect_to create_product_user_products_path and return if @product.nil?
       matching_product = Product.find_by(ean: @product.ean) rescue nil
@@ -67,6 +67,15 @@ class User::ProductsController < UserApplicationController
       else
         redirect_to new_user_product_path(ean: params[:ean]), notice: "Product not found in Open Food Facts database. Please fill in the details manually."
       end
+    end
+  end
+
+  def products_selection
+    response = OpenFoodFacts.search_by_name_list(params[:name], 3, params[:page].to_i)
+    @products = response[:products]
+    @total_pages = response[:total]
+    if @products.blank?
+      redirect_to create_product_user_products_path and return
     end
   end
 

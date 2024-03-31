@@ -21,6 +21,13 @@ class OpenFoodFacts
     product(response["products"][0]["_id"])
   end
 
+  def self.search_by_name_list(name, limit, page)
+    response = get("https://world.openfoodfacts.org//cgi/search.pl", "?search_terms=#{name}&json=1&page=#{page}&page_size=#{limit}")
+    return nil if response["products"].nil?
+
+    { products: response["products"].map { |product| map_product_to_model(product) }, total: (response["count"].to_i / limit).floor }
+  end
+
   def self.get(api, endpoint)
     res = HTTP.get(api + endpoint)
     unless res.status.success?
@@ -55,7 +62,8 @@ class OpenFoodFacts
       sugar: product[:nutriments.to_s]["sugars_100g"]&.to_f&.round(2),
       sodium: product[:nutriments.to_s]["sodium_100g"]&.to_f&.round(2),
       vegan: vegan,
-      vegetarian: vegetarian
+      vegetarian: vegetarian,
+      image_url: product[:image_url.to_s]
     )
   end
 
