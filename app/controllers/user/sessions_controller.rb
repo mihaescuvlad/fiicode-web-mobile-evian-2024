@@ -7,7 +7,7 @@ class User::SessionsController < UserApplicationController
     login = find_or_create_from_omniauth(auth)
 
     if login.present?
-      session[:login_id] = login.id
+      session[:login_id] = login.id.to_s
       session[:expires_at] = Time.current + 24.hours
       redirect_to '/', notice: "Glad to have you back, #{login.user.last_name}!"
     else
@@ -26,7 +26,7 @@ class User::SessionsController < UserApplicationController
       begin
         login = Login.authenticate_by_email(params[:email], params[:password])
         if login
-          session[:login_id] = login.id
+          session[:login_id] = login.id.to_s
           session[:expires_at] = Time.current + 24.hour
           redirect_to '/', notice: "Glad to have you back, #{login.user.last_name}!" and return
         else

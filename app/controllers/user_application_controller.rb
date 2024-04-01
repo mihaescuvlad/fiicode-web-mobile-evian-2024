@@ -5,7 +5,7 @@ class UserApplicationController < ApplicationController
 
   def current_login
     return nil if session[:login_id].blank?
-    @current_login ||= Login.find(session[:login_id]["$oid"]) rescue nil
+    @current_login ||= Login.find(session[:login_id]) rescue nil
   end
 
   def current_user
