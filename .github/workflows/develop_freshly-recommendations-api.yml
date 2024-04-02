@@ -26,6 +26,9 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+          
+      - name: Update PIP
+        run: pip install --upgrade pip
       
       - name: Install dependencies
         run: pip install -r recommendation_api/requirements.txt
