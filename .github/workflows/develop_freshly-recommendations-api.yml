@@ -28,7 +28,7 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -e recommendation_api
+        run: cd recommendation_api && pip install .
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
@@ -59,7 +59,7 @@ jobs:
           name: python-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip -d recommendations_api
+        run: unzip release.zip -d /recommendations_api
 
       - name: Login to Azure
         uses: azure/login@v1
