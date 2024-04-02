@@ -16,7 +16,7 @@ setup(
         "MarkupSafe == 2.0.1",
         "scikit-learn == 1.4.0",
         "transformers == 4.38.2",
-        "scheduler == 0.8.5",
+        "schedule == 1.2.1",
         "torch == 2.2.1",
     ],
 )
