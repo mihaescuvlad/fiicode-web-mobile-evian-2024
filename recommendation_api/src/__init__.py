@@ -110,20 +110,14 @@ def list_posts(user_id):
     user = users.find_one_or_404({"_id": PydanticObjectId(user_id)})
     current_user_forum = UserForum(_id=user["_id"], following_ids=user["following_ids"])
 
-    pipeline = [
-        {
-            "$match": {
-                "user_id": current_user_forum.id,
-                "vote": {"$in": ["up_vote", "down_vote"]},
-            }
-        },
-        {"$group": {"_id": "$vote", "post_ids": {"$push": "$post_id"}}},
-    ]
+    liked_posts = []
+    disliked_posts = []
 
-    results = list(ratings.aggregate(pipeline))
-
-    liked_posts = results[0]["post_ids"] if results else []
-    disliked_posts = results[1]["post_ids"] if len(results) > 1 else []
+    for doc in ratings.find({"user_id": current_user_forum.id, "vote": {"$in": ["up_vote", "down_vote"]}}):
+        if doc["vote"] == "up_vote":
+            liked_posts.append(doc["post_id"])
+        elif doc["vote"] == "down_vote":
+            disliked_posts.append(doc["post_id"])
 
     top_recommendations = recommend_posts(
         liked_posts, disliked_posts, current_user_forum.following_ids, embeddings
@@ -139,20 +133,14 @@ def list_posts_page(page, user_id):
     user = users.find_one_or_404({"_id": PydanticObjectId(user_id)})
     current_user_forum = UserForum(_id=user["_id"], following_ids=user["following_ids"])
 
-    pipeline = [
-        {
-            "$match": {
-                "user_id": current_user_forum.id,
-                "vote": {"$in": ["up_vote", "down_vote"]},
-            }
-        },
-        {"$group": {"_id": "$vote", "post_ids": {"$push": "$post_id"}}},
-    ]
+    liked_posts = []
+    disliked_posts = []
 
-    results = list(ratings.aggregate(pipeline))
-
-    liked_posts = results[0]["post_ids"] if results else []
-    disliked_posts = results[1]["post_ids"] if len(results) > 1 else []
+    for doc in ratings.find({"user_id": current_user_forum.id, "vote": {"$in": ["up_vote", "down_vote"]}}):
+        if doc["vote"] == "up_vote":
+            liked_posts.append(doc["post_id"])
+        elif doc["vote"] == "down_vote":
+            disliked_posts.append(doc["post_id"])
 
     per_page = request.args.get("per_page", 10, type=int)
 
