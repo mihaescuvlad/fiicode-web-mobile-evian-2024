@@ -64,8 +64,12 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: Update PIP
+      - name: Update pip
         run: pip install --upgrade pip
+
+      - name: Install dependencies
+        run: pip install -d requirements.txt
+
 
       - name: Login to Azure
         uses: azure/login@v1
