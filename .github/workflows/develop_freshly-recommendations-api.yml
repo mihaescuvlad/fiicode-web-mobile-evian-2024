@@ -59,7 +59,7 @@ jobs:
           name: python-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip -d /recommendations_api
+        run: unzip release.zip -d
 
       - name: Login to Azure
         uses: azure/login@v1
