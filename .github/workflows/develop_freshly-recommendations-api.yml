@@ -33,7 +33,7 @@ jobs:
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
-        run: cd recommendation_api && zip release.zip ./* -r
+        run: cd recommendation_api && zip -r ../release.zip ./* && cd ..
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v3
@@ -59,9 +59,8 @@ jobs:
           name: python-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip
+        run: unzip release.zip -d recommendations_api
 
-      
       - name: Login to Azure
         uses: azure/login@v1
         with:
