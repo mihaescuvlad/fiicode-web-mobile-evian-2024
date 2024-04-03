@@ -3,7 +3,7 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
-from .objectid import PydanticObjectId
+from objectid import PydanticObjectId
 
 
 class User(BaseModel):

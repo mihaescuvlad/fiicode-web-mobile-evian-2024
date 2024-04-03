@@ -8,13 +8,13 @@ from flask import Flask, request, url_for, jsonify
 from flask_pymongo import PyMongo
 from pymongo.errors import DuplicateKeyError
 
-from .model import Product, Post, UserForum
-from .objectid import PydanticObjectId
+from model import Product, UserForum
+from objectid import PydanticObjectId
 
-from .product_recommender import recommend_products
+from product_recommender import recommend_products
 
-from .posts_embeddings import update_embeddings
-from .posts_recommender import recommend_posts
+from posts_embeddings import update_embeddings
+from posts_recommender import recommend_posts
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
