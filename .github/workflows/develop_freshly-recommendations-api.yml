@@ -67,10 +67,6 @@ jobs:
       - name: Update pip
         run: pip install --upgrade pip
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-
       - name: Login to Azure
         uses: azure/login@v1
         with:
