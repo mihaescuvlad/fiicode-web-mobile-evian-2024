@@ -1,5 +1,5 @@
 import torch
-from .posts_embeddings import get_all_embeddings
+from posts_embeddings import get_all_embeddings
 
 
 def recommend_posts(liked_posts, disliked_posts, following_ids, embeddings_collection):

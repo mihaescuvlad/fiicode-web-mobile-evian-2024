@@ -2,7 +2,7 @@ import torch
 import numpy as np
 from transformers import AutoTokenizer, AutoModel
 from bson import Binary
-from .model import Post
+from model import Post
 
 
 tokenizer = AutoTokenizer.from_pretrained("Twitter/twhin-bert-base")
