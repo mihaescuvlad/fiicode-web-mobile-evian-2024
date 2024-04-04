@@ -41,10 +41,9 @@ jobs:
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v3
         with:
-          name: python-app
-          working-directory: recommendation_api
+          name: python-app       
           path: |
-            release.zip
+            recommendation_api/release.zip
             !venv/
 
   deploy:
