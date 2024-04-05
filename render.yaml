@@ -1,3 +1,6 @@
+env:
+  RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+
 services:
   - type: web
     name: Freshly
@@ -9,7 +12,7 @@ services:
     envVars:
       - key: DATABASE_URL
         value: mongodb+srv://fiicode_dev:7iqxicnfaMxKbzdk@fiicode24.ywnthrv.mongodb.net/
-      - key: RAILS_MASTER_KEY
+      - key:
         sync: false
       - key: WEB_CONCURRENCY
         value: 2 # sensible default
