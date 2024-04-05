@@ -8,7 +8,7 @@ services:
     startCommand: "bundle exec rails server"
     envVars:
       - key: DATABASE_URL
-        value: mongodb+srv://fiicode_dev:7iqxicnfaMxKbzdk@fiicode24.ywnthrv.mongodb.net/
+        value: mongodb+srv://fiicode_dev:7iqxicnfaMxKbzdk@fiicode24.ywnthrv.mongodb.net/fiicode24
       - key: RAILS_MASTER_KEY
         sync: false
       - key: WEB_CONCURRENCY
