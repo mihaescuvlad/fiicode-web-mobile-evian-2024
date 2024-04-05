@@ -110,20 +110,21 @@
         .text-slate-700
           = sanitize(@food_fact.instructions)
   #recommended_products_container.flex.flex-col.justify-center.items-center.w-full
-  .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-between.items-center.w-full#loading_products{class: "md:max-w-[85%] md:flex-row"}
-    .flex.flex-col.justify-center.items-center.text-white.space-y-2.text-left{class: "md:max-w-[20%] p-4"}
-      .text-2xl.font-semibold
-        = "Best matches for you"
-      .text-sm.text-base.text-left
-        = "We make it easy for you to find the best products that match your preferences and the products you love the most."
-      %button.text-white.text-left.w-full
-        = link_to user_basket_path do
-          .flex.flex-row.space-x-2.items-center
-            .text-base.font-semibold.whitespace-nowrap
-              = "Explore best matches"
-            .mdi.mdi-arrow-right-circle-outline.text-2xl.font-semibold
-    .mdi.mdi-loading.text-white.text-5xl.animate-spin
-    %div
+  - if current_user.present?
+    .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-between.items-center.w-full#loading_products{class: "md:max-w-[85%] md:flex-row"}
+      .flex.flex-col.justify-center.items-center.text-white.space-y-2.text-left{class: "md:max-w-[20%] p-4"}
+        .text-2xl.font-semibold
+          = "Best matches for you"
+        .text-sm.text-base.text-left
+          = "We make it easy for you to find the best products that match your preferences and the products you love the most."
+        %button.text-white.text-left.w-full
+          = link_to user_basket_path do
+            .flex.flex-row.space-x-2.items-center
+              .text-base.font-semibold.whitespace-nowrap
+                = "Explore best matches"
+              .mdi.mdi-arrow-right-circle-outline.text-2xl.font-semibold
+      .mdi.mdi-loading.text-white.text-5xl.animate-spin
+      %div
 
 %br
 
