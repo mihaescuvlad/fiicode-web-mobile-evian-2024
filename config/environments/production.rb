@@ -56,6 +56,7 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
+  config.assets.css_compressor = nil
   config.hosts = nil
   config.log_level = :warn
   # Raises error for missing translations.
