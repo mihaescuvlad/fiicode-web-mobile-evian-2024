@@ -1,35 +1,46 @@
-- unless defined? @user_hub_posts_post_def then
-  = javascript_include_tag 'user/hub/posts/post'
-- @user_hub_posts_post_def = true
+- children ||= []
 
-.flex.flex-col.shadow.rounded-lg.bg-white.p-4.gap-3.cursor-pointer.w-full{class: "hover:bg-slate-100", id: post.id, onclick: "window.location.href = '#{user_hub_post_path(post)}'"}
+.flex.flex-col.shadow-md.rounded-lg.bg-white.p-4.gap-3.cursor-pointer.w-full{ class: "hover:bg-slate-100", id: post.id, onclick: "window.location.href = '#{user_hub_post_path(post)}##{post.id}'" }
   .flex-1.space-y-4
-    %div.space-y-1
-      %h3.text-lg
-        %span.text-primary-500
-          = link_to user_hub_user_path(post.author) do
-            = '@' + post.author.login.username
-        - if post.response_to.present? then
-          %span
-            replying to
+    .flex.items-stretch
+      - if post.author.profile_picture.present?
+        .flex.justify-center.items-center
+          %img.w-11.h-11.rounded-full.mr-2{ src: post.author.profile_picture_url }
+      .flex-1.space-y-1.min-w-0
+        %h3.text-lg.truncate
           %span.text-primary-500
-            = link_to user_hub_user_path(post.response_to.author) do
-              = '@' + post.response_to.author.login.username
-
-      %h1.text-xl
-        = post.title_as_html
+            = link_to user_hub_user_path(post.author) do
+              = '@' + post.author.login.username
+          - if post.response_to.present? then
+            %span
+              = " replying to "
+            %span.text-primary-500
+              = link_to user_hub_user_path(post.response_to.author) do
+                = '@' + post.response_to.author.login.username
+        %h1.text-xl.truncate
+          = post.title_as_html
+      %span.report-btn.mdi.text-2xl{class: "hover:text-red-500 " + if post.reported_by?(current_user) then 'mdi-flag text-red-400' else 'mdi-flag-outline' end}
     %p
       = post.content_as_html
-  .flex.justify-end.items-center.gap-4
+  .flex.flex-row-reverse.justify-end.items-center.gap-4
+    %span.share-btn.mdi.mdi-share-outline.text-2xl{class: "hover:text-primary-500", href: user_hub_post_path(post)}
     %a.flex.items-center.gap-1{href: new_user_hub_post_path(response_to: post.id)}
       %span.mdi.mdi-comment-outline.text-2xl{class: "hover:text-primary-500"}
       %span
         = post.responses.length
     .flex.items-center.gap-1
-      %a.uparrow.mdi.text-2xl{ href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :up_vote then "mdi-arrow-up-bold-circle" else "mdi-arrow-up-bold-circle-outline" end}
+      %a.uparrow.mdi.text-2xl{ href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :up_vote then "mdi-arrow-up-circle text-primary-400" else "mdi-arrow-up-circle-outline" end}
       %span.counter
         = number_to_human(post.ratings.ratio, units: {thousand: "K", million: "M", billion: "B"})
-      %a.downarrow.mdi.text-2xl{href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :down_vote then "mdi-arrow-down-bold-circle" else "mdi-arrow-down-bold-circle-outline" end}
+      %a.downarrow.mdi.text-2xl{href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :down_vote then "mdi-arrow-down-circle text-primary-400" else "mdi-arrow-down-circle-outline" end}
+- if children.present?
+  .pl-4.flex.w-full.items-stretch.gap-2
+    .w-2.bg-gray-500.rounded-lg
+    .flex.flex-col.gap-4.flex-1
+      - children.each do |child|
+        = child
 
 %script
-  = "new Post('#{post.id}')".html_safe
+  $(document).ready(function() {
+  = "new window.Post('#{post.id}')".html_safe
+  })

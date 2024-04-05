@@ -12,13 +12,16 @@ class User::Hub::HubController < UserApplicationController
   end
 
   def for_you
-    raise NotImplementedError
-  end
+    params[:page] ||= 1
+    posts_data = RecommendationsApi.paginated_hub_posts(current_user, params[:page], 10)
 
+    @posts = Post.where(_id: { '$in': posts_data["posts"] })
+    @total_pages = posts_data["total_pages"]
+  end
+  
   def hashtag
     @hashtag = params[:hashtag]
     @posts = Post.where(:hashtags.in => [@hashtag])
                  .top_level
-                 .by_notoriety
   end
 end

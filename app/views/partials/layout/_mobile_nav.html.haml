@@ -1,0 +1,13 @@
+- links = [{ icon: 'home-outline', path: user_root_path },
+ { icon: 'magnify', path: '/search' },
+ { icon: 'qrcode-scan', path: create_product_user_products_path },
+ { icon: 'forum-outline', path: "/hub" },
+ { icon: 'account-circle-outline', path: "/profile" }]
+
+%footer.bg-primary-500.p-2.sm:hidden
+  %nav.size-full
+    %ul.size-full.flex.justify-around.items-center
+      - links.each do |link|
+        %li.grid.place-items-center
+          = link_to link[:path], class: (link[:path] == "/" ? (request.path == "/" ? "text-primary-300" : "text-white") : (request.path.include?(link[:path]) ? "text-primary-300" : "text-white")) do
+            .mdi.text-2xl{ class: "mdi-#{link[:icon]}" }

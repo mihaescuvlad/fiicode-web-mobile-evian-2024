@@ -1,37 +1,25 @@
 .flex.flex-col.justify-center.items-center.w-full
   .flex.flex-col.justify-center.items-center.place-self-center.w-full
-    %h1.text-3xl.font-semibold.mt-10.flex.flex-row.justify-center.items-center
-      = "#{@product.name}"
-      - if current_user.present?
-        %button{ type:"button", class:"h-8 w-8 select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-red-500 transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none max-h-[32px] max-w-[32px] hover:bg-red-500/10 active:bg-red-500/30"}
-          - if current_user.favorites.include?(@product.id)
-            %i.mdi.mdi-heart.cursor-pointer.text-red-500.text-2xl{ id: "favorites-icon" }
-          - else
-            %i.mdi.mdi-heart-outline.cursor-pointer.text-red-500.text-2xl{ id: "favorites-icon" }
-    %h1.text-xl.font-semibold.mb-8.overflow-hidden.text-ellipsis.whitespace-nowrap
-      = "(#{@product.brand} - #{@product.weight})"
-
-  .flex.flex-col.justify-between.items-center{ class: "md:w-2/5 w-full mb-8" }
-    .flex.flex-row
-      .flex.flex-col{ class: "w-1/2 px-4" }
-        %label.mb-4.max-w-xs.overflow-hidden.text-ellipsis.whitespace-nowrap
-          = "Number of servings"
-        %input{type: "number", name: "servings", id: "servings", required: true, class: "rounded-lg p-2 w-full border-0 bg-slate-50 focus:ring-primary-500", min: "0", value: "1"}
-      .flex.flex-col{ class: "w-1/2 px-4" }
-        %label#listbox-label
-        = "Serving size"
-        .relative.mt-4
-          %button#weight-units-list-button.relative.w-full.rounded-lg.pl-3.pr-10.text-left.bg-slate-50.shadow-sm{"aria-expanded" => "true", "aria-haspopup" => "listbox", "aria-labelledby" => "listbox-label", class: "py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 sm:text-sm sm:leading-6", type: "button"}
-            %span.flex.items-center
-              = @weight_units.find { |unit| unit.match?(/^100\s+\S+/) } # Regex sequence for finding any string starting with 100 + whitespace + characters
-            %span.pointer-events-none.absolute.inset-y-0.right-0.ml-3.flex.items-center.pr-2.mdi.mdi-menu-down.text-xl
-          %ul#weight-units.absolute.z-10.mt-1.max-h-56.w-full.overflow-auto.rounded-lg.bg-slate-50.py-1.text-base.shadow-lg.ring-1.ring-black.ring-opacity-5.focus:outline-none.sm:text-sm{"aria-activedescendant" => "listbox-option-3", "aria-labelledby" => "listbox-label", role: "listbox", tabindex: "-1", style: "display: none;"}
-            - @weight_units.each_with_index do |unit, index|
-              %li{ id: "listbox-option-#{index}", class: "relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-gray-200", role: "option" }
-                .flex.items-center
-                  %span.font-normal.ml-3.block.truncate= unit
-
+    .rounded-lg.p-4.shadow-md.mt-10.mb-8{ class: "backdrop-blur-[2px]" }
+      %h1.text-2xl.font-bold.flex.flex-row.justify-center.items-center
+        = "#{@product.name}"
+        - if current_user.present? && @product.status == :APPROVED
+          %button{ type:"button", class:"h-8 w-8 select-none rounded-full text-center align-middle text-xs font-medium uppercase text-red-500 transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none max-h-[32px] max-w-[32px] hover:bg-red-500/10 active:bg-red-500/30"}
+            - if current_user.favorites.include?(@product.id)
+              %i.mdi.mdi-heart.cursor-pointer.text-red-500.text-2xl{ id: "favorites-icon" }
+            - else
+              %i.mdi.mdi-heart-outline.cursor-pointer.text-red-500.text-2xl{ id: "favorites-icon" }
+      %h1.text-xl.font-bold.overflow-hidden.text-ellipsis.whitespace-nowrap
+        = "(#{@product.brand} - #{@product.weight})"
   .w-full{ class: "md:w-1/2" }
+    - if current_user.present?
+      - vegan_restriction = current_user.dietary_preferences == :VEGAN && !@product.vegan
+      - vegetarian_restriction = current_user.dietary_preferences == :VEGETARIAN && !@product.vegetarian
+      - if vegan_restriction || vegetarian_restriction
+        .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2.space-x-2
+          .mdi.mdi-alert-circle.text-red-500.text-3xl
+          .text-slate-700.text-sm
+            = "This product does not match your dietary preferences! Please consult your doctor before consuming this product."
     .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.mb-2
       %div{ class: "p-2 font-semibold"}= "Price"
       %div{ class: "p-2 text-slate-700"}= @product.price
@@ -97,7 +85,7 @@
       %h1.text-2xl.font-semibold.mb-4
         = "Reviews"
       - if @current_user_review.present?
-        = form_tag user_product_review_path(@product, @current_user_review), method: "put", class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full mb-10" do
+        = form_tag user_product_review_path(@product, @current_user_review), method: "put", class: "flex flex-col items-start shadow-lg rounded-lg p-4 border-2 bg-slate-100 w-full mb-10" do
           #readonly-review.w-full
             .flex.flex-row.justify-start.items-center.rounded-lg.p-2.border-2.mb-3.bg-gray-200{ class: "w-full max-h-64" }
               - if @current_user_review.rating
@@ -132,7 +120,7 @@
               %button{ type: "submit", class: "bg-primary-500 text-white rounded-lg p-2 px-4", id: 'update-review' }
                 = "Update"
       - if current_user.present? && @current_user_review.blank?
-        = controlled_form user_product_reviews_path(@product), method: "post", class: "flex flex-col items-start shadow-xl rounded-lg p-4 border-2 bg-slate-100 w-full mb-10" do
+        = controlled_form user_product_reviews_path(@product), method: "post", class: "flex flex-col items-start shadow-lg rounded-lg p-4 border-2 bg-slate-100 w-full mb-10" do
           %label.mb-2
             = "Write a review for #{@product.name}"
           %textarea.bg-slate-50{ class: "w-full h-2/3 mb-2 rounded-lg", style: "resize: none;", name: "comment", id: "review-text" }
@@ -151,7 +139,7 @@
           - @reviews.each do |review|
             - next if review.comment.blank? || review.reviewer_id == @current_user_review&.reviewer_id
             - reviewer = User.find_by(id: review.reviewer_id)&.first_name
-            .flex.flex-col.items-start.shadow-xl.rounded-lg.p-4.border-2.bg-slate-100.w-full{ class: "mb-4 max-h-64" }
+            .flex.flex-col.items-start.shadow-lg.rounded-lg.p-4.border-2.bg-slate-100.w-full{ class: "mb-4 max-h-64" }
               .flex.flex-row.justify-start.content-center.rounded-lg.p-2.border-2.mb-3.bg-gray-200{ class: "w-full" }
                 - if review.rating
                   .mdi.mdi-thumb-up.text-primary-500.text-3xl.mr-4
@@ -161,44 +149,16 @@
                   .mdi.mdi-thumb-down.text-red-500.text-3xl.mr-4
                   %p.text-slate-800.text-lg.font-medium.mt-1
                     = "Not Recommended by #{reviewer}"
-              .mb-4.overflow-scroll
+              .mb-4.overflow-y-auto
                 = review.comment
         - else
-          %p No reviews available. You can help by adding a review.
+          .flex.flex-row.justify-center.items-center.w-full{ class: "backdrop-blur-[2px]" }
+            .font-bold.text-lg
+              = "No reviews available. You can help by adding a review."
+%br
 
 :javascript
-
   $(document).ready(function() {
-    var listItems = document.querySelectorAll('#weight-units li');
-    var button = document.querySelector("#weight-units-list-button > span")
-    var weightUnitsList = document.getElementById('weight-units');
-
-    function updateServingSize(element) {
-        var buttonText = element.innerText.trim();
-        button.innerText = buttonText;
-        weightUnitsList.style.display = 'none';
-    }
-
-    button.addEventListener('click', function() {
-        if (weightUnitsList.style.display === 'none' || weightUnitsList.style.display === '') {
-            weightUnitsList.style.display = 'block';
-        } else {
-            weightUnitsList.style.display = 'none';
-        }
-    });
-
-    listItems.forEach(function(item) {
-        item.addEventListener('click', function() {
-            updateServingSize(this);
-        });
-    });
-
-    document.body.addEventListener('click', function(event) {
-        if (!event.target.closest('#weight-units-list-button') && !event.target.closest('#weight-units')) {
-            weightUnitsList.style.display = 'none';
-        }
-    });
-
     $('#edit-review').click(function() {
       $('#readonly-review').addClass('hidden');
       $('#review-form').removeClass('hidden');

@@ -6,7 +6,7 @@ class Admin::SessionsController < AdminApplicationController
     if request.post?
       login = Admin.authenticate(params[:user], params[:password])
       if login
-        session[:login_id] = login.id
+        session[:login_id] = login.id.to_s
         session[:expires_at] = Time.current + 96.hour
 
         redirect_to '/' and return

@@ -7,7 +7,7 @@
         .space-y-2
           %label.text-lg.font-semibold.text-gray-900
             Dietary Preferences
-          = select_tag "dietary_preferences", options_for_select(@dietary_preferences, current_user.dietary_preferences), class: "form-select w-full rounded-lg"
+          = select_tag "dietary_preferences", options_for_select(@dietary_preferences.map { |dp| [dp.to_s.titleize, dp] }, current_user.dietary_preferences), class: "form-select w-full rounded-lg"
         .flex.flex-col.gap-2
           .space-y-2
             .text-lg.font-semibold

@@ -1,2 +1,74 @@
-%h1
-  search page
+.flex.flex-col.w-full.h-full.items-center.justify-center.p-4
+  .bg-white.rounded-lg.shadow-md.p-8.w-full.min-h-96{ class: "sm:w-auto"}
+    = form_tag '/search', method: :get do
+      .flex.flex-row.justify-center.items-center.space-x-2
+        = text_field_tag :query, nil, placeholder: "Search...", value: params[:query], class: "py-2 pl-4 pr-10 rounded-full border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+        %button{ type: "submit", class: "text-primary-500" }
+          %i.mdi.mdi-magnify.mdi-24px
+    - active_tab = 'tab1' if @products.any?
+    - active_tab ||= 'tab2' if @users.any?
+    - active_tab ||= 'tab3' if @posts.any?
+
+    - active_tab ||= 'tab1'
+
+    #tabs.flex.flex-col.items-center.justify-center
+      .tab-list.mb-4.flex.border-b
+        %button.tab-link.px-4.py-2{ class: "#{'border-b-2 focus:outline-none ' + (active_tab == 'tab1' ? 'border-gray-300' : 'border-transparent')}", 'data-target': '#tab1' } Products
+        %button.tab-link.px-4.py-2{ class: "#{'border-b-2 focus:outline-none ' + (active_tab == 'tab2' ? 'border-gray-300' : 'border-transparent')}", 'data-target': '#tab2' } Users
+        %button.tab-link.px-4.py-2{ class: "#{'border-b-2 focus:outline-none ' + (active_tab == 'tab3' ? 'border-gray-300' : 'border-transparent')}", 'data-target': '#tab3' } Hashtags
+
+      #tab1.tab-content{ class: ("w-full " + (active_tab == 'tab1' ? "" : "hidden")) }
+        .flex.flex-col.items-center.justify-center.space-y-4.w-full
+          - @products.each do |product|
+            .rounded-lg.bg-white.p-4.shadow-md.flex.flex-row.justify-between.items-center.w-full{class: "md:max-w-[85%]"}
+              .flex.flex-col.items-center.text-center.w-full.text-left
+                .font-semibold
+                  = product.name
+                .text-slate-700
+                  = product.brand
+              = link_to user_product_path(product), class: "w-full text-right" do
+                .mdi.mdi-arrow-right-circle-outline.text-primary-500.text-2xl.font-semibold
+          = link_to create_product_user_products_path, class: "text-primary-500" do
+            .flex.flex-row.items-center.space-x-2
+              .mdi.mdi-plus-circle-outline.text-2xl.font-semibold
+              .text-base.font-semibold.whitespace-nowrap
+                = "Can't find your product? Add it now!"
+      #tab2.tab-content{ class: ("w-full " + (active_tab == 'tab2' ? "" : "hidden")) }
+        .flex.flex-col.items-center.justify-center.space-y-4.w-full
+          - @users.each do |user|
+            .rounded-lg.bg-white.p-4.shadow-md.flex.flex-row.justify-between.items-center.w-full{class: "md:max-w-[85%]"}
+              .flex.flex-col.items-center.text-center.w-full.text-left
+                .font-semibold
+                  = user.first_name
+                .text-slate-700
+                  = user.last_name
+              = link_to user_hub_user_path(user), class: "w-full text-right" do
+                .mdi.mdi-arrow-right-circle-outline.text-primary-500.text-2xl.font-semibold
+          - if @users.empty?
+            .text-slate-700
+              = "No users found"
+      #tab3.tab-content{ class: ("w-full " + (active_tab == 'tab3' ? "" : "hidden")) }
+        .flex.flex-col.items-center.justify-center.space-y-4.w-full
+          - @posts.each do |post|
+            .rounded-lg.bg-white.p-4.shadow-md.flex.flex-row.justify-between.items-center.w-full{class: "md:max-w-[85%]"}
+              .flex.flex-col.items-center.text-center.w-full.text-left
+                .font-semibold
+                  = "@#{post.author.login.username}"
+                .text-slate-700
+                  = post.title
+              = link_to user_hub_post_path(post), class: "w-full text-right" do
+                .mdi.mdi-arrow-right-circle-outline.text-primary-500.text-2xl.font-semibold
+          - if @posts.empty?
+            .text-slate-700
+              = "No posts found"
+
+:javascript
+  $(document).ready(function() {
+    $('.tab-link').click(function() {
+      $('.tab-link').removeClass('border-gray-300').addClass('border-transparent');
+      $('.tab-content').addClass('hidden');
+      
+      $(this).removeClass('border-transparent').addClass('border-gray-300');
+      $($(this).data('target')).removeClass('hidden');
+    });
+  });

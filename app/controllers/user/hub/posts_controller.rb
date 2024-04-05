@@ -5,6 +5,10 @@ class User::Hub::PostsController < UserApplicationController
     @post = Post.find(params[:id.to_s]) rescue not_found
 
     @post.view(current_user) if current_user.present?
+    @post.save!
+
+    ensure_chat_initialized
+    ChatBot.send_context(@post, session[:thread_id])
   end
 
   def new
@@ -22,5 +26,17 @@ class User::Hub::PostsController < UserApplicationController
     post.save!
 
     redirect_to user_hub_post_path(post)
+  end
+
+  def report
+    post = Post.find(params[:id.to_s]) rescue (head :not_found and return)
+    if current_user.present?
+      post.report(current_user)
+      post.save!
+    else
+      head :unauthorized and return
+    end
+
+    head :no_content
   end
 end

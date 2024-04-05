@@ -1,15 +1,13 @@
 %html
   %head
-  %title CeMancam
+  %title Freshly
   %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
   = csrf_meta_tags
   = csp_meta_tag
+  = javascript_pack_tag 'application'
   = stylesheet_link_tag "application", "data-turbo-track" => "reload"
   = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track" => "reload"
-  = javascript_include_tag "application", "data-turbo-track" => "reload"
   = stylesheet_link_tag "notifier/hidden"
-  = javascript_include_tag "notifier/base_notifier"
-  = javascript_include_tag "form/form_controller"
   %script{src: "https://code.jquery.com/jquery-3.6.0.min.js"}
   %script{src: "https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"}
   %script{src: "https://unpkg.com/@zxing/library@latest"}
@@ -18,13 +16,17 @@
   = yield :head
 
   %link{href: "https://cdn.materialdesignicons.com/7.4.47/css/materialdesignicons.min.css", rel: "stylesheet"}
+  %link{href: "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap", rel: "stylesheet"}
 
   = javascript_importmap_tags
 
-  %body.w-full.h-full.flex.flex-col
+  %body.w-screen.h-screen.flex.flex-col.overflow-hidden
     = render "partials/notifier/success_notifier"
     = render "partials/notifier/error_notifier"
     = render "partials/layout/header"
-    %main.flex-1.overflow-y-auto.overflow-x-hidden
-      = content_for?(:content) ? yield(:content) : yield
-    = render "partials/layout/footer"
+    %main.flex.flex-col.flex-1.overflow-y-auto.overflow-x-hidden.transition-all{class: "sm:transition-none sm:flex-1"}
+      .flex-1
+        = content_for?(:content) ? yield(:content) : yield
+      = render "partials/layout/footer"
+    = render "partials/chat_bot"
+    = render "partials/layout/mobile_nav"

@@ -5,6 +5,8 @@ module Context
             return :admin
         elsif subomain == "www"
             return :user
+        else
+            return :user
         end
     end
 

@@ -1,11 +1,11 @@
-.flex.justify-between.flex-col.size-full.p-4
+.flex.justify-between.flex-col.size-full.p-4.gap-2
   .flex.flex-col.gap-2
     - @links.each do |link|
       = link_to link[:href], class: "text-#{current_page?(link[:href]) ? 'primary-500' : 'black'}" do
-        %button{ class: "p-2 flex flex-row items-center rounded-lg bg-white shadow focus:outline-none w-full" }
+        %button{ class: "p-2 flex flex-row items-center rounded-lg bg-white shadow-md focus:outline-none w-full" }
           .mdi.text-2xl.mr-2{class: "mdi-#{link[:icon]}-outline"}
           %span= link[:text]
   %div
-    = link_to "/logout", method: :post, class: "flex flex-row items-center rounded-lg bg-white shadow p-2" do
+    = link_to "/logout", method: :post, class: "flex flex-row items-center rounded-lg bg-white shadow-md p-2" do
       %i.mdi.mdi-logout-variant.text-2xl.mr-2
       %span Logout

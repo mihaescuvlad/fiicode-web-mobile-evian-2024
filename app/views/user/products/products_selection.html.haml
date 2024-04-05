@@ -1,0 +1,60 @@
+.flex.flex-col.w-full.h-full.items-center.justify-center.space-y-4
+  = link_to create_product_user_products_path, class: "bg-primary-500 text-white rounded-lg p-2 mt-4 w-fit flex flex-row justify-center items-center space-x-2" do
+    %i.mdi.mdi-arrow-left 
+    .text-lg
+      Search for another product
+  .flex.grid.grid-cols-1{ class: "sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8" }
+    - @products.each do |product|
+      .col-span-1.sm:col-span-2.md:col-span-1.lg:col-span-1.xl:col-span-1
+        = link_to create_product_user_products_path(ean: product.ean), method: :post do
+          .product-card{class: "hover:shadow-lg transition-transform duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-102"}
+            %div{class: 'relative flex w-full z-0 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg max-w-[22rem]'}
+              %div{class: 'p-6'}
+                %div{class: 'flex flex-col items-center justify-center mb-3'}
+                  %h5{class: 'block text-2xl antialiased font-medium leading-snug tracking-normal text-primary-900 overflow-hidden whitespace-nowrap text-ellipsis max-w-full'}
+                    = product.name
+                  %h6{class: 'block text-l antialiased font-medium leading-snug tracking-normal text-gray-400 overflow-hidden whitespace-nowrap'}
+                    = product.brand
+                  - if product.image_url.present? 
+                    = image_tag product.image_url, class: 'w-full h-48 w-48 rounded-lg', style: 'object-fit: contain;'
+                %div{class: 'flex items-center justify-center group gap-2 mt-4 pt-3'}
+                  = product_info_tag('mdi-fire', 'Calories', product.calories)
+                  = product_info_tag('mdi-water', 'Fat', product.fat)
+                  = product_info_tag('mdi-barley', 'Carbohydrates', product.carbohydrates)
+                  = product_info_tag('mdi-food-drumstick', 'Protein', product.protein)
+
+          - def product_info_tag(icon_class, label, value)
+            %span{class: 'rounded-full border p-2 text-gray-900 border-gray-900/5 bg-gray-900/5'}
+              %div{class: 'flex flex-row items-center'}
+                %i{class: "mdi #{icon_class} mr-1", style: 'font-size: 1rem;'}
+                %p{class: 'text-base font-normal leading-relaxed text-primary-900 antialiased gap-1.5'}
+                  = value
+                    
+  .flex.flex-wrap.items-center.justify-center.rounded-lg.bg-white.py-2.px-4.my-4
+    - if params[:page].to_i > 1
+      = link_to products_selection_user_products_path(name: params[:name], page: 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+        %i.mdi.mdi-chevron-double-left{title: "First Page"}
+
+    - if params[:page].to_i > 1
+      = link_to products_selection_user_products_path(name: params[:name], page: params[:page].to_i - 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+        %i.mdi.mdi-chevron-left{title: "Previous Page"}
+
+    - start_page = [params[:page].to_i - 2, 1].max
+    - end_page = [start_page + 4, @total_pages].min
+
+    - start_page.upto(end_page) do |page|
+      - if page == params[:page].to_i
+        %span.mx-1.px-2.py-1.text-sm.font-semibold.text-white.bg-primary-500.rounded= page
+      - else
+        = link_to products_selection_user_products_path(name: params[:name], page: page), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+          = page
+
+    - if params[:page].to_i < @total_pages
+      = link_to products_selection_user_products_path(name: params[:name], page: params[:page].to_i + 1), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+        %i.mdi.mdi-chevron-right{title: "Next Page"}
+
+    - if params[:page].to_i < @total_pages
+      = link_to products_selection_user_products_path(name: params[:name], page: @total_pages), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
+        %i.mdi.mdi-chevron-double-right{title: "Last Page"}
+
+%br

@@ -3,15 +3,15 @@ class User::ProductsController < UserApplicationController
   before_action :set_product, only: %i[ show edit update destroy add_to_favorites remove_from_favorites ]
   skip_before_action :verify_authenticity_token, only: %i[ create update ]
 
-  FATS = %i[ fat saturated_fat polysaturated_fat monosaturated_fat trans_fat ].freeze
+  FATS = %i[ fat saturated_fat ].freeze
   CARBOHYDRATES = %i[ carbohydrates fiber sugar ].freeze
   VITAMINS_MINERALS = %i[ vitamin_A vitamin_C calcium ].freeze
   ESSENTIAL_NUTRIENTS = %i[ protein sodium iron ].freeze
 
   def index
-    @products = Product.all
-    @filtered_products = filter_products(@products)
-    @top_products = @filtered_products.take(9)
+    params[:page] ||= 1
+    @top_products = ProductsRecommendation.filter_products_with_aggregation(current_user, 9, (params[:page].to_i - 1) * 9) rescue []
+    @total_pages = (Product.where(status: :APPROVED).count.to_f / 9).ceil
   end
 
   def show
@@ -20,20 +20,31 @@ class User::ProductsController < UserApplicationController
     end
 
     @allergen_names = Allergen.pluck(:_id, :name).to_h
-    @weight_units_strings = Measurement.pluck(:_id, :unit).to_h
-    @weight_units = @product.weight_units.map { |measurement_id| Measurement.find(measurement_id).unit }
 
     @product_allergens = Allergen.where(:off_id.in => @product.allergens || [])
     @reviews = Review.where(product_id: @product.id)
     @current_user_review = @reviews.find_by(reviewer_id: current_user.id) rescue nil
     @product_submitter = User.find(@product.submitted_by)
     @user_allergic_to_product = current_user.present? && current_user.allergens_ids.present? && @product.allergens.present? && current_user.allergens_ids.any? { |allergen| @product.allergens.include?(allergen) }
+
+    ensure_chat_initialized
+    ChatBot.send_context(@product, session[:thread_id])
   end
 
   def new
     @product = Product.new
     @product.ean = params[:ean]
     @matching_product = OpenFoodFacts.product(params[:ean])
+
+    if @matching_product.nil?
+      respond_to do |format|
+        format.json { render json: { message: "The product does not exists." }, status: :unprocessable_entity }
+        format.html { redirect_to create_product_user_products_path, notice: "The product does not exists." }
+      end
+
+      return
+    end
+
     @product_allergens = Allergen.where(:off_id.in => @matching_product.allergens).to_a
   end
 
@@ -46,7 +57,7 @@ class User::ProductsController < UserApplicationController
       if params[:ean].present?
         @product = OpenFoodFacts.product(params[:ean])
       else
-        @product = OpenFoodFacts.search_by_name(params[:name])
+        redirect_to products_selection_user_products_path(name: params[:name], page: 1), method: :get and return
       end
       redirect_to create_product_user_products_path and return if @product.nil?
       matching_product = Product.find_by(ean: @product.ean) rescue nil
@@ -59,15 +70,29 @@ class User::ProductsController < UserApplicationController
     end
   end
 
+  def products_selection
+    response = OpenFoodFacts.search_by_name_list(params[:name], 3, params[:page].to_i)
+    @products = response[:products]
+    @total_pages = response[:total]
+    if @products.blank?
+      redirect_to create_product_user_products_path and return
+    end
+  end
+
   def create
     new_product_params = product_params
     new_product_params[:ean] = params[:ean]
     new_product_params[:nutriscore] = params[:nutriscore]
+    new_product_params[:vegan] = params[:vegan]
+    new_product_params[:vegetarian] = params[:vegetarian]
     new_product_params[:allergens] = params[:allergens].presence || []
     new_product_params[:ingredients] = params[:ingredients].split(' ').presence || []
     new_product_params.each { |key, value| new_product_params[key] = value.strip.gsub(/[\n\r]+/, '') if value.is_a?(String) }
     @product = Product.new(new_product_params)
     @product.submitted_by = current_user.id
+    
+    @matching_product = OpenFoodFacts.product(params[:ean])
+    @product.status = :APPROVED if perfect_match?(@product, @matching_product) rescue false
 
     respond_to do |format|
       if @product.save
@@ -83,6 +108,9 @@ class User::ProductsController < UserApplicationController
   def update
     new_product_params = product_params
     new_product_params[:ean] = params[:ean]
+    new_product_params[:nutriscore] = params[:nutriscore]
+    new_product_params[:vegan] = params[:vegan]
+    new_product_params[:vegetarian] = params[:vegetarian]
     new_product_params[:allergens] = params[:allergens].presence || []
     new_product_params.each { |key, value| new_product_params[key] = value.strip.gsub(/[\n\r]+/, '') if value.is_a?(String) }
 
@@ -107,8 +135,10 @@ class User::ProductsController < UserApplicationController
   end
 
   def search
-    @products = Product.where(name: /#{params[:term]}/i)
-    render json: @products.map { |product| { label: product.name, value: product.id } }
+    products = Product.where(name: /#{params[:term]}/i, status: :APPROVED).limit(5)
+    products = products.map { |product| { label: product.name, value: "/products/" + product.id.to_s } }
+    products << { label: "Can't find what you're searching for? Explore more options here!", value: "/search?query=#{params[:term]}" }
+    render json: products
   end
 
   def search_by_ean
@@ -132,25 +162,21 @@ class User::ProductsController < UserApplicationController
     render json: { message: 'Product removed from favorites' }, status: :ok
   end
 
-  private
-    def filter_products(products)
-      products.sort_by do |product|
-        reviews = Review.where(product_id: product.id)
-        total_reviews = reviews.count
+private
 
-        positive_review_percentage = total_reviews.zero? ? -1 : (product.rating.to_f / total_reviews * 100)
-        allergen_penalty = current_user.present? && current_user.allergens_ids.present? && (current_user.allergens_ids & product.allergens).any? ? 35 : 0
-        overall_score = (positive_review_percentage - allergen_penalty) * total_reviews
+  def perfect_match?(product, matching_product)
+    product.name == matching_product.name && product.brand == matching_product.brand && product.weight == matching_product.weight &&
+      (product.allergens || []).sort == (matching_product.allergens || []).sort && (product.calories || 0) == (matching_product.calories || 0) && (product.fat || 0) == (matching_product.fat || 0) &&
+        (product.saturated_fat || 0) == (matching_product.saturated_fat || 0) && (product.carbohydrates || 0) == (matching_product.carbohydrates || 0) && (product.fiber || 0) == (matching_product.fiber || 0) &&
+          (product.sugar || 0) == (matching_product.sugar || 0) && (product.protein || 0) == (matching_product.protein || 0) && (product.sodium || 0) == (matching_product.sodium || 0)
 
-        -overall_score
-      end
-    end
+  end
 
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
   def product_params
-    params.require(:product).permit(:brand, :name, :price, :weight, :weight_units, :servings, :calories, :fat, :saturated_fat, :polysaturated_fat, :monosaturated_fat, :trans_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [], ingredients: [])
+    params.require(:product).permit(:brand, :name, :price, :weight, :calories, :fat, :saturated_fat, :carbohydrates, :fiber, :sugar, :protein, :sodium, :vitamin_A, :vitamin_C, :calcium, :iron, allergens: [], ingredients: [])
   end
 end

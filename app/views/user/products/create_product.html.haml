@@ -1,8 +1,8 @@
-.flex.flex-col.justify-start.items-center.h-full.w-full.flex.flex-col.h-screen.mx-auto.p-4
+.flex.flex-col.size-full.justify-center.items-center.flex.flex-col.mx-auto.p-4
   .flex.flex-col.shadow-lg.bg-white.rounded-lg.p-4.space-y-4.justify-center.items-center
     .text-2xl.font-semibold.mb-4{class: "backdrop-blur-[2px] p-2 rounded-lg"}
       = "Scan a product or enter the product details manually"
-    
+
     %button#start_scan{ class: "rounded-md p-2 bg-primary-500 text-white flex-row flex justify-center items-center space-x-2" }
       %i.mdi.mdi-barcode-scan.text-2xl
       %span= "Scan Product Barcode"
@@ -11,12 +11,14 @@
     %button#stop_scan{ class: "rounded-md p-2 bg-red-500 text-white mt-2", hidden: true }
       %i.mdi.mdi-barcode-scan-off.text-2xl
       %span= "Stop Scanning"
-    = form_tag create_product_user_products_path, method: :post, class: "flex flex-col justify-center items-center space-y-4", id: "search_product_form" do
-      .flex.flex-row.justify-center.items-center.space-x-4
+    = controlled_form create_product_user_products_path, method: :post, class: "flex flex-col justify-center items-center space-y-4", id: "search_product_form" do
+      .flex.flex-col.justify-center.items-center.space-y-4{class: "md:flex-row md:space-x-4 md:space-y-0 md:justify-center md:items-center w-full"}
         .flex.flex-col
           %label.text-slate-700
             = "Search product by barcode"
           %input{ type: "text", id: "barcode", name: "ean", class: "rounded-md p-2 border border-slate-300" }
+        .text-slate-700.flex.flex-col.items-center.justify-center.mt-4
+          = "or"
         .flex.flex-col
           %label.text-slate-700
             = "Search product by name"

@@ -3,6 +3,7 @@ require 'set'
 class Product
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
   
   before_save :notify_review
 
@@ -13,17 +14,13 @@ class Product
   field :name, type: String
   field :price, type: Float
   field :weight, type: String
-  field :weight_units, type: Array, default: [BSON::ObjectId('65d320c04bbf6989c52c9571'),
-                                              BSON::ObjectId('65d320ca4bbf6989c52c9572'),
-                                              BSON::ObjectId('65d320f74bbf6989c52c9576')]
   field :allergens, type: Array
+  field :vegan, type: Boolean
+  field :vegetarian, type: Boolean
   field :ingredients, type: Array
   field :calories, type: Float
   field :fat, type: Float
   field :saturated_fat, type: Float
-  field :polysaturated_fat, type: Float
-  field :monosaturated_fat, type: Float
-  field :trans_fat, type: Float
   field :carbohydrates, type: Float
   field :fiber, type: Float
   field :sugar, type: Float
@@ -36,13 +33,9 @@ class Product
   field :status, type: Symbol, default: :PENDING
   field :rating, type: Integer, default: 0
   field :nutriscore, type: String
-
+  field :image_url, type: String
+  
   belongs_to :submitted_by, class_name: "User", inverse_of: :submissions
-
-  def status=(status)
-    raise ArgumentError unless APPROVED_STATUSES.include?(status)
-    super
-  end
 
   def self.from_open_food_facts(ean)
     OpenFoodFacts.product(ean)

@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Echipa: Evian
+Colaboratori: Mihai Soare, Robert Popa, Vlad Mihaescu.
 
-Things you may want to cover:
+[Presentation URL](https://mega.nz/file/siphUaBC#L0WIE9C718fV78UV5D1QzJ9ZOVMSruCrEPzMw9GQpeA)
 
-* Ruby version
+In our presentation we missed one single point: 	● Users can edit or delete their own submissions until approved. (2 points).
+Here, we have a "My Submissions" tab on the profile section that allows the user to see all "In Progress" products along with the "Accepted Products". While being in progress, there will be 2 options: "Edit" and "Delete".
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Right now we are preparing a guide on how to run the application on a local environment. If you need any help, don't hesitate to contact us on Discord.

@@ -1,24 +1,27 @@
 .container.mx-auto.p-4.max-w-2xl.flex.flex-col.gap-6
-  .bg-white.rounded-lg.shadow.w-full.p-8.space-y-4
+  .bg-white.rounded-lg.shadow-md.w-full.p-8.space-y-4
     %div
-      %h2.text-lg.text-slate-600
-        = "@#{@user.login.username}"
-      - if @user.full_name.present? then
-        %h1.text-xl
-          = @user.full_name
-      - if @user.country.present?
-        %span
-          = @user.country + if @user.city.present? then ", #{@user.city}" else "" end
-      - if @user.bio.present? then
-        %p
-        = @user.bio
+      .flex.flex-row
+        %img.size-32.rounded-full.mr-6{ src: @user.profile_picture_url }
+        .flex.flex-col.min-w-0
+          %h2.text-lg.text-slate-600.truncate
+            = "@#{@user.login.username}"
+          - if @user.full_name.present? then
+            %h1.text-xl.line-clamp-2
+              = @user.full_name
+          - if @user.country.present?
+            %span.line-clamp-2
+              = @user.country + if @user.city.present? then ", #{@user.city}" else "" end
+          - if @user.bio.present? then
+            %p.line-clamp-3
+            = @user.bio
     .flex.justify-evenly
-      .flex.flex-col.align-center
+      = link_to user_hub_user_followers_path(@user), class: "flex flex-col align-center" do
         %span.text-center.text-lg
           = @user.followers.length
         %span.text-sm
           Followers
-      .flex.flex-col.align-center
+      = link_to user_hub_user_following_path(@user), class: "flex flex-col align-center" do
         %span.text-center.text-lg
           = @user.following.length
         %span.text-sm

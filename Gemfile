@@ -18,6 +18,13 @@ gem "jquery-rails"
 gem "jquery-ui-rails"
 gem "http"
 gem "bcrypt"
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
+gem "mini_magick"
+gem "react-rails"
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem 'omniauth-rails_csrf_protection'
 
 group :development, :test do
   gem "debug"
@@ -25,9 +32,12 @@ end
 
 group :development do
   gem "web-console"
+  gem "letter_opener"
 end
 
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "shakapacker", "= 7.2"

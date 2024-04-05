@@ -1,0 +1,8 @@
+.container.mx-auto.p-4.max-w-2xl.flex.flex-col.items-center.gap-6
+  .text-2xl.font-bold.mb-4
+    = "Please review"
+  - if @post.present?
+    = render "admin/posts/post", post: @post
+  - else
+    .text-lg
+      = "No posts to review"

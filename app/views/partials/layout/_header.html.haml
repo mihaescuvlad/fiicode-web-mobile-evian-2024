@@ -1,13 +1,14 @@
 - links = [{ icon: "home-outline", label: "home", path: user_root_path },
-           { icon: "forum-outline", label: "hub", path: "/hub" }]
+           { icon: "forum-outline", label: "hub", path: "/hub" },
+           { icon: "cart-outline", label: "Basket", path: user_basket_path }]
 
 - content_for :head do
   = stylesheet_link_tag "layout/header"
 
-%header.bg-primary-500.p-4.text-white.sm:block
+%header.bg-primary-500.p-4.text-white.sm:block.z-50
   %nav.container.mx-auto.h-8.px-2.flex.justify-center.items-center.gap-10
-    %h1.text-lg.uppercase.font-bold
-      Ce mancam?
+    = link_to '/' do
+      = image_tag "logo.png", class: "h-36"
     .hidden.sm:block.flex-1.rounded-full.text-black.text-sm
       = text_field_tag :search, nil, class: "search-autocomplete w-full p-2 rounded-lg", placeholder: "Search for a food item", type: "text"
 
@@ -20,13 +21,17 @@
             %span.hidden.text-sm.capitalize.lg:inline-block
               = link[:label]
     #profile-section.hidden.sm:flex.items-center.h-full.gap-4.relative
-      %span#notifications-section
-        = link_to notifications_user_profile_path do
-          %i.mdi.mdi-bell-outline.text-2xl
-        = render "partials/layout/header/notifications_dropdown"
+      - if current_user.present?
+        %span#notifications-section
+          = link_to notifications_user_profile_path do
+            %i.mdi.mdi-bell-outline.text-2xl
+          = render "partials/layout/header/notifications_dropdown"
       %span#settings-section
         = link_to user_profile_path, id: 'profile-path' do
-          %i.mdi.mdi-account-circle-outline.text-2xl
+          - if current_user.present? and current_user.profile_picture.present?
+            %img.w-8.h-8.rounded-full{ src: current_user.profile_picture_url }
+          - else
+            %i.mdi.mdi-account-circle-outline.text-2xl
         = render "partials/layout/header/profile_dropdown"
 
 :javascript
@@ -48,12 +53,34 @@
       source: '/products/search',
       minLength: 2,
       delay: 500,
-      autoFocus: true
+      autoFocus: true,
+      focus: function(event, ui) {
+        event.preventDefault();
+      },
+      select: function(event, ui) {
+        event.preventDefault();
+        window.location.href = ui.item.value;
+        $(this).val(ui.item.label);
+      }
     });
 
-    $('.search-autocomplete').on('autocompleteselect', function(event, ui) {
-      event.preventDefault();
-      window.location.href = "/products/" + ui.item.value.$oid;
-    });
 
+  });
+
+  $(document).on('click', '[id^="notification-"]', function() {
+    window.location.href = $(this).attr("href")
+  })
+
+  $(document).on("click", '[id^="close-notification-"]', function(e) {
+    e.stopPropagation()
+    $.ajax({
+      url: $(this).attr("href"),
+      method: "DELETE",
+      success: function() {
+        location.reload()
+      },
+      error: function() {
+        console.error("Error deleting notification")
+      }
+    });
   });

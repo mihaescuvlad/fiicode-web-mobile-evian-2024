@@ -1,0 +1,6 @@
+= react_component "user_card",
+   {username: user.login.username,
+    following: if current_user.present? and current_user != user then current_user.following?(user) else nil end,
+    user_path: user_hub_user_path(user),
+    follow_path: user_hub_user_follow_path(user),
+    profile_picture_url: user.profile_picture_url}

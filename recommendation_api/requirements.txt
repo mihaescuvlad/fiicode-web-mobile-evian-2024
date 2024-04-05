@@ -1,0 +1,10 @@
+fastapi==0.63.0
+Flask==1.1.4
+Flask-PyMongo==2.3.0
+MarkupSafe==2.0.1
+pydantic==1.8.1
+pymongo==3.11.3
+schedule==1.2.1
+scikit-learn==1.4.0
+torch==2.2.1
+transformers==4.38.2

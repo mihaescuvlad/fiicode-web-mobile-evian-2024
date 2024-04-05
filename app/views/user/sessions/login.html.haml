@@ -1,20 +1,40 @@
-.flex.flex-col.justify-center.items-center{ class: "h-full w-full" }
-  .flex.flex-col.justify-center.items-center{ class: "w-8/12" }
-    = controlled_form '/login', id: "login-form",  method: :post do
-      .flex.flex-col.justify-center.items-start.shadow-xl.rounded-md.p-4.border-1.bg-white
-        .flex.flex-col.justify-center.items-center.text-xl.font-bold.mb-4.w-full
-          = "Login to your account"
-        %label{for: "email"}
-          = "Email"
-        %input{type: "email", name: "email", id: "email", required: true, class: "rounded-md p-2 w-full"}
+.flex.flex-col.justify-center.items-center.p-4{ class: "h-full w-full" }
+  .flex.flex-col.justify-center.items-center.w-full{ class: "sm:w-[22rem]"}
+    = controlled_form '/login', id: "login-form",  method: :post, class: "w-full h-full" do
+      .flex.flex-col.justify-center.items-start.shadow-lg.p-8.border-1.bg-white.w-full.h-full{ class: "rounded-lg"}
+        .text-3xl.mb-4.w-full.flex.items-center.justify-center
+          = "Welcome"
+        .flex.flex-col.justify-center.items-center.mb-4.w-full.text-slate-700
+          = "Login to your account to continue"
+        .flex.flex-col.items-center.justify-center.space-y-4.w-full
+          %div.relative.flex.items-center.w-full
+            %i.mdi.mdi-email-outline.absolute.ml-2.text-gray-400.text-xl
+            %input{type: "email", name: "email", id: "email", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Email"}
 
-        %label{for: "password"}
-          = "Password"
-        %input{type: "password", name: "password", id: "password", required: true, class: "rounded-md p-2 w-full"}
-        .flex.flex-row.justify-between.items-center.mt-4
-          %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2"}
-            = "Login"
-    .flex.flex-row.justify-center.items-center.mt-4.text-xs
-      .mr-1
-        = "Don't have an account?"
-      = link_to "Sign up!", "/register", class: "text-primary-500"
+          %div.relative.flex.items-center.w-full.mt-4
+            %i.mdi.mdi-lock-outline.absolute.ml-2.text-gray-400.text-xl
+            %input{type: "password", name: "password", id: "password", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Password"}
+
+        .text-left.w-full.mt-2.text-primary-500.text-sm
+          = link_to "Forgot Your Password?", user_recover_account_path
+        %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2 w-full mt-4"}
+          = "Login"
+        .flex.flex-row.justify-center.items-center.mt-4.text-sm.w-full.space-x-1
+          .text-black
+            = "Don't have an account?"
+          = link_to "Sign up!", "/register", class: "text-primary-500"
+        .flex.flex-row.w-full.justify-center.items-center.mt-4.space-x-1
+          %hr.border.border-gray-300.w-full
+          %span.p-2.text-sm
+            = "OR"
+          %hr.border.border-gray-300.w-full
+
+        .w-full.flex.flex-row.justify-center.items-center.mt-2
+          = link_to "/auth/google_oauth2", class: "flex flex-row justify-center items-center mt-2 w-fit border border-gray-400 rounded-lg p-2 hover:bg-gray-200 space-x-1", method: :post do
+            %svg{xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 48 48", width: "24px", height: "24px"}
+              %path{fill: "#FFC107", d: "M43.6 20H24v8h11.3c-1.5 4.5-5.7 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.2 7.8 3.2l5.7-5.7C34.5 6.1 29.8 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-9 20-20 0-1.3-.2-2.7-.4-4z"}
+              %path{fill: "#FF3D00", d: "M6.3 14.7l6.6 4.8C14.8 15.8 19 14 24 14c3 0 5.8 1.2 7.8 3.2l5.7-5.7C34.5 6.1 29.8 4 24 4 16.1 4 9.3 8.3 6.3 14.7z"}
+              %path{fill: "#4CAF50", d: "M24 44c6.3 0 11.6-4 13.7-9.7l-6-4.9c-1.2 3.2-4.2 5.6-7.7 5.6-4.6 0-8.8-3.5-10.3-8H6.4v6.2c2.9 5.4 9.7 9.8 17.6 9.8z"}
+              %path{fill: "#1976D2", d: "M43.6 20H24v8h11.3c-1.3 3.9-4.8 7-9.3 7-2.5 0-4.8-.9-6.6-2.4l-5.7 5.7c3.1 2.9 7.2 4.7 12.3 4.7 6.6 0 12-5.4 12-12 0-1.3-.2-2.7-.4-4z"}
+            %span
+              = "Continue with Google"
