@@ -21,6 +21,7 @@ class User
   @@LEVEL_1_TRESHOLD = 500
   @@MULTIPLIER = 1.1
   field :xp, type: Integer, default: 0
+  field :points, type: Integer, default: 0
 
   mount_uploader :profile_picture, ProfilePictureUploader
 
@@ -35,6 +36,16 @@ class User
   field :interests, type: Array, default: []
   field :followers_ids, type: Array, default: []
   field :following_ids, type: Array, default: []
+
+  def award_cost
+    if has_membership? then 10 else 25 end
+  end
+
+  def purchase_award
+    raise "Not enough points to purchase award" if points < award_cost
+
+    self.points -= award_cost
+  end
 
   def add_xp(xp)
     self.xp += xp

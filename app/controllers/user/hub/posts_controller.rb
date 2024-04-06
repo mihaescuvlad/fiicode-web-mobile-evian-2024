@@ -1,5 +1,5 @@
 class User::Hub::PostsController < UserApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :award]
 
   def show
     @post = Post.find(params[:id.to_s]) rescue not_found
@@ -38,5 +38,16 @@ class User::Hub::PostsController < UserApplicationController
     end
 
     head :no_content
+  end
+
+  def award
+    puts params
+    post = Post.find(params[:id]) rescue not_found
+    post.award(current_user)
+    post.author.save!
+    post.save!
+    current_user.save!
+
+    redirect_to user_hub_post_path(post), notice: 'Post awarded!'
   end
 end

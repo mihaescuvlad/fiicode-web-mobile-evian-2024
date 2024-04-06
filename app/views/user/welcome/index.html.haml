@@ -173,14 +173,14 @@
 
   - if current_user.present? and !current_user.has_membership?
     .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-between.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
-      .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[20%] p-4"}
+      .flex.flex-col.justify-center.text-white.space-y-2{class: "md:max-w-[20%] p-4"}
         .text-2xl.font-semibold
           Freshly Plus
         .text-sm.text-base.text-left
-          Get access to exclusive features and benefits by subscribing to Freshly Plus.
+          Get access to exclusive features and benefits by subscribing to Freshly Plus. You can cancel at any time.
         %button.text-white.text-left.w-full
           = link_to billing_user_profile_path do
-            .flex.flex-row.justify-end.space-x-2.items-center
+            .flex.flex-row.space-x-2.items-center
               .text-base.font-semibold.whitespace-nowrap
                 Take me there
               .mdi.mdi-arrow-right-circle-outline.text-2xl.font-semibold
@@ -192,9 +192,14 @@
             Get live feedback on your meals and nutritional intake with our AI Nutritionist.
         .bg-white.rounded-lg.w-64.h-48.p-4.space-y-4
           .text-xl.text-center
+            Subscriber Badge
+          %p
+            Get a special badge next to your username whenever someone sees your profile.
+        .bg-white.rounded-lg.w-64.h-48.p-4.space-y-4
+          .text-xl.text-center
             Special Awards
           %p
-            Get special awards to engage with community hub posts.
+            Get special awards price to engage with community hub posts.
         .bg-white.rounded-lg.w-64.h-48.p-4.space-y-4
           .text-xl.text-center
             Support Us
