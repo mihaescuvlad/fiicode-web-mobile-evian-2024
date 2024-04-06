@@ -3,7 +3,7 @@
     %div
       .flex.flex-row
         %img.size-32.rounded-full.mr-6{ src: @user.profile_picture_url }
-        .flex.flex-col.min-w-0
+        .flex.flex-col.min-w-0.flex-1
           .flex.items-center.gap-1
             %h2.text-lg.text-slate-600.truncate
               = "@#{@user.login.username}"
@@ -19,6 +19,10 @@
           - if @user.bio.present? then
             %p.line-clamp-3
             = @user.bio
+          .flex.items-center.gap-2
+            %span
+              Level: #{@user.level}
+            %progress{value: @user.level_f - @user.level, max: 1, class: "progress progress-primary flex-1"}
     .flex.justify-evenly
       = link_to user_hub_user_followers_path(@user), class: "flex flex-col align-center" do
         %span.text-center.text-lg

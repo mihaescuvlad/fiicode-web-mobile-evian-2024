@@ -18,6 +18,10 @@ class User
   field :country, type: String
   field :city, type: String
 
+  @@LEVEL_1_TRESHOLD = 500
+  @@MULTIPLIER = 1.1
+  field :xp, type: Integer, default: 0
+
   mount_uploader :profile_picture, ProfilePictureUploader
 
   has_many :submissions, class_name: 'Product', inverse_of: :submitted_by
@@ -31,6 +35,18 @@ class User
   field :interests, type: Array, default: []
   field :followers_ids, type: Array, default: []
   field :following_ids, type: Array, default: []
+
+  def add_xp(xp)
+    self.xp += xp
+  end
+
+  def level_f
+    Math.log(xp*(@@MULTIPLIER - 1)/@@LEVEL_1_TRESHOLD + 1, @@MULTIPLIER)
+  end
+
+  def level
+    level_f.floor
+  end
 
   def stripe_customer_id
     id = read_attribute(:stripe_customer_id)
