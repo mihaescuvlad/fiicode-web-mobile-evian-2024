@@ -20,6 +20,12 @@ class User
   field :country, type: String
   field :city, type: String
 
+  field :goal_title, type: String
+  field :goal_description, type: String
+  field :goal_created_at, type: DateTime
+  field :goal_progress, type: Integer
+  field :goal_target, type: Integer
+
   @@LEVEL_1_TRESHOLD = 500
   @@MULTIPLIER = 1.1
   field :xp, type: Integer, default: 0
