@@ -4,11 +4,15 @@
       .flex.flex-row
         %img.size-32.rounded-full.mr-6{ src: @user.profile_picture_url }
         .flex.flex-col.min-w-0
-          %h2.text-lg.text-slate-600.truncate
-            = "@#{@user.login.username}"
+          .flex.items-center.gap-1
+            %h2.text-lg.text-slate-600.truncate
+              = "@#{@user.login.username}"
+            - if @user.has_membership?
+              %p.text-blue-500
+                • Plus member
           - if @user.full_name.present? then
             %h1.text-xl.line-clamp-2
-              = @user.full_name
+              #{@user.full_name}
           - if @user.country.present?
             %span.line-clamp-2
               = @user.country + if @user.city.present? then ", #{@user.city}" else "" end

@@ -1,0 +1,20 @@
+- subscription = BillingService::Plus.get_subscription(current_user)
+- plan = subscription.present? ? subscription[:items].first[:plan] : nil
+.size-full.overflow-y-scroll.flex.flex-col.p-2.gap-2{class: "sm:gap-0 sm:p-0 sm:pr-2"}
+  - if subscription.present?
+    .flex.w-full.p-4.justify-between.items-center
+      .flex.gap-3.items-center
+        %h2.text-lg
+          Freshly plus
+        %p.text-slate-600.text-sm
+          Next payment: #{Time.at(subscription[:current_period_end]).strftime("%B %d, %Y")}
+        %p.text-slate-600.text-sm
+          ($#{plan[:amount]/100.0} #{plan[:interval]}ly)
+      = link_to cancel_plus_user_profile_path, method: :delete, class: "rounded-lg p-2 bg-red-500 text-white", confirm: "Are you sure you want to cancel your subscription?" do
+        Cancel
+  - else
+    .flex.w-full.p-4.justify-between.items-center
+      %h2.text-lg
+        Freshly plus
+      %a.rounded-lg.p-2.bg-primary-500.text-white{href: get_plus_user_profile_path}
+        Subscribe

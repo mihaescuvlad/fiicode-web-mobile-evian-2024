@@ -74,16 +74,32 @@ class User::ProfilesController < UserApplicationController
     @notifications = current_user.notifications.newest_first
   end
 
+  def billing
+  end
+
+  def get_plus
+    if params[:price].present?
+      x = BillingService::Plus.create_checkout_session(current_user, params[:price], billing_user_profile_url)
+      redirect_to x[:url], allow_other_host: true
+    end
+  end
+
+  def cancel_plus
+    BillingService::Plus.cancel_subscription(current_user)
+    redirect_to billing_user_profile_path, notice: "Subscription cancelled"
+  end
+
   protected
 
   def set_links
     if current_user.present?
-      @links = [{ href: user_user_profile_path, text: "Profile", icon: "account", md: true },
-                { href: account_user_profile_path, text: "Account", icon: "lock", md: true },
-                { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food", md: true },
-                { href: user_hub_user_path(current_user), text: "Hub page", icon: "forum", md: false },
-                { href: notifications_user_profile_path, text: "Notifications", icon: "bell", md: true },
-                { href: user_basket_path, text: "Basket", icon: "cart", md: false}]
+      @links = [{ href: user_user_profile_path, text: "Profile", icon: "account-outline", md: true },
+                { href: account_user_profile_path, text: "Account", icon: "lock-outline", md: true },
+                { href: dietary_preferences_user_profile_path, text: "Preferences", icon: "food-outline", md: true },
+                { href: user_hub_user_path(current_user), text: "Hub page", icon: "forum-outline", md: false },
+                { href: notifications_user_profile_path, text: "Notifications", icon: "bell-outline", md: true },
+                { href: billing_user_profile_path, text: "Billing", icon: "currency-usd", md: true},
+                { href: user_basket_path, text: "Basket", icon: "cart-outline", md: false}]
     else
       @links = []
     end

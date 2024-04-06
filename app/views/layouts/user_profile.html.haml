@@ -14,7 +14,7 @@
               - @links.each do |link|
                 = link_to link[:href], class: "text-#{current_page?(link[:href]) ? 'primary-500' : 'black'} #{link[:md] == false ? "hidden" : ""}" do
                   %button{ class: "tab flex flex-row items-center focus:outline-none" }
-                    .mdi.text-2xl.mr-2{class: "mdi-#{link[:icon]}-outline"}
+                    .mdi.text-2xl.mr-2{class: "mdi-#{link[:icon]}"}
                     %span= link[:text]
             %div
               = link_to "/logout", method: :post, class: "flex flex-row items-center" do
