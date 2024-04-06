@@ -1,0 +1,13 @@
+.size-full.overflow-y-scroll.flex.flex-col.p-2.gap-2{class: "sm:gap-0 sm:p-0 sm:pr-2"}
+  %h1.text-2xl.text-center
+    Freshly Plus
+  %h2.text-xl
+    Choose a plan
+
+  .flex.justify-center.items-center.m-4
+    - BillingService::Plus.prices.each do |option|
+      %a.rounded-lg.border.flex.flex-col.justify-center.items-center.py-4.w-32.shadow-md.cursor-pointer.m-4{href: get_plus_user_profile_path(price: option["id"])}
+        .text-2xl
+          $#{option[:unit_amount]/100.0}
+        .text-lg
+          Every #{option[:recurring][:interval]}
