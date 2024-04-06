@@ -27,6 +27,9 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+
+      - name: Update PIP
+        run: pip install --upgrade pip
       
       - name: Install dependencies
         working-directory: recommendation_api
@@ -63,7 +66,6 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-
       
       - name: Login to Azure
         uses: azure/login@v1

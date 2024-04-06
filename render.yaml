@@ -1,9 +1,3 @@
-databases:
-  - name: Freshly
-    databaseName: Freshly
-    user: Freshly
-    plan: free
-
 services:
   - type: web
     name: Freshly
@@ -13,10 +7,6 @@ services:
     # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
     startCommand: "bundle exec rails server"
     envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: Freshly
-          property: "mongodb+srv://fiicode_dev:7iqxicnfaMxKbzdk@fiicode24.ywnthrv.mongodb.net/"
       - key: RAILS_MASTER_KEY
         sync: false
       - key: WEB_CONCURRENCY
