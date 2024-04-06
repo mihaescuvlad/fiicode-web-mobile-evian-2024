@@ -7,15 +7,25 @@ class User::DiariesController < UserApplicationController
     end_of_day = @date.in_time_zone.end_of_day
     
     date_key = start_of_day.strftime('%Y-%m-%d')
-    @products = Diary
+    @diary_products = Diary
                   .where(user_id: current_user.id)
                   .and("products.#{date_key}".to_sym.exists => true)
                   .first
                   .try(:products)
                   .try(:[], date_key) || []
-    @products = @products.map do |product|
-      Product.find(product["product_id"])
+    @products = @diary_products.map do |product|
+      current_product = Product.find(product["product_id"])
+      product['fats'] = (current_product.fat * product["quantity"] / 100).round(2)
+      product['carbs'] = (current_product.carbohydrates * product["quantity"] / 100).round(2)
+      product['proteins'] = (current_product.protein * product["quantity"] / 100).round(2)
+      product['calories'] = (current_product.calories * product["quantity"] / 100)
+      current_product
     end
+
+    @total_calories = @diary_products.sum { |product| product['calories'] }
+    @total_fats = @diary_products.sum { |product| product['fats'] }
+    @total_carbs = @diary_products.sum { |product| product['carbs'] }
+    @total_proteins = @diary_products.sum { |product| product['proteins'] }
   end
 
   def add_to_user_diary

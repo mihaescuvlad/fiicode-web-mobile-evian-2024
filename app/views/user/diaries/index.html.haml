@@ -9,13 +9,47 @@
       = link_to user_diaries_path(date: @date.next_day), class: "text-lg font-bold text-primary-500" do
         %i.mdi.mdi-chevron-right{title: "Previous Page"}
   - if @products.present?
+    .rounded-lg.bg-white.p-4.shadow-md.text-center.text-xl.font-semibold.flex.flex-row.items-center.justify-center.space-x-8
+      .flex.flex-col.items-center.justify-center
+        .text-xl.font-semibold
+          = "Calories"
+        .radial-progress{ class: "!bg-slate-200 text-success", role: "progressbar", style: "--value:80; --size:10rem;" }
+          .flex.flex-col.items-center.text-2xl.text-slate-700.text-semibold
+            .mdi.mdi-fire.text-4xl
+            = "#{@total_calories.round(2)}"
+      .flex.flex-col.items-center.justify-center
+        .text-xl.font-semibold
+          = "Proteins"
+        .radial-progress{ class: "!bg-slate-200 text-success", role: "progressbar", style: "--value:80; --size:10rem;" }
+          .flex.flex-col.items-center.text-2xl.text-slate-700.text-semibold
+            .mdi.mdi-fire.text-4xl
+            = "#{@total_proteins.round(2)}"
+      .flex.flex-col.items-center.justify-center
+        .text-xl.font-semibold
+          = "Carbohydrates"
+        .radial-progress{ class: "!bg-slate-200 text-success", role: "progressbar", style: "--value:80; --size:10rem;" }
+          .flex.flex-col.items-center.text-2xl.text-slate-700.text-semibold
+            .mdi.mdi-fire.text-4xl
+            = "#{@total_carbs.round(2)}"
+      .flex.flex-col.items-center.justify-center
+        .text-xl.font-semibold
+          = "Fats"
+        .radial-progress{ class: "!bg-slate-200 text-success", role: "progressbar", style: "--value:80; --size:10rem;" }
+          .flex.flex-col.items-center.text-2xl.text-slate-700.text-semibold
+            .mdi.mdi-fire.text-4xl
+            = "#{@total_fats.round(2)}"
+    -# = @total_calories.round(2)
+    -# = @total_proteins.round(2)
+    -# = @total_carbs.round(2)
+    -# = @total_fats.round(2)
     .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-3.gap-4
       - @products.each do |product|
         .col-span-1.sm:col-span-2.md:col-span-1.lg:col-span-1.xl:col-span-1
-          = product_card(product)
+          = diary_card(product, @diary_products.find { |dp| dp['product_id'].to_s == product.id.to_s })
   - else
     .text-2xl.font-bold.mb-6.p-2.text-center.rounded-lg.bg-clip-border.text-gray-700.shadow-md{ class: "backdrop-blur-[2px] max-w-[60%]"}
       = "No products found in your diary. You can add products to your diary by clicking on the plus icon from the product card."
+
   %br
 = render "partials/diary_modal"
 
