@@ -20,6 +20,9 @@ Rails.application.routes.draw do
       match :account, on: :collection, via: %i[get put]
       match :dietary_preferences, on: :collection, via: %i[get put]
       match :notifications, on: :collection, via: %i[get]
+      match :billing, on: :collection, via: %i[get]
+      match :get_plus, on: :collection, via: %i[get]
+      match :cancel_plus, on: :collection, via: %i[delete]
     end
 
     resources :notifications, only: %i[destroy]

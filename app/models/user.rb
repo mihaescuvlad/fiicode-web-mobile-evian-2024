@@ -32,6 +32,24 @@ class User
   field :followers_ids, type: Array, default: []
   field :following_ids, type: Array, default: []
 
+  def stripe_customer_id
+    id = read_attribute(:stripe_customer_id)
+    id ||= BillingService.create_customer(self)
+    self.update_attribute(:stripe_customer_id, id)
+    id
+  end
+
+  private
+  def stripe_customer_id=(id)
+    write_attribute(:stripe_customer_id, id)
+  end
+
+  public
+
+  def has_membership?
+    BillingService::Plus.get_subscription(self).present?
+  end
+
   def profile_picture_url
     self.profile_picture&.url || ActionController::Base.helpers.asset_path("account-circle-outline.png")
   end
