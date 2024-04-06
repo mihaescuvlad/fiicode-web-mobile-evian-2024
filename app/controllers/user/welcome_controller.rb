@@ -3,7 +3,7 @@ class User::WelcomeController < UserApplicationController
     @top_products = ProductsRecommendation.filter_products_with_aggregation(current_user, 3, 0)
     @top_posts = top_posts
     @food_fact = Recipe.desc(:created_at).first
-    current_user.get_nutritional_stats
+    @user_nutritional_data = current_user.get_nutritional_stats
     if @food_fact.nil? || @food_fact.created_at < 30.minutes.ago
       # @food_fact = RandomFacts.random_recipe
       if @food_fact.instructions.blank?
