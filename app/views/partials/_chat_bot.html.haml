@@ -1,8 +1,8 @@
-%div.fixed.bottom-16.left-4.z-50.w-full{class: "sm:bottom-4"}
+%div.fixed.bottom-16.left-4.z-50.w-full{class: "sm:bottom-4 sm:w-auto"}
   #chat-box.bg-white.shadow-lg.rounded-lg.overflow-hidden.transition-opacity.transform.scale-95.mb-2.hidden{class: "sm:h-[35rem] h-[40rem] w-[90%] sm:w-[30rem]"}
     .content
       = react_component "chat_bot", {send_path: user_chat_send_message_path, messages: ChatBot.get_messages(session[:thread_id])}
-  %button#fab.p-8.bg-primary-500.text-white.rounded-lg.shadow-lg.cursor-pointer.flex.justify-center.items-center.overflow-hidden.relative{onclick: "toggleIcon()"}
+  %button#fab.p-8.bg-primary-400.text-white.rounded-lg.shadow-lg.cursor-pointer.flex.justify-center.items-center.overflow-hidden.relative{onclick: "toggleIcon()"}
     %i.mdi.mdi-chat-outline.absolute.text-3xl
     %i.mdi.mdi-menu-down.absolute.opacity-0.text-5xl
 

@@ -73,7 +73,7 @@
           .flex.flex-row.rounded-lg.bg-slate-50.p-2.justify-between.items-center.w-full
             %div{ class: "p-2 font-semibold"}= "#{vitamin_mineral.to_s.humanize}"
             %div{ class: "p-2 text-slate-700 italic", contenteditable: true, id: "product-#{vitamin_mineral}" }= @matching_product.send(vitamin_mineral) || 0
-  %button{ class: "bg-primary-500 text-white rounded-lg p-2 m-4 w-fit", type: "submit" }
+  %button{ class: "!bg-primary-500 text-white rounded-lg p-2 m-4 w-fit", type: "submit" }
     = "Add Product"
     
   .text-slate-700.text-sm.mb-4
