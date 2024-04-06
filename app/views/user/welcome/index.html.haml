@@ -96,10 +96,10 @@
                     .text-lg.font-semibold.text-slate-400
                       = "+50 XP"
 
-          - hydration_completeness_ratio = cookies[:hydration_completeness_ratio].to_i
-          .card.bg-white.shadow-xl.text-slate-700{ class: hydration_completeness_ratio >= 100 ? 'opacity-80' : '' }
+          - hydration_completeness_ratio = cookies[:hydration_completeness_ratio].to_f
+          .card.bg-white.shadow-xl.text-slate-700{ class: hydration_completeness_ratio.to_i >= 100 ? 'opacity-80' : '' }
             .card-body.flex.flex-col.items-center.justify-between
-              - unless hydration_completeness_ratio == 100
+              - unless hydration_completeness_ratio >= 100
                 .text-xl.font-semibold
                   = "Hydration Target"
                 .text-lg.font-semibold.text-slate-500
@@ -151,6 +151,25 @@
                       = "Add Product"
                     .text-lg.font-semibold.text-slate-400
                       = "+50 XP"
+
+    .flex.flex-col.w-full{class: "md:max-w-[85%] md:flex-row"}
+      .rounded-lg.bg-white.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:mr-2 md:flex-row"}
+        .flex.flex-col.justify-center.items-center.text-slate-700.space-y-2.w-full{class: "md:max-w-[65%]"}
+          .text-3xl.font-semibold.text-slate-500
+            = "Water Tracking"
+          .flex.flex-row.w-full.space-x-2.justify-around.p-2
+            %button#subtract_water.bg-transparent.rounded-full.size-8{ class: "hover:bg-gray-200" }
+              .mdi.mdi-minus.text-2xl.font-semibold.text-gray-700
+            .mdi.mdi-cup.text-sky-500.text-4xl.font-semibold
+            %button#add_water.bg-transparent.rounded-full.size-8{ class: "hover:bg-gray-200" }
+              .mdi.mdi-plus.text-2xl.font-semibold.text-gray-700
+          .text-3xl.font-semibold.text-slate-500 
+            = "#{(hydration_completeness_ratio * 20).to_i}ml"
+
+      .rounded-lg.bg-white.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:ml-2 md:flex-row"}
+        .flex.flex-col.justify-center.items-center.text-slate-700.space-y-2.w-full{class: "md:max-w-[85%]"}
+          .text-3xl.font-semibold.text-slate-500
+            = "Nutritional Stats for today"
 
   - if current_user.present? and !current_user.has_membership?
     .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-between.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
@@ -353,5 +372,23 @@
       document.cookie = "wellness_completeness_ratio=100; expires=" + match[1] + "; path=/";
     }
 
+    location.reload();
+  });
+
+  $(document).on('click', '#add_water', function() {
+    var match = document.cookie.match(/(?:^|; )hydration_completeness_ratio=([^;]+)/);
+    var hydrationRatio = match ? parseFloat(match[1]) : 0;
+    var newRatio = hydrationRatio + 12.5;
+
+    document.cookie = "hydration_completeness_ratio=" + newRatio + "; expires=midnight; path=/";
+    location.reload();
+  });
+
+  $(document).on('click', '#subtract_water', function() {
+    var match = document.cookie.match(/(?:^|; )hydration_completeness_ratio=([^;]+)/);
+    var hydrationRatio = match ? parseFloat(match[1]) : 0;
+    var newRatio = Math.max(hydrationRatio - 12.5, 0);
+
+    document.cookie = "hydration_completeness_ratio=" + newRatio + "; expires=midnight; path=/";
     location.reload();
   });
