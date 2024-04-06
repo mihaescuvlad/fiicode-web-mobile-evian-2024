@@ -28,6 +28,9 @@ class User::SessionsController < UserApplicationController
         if login
           session[:login_id] = login.id.to_s
           session[:expires_at] = Time.current + 24.hour
+
+          initialize_daily_tasks
+
           redirect_to '/', notice: "Glad to have you back, #{login.user.last_name}!" and return
         else
           render json: { message: "Invalid credentials" }, status: :unauthorized and return
@@ -100,5 +103,13 @@ class User::SessionsController < UserApplicationController
     end
 
     login
+  end
+
+  def initialize_daily_tasks
+    midnight = Time.current.end_of_day
+
+    cookies[:nutritional_completeness_ratio] ||= { value: 0, expires: midnight }
+    cookies[:hydration_completeness_ratio] ||= { value: 0, expires: midnight }
+    cookies[:wellness_completeness_ratio] ||= { value: 0, expires: midnight }
   end
 end

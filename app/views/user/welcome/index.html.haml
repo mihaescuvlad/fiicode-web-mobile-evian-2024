@@ -26,12 +26,135 @@
             .mdi.mdi-arrow-right-circle-outline.text-2xl
 
 .flex.flex-col.justify-center.items-center.mt-4.w-full.space-y-8
-  .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
-    .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[20%] p-4"}
-      .text-2xl.font-semibold
-        = "Nutritional Stats for today"
-      .radial-progress{role: "progressbar", style: "--value:80;"} 
-        = "1520"
+  - if current_user.present?
+    .rounded-lg.bg-white.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
+      .flex.flex-col.justify-center.items-center.text-slate-700.space-y-2.w-full{class: "md:max-w-[85%]"}
+        .text-3xl.font-semibold.text-slate-500
+          = "Nutritional Stats for today"
+        .flex.flex-row.w-full.space-x-2.justify-around.p-2
+          .flex.flex-col.justify-center.items-center.space-y-2
+            - calorie_target = 1998
+            - calorie_eaten = 1520
+            .text-xl.font-semibold
+              = "Calories"
+            .radial-progress{ class: "!bg-slate-200 #{calorie_eaten > calorie_target ? 'text-error' : 'text-success'}", role: "progressbar", style: "--value:80; --size:10rem;" }
+              .flex.flex-col.items-center.text-2xl.text-slate-700.text-semibold
+                .mdi.mdi-fire.text-4xl
+                = "#{calorie_eaten}"
+          .flex.flex-col.justify-center.items-center.w-full.space-y-2{class: "md:max-w-[65%]"}
+            - protein_target = 140
+            - carbs_target = 130
+            - fat_target = 70
+            - protein_eaten = 76
+            - carbs_eaten = 120
+            - fat_eaten = 100
+            .text-xl.font-semibold.self-start
+              = "Protein - #{protein_eaten} / #{protein_target}g"
+            %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{protein_eaten > protein_target ? 'progress-error' : 'progress-success'}", max: protein_target, value: protein_eaten}
+            .text-xl.font-semibold.self-start
+              = "Carbohydrates - #{carbs_eaten} / #{carbs_target}g"
+            %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{carbs_eaten > carbs_target ? 'progress-error' : 'progress-success'}", max: carbs_target, value: carbs_eaten}
+            .text-xl.font-semibold.self-start
+              = "Fats - #{fat_eaten} / #{fat_target}g"
+            %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{fat_eaten > fat_target ? 'progress-error' : 'progress-success'}", max: fat_target, value: fat_eaten}
+
+    .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
+      .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[85%]"}
+        .text-2xl.font-semibold.pb-5
+          = "Daily Challenges"
+        .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-4.gap-4
+          .card.bg-white.shadow-xl.text-slate-700
+            .card-body.flex.flex-col.items-center.justify-between
+              .text-xl.font-semibold
+                = "No goals for today"
+              .text-lg.font-semibold.text-slate-500
+                = "Click below to add a personal goal!"
+              .card-actions
+                %button.text-white.text-left.w-full
+                  = link_to user_products_path, class: "flex items-center text-primary-500 text-right" do
+                    .mdi.mdi-plus-circle-outline.text-3xl
+              
+          - nutritional_completeness_ratio = cookies[:nutritional_completeness_ratio].to_i
+          .card.bg-white.shadow-xl.text-slate-700{ class: nutritional_completeness_ratio == 100 ? 'opacity-80' : '' }
+            .card-body.flex.flex-col.items-center.justify-between
+              - unless nutritional_completeness_ratio == 100
+                .text-xl.font-semibold
+                  = "Nutritional Target"
+                .text-lg.font-semibold.text-slate-500
+                  = "Focus on hitting your daily calorie and macronutrient targets to support optimal nutrition and well-being."
+                .flex.flex-row.justify-between.w-full
+                  .text-lg.font-semibold.text-slate-400
+                    = "#{nutritional_completeness_ratio}%"
+                  .text-lg.font-semibold.text-slate-400
+                    = "+50 XP"
+              - else
+                .mdi.mdi-check.text-3xl.text-green-500.mb-4.absolute.top-2.right-3
+                .opacity-85.flex.flex-col.items-center.justify-between.w-full.h-full
+                  .text-xl.font-semibold
+                    = "Nutritional Target"
+                  .text-lg.font-semibold.text-slate-500
+                    = "Focus on hitting your daily calorie and macronutrient targets to support optimal nutrition and well-being."
+                  .flex.flex-row.justify-between.w-full
+                    .text-lg.font-semibold.text-slate-400
+                      = "#{nutritional_completeness_ratio}%"
+                    .text-lg.font-semibold.text-slate-400
+                      = "+50 XP"
+
+          - hydration_completeness_ratio = cookies[:hydration_completeness_ratio].to_i
+          .card.bg-white.shadow-xl.text-slate-700{ class: hydration_completeness_ratio >= 100 ? 'opacity-80' : '' }
+            .card-body.flex.flex-col.items-center.justify-between
+              - unless hydration_completeness_ratio == 100
+                .text-xl.font-semibold
+                  = "Hydration Target"
+                .text-lg.font-semibold.text-slate-500
+                  = "Stay hydrated by reaching your daily goal of drinking 2 liters of water."
+                .flex.flex-row.items-center.justify-between.w-full
+                  .text-lg.font-semibold.text-slate-400
+                    = "#{hydration_completeness_ratio}%"
+                  .text-lg.font-semibold.text-slate-400
+                    = "+50 XP"
+              - else
+                .mdi.mdi-check.text-3xl.text-green-500.mb-4.absolute.top-2.right-3
+                .opacity-85.flex.flex-col.items-center.justify-between.w-full.h-full
+                  .text-xl.font-semibold
+                    = "Hydration Target"
+                  .text-lg.font-semibold.text-slate-500
+                    = "Stay hydrated by reaching your daily goal of drinking 2 liters of water."
+                  .flex.flex-row.items-center.justify-between.w-full
+                    .text-lg.font-semibold.text-slate-400
+                      = "#{hydration_completeness_ratio}%"
+                    .text-lg.font-semibold.text-slate-400
+                      = "+50 XP"
+
+          - wellness_completeness_ratio = cookies[:wellness_completeness_ratio].to_i
+          .card.bg-white.shadow-xl.text-slate-700{ class: wellness_completeness_ratio == 100 ? 'opacity-80' : '' }
+            .card-body.flex.flex-col.items-center.justify-between
+              - unless wellness_completeness_ratio == 100
+                .text-xl.font-semibold
+                  = "Wellness Target"
+                .text-lg.font-semibold.text-slate-500
+                  = "Fetching from external API."
+                .flex.flex-row.items-center.justify-between.w-full
+                  .text-lg.font-semibold.text-slate-400
+                    = "#{wellness_completeness_ratio}%"
+                  %button#complete_wellness.bg-primary-500.text-white.py-2.px-4.rounded-lg.flex.flex-row.justify-center.items-center.absolute{ style: "left: 50%; transform: translateX(-50%);" }
+                    = "Complete"
+                  .text-lg.font-semibold.text-slate-400
+                    = "+50 XP"
+              - else
+                .mdi.mdi-check.text-3xl.text-green-500.mb-4.absolute.top-2.right-3
+                .opacity-85.flex.flex-col.items-center.justify-between.w-full.h-full
+                  .text-xl.font-semibold
+                    = "Wellness Target"
+                  .text-lg.font-semibold.text-slate-500
+                    = "Fetching from external API."
+                  .flex.flex-row.items-center.justify-between.w-full
+                    .text-lg.font-semibold.text-slate-400
+                      = "#{wellness_completeness_ratio}%"
+                    %button.bg-gray-400.text-white.py-2.px-4.rounded-lg.flex.flex-row.justify-center.items-center.absolute{ style: "left: 50%; transform: translateX(-50%);", disabled: true }
+                      = "Add Product"
+                    .text-lg.font-semibold.text-slate-400
+                      = "+50 XP"
 
   - if current_user.present? and !current_user.has_membership?
     .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-between.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
@@ -79,6 +202,7 @@
       - @top_products.each do |product|
         .col-span-1.sm:col-span-2.md:col-span-1.lg:col-span-1.xl:col-span-1
           = product_card(product)
+
   .rounded-lg.bg-white.p-4.shadow-md.flex.flex-row.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
     .flex.flex-col.justify-center.items-center.text-left.w-full
       .text-5xl.font-semibold
@@ -95,6 +219,7 @@
         = Review.count
       .text-l.text-slate-700
         = "Reviews added by our community"
+
   .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
     .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[20%] p-4"}
       .text-2xl.font-semibold
@@ -107,7 +232,6 @@
             .text-base.font-semibold.whitespace-nowrap
               = "Explore all posts"
             .mdi.mdi-arrow-right-circle-outline.text-2xl.font-semibold
-
     .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-3.gap-4
       - @top_posts.each do |post|
         .col-span-1.sm:col-span-2.md:col-span-1.lg:col-span-1.xl:col-span-1
@@ -129,6 +253,7 @@
                   = post[:replies_number]
               = link_to user_hub_post_path(post[:_id]), class: "flex items-center text-primary-500 text-right" do
                 .mdi.mdi-arrow-right-circle-outline.text-3xl
+
   .rounded-lg.bg-white.p-4.shadow-md.flex.flex-row.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
     .flex.flex-col.justify-center.text-left.w-full
       .text-xs.text-slate-700.mb-2
@@ -146,6 +271,7 @@
       - else
         .text-slate-700
           = sanitize(@food_fact.instructions)
+
   #recommended_products_container.flex.flex-col.justify-center.items-center.w-full
   - if current_user.present?
     .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-between.items-center.w-full#loading_products{class: "md:max-w-[85%] md:flex-row"}
@@ -221,4 +347,18 @@
         $("#" + heartId).removeClass('mdi-heart').addClass('mdi-heart-outline');
       }
     });
+  });
+
+  $(document).on('click', '#complete_wellness', function() {
+    // Find the existing expiration time for the wellness_completeness_ratio cookie
+    var match = document.cookie.match(/(?:^|; )wellness_completeness_ratio=([^;]+)/);
+
+    // Check if a match is found
+    if (match) {
+      // Update wellness completeness ratio cookie to 100 without changing expiration
+      document.cookie = "wellness_completeness_ratio=100; expires=" + match[1] + "; path=/";
+    }
+
+    // Reload the page
+    location.reload();
   });
