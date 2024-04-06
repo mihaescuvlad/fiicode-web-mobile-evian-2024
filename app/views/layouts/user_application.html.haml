@@ -28,5 +28,6 @@
       .flex-1
         = content_for?(:content) ? yield(:content) : yield
       = render "partials/layout/footer"
-    = render "partials/chat_bot"
+    - if current_user.present? and current_user.has_membership?
+      = render "partials/chat_bot"
     = render "partials/layout/mobile_nav"
