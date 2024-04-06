@@ -1,8 +1,8 @@
 - subscription = BillingService::Plus.get_subscription(current_user)
 - plan = subscription.present? ? subscription[:items].first[:plan] : nil
-.size-full.overflow-y-scroll.flex.flex-col.p-2.gap-2{class: "sm:gap-0 sm:p-0 sm:pr-2"}
+.size-full.overflow-y-scroll.flex.flex-col.p-6.gap-2{class: "sm:gap-0 sm:p-0 sm:pr-2"}
   - if subscription.present?
-    .flex.w-full.p-4.justify-between.items-center
+    .flex.w-full.justify-between.items-center
       .flex.gap-3.items-center
         %h2.text-lg
           Freshly plus
@@ -13,8 +13,14 @@
       = link_to cancel_plus_user_profile_path, method: :delete, class: "rounded-lg p-2 bg-red-500 text-white", confirm: "Are you sure you want to cancel your subscription?" do
         Cancel
   - else
-    .flex.w-full.p-4.justify-between.items-center
+    .flex.w-full.justify-between.items-center
       %h2.text-lg
         Freshly plus
       %a.rounded-lg.p-2.bg-primary-500.text-white{href: get_plus_user_profile_path}
         Subscribe
+  %h3
+    Points: #{current_user.points}
+  %h3
+    Awards cost: #{current_user.award_cost} points
+  %h3
+    Total xp: #{current_user.xp} (Level #{current_user.level})
