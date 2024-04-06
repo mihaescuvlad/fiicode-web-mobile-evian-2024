@@ -26,12 +26,14 @@ class User::DiariesController < UserApplicationController
     @total_fats = @diary_products.sum { |product| product['fats'] }
     @total_carbs = @diary_products.sum { |product| product['carbs'] }
     @total_proteins = @diary_products.sum { |product| product['proteins'] }
+
+    @data = current_user.get_nutritional_stats_last_30_days
   end
 
   def add_to_user_diary
     product_id = params[:product_id]
     date = Date.parse(params[:date])
-    date_key = date.strftime('%Y-%m-%d')
+   date_key = date.strftime('%Y-%m-%d')
 
     diary = Diary.where(user_id: current_user.id).first_or_create
     diary.add_product(product_id, date_key, params[:quantity].to_i)

@@ -160,7 +160,7 @@ class User
     }
   end
   
-  def get_nutritional_stats
+  def get_nutritional_stats(date = Date.today)
     nutritional_targets = get_nutritional_targets
   
     calorie_eaten = 0
@@ -168,7 +168,7 @@ class User
     carbs_eaten = 0
     fat_eaten = 0
   
-    fetched_diary_products = diary_products
+    fetched_diary_products = diary_products(date)
   
     if fetched_diary_products.present?
       fetched_diary_products.each do |diary_product|
@@ -189,27 +189,37 @@ class User
       **nutritional_targets
     }
   end
-  
+
+  def get_nutritional_stats_last_30_days
+    nutritional_stats = []
+    date = Date.today
+    30.times do
+      nutritional_stats << get_nutritional_stats(date)
+      date -= 1.day
+    end
+    nutritional_stats.reverse
+  end
+
   def compute_nutritional_goal
     nutritional_stats = get_nutritional_stats
-  
+
     calorie_goal = nutritional_stats[:calorie_target]
     protein_goal = nutritional_stats[:protein_target]
     carbs_goal = nutritional_stats[:carbs_target]
     fat_goal = nutritional_stats[:fat_target]
-  
+
     calorie_eaten = nutritional_stats[:calorie_eaten]
     protein_eaten = nutritional_stats[:protein_eaten]
     carbs_eaten = nutritional_stats[:carbs_eaten]
     fat_eaten = nutritional_stats[:fat_eaten]
-  
+
     calorie_completeness = (calorie_eaten / calorie_goal * 100).round(2)
     protein_completeness = (protein_eaten / protein_goal * 100).round(2)
     carbs_completeness = (carbs_eaten / carbs_goal * 100).round(2)
     fat_completeness = (fat_eaten / fat_goal * 100).round(2)
-  
+
     overall_completeness = [calorie_completeness, protein_completeness, carbs_completeness, fat_completeness].min
-  
+
     # cookies[:wellness_completeness_ratio] = {
     #   value: overall_completeness,
     #   expires: Time.current.end_of_day
