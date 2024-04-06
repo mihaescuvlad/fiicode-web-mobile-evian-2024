@@ -3,7 +3,7 @@ class User::WelcomeController < UserApplicationController
     @top_products = ProductsRecommendation.filter_products_with_aggregation(current_user, 3, 0)
     @top_posts = top_posts
     @food_fact = Recipe.desc(:created_at).first
-    @user_nutritional_data = current_user.get_nutritional_stats
+
     if @food_fact.nil? || @food_fact.created_at < 30.minutes.ago
       # @food_fact = RandomFacts.random_recipe
       if @food_fact.instructions.blank?
@@ -12,6 +12,14 @@ class User::WelcomeController < UserApplicationController
         return
       end
       @food_fact.save
+    end
+
+    if current_user.present?
+      @user_nutritional_data = current_user.get_nutritional_stats
+      
+      midnight = Time.current.end_of_day
+
+      cookies[:nutritional_completeness_ratio] = { value: current_user.compute_nutritional_goal, expires: midnight }
     end
 
     @most_experienced_users = User.most_experienced.limit(5)

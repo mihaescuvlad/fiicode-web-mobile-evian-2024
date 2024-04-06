@@ -66,8 +66,8 @@
                   = link_to user_products_path, class: "flex items-center text-primary-500 text-right" do
                     .mdi.mdi-plus-circle-outline.text-3xl
               
-          - nutritional_completeness_ratio = cookies[:nutritional_completeness_ratio].to_i
-          .card.bg-white.shadow-xl.text-slate-700{ class: nutritional_completeness_ratio == 100 ? 'opacity-80' : '' }
+          - nutritional_completeness_ratio = cookies[:nutritional_completeness_ratio].to_f
+          .card.bg-white.shadow-xl.text-slate-700{ class: nutritional_completeness_ratio.to_i == 100 ? 'opacity-80' : '' }
             .card-body.flex.flex-col.items-center.justify-between
               - unless nutritional_completeness_ratio == 100
                 .text-xl.font-semibold
@@ -76,7 +76,10 @@
                   = "Focus on hitting your daily calorie and macronutrient targets to support optimal nutrition and well-being."
                 .flex.flex-row.justify-between.w-full
                   .text-lg.font-semibold.text-slate-400
-                    = "#{nutritional_completeness_ratio}%"
+                    - if nutritional_completeness_ratio.to_i == nutritional_completeness_ratio
+                      = "#{nutritional_completeness_ratio.to_i}"
+                    - else
+                      = "#{nutritional_completeness_ratio}"
                   .text-lg.font-semibold.text-slate-400
                     = "+50 XP"
               - else
@@ -102,7 +105,10 @@
                   = "Stay hydrated by reaching your daily goal of drinking 2 liters of water."
                 .flex.flex-row.items-center.justify-between.w-full
                   .text-lg.font-semibold.text-slate-400
-                    = "#{hydration_completeness_ratio}%"
+                    - if hydration_completeness_ratio.to_i == hydration_completeness_ratio
+                      = "#{hydration_completeness_ratio.to_i}"
+                    - else
+                      = "#{hydration_completeness_ratio}"
                   .text-lg.font-semibold.text-slate-400
                     = "+50 XP"
               - else
@@ -114,11 +120,14 @@
                     = "Stay hydrated by reaching your daily goal of drinking 2 liters of water."
                   .flex.flex-row.items-center.justify-between.w-full
                     .text-lg.font-semibold.text-slate-400
-                      = "#{hydration_completeness_ratio}%"
+                      - if hydration_completeness_ratio.to_i == hydration_completeness_ratio
+                        = "#{hydration_completeness_ratio.to_i}"
+                      - else
+                        = "#{hydration_completeness_ratio}"
                     .text-lg.font-semibold.text-slate-400
                       = "+50 XP"
 
-          - wellness_completeness_ratio = cookies[:wellness_completeness_ratio].to_i
+          - wellness_completeness_ratio = cookies[:wellness_completeness_ratio].to_f
           .card.bg-white.shadow-xl.text-slate-700{ class: wellness_completeness_ratio == 100 ? 'opacity-80' : '' }
             .card-body.flex.flex-col.items-center.justify-between
               - unless wellness_completeness_ratio == 100

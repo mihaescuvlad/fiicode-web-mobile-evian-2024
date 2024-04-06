@@ -108,7 +108,7 @@ class User::SessionsController < UserApplicationController
   def initialize_daily_tasks
     midnight = Time.current.end_of_day
 
-    cookies[:nutritional_completeness_ratio] ||= { value: 0, expires: midnight }
+    cookies[:nutritional_completeness_ratio] ||= { value: current_user.compute_nutritional_goal, expires: midnight }
     cookies[:hydration_completeness_ratio] ||= { value: 0, expires: midnight }
     cookies[:wellness_completeness_ratio] ||= { value: 0, expires: midnight }
   end
