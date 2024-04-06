@@ -236,6 +236,20 @@
       .text-l.text-slate-700
         = "Reviews added by our community"
 
+  .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.gap-2.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
+    %h2.text-2xl.mb-2.text-white
+      Most experienced users
+    - @most_experienced_users.each do |user|
+      %a.flex.items-center.justify-between.p-2.bg-white.w-full.rounded-lg{href: user_hub_user_path(user)}
+        .flex.gap-2.items-center
+          %img.w-8.h-8.rounded-full{ src: user.profile_picture_url }
+          .text-lg
+            @#{user.login.username}
+        .flex.items-center.gap-2{class: "w-1/2"}
+          .text-lg.w-24
+            XP: #{user.xp}
+          %progress{ class: "flex-1 progress progress-primary", max: @most_experienced_users.map{|u| u.xp}.max, value: user.xp }
+
   .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
     .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[20%] p-4"}
       .text-2xl.font-semibold

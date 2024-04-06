@@ -13,6 +13,8 @@ class User::WelcomeController < UserApplicationController
       end
       @food_fact.save
     end
+
+    @most_experienced_users = User.most_experienced.limit(5)
   end
 
   def contact
