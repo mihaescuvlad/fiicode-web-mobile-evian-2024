@@ -3,6 +3,7 @@ class User::WelcomeController < UserApplicationController
     @top_products = ProductsRecommendation.filter_products_with_aggregation(current_user, 3, 0)
     @top_posts = top_posts
     @food_fact = Recipe.desc(:created_at).first
+    get_nutritional_stats
     if @food_fact.nil? || @food_fact.created_at < 30.minutes.ago
       # @food_fact = RandomFacts.random_recipe
       if @food_fact.instructions.blank?
@@ -47,7 +48,23 @@ class User::WelcomeController < UserApplicationController
     render partial: 'recommended_products', locals: { recommended_products: recommended_products }
   end
 
+  def get_nutritional_stats
+    @calorie_eaten = 0
+    @protein_eaten = 0
+    @carbs_eaten = 0
+    @fat_eaten = 0
 
+    diary_products = current_user.diary_products
+
+    diary_products.each do |diary_product|
+      product = Product.find_by(_id: diary_product["product_id"])
+
+      @calorie_eaten += (product.calories / 100 * diary_product["quantity"]).round(2)
+      @protein_eaten += (product.protein / 100 * diary_product["quantity"]).round(2)
+      @carbs_eaten += (product.carbohydrates / 100 * diary_product["quantity"]).round(2)
+      @fat_eaten += (product.fat / 100 * diary_product["quantity"]).round(2)
+    end
+  end
 private
 
   def top_posts
