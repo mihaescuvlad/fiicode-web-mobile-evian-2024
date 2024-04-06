@@ -27,10 +27,10 @@
 
       .flex.flex-row.justify-center.items-center.mt-4.space-x-4
         - if @allowed_update || @login.confirmed_username == false
-          %button{ class: "bg-primary-500 text-white rounded-lg p-2 mt-4 w-fit", type: "submit" }
+          %button{ class: "!bg-primary-500 text-white rounded-lg p-2 mt-4 w-fit", type: "submit" }
             = "Save Changes"
         - else
-          %button{ class: "bg-gray-200 text-gray-500 rounded-lg p-2 mt-4 w-fit", type: "button", disabled: true }
+          %button{ class: "!bg-gray-200 text-gray-500 rounded-lg p-2 mt-4 w-fit", type: "button", disabled: true }
             = "Save Changes"
 
 :javascript
