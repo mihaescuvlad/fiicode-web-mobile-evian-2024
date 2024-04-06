@@ -147,11 +147,11 @@
         %span
           = "g"
       .modal-action
-        %form.hidden#remove-dietary-form{method: "dialog"}
-          %button.btn{ class: "!bg-red-500 !text-white !border-none", type: "submit", id: "remove-diary-button" }
+        %form.hidden#remove-diary-form{method: "dialog"}
+          = link_to user_diaries_path, method: :put, class: "btn !bg-red-500 !text-white !border-none", id: "remove-diary-button" do
             Remove
-        %form.hidden#change-dietary-form{method: "dialog"}
-          %button.btn{ class: "!bg-red-500 !text-white !border-none", type: "submit", id: "change-diary-button" }
+        %form.hidden#change-diary-form{method: "dialog"}
+          = link_to user_diaries_path, method: :put, class: "btn !bg-primary-500 !text-white !border-none", id: "change-diary-button" do
             Change
         %form.hidden#cancel-diary-form{method: "dialog"}
           %button.btn{ class: "!bg-red-500 !text-white !border-none", type: "submit" }
@@ -195,19 +195,48 @@
       e.stopPropagation();
       var quantity = $('#quantity').val();
       var href = $(this).attr('href') + '&quantity=' + quantity;
-      console.log(href);
       $.ajax({
         type: "POST",
         url: href,
         success: function(response) {
-          console.log(response);
         },
         error: function(xhr, status, error) {
           console.error(error);
         }
       });
+      var queryString = href.split('?')[1];
+
+      var productId = new URLSearchParams(queryString).get('product_id');
+      $('#diary-icon-' + productId).removeClass('mdi-plus').addClass('mdi-check');
+      document.getElementById('my_modal_1').close();
     });
   });
+
+    $('#change-diary-button').on('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var quantity = $('#quantity').val();
+      var href = $(this).attr('href') + '&quantity=' + quantity;
+      $.ajax({
+        type: "PUT",
+        url: href,
+        success: function(response) {
+        },
+        error: function(xhr, status, error) {
+          console.error(error);
+        }
+      });
+      document.getElementById('my_modal_1').close();
+    });
+
+    $('#remove-diary-button').on('click', function(e) {
+      href = $(this).attr('href');
+      var queryString = href.split('?')[1];
+
+      var productId = new URLSearchParams(queryString).get('product_id');
+      $('#diary-icon-' + productId).removeClass('mdi-check').addClass('mdi-plus');
+      document.getElementById('my_modal_1').close();
+    });
 
   $(document).on('click', '[id^="heart-icon"]', function() {
     const heartId = this.id;
@@ -239,14 +268,18 @@
   });
 
   $(document).on('click', '[id^="diary-icon"]', function() {
+    $('#quantity').val('');
     const diaryId = this.id;
     const productId = this.id.replace('diary-icon-', '');
+    $('#remove-diary-form').addClass('hidden');
+    $('#change-diary-form').addClass('hidden');
+    $('#add-diary-form').addClass('hidden');
+    $('#cancel-diary-form').addClass('hidden');
     if ($("#" + diaryId).hasClass('mdi-check')) {
-      $('#remove-diary-button').attr('action', 'diaries/remove_from_user_diary?product_id=' + productId);
+      $('#remove-diary-button').attr('href', 'diaries/remove_from_user_diary?product_id=' + productId + '&date=' + "#{Date.today}");
       $('#remove-diary-form').removeClass('hidden');
       $('#change-diary-form').removeClass('hidden');
-      console.log("HERE");
-      $('#change-diary-button').attr('href', 'diaries/modify_user_diary?product_id=' + productId);
+      $('#change-diary-button').attr('href', 'diaries/modify_user_diary?product_id=' + productId + '&date=' + "#{Date.today}");
       return;
     }
 

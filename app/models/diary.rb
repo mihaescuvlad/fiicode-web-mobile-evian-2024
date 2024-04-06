@@ -6,7 +6,22 @@ class Diary
   field :products, type: Hash, default: -> { Hash.new { |hash, key| hash[key] = [] } }  
 
   def add_product(product_id, date, quantity)
-    self.products[date.strftime('%Y-%m-%d')] << { product_id: product_id, quantity: quantity }
+    date = date.strftime('%Y-%m-%d') if date.is_a?(Date)
+    self.products[date] << { product_id: product_id, quantity: quantity }
+  end
+
+  def modify_product(product_id, date, quantity)
+    date = date.strftime('%Y-%m-%d') if date.is_a?(Date)
+    self.products[date].each do |product|
+      if product["product_id"] == product_id
+        product["quantity"] = quantity
+      end
+    end
+  end
+
+  def remove_product(product_id, date)
+    date = date.strftime('%Y-%m-%d') if date.is_a?(Date)
+    self.products[date].delete_if { |product| product["product_id"] == product_id }
   end
 
 end

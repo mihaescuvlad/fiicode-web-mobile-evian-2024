@@ -161,7 +161,7 @@ class User::ProductsController < UserApplicationController
     current_user.save!
     render json: { message: 'Product removed from favorites' }, status: :ok
   end
-
+  
 private
 
   def perfect_match?(product, matching_product)

@@ -96,7 +96,9 @@ module CardsHelper
   end
 
   def add_to_diary_icon(product)
-    if current_user.diary_products.include?(product.id)
+    current_date = Date.today.strftime('%Y-%m-%d')
+
+    if current_user.diary_products.any? { |p| p["product_id"].to_s == product.id.to_s }
       content_tag(:i, '', class: 'mdi mdi-check', style: 'font-size: 1.5rem;', id: "diary-icon-#{product.id}", onclick: "my_modal_1.showModal()")
     else
       content_tag(:i, '', class: 'mdi mdi-plus', style: 'font-size: 1.5rem;', id: "diary-icon-#{product.id}", onclick: "my_modal_1.showModal()")
