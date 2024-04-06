@@ -138,4 +138,49 @@ class User
   def diary_products(date = Date.today)
     Diary.where(user_id: self.id).and("products.#{date.strftime('%Y-%m-%d')}".to_sym.exists => true).first.try(:products).try(:[], date.strftime('%Y-%m-%d')) || []
   end
+
+  def get_nutritional_targets
+    calorie_target = 2000
+  
+    unless self.height.nil?
+      calorie_target = self.height * 2.2 * 14
+    end
+  
+    {
+      calorie_target: calorie_target,
+      protein_target: calorie_target * 0.3 / 4,
+      carbs_target: calorie_target * 0.4 / 4,
+      fat_target: calorie_target * 0.3 / 9
+    }
+  end
+  
+  def get_nutritional_stats
+    nutritional_targets = get_nutritional_targets
+  
+    calorie_eaten = 0
+    protein_eaten = 0
+    carbs_eaten = 0
+    fat_eaten = 0
+  
+    fetched_diary_products = diary_products
+  
+    if fetched_diary_products.present?
+      fetched_diary_products.each do |diary_product|
+        product = Product.find_by(_id: diary_product["product_id"])
+  
+        calorie_eaten += (product.calories / 100 * diary_product["quantity"]).round(2)
+        protein_eaten += (product.protein / 100 * diary_product["quantity"]).round(2)
+        carbs_eaten += (product.carbohydrates / 100 * diary_product["quantity"]).round(2)
+        fat_eaten += (product.fat / 100 * diary_product["quantity"]).round(2)
+      end
+    end
+    
+    {
+      calorie_eaten: calorie_eaten,
+      protein_eaten: protein_eaten,
+      carbs_eaten: carbs_eaten,
+      fat_eaten: fat_eaten,
+      **nutritional_targets
+    }
+  end  
 end
