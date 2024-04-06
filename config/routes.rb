@@ -26,6 +26,12 @@ Rails.application.routes.draw do
 
     resource :basket
 
+    resources :diaries do
+      put :remove_from_user_diary, on: :collection
+      post :add_to_user_diary, on: :collection
+      put :modify_user_diary, on: :collection
+    end
+
     resources :allergens, only: %i[index show] do
       get :search, on: :collection
     end

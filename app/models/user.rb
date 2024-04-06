@@ -87,4 +87,8 @@ class User
 
     Allergen.where(:off_id.in => allergens_ids)
   end
+
+  def diary_products(date = Date.today)
+    Diary.where(user_id: self.id).and("products.#{date.strftime('%Y-%m-%d')}".to_sym.exists => true).first.try(:products).try(:[], date.strftime('%Y-%m-%d')) || []
+  end
 end

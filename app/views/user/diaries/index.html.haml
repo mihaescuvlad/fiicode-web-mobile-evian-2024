@@ -1,0 +1,19 @@
+.flex.flex-col.justify-center.items-center.w-full.space-y-4.mt-4
+  .text-2xl.font-bold.mb-6.p-2.text-center.rounded-lg.bg-clip-border.text-gray-700.shadow-md{ class: "backdrop-blur-[2px]"}
+    = "Diary"
+    .flex.justify-center.items-center.mt-4.rounded-lg.bg-white.p-2.shadow-md
+      = link_to user_diaries_path(date: @date.prev_day), class: "text-lg font-bold mr-2 text-primary-500" do
+        %i.mdi.mdi-chevron-left{title: "Previous Page"}
+      .text-lg.font-bold.mr-2.text-white.bg-primary-500.p-1.rounded-lg.shadow-md
+        = smart_date(@date)
+      = link_to user_diaries_path(date: @date.next_day), class: "text-lg font-bold text-primary-500" do
+        %i.mdi.mdi-chevron-right{title: "Previous Page"}
+
+  .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-3.gap-4
+    - @products.each do |product|
+      .col-span-1.sm:col-span-2.md:col-span-1.lg:col-span-1.xl:col-span-1
+        = product_card(product)
+
+  %br
+
+%br

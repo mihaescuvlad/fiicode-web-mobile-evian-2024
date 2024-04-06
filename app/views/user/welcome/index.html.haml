@@ -133,6 +133,33 @@
       .mdi.mdi-loading.text-white.text-5xl.animate-spin
       %div
 
+%dialog#my_modal_1.modal
+  .modal-box{ class: "!bg-white" }
+    %form{method: "dialog"}
+      %button.btn.btn-sm.btn-circle.btn-ghost.absolute.right-2.top-2 ✕
+    .flex.flex-col.justify-center.items-center.space-y-4.mt-4
+      .text-semibold.text-lg.text-black
+        = "Select the quantity that you consumed"
+        %span{ class: "!font-bold" }
+          = "today"
+      .flex.flex-row.items-center.justify-center.space-x-1
+        %input{type: "number", placeholder: "Quantity", class: "p-2 rounded-lg", min: 1, id: "quantity"}
+        %span
+          = "g"
+      .modal-action
+        %form.hidden#remove-dietary-form{method: "dialog"}
+          %button.btn{ class: "!bg-red-500 !text-white !border-none", type: "submit", id: "remove-diary-button" }
+            Remove
+        %form.hidden#change-dietary-form{method: "dialog"}
+          %button.btn{ class: "!bg-red-500 !text-white !border-none", type: "submit", id: "change-diary-button" }
+            Change
+        %form.hidden#cancel-diary-form{method: "dialog"}
+          %button.btn{ class: "!bg-red-500 !text-white !border-none", type: "submit" }
+            Cancel
+        %form.hidden#add-diary-form{method: "dialog"}
+          = link_to user_diaries_path, method: :post, class: "btn !bg-primary-500 !text-white !border-none", id: "add-diary-button" do
+            Add
+
 %br
 
 
@@ -161,6 +188,24 @@
         shortText.classList.remove('hidden');
         this.textContent = 'Show More';
       }
+    });
+
+    $('#add-diary-button').on('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var quantity = $('#quantity').val();
+      var href = $(this).attr('href') + '&quantity=' + quantity;
+      console.log(href);
+      $.ajax({
+        type: "POST",
+        url: href,
+        success: function(response) {
+          console.log(response);
+        },
+        error: function(xhr, status, error) {
+          console.error(error);
+        }
+      });
     });
   });
 
@@ -192,3 +237,21 @@
       }
     });
   });
+
+  $(document).on('click', '[id^="diary-icon"]', function() {
+    const diaryId = this.id;
+    const productId = this.id.replace('diary-icon-', '');
+    if ($("#" + diaryId).hasClass('mdi-check')) {
+      $('#remove-diary-button').attr('action', 'diaries/remove_from_user_diary?product_id=' + productId);
+      $('#remove-diary-form').removeClass('hidden');
+      $('#change-diary-form').removeClass('hidden');
+      console.log("HERE");
+      $('#change-diary-button').attr('href', 'diaries/modify_user_diary?product_id=' + productId);
+      return;
+    }
+
+    $('#add-diary-button').attr('href', 'diaries/add_to_user_diary?product_id=' + productId + '&date=' + "#{Date.today}");
+    $('#add-diary-form').removeClass('hidden');
+    $('#cancel-diary-form').removeClass('hidden');
+  });
+
