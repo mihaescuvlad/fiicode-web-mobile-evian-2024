@@ -34,32 +34,28 @@
         .flex.flex-row.w-full.space-x-2.justify-around.p-2
           .flex.flex-col.justify-center.items-center.space-y-2
             - calorie_target = 1998
-            - calorie_eaten = 1520
             .text-xl.font-semibold
               = "Calories"
-            .radial-progress{ class: "!bg-slate-200 #{calorie_eaten > calorie_target ? 'text-error' : 'text-success'}", role: "progressbar", style: "--value:80; --size:10rem;" }
+            .radial-progress{ class: "!bg-slate-200 #{@calorie_eaten > calorie_target ? 'text-error' : 'text-success'}", role: "progressbar", style: "--value:#{(@calorie_eaten / calorie_target * 100).round(0)}; --size:10rem;" }
               .flex.flex-col.items-center.text-2xl.text-slate-700.text-semibold
                 .mdi.mdi-fire.text-4xl
-                = "#{calorie_eaten}"
+                = "#{@calorie_eaten.round(2)}"
           .flex.flex-col.justify-center.items-center.w-full.space-y-2{class: "md:max-w-[65%]"}
             - protein_target = 140
             - carbs_target = 130
             - fat_target = 70
-            - protein_eaten = 76
-            - carbs_eaten = 120
-            - fat_eaten = 100
             .text-xl.font-semibold.self-start
-              = "Protein - #{protein_eaten} / #{protein_target}g"
-            %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{protein_eaten > protein_target ? 'progress-error' : 'progress-success'}", max: protein_target, value: protein_eaten}
+              = "Protein - #{@protein_eaten.round(2)} / #{protein_target}g"
+            %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{@protein_eaten > protein_target ? 'progress-error' : 'progress-success'}", max: protein_target, value: @protein_eaten}
             .text-xl.font-semibold.self-start
-              = "Carbohydrates - #{carbs_eaten} / #{carbs_target}g"
-            %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{carbs_eaten > carbs_target ? 'progress-error' : 'progress-success'}", max: carbs_target, value: carbs_eaten}
+              = "Carbohydrates - #{@carbs_eaten.round(2)} / #{carbs_target}g"
+            %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{@carbs_eaten > carbs_target ? 'progress-error' : 'progress-success'}", max: carbs_target, value: @carbs_eaten}
             .text-xl.font-semibold.self-start
-              = "Fats - #{fat_eaten} / #{fat_target}g"
-            %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{fat_eaten > fat_target ? 'progress-error' : 'progress-success'}", max: fat_target, value: fat_eaten}
+              = "Fats - #{@fat_eaten.round(2)} / #{fat_target}g"
+            %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{@fat_eaten > fat_target ? 'progress-error' : 'progress-success'}", max: fat_target, value: @fat_eaten}
 
     .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
-      .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[85%]"}
+      .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[95%]"}
         .text-2xl.font-semibold.pb-5
           = "Daily Challenges"
         .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-4.gap-4
@@ -351,15 +347,11 @@
   });
 
   $(document).on('click', '#complete_wellness', function() {
-    // Find the existing expiration time for the wellness_completeness_ratio cookie
     var match = document.cookie.match(/(?:^|; )wellness_completeness_ratio=([^;]+)/);
 
-    // Check if a match is found
     if (match) {
-      // Update wellness completeness ratio cookie to 100 without changing expiration
       document.cookie = "wellness_completeness_ratio=100; expires=" + match[1] + "; path=/";
     }
 
-    // Reload the page
     location.reload();
   });
