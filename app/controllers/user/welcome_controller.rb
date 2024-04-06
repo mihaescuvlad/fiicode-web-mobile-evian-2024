@@ -23,6 +23,8 @@ class User::WelcomeController < UserApplicationController
     end
 
     @most_experienced_users = User.most_experienced.limit(5)
+    @today_goal = { title: current_user.goal_title, description: current_user.goal_description, target: current_user.goal_target, progress: current_user.goal_progress} if current_user.goal_created_at.present? && current_user.goal_created_at.to_date == Time.now.to_date
+    puts @today_goal
   end
 
   def contact
@@ -57,6 +59,23 @@ class User::WelcomeController < UserApplicationController
     
     render partial: 'recommended_products', locals: { recommended_products: recommended_products }
   end
+
+  def add_goal
+    current_user.update_attribute(:goal_title, params[:goal_title])
+    current_user.update_attribute(:goal_description, params[:goal_description])
+    current_user.update_attribute(:goal_created_at, Time.now)
+    current_user.update_attribute(:goal_progress, 0)
+    current_user.update_attribute(:goal_target, params[:goal_target])
+    current_user.save
+    redirect_to user_root_path
+  end
+
+  def update_goal
+    current_user.update_attribute(:goal_progress, params[:goal_progress])
+    current_user.save
+    redirect_to user_root_path
+  end
+
 private
 
   def top_posts

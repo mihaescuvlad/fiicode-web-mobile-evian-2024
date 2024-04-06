@@ -41,7 +41,6 @@ class User::Hub::PostsController < UserApplicationController
   end
 
   def award
-    puts params
     post = Post.find(params[:id]) rescue not_found
     post.award(current_user)
     post.author.save!

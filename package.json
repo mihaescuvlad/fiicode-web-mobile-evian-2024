@@ -22,7 +22,7 @@
     "shakapacker": "7.2.0",
     "style-loader": "^3.3.4",
     "terser-webpack-plugin": "5",
-    "webpack": "5",
+    "webpack": "^5.91.0",
     "webpack-assets-manifest": "5",
     "webpack-cli": "4",
     "webpack-merge": "5",

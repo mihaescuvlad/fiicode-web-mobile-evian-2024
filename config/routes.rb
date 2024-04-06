@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     match '/logout', to: 'sessions#logout', via: :all
     match '/contact', to: 'welcome#contact', via: :post
     match '/chat/send_message', to: 'chat_bot#send_message', via: :post
+    match '/add_goal', to: 'welcome#add_goal', via: :post
+    match '/update_goal', to: 'welcome#update_goal', via: :post
 
     resource :profile, only: %i[show index] do
       match :user, on: :collection, via: %i[get put]

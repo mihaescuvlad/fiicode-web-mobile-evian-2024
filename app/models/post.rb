@@ -28,8 +28,11 @@ class Post
     xp_for_award = 100
 
     author.add_xp(xp_for_award)
-    user.purchase_award
-
+    begin
+      user.purchase_award
+    rescue StandardError => e
+      return
+    end
     self.awards += 1
   end
 

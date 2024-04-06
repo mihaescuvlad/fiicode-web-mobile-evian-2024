@@ -38,10 +38,6 @@
           .flex.flex-col.items-center.text-2xl.text-slate-700.text-semibold
             .mdi.mdi-water.text-4xl
             = "#{@total_fats.round(2)}"
-    -# = @total_calories.round(2)
-    -# = @total_proteins.round(2)
-    -# = @total_carbs.round(2)
-    -# = @total_fats.round(2)
     .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-3.gap-4
       - @products.each do |product|
         .col-span-1.sm:col-span-2.md:col-span-1.lg:col-span-1.xl:col-span-1
