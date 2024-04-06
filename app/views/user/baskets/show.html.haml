@@ -40,6 +40,8 @@
     .grid.grid-cols-1.gap-4{class: "md:grid-cols-2 lg:grid-cols-3"}
       - @products.each do |product|
         = product_card(product)
+= render "partials/diary_modal"
+
 %br
 :javascript
   $(document).on('click', '[id^="heart-icon"]', function() {

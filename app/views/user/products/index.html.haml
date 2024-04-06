@@ -35,6 +35,8 @@
           = link_to user_products_path(page: @total_pages), class: "mx-1 px-2 py-1 text-sm text-primary-500 hover:bg-primary-100 rounded" do
             %i.mdi.mdi-chevron-double-right{title: "Last Page"}
 
+= render "partials/diary_modal"
+
 :javascript
   $(document).on('click', '[id^="heart-icon"]', function() {
     const heartId = this.id;
