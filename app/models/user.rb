@@ -4,6 +4,8 @@ class User
 
   DIETARY_PREFERENCES_VALUES = [:NONE, :VEGETARIAN, :VEGAN]
 
+  scope :most_experienced, -> { order_by(xp: :desc) }
+
   field :dietary_preferences, type: Symbol
   field :allergens_ids, type: Array, default: []
   field :favorites, type: Array, default: []
