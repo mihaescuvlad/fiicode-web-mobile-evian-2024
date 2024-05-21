@@ -20,18 +20,6 @@ FileUtils.chdir APP_ROOT do
   # Install JavaScript dependencies
   system!("bin/yarn")
 
-  if ENV["PYTHON"].nil?
-    ENV["PYTHON"] = "python3"
-  end
-
-  # Install recommendation_api dependencies
-  Dir.chdir("recommendation_api") do
-    unless File.exist?("venv")
-      system! "$PYTHON -m venv venv"
-    end
-    system! 'bash -c ". venv/bin/activate; pip install -r requirements.txt;"'
-  end
-
   puts "\n== Removing old logs and tempfiles =="
   system! "bin/rails log:clear tmp:clear"
 

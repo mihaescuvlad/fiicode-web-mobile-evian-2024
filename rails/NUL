@@ -1,0 +1,1882 @@
+# Logfile created on 2024-02-28 12:58:03 +0200 by logger.rb/v1.5.3
+W, [2024-02-28T12:58:09.530566 #13677]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+E, [2024-02-28T12:58:10.580970 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-02-28T13:02:15.360898 #13677] ERROR -- :   
+NoMethodError (undefined method `action_encoding_template' for Admin::GreetController:Class):
+  
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:100:in `action_encoding_template'
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:85:in `encode'
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:45:in `set_binary_encoding'
+actionpack (7.1.3.2) lib/action_dispatch/http/parameters.rb:68:in `path_parameters='
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:48:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-28T13:02:15.542541 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-02-28T13:11:40.632373 #13677] ERROR -- :   
+NoMethodError (undefined method `action_encoding_template' for Admin::GreetController:Class):
+  
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:100:in `action_encoding_template'
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:85:in `encode'
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:45:in `set_binary_encoding'
+actionpack (7.1.3.2) lib/action_dispatch/http/parameters.rb:68:in `path_parameters='
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:48:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-28T13:11:41.683133 #13677] ERROR -- :   
+NoMethodError (undefined method `action_encoding_template' for Admin::GreetController:Class):
+  
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:100:in `action_encoding_template'
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:85:in `encode'
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:45:in `set_binary_encoding'
+actionpack (7.1.3.2) lib/action_dispatch/http/parameters.rb:68:in `path_parameters='
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:48:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-28T13:11:42.082553 #13677] ERROR -- :   
+NoMethodError (undefined method `action_encoding_template' for Admin::GreetController:Class):
+  
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:100:in `action_encoding_template'
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:85:in `encode'
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:45:in `set_binary_encoding'
+actionpack (7.1.3.2) lib/action_dispatch/http/parameters.rb:68:in `path_parameters='
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:48:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-28T13:12:01.701358 #13677] ERROR -- :   
+NoMethodError (undefined method `action_encoding_template' for Admin::GreetController:Class):
+  
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:100:in `action_encoding_template'
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:85:in `encode'
+actionpack (7.1.3.2) lib/action_dispatch/request/utils.rb:45:in `set_binary_encoding'
+actionpack (7.1.3.2) lib/action_dispatch/http/parameters.rb:68:in `path_parameters='
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:48:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-28T13:13:39.434601 #13677] ERROR -- :   
+ActionView::MissingTemplate (Missing template admin/greet/index, admin_application/index, application/index with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :haml, :jbuilder]}.
+
+Searched in:
+  * "/home/pijon/Documents/dev/fiicode/app/views"
+  * "/home/pijon/.rvm/gems/ruby-3.2.3/gems/turbo-rails-2.0.4/app/views"
+):
+  
+app/controllers/admin/greet_controller.rb:4:in `index'
+E, [2024-02-28T13:16:08.399148 #13677] ERROR -- :   
+ActionView::MissingTemplate (Missing template admin/greet/index, admin_application/index, application/index with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :haml, :jbuilder]}.
+
+Searched in:
+  * "/home/pijon/Documents/dev/fiicode/app/views"
+  * "/home/pijon/.rvm/gems/ruby-3.2.3/gems/turbo-rails-2.0.4/app/views"
+):
+  
+app/controllers/admin/greet_controller.rb:4:in `index'
+E, [2024-02-28T13:16:09.495157 #13677] ERROR -- :   
+ActionView::MissingTemplate (Missing template admin/greet/index, admin_application/index, application/index with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :haml, :jbuilder]}.
+
+Searched in:
+  * "/home/pijon/Documents/dev/fiicode/app/views"
+  * "/home/pijon/.rvm/gems/ruby-3.2.3/gems/turbo-rails-2.0.4/app/views"
+):
+  
+app/controllers/admin/greet_controller.rb:4:in `index'
+E, [2024-02-28T13:16:35.038685 #13677] ERROR -- :   
+ActionController::MissingExactTemplate (Admin::GreetController#index is missing a template for request formats: text/html):
+  
+actionpack (7.1.3.2) lib/action_controller/metal/implicit_render.rb:47:in `default_render'
+actionpack (7.1.3.2) lib/action_controller/metal/basic_implicit_render.rb:7:in `send_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:224:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:165:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:259:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:121:in `block in run_callbacks'
+turbo-rails (2.0.4) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.4) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:21:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.3.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:21:in `block in <class:Constraints>'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:51:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-28T13:16:53.899561 #13677] ERROR -- :   
+ActionView::MissingTemplate (Missing template admin/greet/index, admin_application/index, application/index with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :haml, :jbuilder]}.
+
+Searched in:
+  * "/home/pijon/Documents/dev/fiicode/app/views"
+  * "/home/pijon/.rvm/gems/ruby-3.2.3/gems/turbo-rails-2.0.4/app/views"
+):
+  
+app/controllers/admin/greet_controller.rb:4:in `index'
+E, [2024-02-28T13:18:58.534245 #13677] ERROR -- :   
+ActionView::Template::Error (The asset "admin_application.css" is not present in the asset pipeline.
+):
+    4:     %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
+    5:     = csrf_meta_tags
+    6:     = csp_meta_tag
+    7:     = stylesheet_link_tag "admin_application", "data-turbo-track" => "reload"
+    8:     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track" => "reload"
+    9:     = stylesheet_link_tag "notifier/hidden"
+   10:     = yield :head
+  
+app/views/layouts/admin_application.html.haml:7
+app/controllers/admin/greet_controller.rb:4:in `index'
+E, [2024-02-28T13:22:38.324727 #13677] ERROR -- :   
+ActionView::Template::Error (The asset "admin_application.css" is not present in the asset pipeline.
+):
+    4:     %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
+    5:     = csrf_meta_tags
+    6:     = csp_meta_tag
+    7:     = stylesheet_link_tag "admin_application", "data-turbo-track" => "reload"
+    8:     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track" => "reload"
+    9:     = stylesheet_link_tag "notifier/hidden"
+   10:     = yield :head
+  
+app/views/layouts/admin_application.html.haml:7
+E, [2024-02-28T13:22:39.093877 #13677] ERROR -- :   
+ActionView::Template::Error (The asset "admin_application.css" is not present in the asset pipeline.
+):
+    4:     %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
+    5:     = csrf_meta_tags
+    6:     = csp_meta_tag
+    7:     = stylesheet_link_tag "admin_application", "data-turbo-track" => "reload"
+    8:     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track" => "reload"
+    9:     = stylesheet_link_tag "notifier/hidden"
+   10:     = yield :head
+  
+app/views/layouts/admin_application.html.haml:7
+E, [2024-02-28T13:22:39.806111 #13677] ERROR -- :   
+ActionView::Template::Error (The asset "admin_application.css" is not present in the asset pipeline.
+):
+    4:     %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
+    5:     = csrf_meta_tags
+    6:     = csp_meta_tag
+    7:     = stylesheet_link_tag "admin_application", "data-turbo-track" => "reload"
+    8:     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track" => "reload"
+    9:     = stylesheet_link_tag "notifier/hidden"
+   10:     = yield :head
+  
+app/views/layouts/admin_application.html.haml:7
+E, [2024-02-28T13:24:08.897184 #13677] ERROR -- :   
+ActionView::MissingTemplate (Missing template admin/greet/index, admin_application/index, application/index with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :haml, :jbuilder]}.
+
+Searched in:
+  * "/home/pijon/Documents/dev/fiicode/app/views"
+  * "/home/pijon/.rvm/gems/ruby-3.2.3/gems/turbo-rails-2.0.4/app/views"
+):
+  
+app/controllers/admin/greet_controller.rb:4:in `index'
+E, [2024-02-28T13:29:43.843074 #13677] ERROR -- :   
+ActionView::MissingTemplate (Missing template layouts/user_pplication with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :haml, :jbuilder]}.
+
+Searched in:
+  * "/home/pijon/Documents/dev/fiicode/app/views"
+  * "/home/pijon/.rvm/gems/ruby-3.2.3/gems/turbo-rails-2.0.4/app/views"
+):
+  
+actionview (7.1.3.2) lib/action_view/path_set.rb:42:in `find'
+actionview (7.1.3.2) lib/action_view/lookup_context.rb:131:in `find'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:102:in `resolve_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:109:in `resolve_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:89:in `find_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:72:in `render_with_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:59:in `render_template'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:11:in `render'
+actionview (7.1.3.2) lib/action_view/renderer/renderer.rb:63:in `render_template_to_object'
+actionview (7.1.3.2) lib/action_view/renderer/renderer.rb:31:in `render_to_object'
+actionview (7.1.3.2) lib/action_view/rendering.rb:135:in `block in _render_template'
+actionview (7.1.3.2) lib/action_view/base.rb:291:in `in_rendering_context'
+actionview (7.1.3.2) lib/action_view/rendering.rb:134:in `_render_template'
+actionpack (7.1.3.2) lib/action_controller/metal/streaming.rb:256:in `_render_template'
+actionview (7.1.3.2) lib/action_view/rendering.rb:121:in `render_to_body'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:158:in `render_to_body'
+actionpack (7.1.3.2) lib/action_controller/metal/renderers.rb:141:in `render_to_body'
+actionpack (7.1.3.2) lib/abstract_controller/rendering.rb:27:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:139:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:29:in `block (2 levels) in render'
+/home/pijon/.rvm/rubies/ruby-3.2.3/lib/ruby/3.2.0/benchmark.rb:311:in `realtime'
+activesupport (7.1.3.2) lib/active_support/core_ext/benchmark.rb:14:in `ms'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:29:in `block in render'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:98:in `cleanup_view_runtime'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:27:in `cleanup_view_runtime'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:28:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/implicit_render.rb:37:in `default_render'
+actionpack (7.1.3.2) lib/action_controller/metal/basic_implicit_render.rb:7:in `send_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:224:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:165:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:259:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:121:in `block in run_callbacks'
+turbo-rails (2.0.4) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.4) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:21:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.3.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:21:in `block in <class:Constraints>'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:51:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-28T13:29:56.019808 #13677] ERROR -- :   
+ActionView::MissingTemplate (Missing template layouts/user_pplication with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :haml, :jbuilder]}.
+
+Searched in:
+  * "/home/pijon/Documents/dev/fiicode/app/views"
+  * "/home/pijon/.rvm/gems/ruby-3.2.3/gems/turbo-rails-2.0.4/app/views"
+):
+  
+actionview (7.1.3.2) lib/action_view/path_set.rb:42:in `find'
+actionview (7.1.3.2) lib/action_view/lookup_context.rb:131:in `find'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:102:in `resolve_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:109:in `resolve_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:89:in `find_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:72:in `render_with_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:59:in `render_template'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:11:in `render'
+actionview (7.1.3.2) lib/action_view/renderer/renderer.rb:63:in `render_template_to_object'
+actionview (7.1.3.2) lib/action_view/renderer/renderer.rb:31:in `render_to_object'
+actionview (7.1.3.2) lib/action_view/rendering.rb:135:in `block in _render_template'
+actionview (7.1.3.2) lib/action_view/base.rb:291:in `in_rendering_context'
+actionview (7.1.3.2) lib/action_view/rendering.rb:134:in `_render_template'
+actionpack (7.1.3.2) lib/action_controller/metal/streaming.rb:256:in `_render_template'
+actionview (7.1.3.2) lib/action_view/rendering.rb:121:in `render_to_body'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:158:in `render_to_body'
+actionpack (7.1.3.2) lib/action_controller/metal/renderers.rb:141:in `render_to_body'
+actionpack (7.1.3.2) lib/abstract_controller/rendering.rb:27:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:139:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:29:in `block (2 levels) in render'
+/home/pijon/.rvm/rubies/ruby-3.2.3/lib/ruby/3.2.0/benchmark.rb:311:in `realtime'
+activesupport (7.1.3.2) lib/active_support/core_ext/benchmark.rb:14:in `ms'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:29:in `block in render'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:98:in `cleanup_view_runtime'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:27:in `cleanup_view_runtime'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:28:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/implicit_render.rb:37:in `default_render'
+actionpack (7.1.3.2) lib/action_controller/metal/basic_implicit_render.rb:7:in `send_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:224:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:165:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:259:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:121:in `block in run_callbacks'
+turbo-rails (2.0.4) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.4) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:21:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.3.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:21:in `block in <class:Constraints>'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:51:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-28T13:29:57.121183 #13677] ERROR -- :   
+ActionView::MissingTemplate (Missing template layouts/user_pplication with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :haml, :jbuilder]}.
+
+Searched in:
+  * "/home/pijon/Documents/dev/fiicode/app/views"
+  * "/home/pijon/.rvm/gems/ruby-3.2.3/gems/turbo-rails-2.0.4/app/views"
+):
+  
+actionview (7.1.3.2) lib/action_view/path_set.rb:42:in `find'
+actionview (7.1.3.2) lib/action_view/lookup_context.rb:131:in `find'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:102:in `resolve_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:109:in `resolve_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:89:in `find_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:72:in `render_with_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:59:in `render_template'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:11:in `render'
+actionview (7.1.3.2) lib/action_view/renderer/renderer.rb:63:in `render_template_to_object'
+actionview (7.1.3.2) lib/action_view/renderer/renderer.rb:31:in `render_to_object'
+actionview (7.1.3.2) lib/action_view/rendering.rb:135:in `block in _render_template'
+actionview (7.1.3.2) lib/action_view/base.rb:291:in `in_rendering_context'
+actionview (7.1.3.2) lib/action_view/rendering.rb:134:in `_render_template'
+actionpack (7.1.3.2) lib/action_controller/metal/streaming.rb:256:in `_render_template'
+actionview (7.1.3.2) lib/action_view/rendering.rb:121:in `render_to_body'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:158:in `render_to_body'
+actionpack (7.1.3.2) lib/action_controller/metal/renderers.rb:141:in `render_to_body'
+actionpack (7.1.3.2) lib/abstract_controller/rendering.rb:27:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:139:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:29:in `block (2 levels) in render'
+/home/pijon/.rvm/rubies/ruby-3.2.3/lib/ruby/3.2.0/benchmark.rb:311:in `realtime'
+activesupport (7.1.3.2) lib/active_support/core_ext/benchmark.rb:14:in `ms'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:29:in `block in render'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:98:in `cleanup_view_runtime'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:27:in `cleanup_view_runtime'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:28:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/implicit_render.rb:37:in `default_render'
+actionpack (7.1.3.2) lib/action_controller/metal/basic_implicit_render.rb:7:in `send_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:224:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:165:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:259:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:121:in `block in run_callbacks'
+turbo-rails (2.0.4) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.4) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:21:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.3.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:21:in `block in <class:Constraints>'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:51:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-28T13:29:58.199909 #13677] ERROR -- :   
+ActionView::MissingTemplate (Missing template layouts/user_pplication with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :haml, :jbuilder]}.
+
+Searched in:
+  * "/home/pijon/Documents/dev/fiicode/app/views"
+  * "/home/pijon/.rvm/gems/ruby-3.2.3/gems/turbo-rails-2.0.4/app/views"
+):
+  
+actionview (7.1.3.2) lib/action_view/path_set.rb:42:in `find'
+actionview (7.1.3.2) lib/action_view/lookup_context.rb:131:in `find'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:102:in `resolve_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:109:in `resolve_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:89:in `find_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:72:in `render_with_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:59:in `render_template'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:11:in `render'
+actionview (7.1.3.2) lib/action_view/renderer/renderer.rb:63:in `render_template_to_object'
+actionview (7.1.3.2) lib/action_view/renderer/renderer.rb:31:in `render_to_object'
+actionview (7.1.3.2) lib/action_view/rendering.rb:135:in `block in _render_template'
+actionview (7.1.3.2) lib/action_view/base.rb:291:in `in_rendering_context'
+actionview (7.1.3.2) lib/action_view/rendering.rb:134:in `_render_template'
+actionpack (7.1.3.2) lib/action_controller/metal/streaming.rb:256:in `_render_template'
+actionview (7.1.3.2) lib/action_view/rendering.rb:121:in `render_to_body'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:158:in `render_to_body'
+actionpack (7.1.3.2) lib/action_controller/metal/renderers.rb:141:in `render_to_body'
+actionpack (7.1.3.2) lib/abstract_controller/rendering.rb:27:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:139:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:29:in `block (2 levels) in render'
+/home/pijon/.rvm/rubies/ruby-3.2.3/lib/ruby/3.2.0/benchmark.rb:311:in `realtime'
+activesupport (7.1.3.2) lib/active_support/core_ext/benchmark.rb:14:in `ms'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:29:in `block in render'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:98:in `cleanup_view_runtime'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:27:in `cleanup_view_runtime'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:28:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/implicit_render.rb:37:in `default_render'
+actionpack (7.1.3.2) lib/action_controller/metal/basic_implicit_render.rb:7:in `send_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:224:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:165:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:259:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:121:in `block in run_callbacks'
+turbo-rails (2.0.4) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.4) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:21:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.3.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:21:in `block in <class:Constraints>'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:51:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-28T13:30:13.493158 #13677] ERROR -- :   
+ActionView::MissingTemplate (Missing template layouts/user_profile with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :haml, :jbuilder]}.
+
+Searched in:
+  * "/home/pijon/Documents/dev/fiicode/app/views"
+  * "/home/pijon/.rvm/gems/ruby-3.2.3/gems/turbo-rails-2.0.4/app/views"
+):
+  
+actionview (7.1.3.2) lib/action_view/path_set.rb:42:in `find'
+actionview (7.1.3.2) lib/action_view/lookup_context.rb:131:in `find'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:102:in `resolve_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:109:in `resolve_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:89:in `find_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:72:in `render_with_layout'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:59:in `render_template'
+actionview (7.1.3.2) lib/action_view/renderer/template_renderer.rb:11:in `render'
+actionview (7.1.3.2) lib/action_view/renderer/renderer.rb:63:in `render_template_to_object'
+actionview (7.1.3.2) lib/action_view/renderer/renderer.rb:31:in `render_to_object'
+actionview (7.1.3.2) lib/action_view/rendering.rb:135:in `block in _render_template'
+actionview (7.1.3.2) lib/action_view/base.rb:291:in `in_rendering_context'
+actionview (7.1.3.2) lib/action_view/rendering.rb:134:in `_render_template'
+actionpack (7.1.3.2) lib/action_controller/metal/streaming.rb:256:in `_render_template'
+actionview (7.1.3.2) lib/action_view/rendering.rb:121:in `render_to_body'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:158:in `render_to_body'
+actionpack (7.1.3.2) lib/action_controller/metal/renderers.rb:141:in `render_to_body'
+actionpack (7.1.3.2) lib/abstract_controller/rendering.rb:27:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:139:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:29:in `block (2 levels) in render'
+/home/pijon/.rvm/rubies/ruby-3.2.3/lib/ruby/3.2.0/benchmark.rb:311:in `realtime'
+activesupport (7.1.3.2) lib/active_support/core_ext/benchmark.rb:14:in `ms'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:29:in `block in render'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:98:in `cleanup_view_runtime'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:27:in `cleanup_view_runtime'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:28:in `render'
+actionpack (7.1.3.2) lib/action_controller/metal/implicit_render.rb:37:in `default_render'
+actionpack (7.1.3.2) lib/action_controller/metal/basic_implicit_render.rb:7:in `send_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:224:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:165:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:259:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:121:in `block in run_callbacks'
+turbo-rails (2.0.4) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.4) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:21:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.3.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:21:in `block in <class:Constraints>'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:51:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-28T13:30:38.361025 #13677] ERROR -- :   
+ActionView::Template::Error (private method `select' called for nil:NilClass):
+    15:             .flex.flex-row.items-center.justify-start.space-x-4
+    16:               = text_field_tag 'user_name', nil, class: 'user-autocomplete rounded-lg p-2 w-full', placeholder: 'Add allergens'
+    17:           #allergens-anchor.w-full.flex.flex-wrap.gap-2
+    18:             - current_user.allergens.each do |a|
+    19:               - allergen = a[:name]
+    20:               - a_id = a[:id]
+    21:               - css_friendly = allergen.gsub(/\s+/, '-')
+  
+app/models/user.rb:30:in `block in allergens'
+app/models/user.rb:29:in `each'
+app/models/user.rb:29:in `flat_map'
+app/models/user.rb:29:in `allergens'
+app/views/user/profiles/dietary_preferences.html.haml:18
+app/helpers/form_helper.rb:7:in `controlled_form'
+app/views/user/profiles/dietary_preferences.html.haml:4
+E, [2024-02-28T13:34:13.924565 #13677] ERROR -- :   
+SyntaxError (/home/pijon/Documents/dev/fiicode/app/controllers/admin_application_controller.rb:9: syntax error, unexpected end-of-input
+  end
+     ^
+):
+  
+app/controllers/admin_application_controller.rb:9: syntax error, unexpected end-of-input
+app/controllers/admin/greet_controller.rb:2:in `<main>'
+E, [2024-02-28T13:34:28.877912 #13677] ERROR -- :   
+SyntaxError (/home/pijon/Documents/dev/fiicode/app/controllers/admin_application_controller.rb:8: syntax error, unexpected end-of-input
+  end
+     ^
+):
+  
+app/controllers/admin_application_controller.rb:8: syntax error, unexpected end-of-input
+app/controllers/admin/greet_controller.rb:2:in `<main>'
+E, [2024-02-28T13:34:29.810359 #13677] ERROR -- :   
+SyntaxError (/home/pijon/Documents/dev/fiicode/app/controllers/admin_application_controller.rb:8: syntax error, unexpected end-of-input
+  end
+     ^
+):
+  
+app/controllers/admin_application_controller.rb:8: syntax error, unexpected end-of-input
+app/controllers/admin/greet_controller.rb:2:in `<main>'
+E, [2024-02-28T13:35:33.563820 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:35:41.182712 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:35:43.392210 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:35:43.973716 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:35:44.590195 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:35:51.731056 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:38:15.897392 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:40:22.622511 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:40:23.392318 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:40:23.616159 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:40:27.987414 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:40:36.877953 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:40:37.689326 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:40:38.125778 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:40:38.371448 #13677] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+W, [2024-02-28T13:40:45.206637 #30665]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+E, [2024-02-28T13:40:54.020699 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:41:43.241024 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:41:44.020001 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:41:44.323947 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:41:44.595126 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:41:54.865538 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:42:43.943311 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:42:59.085554 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:43:02.775462 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:45:08.671586 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:46:46.365828 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-28T13:47:03.295454 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-02-28T13:47:03.372761 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-02-28T13:47:10.670694 #30665] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+W, [2024-02-28T13:49:11.156759 #32392]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+W, [2024-02-29T14:51:31.027644 #27156]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+E, [2024-02-29T14:51:38.095542 #27156] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-29T14:51:38.537977 #27156] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-02-29T15:00:33.209801 #27156] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-29T15:00:34.286506 #27156] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+E, [2024-02-29T15:05:44.879048 #27156] ERROR -- :   
+ActionController::RoutingError (uninitialized constant Admin::Admin):
+  
+E, [2024-02-29T15:05:45.703157 #27156] ERROR -- :   
+ActionController::RoutingError (uninitialized constant Admin::Admin):
+  
+E, [2024-02-29T15:05:55.947923 #27156] ERROR -- :   
+AbstractController::ActionNotFound (The register action could not be found for the :prevent_access_for_authenticated_user!
+callback on Admin::SessionsController, but it is listed in the controller's
+:only option.
+
+Raising for missing callback actions is a new default in Rails 7.1, if you'd
+like to turn this off you can delete the option from the environment configurations
+or set `config.action_controller.raise_on_missing_callback_actions` to `false`.
+):
+  
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:62:in `match?'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:426:in `block in make_lambda'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:182:in `block (2 levels) in halting_and_conditional'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:182:in `all?'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:182:in `block in halting_and_conditional'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `block in invoke_before'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `each'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `invoke_before'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:119:in `block in run_callbacks'
+turbo-rails (2.0.4) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.4) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:21:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.3.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:21:in `block in <class:Constraints>'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:51:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-29T15:05:57.118351 #27156] ERROR -- :   
+AbstractController::ActionNotFound (The register action could not be found for the :prevent_access_for_authenticated_user!
+callback on Admin::SessionsController, but it is listed in the controller's
+:only option.
+
+Raising for missing callback actions is a new default in Rails 7.1, if you'd
+like to turn this off you can delete the option from the environment configurations
+or set `config.action_controller.raise_on_missing_callback_actions` to `false`.
+):
+  
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:62:in `match?'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:426:in `block in make_lambda'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:182:in `block (2 levels) in halting_and_conditional'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:182:in `all?'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:182:in `block in halting_and_conditional'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `block in invoke_before'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `each'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `invoke_before'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:119:in `block in run_callbacks'
+turbo-rails (2.0.4) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.4) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:21:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.3.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:21:in `block in <class:Constraints>'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:51:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-29T15:06:06.838172 #27156] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-02-29T15:09:05.902813 #27156] ERROR -- :   
+AbstractController::ActionNotFound (The register action could not be found for the :prevent_access_for_authenticated_user!
+callback on Admin::SessionsController, but it is listed in the controller's
+:only option.
+
+Raising for missing callback actions is a new default in Rails 7.1, if you'd
+like to turn this off you can delete the option from the environment configurations
+or set `config.action_controller.raise_on_missing_callback_actions` to `false`.
+):
+  
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:62:in `match?'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:426:in `block in make_lambda'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:182:in `block (2 levels) in halting_and_conditional'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:182:in `all?'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:182:in `block in halting_and_conditional'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `block in invoke_before'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `each'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `invoke_before'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:119:in `block in run_callbacks'
+turbo-rails (2.0.4) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.4) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:21:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.3.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:21:in `block in <class:Constraints>'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:51:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-29T15:13:26.690226 #27156] ERROR -- :   
+AbstractController::DoubleRenderError (Render and/or redirect were called multiple times in this action. Please note that you may only call render OR redirect, and at most once per action. Also note that neither redirect nor render terminate execution of the action, so if you want to exit an action after redirecting, you need to do something like "redirect_to(...); return".):
+  
+app/controllers/admin/sessions_controller.rb:20:in `login'
+W, [2024-02-29T15:14:28.979632 #33510]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+E, [2024-02-29T15:15:26.753978 #33510] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-02-29T15:15:26.841777 #33510] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+W, [2024-02-29T15:16:51.235390 #34054]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+W, [2024-02-29T15:18:54.985831 #34054]  WARN -- : Can't verify CSRF token authenticity.
+E, [2024-02-29T15:18:54.990235 #34054] ERROR -- :   
+ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.):
+  
+actionpack (7.1.3.2) lib/action_controller/metal/request_forgery_protection.rb:293:in `handle_unverified_request'
+actionpack (7.1.3.2) lib/action_controller/metal/request_forgery_protection.rb:388:in `handle_unverified_request'
+actionpack (7.1.3.2) lib/action_controller/metal/request_forgery_protection.rb:377:in `verify_authenticity_token'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:403:in `block in make_lambda'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:202:in `block (2 levels) in halting'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:203:in `block in halting'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `block in invoke_before'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `each'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `invoke_before'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:119:in `block in run_callbacks'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+mongoid (8.1.4) lib/mongoid/railties/controller_runtime.rb:21:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.3.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:21:in `block in <class:Constraints>'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:51:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.9.1) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.9.1) lib/rack/etag.rb:29:in `call'
+rack (3.0.9.1) lib/rack/conditional_get.rb:43:in `call'
+rack (3.0.9.1) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.9.1) lib/rack/method_override.rb:28:in `call'
+rack (3.0.9.1) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.9.1) lib/rack/sendfile.rb:114:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+E, [2024-02-29T15:18:55.212545 #34054] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-02-29T15:18:55.345336 #34054] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-02-29T15:32:08.715302 #34054] ERROR -- :   
+Mongoid::Errors::InvalidFind (
+message:
+  Calling Document.find with nil is invalid.
+summary:
+  Document.find expects the parameters to be 1 or more ids, and will return a single document if 1 id is provided, otherwise an array of documents if multiple ids are provided.
+resolution:
+  Most likely this is caused by passing parameters directly through to the find, and the parameter either is not present or the key from which it is accessed is incorrect.):
+  
+app/models/login.rb:39:in `user'
+app/controllers/admin/sessions_controller.rb:10:in `login'
+W, [2024-02-29T15:47:55.203623 #39871]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+E, [2024-02-29T15:48:10.310709 #39871] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-02-29T15:48:10.389867 #39871] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-02-29T15:48:24.743896 #39871] ERROR -- :   
+ActionView::Template::Error (private method `select' called for nil:NilClass):
+    15:             .flex.flex-row.items-center.justify-start.space-x-4
+    16:               = text_field_tag 'user_name', nil, class: 'user-autocomplete rounded-lg p-2 w-full', placeholder: 'Add allergens'
+    17:           #allergens-anchor.w-full.flex.flex-wrap.gap-2
+    18:             - current_user.allergens.each do |a|
+    19:               - allergen = a[:name]
+    20:               - a_id = a[:id]
+    21:               - css_friendly = allergen.gsub(/\s+/, '-')
+  
+app/models/user.rb:30:in `block in allergens'
+app/models/user.rb:29:in `each'
+app/models/user.rb:29:in `flat_map'
+app/models/user.rb:29:in `allergens'
+app/views/user/profiles/dietary_preferences.html.haml:18
+app/helpers/form_helper.rb:7:in `controlled_form'
+app/views/user/profiles/dietary_preferences.html.haml:4
+W, [2024-03-01T11:32:04.080497 #13225]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+E, [2024-03-01T11:32:05.243358 #13225] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T11:32:57.869216 #13225] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T11:32:57.943728 #13225] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T11:35:51.199746 #13225] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T11:35:51.256942 #13225] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+W, [2024-03-01T15:57:44.176573 #55141]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+E, [2024-03-01T15:57:44.464707 #55141] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T15:59:52.999559 #55141] ERROR -- :   
+NoMethodError (undefined method `key?' for ["b", "B@b.B", "bbb"]:Array):
+  
+app/models/login.rb:15:in `block in initialize'
+app/models/login.rb:15:in `all?'
+app/models/login.rb:15:in `initialize'
+app/controllers/user/sessions_controller.rb:26:in `new'
+app/controllers/user/sessions_controller.rb:26:in `register'
+W, [2024-03-01T16:06:31.004584 #64153]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+W, [2024-03-01T16:07:51.587131 #65762]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+E, [2024-03-01T16:07:57.905629 #65762] ERROR -- :   
+NoMethodError (undefined method `include?' for nil:NilClass):
+  
+app/models/login.rb:41:in `password='
+app/models/login.rb:17:in `initialize'
+app/controllers/user/sessions_controller.rb:26:in `new'
+app/controllers/user/sessions_controller.rb:26:in `register'
+E, [2024-03-01T16:09:00.806402 #65762] ERROR -- :   
+NoMethodError (undefined method `password' for #<Login _id: 65e1e17ce64d1e00e2bfba93, created_at: nil, updated_at: nil, email: "b@b.b", username: "b", hashed_password: "e5e6b0a12f2a7085d36a430b870ce63fc8bc785e7cfde1961811f702740af00a80375f8201b987cc90ac782587cee218f11b41d79f2eb28b955e03515d73d178EMX4Qpay8DVpqkfihCeYPj5KccImtK9iLL9LbM1z18a469ztOTDtj1MG1CC3Q4uo">):
+  
+app/controllers/user/sessions_controller.rb:27:in `register'
+E, [2024-03-01T16:12:08.545418 #65762] ERROR -- :   
+NoMethodError (undefined method `password' for #<Login _id: 65e1e236e64d1e00e2bfba94, created_at: nil, updated_at: nil, email: "b@b.b", username: "b", hashed_password: "9a50ebe70d9f69777555db41bef2ad53abdd3539a7b1fe015f0e92982049b5bca6f2a5570d37a1e77c021dad8677252ff3d865ab597e70933e0e9754232f27823v0mtvp6m0YKZqHu9qAA0TGpSRLWThkKFHnrDB50wp25Rr2YeeeASAjfKgnq8IWu">):
+  
+app/controllers/user/sessions_controller.rb:26:in `register'
+E, [2024-03-01T16:13:55.474967 #65762] ERROR -- :   
+NoMethodError (undefined method `password' for #<Login _id: 65e1e2a3e64d1e00e2bfba95, created_at: nil, updated_at: nil, email: "b@b.b", username: "b", hashed_password: "fcddfd76ccd108c4cb6ec8e497904dc1ba40398f4c71ad330dca315291b1ce6345a79479d36ab33433740b196b8f383e335ed167515d454d4e5874d09e20135am4qmgB67nrAannTFmNTMr9DOXhiz2PfXFWHaJ6H6AyYZ65jmt3GceWzeCGdWA2EZ">):
+  
+app/controllers/user/sessions_controller.rb:26:in `register'
+W, [2024-03-01T16:14:08.456036 #72453]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+E, [2024-03-01T16:14:09.236053 #72453] ERROR -- :   
+NoMethodError (undefined method `password' for #<Login _id: 65e1e2b1e64d1e1b0545e6e2, created_at: nil, updated_at: nil, email: "b@b.b", username: "b", hashed_password: "267b2a207df9d19a2a2de69dbef46c47e4519a0e904615d8e93fff719243540c45a5d0b1533f087facac7867426e3e08c6d666bfcce3c31c32b8fbfa1f5dd8293D7CB5Bt7FCGmunGbjKkChxXBlxgfxIbur8XqECJMPsjdkSiATe1r1VCarl5BOXp">):
+  
+app/controllers/user/sessions_controller.rb:26:in `register'
+E, [2024-03-01T16:14:46.313774 #72453] ERROR -- :   
+NoMethodError (undefined method `password' for #<Login _id: 65e1e2d6e64d1e1b0545e6e3, created_at: nil, updated_at: nil, email: "b@b.b", username: "b", hashed_password: "d83514d13d7c5e61acfd232e95f9512579dba4c00472c0b6d42c8c0acad463d96b91222a3513690a1aaa9b1bac0cddc591fd3342ab0df5812efaca67f494fe1biHvGmu00xQMV7MDNZ2y1maPMDrrlg48Ig3EpjZVI7pSxIiTecvsMfLUN55rZkT4L">):
+  
+app/controllers/user/sessions_controller.rb:27:in `register'
+E, [2024-03-01T16:15:45.845291 #72453] ERROR -- :   
+NotImplementedError (NotImplementedError):
+  
+app/models/login.rb:46:in `password'
+app/controllers/user/sessions_controller.rb:27:in `register'
+E, [2024-03-01T16:17:01.376165 #72453] ERROR -- :   
+NotImplementedError (NotImplementedError):
+  
+app/models/login.rb:48:in `password'
+app/controllers/user/sessions_controller.rb:27:in `register'
+E, [2024-03-01T16:17:11.421828 #72453] ERROR -- :   
+NotImplementedError (NotImplementedError):
+  
+app/models/login.rb:47:in `password'
+app/controllers/user/sessions_controller.rb:27:in `register'
+E, [2024-03-01T16:18:41.922972 #72453] ERROR -- :   
+NoMethodError (undefined method `create!' for nil:NilClass):
+  
+app/controllers/user/sessions_controller.rb:35:in `register'
+E, [2024-03-01T16:29:29.574704 #72453] ERROR -- :   
+NoMethodError (undefined method `create!' for nil:NilClass):
+  
+app/controllers/user/sessions_controller.rb:37:in `register'
+E, [2024-03-01T16:31:20.106250 #72453] ERROR -- :   
+Mongoid::Errors::Validations (
+message:
+  Validation of Login failed.
+summary:
+  The following errors were found: Email has already been taken, Username has already been taken
+resolution:
+  Try persisting the document with valid data or remove the validations.):
+  
+app/controllers/user/sessions_controller.rb:35:in `register'
+E, [2024-03-01T16:31:20.316225 #72453] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T16:31:20.403272 #72453] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T16:31:44.512087 #72453] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T16:31:48.392278 #72453] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T16:32:32.062896 #72453] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T16:32:32.127246 #72453] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T16:32:35.441601 #72453] ERROR -- :   
+ActionView::Template::Error (undefined method `first_name' for nil:NilClass):
+     5:         %div
+     6:           %label.text-sm{for: "name"}
+     7:             = "First Name"
+     8:           %input{type: "text", name: "first_name", id: "first_name", class: "rounded-lg p-2 w-full", value: "#{current_user.first_name}"}
+     9:         %div
+    10:           %label.text-sm{for: "full_name"}
+    11:             = "Last Name"
+  
+app/views/user/profiles/user.html.haml:8
+app/helpers/form_helper.rb:7:in `controlled_form'
+app/views/user/profiles/user.html.haml:2
+W, [2024-03-01T16:35:41.251607 #94706]  WARN -- : The BSON Symbol type is deprecated by MongoDB. Please use String or StringifiedSymbol field types instead of the Symbol field type.
+E, [2024-03-01T16:35:54.742017 #94706] ERROR -- :   
+NoMethodError (protected method `hashed_password' called for #<Login _id: 65e1e6ffe64d1e1b0545e6e9, created_at: 2024-03-01 14:32:31.826 UTC, updated_at: 2024-03-01 14:32:31.826 UTC, email: "d@d.d", username: "d", hashed_password: nil>):
+  
+app/models/login.rb:50:in `authenticate'
+app/controllers/user/sessions_controller.rb:7:in `login'
+E, [2024-03-01T16:36:35.169951 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T16:36:35.242791 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T16:37:11.059130 #94706] ERROR -- :   
+NoMethodError (undefined method `password' for #<Login _id: 65e1e816e64d1e71f2a92255, created_at: nil, updated_at: nil, email: "e@e.e", username: "e", hashed_password: nil>):
+  
+app/controllers/user/sessions_controller.rb:31:in `register'
+E, [2024-03-01T16:38:50.028859 #94706] ERROR -- :   
+NoMethodError (undefined method `password' for #<Login _id: 65e1e879e64d1e71f2a92257, created_at: nil, updated_at: nil, email: "e@e.e", username: "e", hashed_password: "6ccb69c9e108377a4cbb4cd6d8a723cac7d0f16d348a12a02a59933ca5a65208e155859c403b00f862ec00579f45857e3ddaa081e6c8ab7c47996630c45125fcuYKkwozUkNHMDosc3eqXOMaWe2S9QqG0m6sluRFC0b7GVgytDcVUDocHeHMwGKl1">):
+  
+app/controllers/user/sessions_controller.rb:31:in `register'
+E, [2024-03-01T16:41:57.281284 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T16:41:57.346729 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T16:42:06.410942 #94706] ERROR -- :   
+ActionView::Template::Error (undefined method `first_name' for nil:NilClass):
+     5:         %div
+     6:           %label.text-sm{for: "name"}
+     7:             = "First Name"
+     8:           %input{type: "text", name: "first_name", id: "first_name", class: "rounded-lg p-2 w-full", value: "#{current_user.first_name}"}
+     9:         %div
+    10:           %label.text-sm{for: "full_name"}
+    11:             = "Last Name"
+  
+app/views/user/profiles/user.html.haml:8
+app/helpers/form_helper.rb:7:in `controlled_form'
+app/views/user/profiles/user.html.haml:2
+E, [2024-03-01T16:43:41.083440 #94706] ERROR -- :   
+NoMethodError (undefined method `hashed_password' for #<Login _id: 65e1e934e64d1e71f2a9225f, created_at: 2024-03-01 14:41:56.996 UTC, updated_at: 2024-03-01 14:41:56.996 UTC, email: "f@f.f", username: "f", password: nil>):
+  
+app/models/login.rb:47:in `authenticate'
+app/controllers/user/sessions_controller.rb:7:in `login'
+E, [2024-03-01T16:44:20.274041 #94706] ERROR -- :   
+NoMethodError (protected method `password' called for #<Login _id: 65e1e934e64d1e71f2a9225f, created_at: 2024-03-01 14:41:56.996 UTC, updated_at: 2024-03-01 14:41:56.996 UTC, email: "f@f.f", username: "f", password: nil>):
+  
+app/models/login.rb:47:in `authenticate'
+app/controllers/user/sessions_controller.rb:7:in `login'
+E, [2024-03-01T16:45:15.540437 #94706] ERROR -- :   
+NoMethodError (private method `password' called for #<Login _id: 65e1e934e64d1e71f2a9225f, created_at: 2024-03-01 14:41:56.996 UTC, updated_at: 2024-03-01 14:41:56.996 UTC, email: "f@f.f", username: "f", password: nil>):
+  
+app/models/login.rb:47:in `authenticate'
+app/controllers/user/sessions_controller.rb:7:in `login'
+E, [2024-03-01T16:48:26.220571 #94706] ERROR -- :   
+NoMethodError (private method `password' called for #<Login _id: 65e1e934e64d1e71f2a9225f, created_at: 2024-03-01 14:41:56.996 UTC, updated_at: 2024-03-01 14:41:56.996 UTC, email: "f@f.f", username: "f", password: nil>):
+  
+app/models/login.rb:47:in `authenticate'
+app/controllers/user/sessions_controller.rb:7:in `login'
+E, [2024-03-01T17:05:07.336310 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:05:07.419744 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:05:52.845427 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:05:52.921951 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:11:43.390822 #94706] ERROR -- :   
+NoMethodError (undefined method `new' for nil:NilClass):
+  
+app/controllers/user/sessions_controller.rb:30:in `register'
+E, [2024-03-01T17:16:07.499646 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:16:07.612998 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:17:49.216036 #94706] ERROR -- :   
+NoMethodError (undefined method `each_pair' for "R8!*PbdCzsZCANw&":String):
+  
+app/controllers/user/profiles_controller.rb:27:in `account'
+E, [2024-03-01T17:19:13.157447 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:19:13.281772 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:19:22.337191 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:19:22.948213 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:19:24.141346 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:29:42.670418 #94706] ERROR -- :   
+NoMethodError (undefined method `login' for nil:NilClass):
+  
+app/controllers/user/profiles_controller.rb:20:in `account'
+E, [2024-03-01T17:30:34.019609 #94706] ERROR -- :   
+NoMethodError (undefined method `login' for nil:NilClass):
+  
+app/controllers/user/profiles_controller.rb:20:in `account'
+E, [2024-03-01T17:30:35.160050 #94706] ERROR -- :   
+NoMethodError (undefined method `login' for nil:NilClass):
+  
+app/controllers/user/profiles_controller.rb:20:in `account'
+E, [2024-03-01T17:33:16.938270 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:33:17.008769 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:33:36.138508 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:33:36.239040 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:33:36.678219 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:33:38.984802 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:33:51.657232 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:33:52.240661 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:33:54.406850 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:33:56.377475 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:34:07.016869 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:34:07.103909 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:34:13.941227 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:34:13.979127 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:34:49.744915 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:34:49.782361 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:40:07.008965 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:40:07.076988 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:42:36.548797 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:42:36.614538 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:44:58.785295 #94706] ERROR -- :   
+NoMethodError (undefined method `contains?' for "a  ":String):
+  
+app/models/base_login.rb:29:in `password='
+app/models/base_login.rb:17:in `initialize'
+app/models/login.rb:11:in `initialize'
+app/controllers/user/sessions_controller.rb:26:in `new'
+app/controllers/user/sessions_controller.rb:26:in `register'
+E, [2024-03-01T17:45:49.403210 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T17:45:49.485786 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T18:03:40.140674 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T18:03:40.222961 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T18:04:00.290741 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T18:04:00.391827 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T18:04:01.007444 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T18:04:02.327745 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T18:04:13.062193 #94706] ERROR -- :   
+ActionController::RoutingError (uninitialized constant Admin::GreetController):
+  
+E, [2024-03-01T18:04:13.215969 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T18:07:31.714312 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T18:07:31.829946 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T18:08:02.162431 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T18:08:25.143826 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+E, [2024-03-01T18:08:25.297501 #94706] ERROR -- :   
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  

@@ -1,28 +1,29 @@
 *.gem
 *.rbc
-/.config
-/coverage/
-/InstalledFiles
-/pkg/
-/spec/reports/
-/spec/examples.txt
-/test/tmp/
-/test/version_tmp/
-/tmp/
-/Gemfile.lock/
+/rails/.config
+/rails/coverage/
+/rails/InstalledFiles
+/rails/pkg/
+/rails/spec/reports/
+/rails/spec/examples.txt
+/rails/test/tmp/
+/rails/test/version_tmp/
+/rails/tmp/
+/rails/Gemfile.lock/
+/rails/**/*.key
 # Used by dotenv library to load environment variables.
 # .env
 
 # Ignore Byebug command history file.
-.byebug_history
+/rails/.byebug_history
 
 ## Specific to RubyMotion:
-.dat*
-.repl_history
-build/
+/rails/.dat*
+/rails/.repl_history
+/rails/build/
 *.bridgesupport
-build-iPhoneOS/
-build-iPhoneSimulator/
+/rails/build-iPhoneOS/
+/rails/build-iPhoneSimulator/
 
 ## Specific to RubyMotion (use of CocoaPods):
 #
@@ -33,15 +34,15 @@ build-iPhoneSimulator/
 # vendor/Pods/
 
 ## Documentation cache and generated files:
-/.yardoc/
-/_yardoc/
-/doc/
-/rdoc/
+/rails/.yardoc/
+/rails/_yardoc/
+/rails/doc/
+/rails/rdoc/
 
 ## Environment normalization:
-/.bundle/
-/vendor/bundle
-/lib/bundler/man/
+/rails/.bundle/
+/rails/vendor/bundle
+/rails/lib/bundler/man/
 
 # for a library or gem, you might want to ignore these files since the code is
 # intended to run in multiple environments; otherwise, check them in:
@@ -50,23 +51,23 @@ build-iPhoneSimulator/
 # .ruby-gemset
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
-.rvmrc
+/rails/.rvmrc
 
 # Used by RuboCop. Remote config files pulled in from inherit_from directive.
 # .rubocop-https?--*
 
-/app/assets/builds/*
-!/app/assets/builds/.keep
-storage/development.sqlite3
+/rails/app/assets/builds/*
+!/rails/app/assets/builds/.keep
+/rails/storage/development.sqlite3
 
-/config/credentials/development.key
-public/assets/*
-log/development.log
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
+/rails/config/credentials/development.key
+/rails/public/assets/*
+/rails/log/development.log
+/rails/public/packs
+/rails/public/packs-test
+/**/node_modules
+/rails/yarn-error.log
+/rails/yarn-debug.log*
+/rails/.yarn-integrity
 
-/config/credentials/production.key
+/rails/config/credentials/production.key

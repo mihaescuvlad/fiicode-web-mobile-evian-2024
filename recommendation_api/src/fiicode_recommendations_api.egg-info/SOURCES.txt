@@ -1,0 +1,5 @@
+setup.py
+src/fiicode_recommendations_api.egg-info/PKG-INFO
+src/fiicode_recommendations_api.egg-info/SOURCES.txt
+src/fiicode_recommendations_api.egg-info/dependency_links.txt
+src/fiicode_recommendations_api.egg-info/top_level.txt
