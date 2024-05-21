@@ -6,14 +6,14 @@
   = csp_meta_tag
   = javascript_pack_tag 'application'
   = stylesheet_link_tag "application", "data-turbo-track" => "reload"
+  %link{href: "https://cdn.jsdelivr.net/npm/daisyui@4.10.1/dist/full.min.css", rel: "stylesheet", type: "text/css"}
   = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track" => "reload"
   = stylesheet_link_tag "notifier/hidden"
   %script{src: "https://code.jquery.com/jquery-3.6.0.min.js"}
   %script{src: "https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"}
   %script{src: "https://unpkg.com/@zxing/library@latest"}
   %link{rel: "stylesheet", href: "https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"}
-  %link{href: "https://cdn.jsdelivr.net/npm/daisyui@4.10.1/dist/full.min.css", rel: "stylesheet", type: "text/css"}
-  
+
   = yield :head
 
   %link{href: "https://cdn.materialdesignicons.com/7.4.47/css/materialdesignicons.min.css", rel: "stylesheet"}
