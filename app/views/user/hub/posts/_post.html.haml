@@ -33,10 +33,6 @@
       %span.counter
         = number_to_human(post.ratings.ratio, units: {thousand: "K", million: "M", billion: "B"})
       %a.downarrow.mdi.text-2xl{href: '#', class: "hover:text-primary-500 " + if post.ratings.vote(current_user) == :down_vote then "mdi-arrow-down-circle text-primary-400" else "mdi-arrow-down-circle-outline" end}
-    = link_to "/hub/posts/#{post.id}/award", method: :post, class:"flex items-center gap-1" do
-      .award-btn.mdi.text-2xl{href: '#', class: "hover:text-primary-500 mdi-medal-outline"}
-      %span
-        = post.awards
 
 - if children.present?
   .pl-4.flex.w-full.items-stretch.gap-2

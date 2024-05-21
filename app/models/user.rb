@@ -45,16 +45,6 @@ class User
   field :followers_ids, type: Array, default: []
   field :following_ids, type: Array, default: []
 
-  def award_cost
-    if has_membership? then 10 else 25 end
-  end
-
-  def purchase_award
-    raise "Not enough points to purchase award" if points < award_cost
-
-    self.points -= award_cost
-  end
-
   def add_xp(xp)
     self.xp += xp
   end

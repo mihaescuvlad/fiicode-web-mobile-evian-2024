@@ -22,20 +22,6 @@ class Post
   field :reporter_ids, type: Array, default: []
   field :review_locked_until, type: DateTime, default: DateTime.now
 
-  field :awards, type: Integer, default: 0
-
-  def award(user)
-    xp_for_award = 100
-
-    author.add_xp(xp_for_award)
-    begin
-      user.purchase_award
-    rescue StandardError => e
-      return
-    end
-    self.awards += 1
-  end
-
   has_many :ratings do
     def vote(user)
       find_by(user: user).vote rescue nil
