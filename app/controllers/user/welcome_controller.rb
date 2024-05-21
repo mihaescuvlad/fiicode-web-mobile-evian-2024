@@ -2,16 +2,20 @@ class User::WelcomeController < UserApplicationController
   def index
     @top_products = ProductsRecommendation.filter_products_with_aggregation(current_user, 3, 0)
     @top_posts = top_posts
-    @food_fact = Recipe.desc(:created_at).first
 
-    if @food_fact.nil? || @food_fact.created_at < 30.minutes.ago
-      # @food_fact = RandomFacts.random_recipe
-      if @food_fact.instructions.blank?
-        offset = rand(Recipe.count)
-        @food_fact = Recipe.skip(offset).first
-        return
+    begin
+      @food_fact = Recipe.desc(:created_at).first
+      if @food_fact.nil? || @food_fact.created_at < 30.minutes.ago
+        @food_fact = RandomFacts.random_recipe
+        if @food_fact.instructions.blank?
+          offset = rand(Recipe.count)
+          @food_fact = Recipe.skip(offset).first
+          return
+        end
+        @food_fact.save
       end
-      @food_fact.save
+    rescue StandardError => _
+      @food_fact = nil
     end
 
     if current_user.present?
@@ -23,8 +27,8 @@ class User::WelcomeController < UserApplicationController
     end
 
     @most_experienced_users = User.most_experienced.limit(5)
-    @today_goal = { title: current_user.goal_title, description: current_user.goal_description, target: current_user.goal_target, progress: current_user.goal_progress} if current_user.goal_created_at.present? && current_user.goal_created_at.to_date == Time.now.to_date
-    puts @today_goal
+    # @today_goal = { title: current_user.goal_title, description: current_user.goal_description, target: current_user.goal_target, progress: current_user.goal_progress} if current_user.goal_created_at.present? && current_user.goal_created_at.to_date == Time.now.to_date
+    @today_goal = nil
   end
 
   def contact
