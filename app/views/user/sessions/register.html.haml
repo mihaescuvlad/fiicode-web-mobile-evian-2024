@@ -30,10 +30,10 @@
           %div.relative.flex.items-center.w-full
             %i.mdi.mdi-lock-outline.absolute.ml-2.text-gray-400.text-xl
             %input{type: "password", name: "password_confirmation", id: "password_confirmation", required: true, class: "pl-10 pr-3 py-2 border rounded-md w-full", placeholder: "Confirm Password"}
-        .flex.w-full.items-center
-          %input{type: "checkbox", name: "accept_guidelines", required: true}
-          %p.ml-2
-            = "I have read and acknowledged the <a href=\"#{asset_path('community_guidelines.pdf')}\" class=\"text-blue-500\">community guidelines</a>".html_safe
+          .flex.w-full.items-center
+            %input{type: "checkbox", name: "accept_guidelines", required: true}
+            %p.ml-2
+              = "I have read and acknowledged the <a href=\"#{asset_path('community_guidelines.pdf')}\" class=\"text-blue-500\">community guidelines</a>".html_safe
 
         %button{type: "submit", class: "bg-primary-500 text-white rounded-md p-2 w-full mt-4"}
           = "Register"
