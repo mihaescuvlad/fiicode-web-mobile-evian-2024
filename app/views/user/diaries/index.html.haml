@@ -56,11 +56,10 @@
 %b
 
 %dialog#plot_modal.modal.text-white
-  .modal-box.text-white
+  .modal-box.bg-white.text-black
     #chart-section.h-64
       = react_component("dietary_chart", {data: @data})
 
     .modal-action
-      %form
-        %button{ type: "submit" }
-          Close
+      %button{onclick: "plot_modal.close()"}
+        Close
