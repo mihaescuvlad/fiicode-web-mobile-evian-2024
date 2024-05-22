@@ -25,117 +25,103 @@
               = "Select your favorite products"
             .mdi.mdi-arrow-right-circle-outline.text-2xl
 
-.flex.flex-col.justify-center.items-center.mt-4.w-full.space-y-8
-  - if current_user.present?
-    .rounded-lg.bg-white.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
-      .flex.flex-col.justify-center.items-center.text-slate-700.space-y-2.w-full{class: "md:max-w-[85%]"}
-        .text-3xl.font-semibold.text-slate-500
-          = "Nutritional Stats for today"
-        .flex.flex-row.w-full.space-x-2.justify-around.p-2
-          .flex.flex-col.justify-center.items-center.space-y-2
-            .text-xl.font-semibold
-              = "Calories"
-            .radial-progress{ class: "!bg-slate-200 #{@user_nutritional_data[:calorie_eaten] > @user_nutritional_data[:calorie_target] ? 'text-error' : 'text-success'}", role: "progressbar", style: "--value:#{(@user_nutritional_data[:calorie_eaten] / @user_nutritional_data[:calorie_target] * 100).round(0)}; --size:10rem;" }
-              .flex.flex-col.items-center.text-2xl.text-slate-700.text-semibold
-                .mdi.mdi-fire.text-4xl
-                = "#{@user_nutritional_data[:calorie_eaten].round(2)}"
-          .flex.flex-col.justify-center.items-center.w-full.space-y-2{class: "md:max-w-[65%]"}
-            .text-xl.font-semibold.self-start
-              = "Protein - #{@user_nutritional_data[:protein_eaten].round(2)} / #{@user_nutritional_data[:protein_target]}g"
-            %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{@user_nutritional_data[:protein_eaten] > @user_nutritional_data[:protein_target] ? 'progress-error' : 'progress-success'}", max: @user_nutritional_data[:protein_target], value: @user_nutritional_data[:protein_eaten]}
-            .text-xl.font-semibold.self-start
-              = "Carbohydrates - #{@user_nutritional_data[:carbs_eaten].round(2)} / #{@user_nutritional_data[:carbs_target]}g"
-            %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{@user_nutritional_data[:carbs_eaten] > @user_nutritional_data[:carbs_target] ? 'progress-error' : 'progress-success'}", max: @user_nutritional_data[:carbs_target], value: @user_nutritional_data[:carbs_eaten]}
-            .text-xl.font-semibold.self-start
-              = "Fats - #{@user_nutritional_data[:fat_eaten].round(2)} / #{@user_nutritional_data[:fat_target]}g"
-            %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{@user_nutritional_data[:fat_eaten] > @user_nutritional_data[:fat_target] ? 'progress-error' : 'progress-success'}", max: @user_nutritional_data[:fat_target], value: @user_nutritional_data[:fat_eaten]}
+.size-full.p-4
+  .flex.flex-col.justify-center.items-center.mt-4.w-full.space-y-8
+    - if current_user.present?
+      .rounded-lg.bg-white.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
+        .flex.flex-col.justify-center.items-center.text-slate-700.space-y-2.w-full{class: "md:max-w-[85%]"}
+          .text-3xl.font-semibold.text-slate-500
+            = "Nutritional Stats for today"
+          .flex.flex-row.w-full.space-x-2.justify-around.p-2
+            .flex.flex-col.justify-center.items-center.space-y-2
+              .text-xl.font-semibold
+                = "Calories"
+              .radial-progress{ class: "!bg-slate-200 #{@user_nutritional_data[:calorie_eaten] > @user_nutritional_data[:calorie_target] ? 'text-error' : 'text-success'}", role: "progressbar", style: "--value:#{(@user_nutritional_data[:calorie_eaten] / @user_nutritional_data[:calorie_target] * 100).round(0)}; --size:10rem;" }
+                .flex.flex-col.items-center.text-2xl.text-slate-700.text-semibold
+                  .mdi.mdi-fire.text-4xl
+                  = "#{@user_nutritional_data[:calorie_eaten].round(2)}"
+            .flex.flex-col.justify-center.items-center.w-full.space-y-2{class: "md:max-w-[65%]"}
+              .text-xl.font-semibold.self-start
+                = "Protein - #{@user_nutritional_data[:protein_eaten].round(2)} / #{@user_nutritional_data[:protein_target]}g"
+              %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{@user_nutritional_data[:protein_eaten] > @user_nutritional_data[:protein_target] ? 'progress-error' : 'progress-success'}", max: @user_nutritional_data[:protein_target], value: @user_nutritional_data[:protein_eaten]}
+              .text-xl.font-semibold.self-start
+                = "Carbohydrates - #{@user_nutritional_data[:carbs_eaten].round(2)} / #{@user_nutritional_data[:carbs_target]}g"
+              %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{@user_nutritional_data[:carbs_eaten] > @user_nutritional_data[:carbs_target] ? 'progress-error' : 'progress-success'}", max: @user_nutritional_data[:carbs_target], value: @user_nutritional_data[:carbs_eaten]}
+              .text-xl.font-semibold.self-start
+                = "Fats - #{@user_nutritional_data[:fat_eaten].round(2)} / #{@user_nutritional_data[:fat_target]}g"
+              %progress.progress{ class: "w-75% !h-3 !bg-slate-200 #{@user_nutritional_data[:fat_eaten] > @user_nutritional_data[:fat_target] ? 'progress-error' : 'progress-success'}", max: @user_nutritional_data[:fat_target], value: @user_nutritional_data[:fat_eaten]}
 
-    .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
-      .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[95%]"}
-        .text-2xl.font-semibold.pb-5
-          = "Daily Challenges"
-        
-        .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-4.gap-4
-          - if @today_goal.present?
-            .card.bg-white.shadow-xl.text-slate-700{ class: @today_goal[:progress] >= @today_goal[:target].to_i ? 'opacity-80' : '' }
-              .card-body.flex.flex-col.items-center.justify-between
-                - unless @today_goal[:progress] >= @today_goal[:target].to_i
-                  .text-xl.font-semibold
-                    = @today_goal[:title]
-                  .text-lg.font-semibold.text-slate-500
-                    = @today_goal[:description]
-                  .flex.flex-row.items-center.justify-between.w-full
-                    .text-lg.font-semibold.text-slate-400
-                      = "#{@today_goal[:progress] / @today_goal[:target].to_i}"
-                - else
-                  .mdi.mdi-check.text-3xl.text-green-500.mb-4.absolute.top-2.right-3
-                  .opacity-85.flex.flex-col.items-center.justify-between.w-full.h-full
+      .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
+        .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[95%]"}
+          .text-2xl.font-semibold.pb-5
+            = "Daily Challenges"
+
+          .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-4.gap-4
+            - if @today_goal.present?
+              .card.bg-white.shadow-xl.text-slate-700{ class: @today_goal[:progress] >= @today_goal[:target].to_i ? 'opacity-80' : '' }
+                .card-body.flex.flex-col.items-center.justify-between
+                  - unless @today_goal[:progress] >= @today_goal[:target].to_i
                     .text-xl.font-semibold
                       = @today_goal[:title]
                     .text-lg.font-semibold.text-slate-500
                       = @today_goal[:description]
                     .flex.flex-row.items-center.justify-between.w-full
                       .text-lg.font-semibold.text-slate-400
-                        = "#{@today_goal[:progress]} / #{@today_goal[:target].to_i}"
-          - else
-            .card.bg-white.shadow-xl.text-slate-700
+                        = "#{@today_goal[:progress] / @today_goal[:target].to_i}"
+                  - else
+                    .mdi.mdi-check.text-3xl.text-green-500.mb-4.absolute.top-2.right-3
+                    .opacity-85.flex.flex-col.items-center.justify-between.w-full.h-full
+                      .text-xl.font-semibold
+                        = @today_goal[:title]
+                      .text-lg.font-semibold.text-slate-500
+                        = @today_goal[:description]
+                      .flex.flex-row.items-center.justify-between.w-full
+                        .text-lg.font-semibold.text-slate-400
+                          = "#{@today_goal[:progress]} / #{@today_goal[:target].to_i}"
+            - else
+              .card.bg-white.shadow-xl.text-slate-700
+                .card-body.flex.flex-col.items-center.justify-between
+                  .text-xl.font-semibold
+                    = "No goals for today"
+                  .text-lg.font-semibold.text-slate-500
+                    = "Click below to add a personal goal!"
+                  .card-actions
+                    %button.text-primary-500.text-left.w-full{onclick: "add_goal_modal.showModal()"}
+                      .mdi.mdi-plus-circle-outline.text-3xl
+
+            - nutritional_completeness_ratio = cookies[:nutritional_completeness_ratio].to_f
+            .card.bg-white.shadow-xl.text-slate-700{ class: nutritional_completeness_ratio.to_i == 100 ? 'opacity-80' : '' }
               .card-body.flex.flex-col.items-center.justify-between
-                .text-xl.font-semibold
-                  = "No goals for today"
-                .text-lg.font-semibold.text-slate-500
-                  = "Click below to add a personal goal!"
-                .card-actions
-                  %button.text-primary-500.text-left.w-full{onclick: "add_goal_modal.showModal()"}
-                    .mdi.mdi-plus-circle-outline.text-3xl
-              
-          - nutritional_completeness_ratio = cookies[:nutritional_completeness_ratio].to_f
-          .card.bg-white.shadow-xl.text-slate-700{ class: nutritional_completeness_ratio.to_i == 100 ? 'opacity-80' : '' }
-            .card-body.flex.flex-col.items-center.justify-between
-              - unless nutritional_completeness_ratio == 100
-                .text-xl.font-semibold
-                  = "Nutritional Target"
-                .text-lg.font-semibold.text-slate-500
-                  = "Focus on hitting your daily calorie and macronutrient targets to support optimal nutrition and well-being."
-                .flex.flex-row.justify-between.w-full
-                  .text-lg.font-semibold.text-slate-400
-                    - if nutritional_completeness_ratio.to_i == nutritional_completeness_ratio
-                      = "#{nutritional_completeness_ratio.to_i}"
-                    - else
-                      = "#{nutritional_completeness_ratio}"
-                  .text-lg.font-semibold.text-slate-400
-                    = "+50 XP"
-              - else
-                .mdi.mdi-check.text-3xl.text-green-500.mb-4.absolute.top-2.right-3
-                .opacity-85.flex.flex-col.items-center.justify-between.w-full.h-full
+                - unless nutritional_completeness_ratio == 100
                   .text-xl.font-semibold
                     = "Nutritional Target"
                   .text-lg.font-semibold.text-slate-500
                     = "Focus on hitting your daily calorie and macronutrient targets to support optimal nutrition and well-being."
                   .flex.flex-row.justify-between.w-full
                     .text-lg.font-semibold.text-slate-400
-                      = "#{nutritional_completeness_ratio}%"
+                      - if nutritional_completeness_ratio.to_i == nutritional_completeness_ratio
+                        = "#{nutritional_completeness_ratio.to_i}"
+                      - else
+                        = "#{nutritional_completeness_ratio}"
                     .text-lg.font-semibold.text-slate-400
                       = "+50 XP"
+                - else
+                  .mdi.mdi-check.text-3xl.text-green-500.mb-4.absolute.top-2.right-3
+                  .opacity-85.flex.flex-col.items-center.justify-between.w-full.h-full
+                    .text-xl.font-semibold
+                      = "Nutritional Target"
+                    .text-lg.font-semibold.text-slate-500
+                      = "Focus on hitting your daily calorie and macronutrient targets to support optimal nutrition and well-being."
+                    .flex.flex-row.justify-between.w-full
+                      .text-lg.font-semibold.text-slate-400
+                        = "#{nutritional_completeness_ratio}%"
+                      .text-lg.font-semibold.text-slate-400
+                        = "+50 XP"
 
-          - hydration_completeness_ratio = cookies[:hydration_completeness_ratio].to_f
-          .card.bg-white.shadow-xl.text-slate-700{ class: hydration_completeness_ratio.to_i >= 100 ? 'opacity-80' : '' }
-            .card-body.flex.flex-col.items-center.justify-between
-              - unless hydration_completeness_ratio >= 100
-                .text-xl.font-semibold
-                  = "Hydration Target"
-                .text-lg.font-semibold.text-slate-500
-                  = "Stay hydrated by reaching your daily goal of drinking 2 liters of water."
-                .flex.flex-row.items-center.justify-between.w-full
-                  .text-lg.font-semibold.text-slate-400
-                    - if hydration_completeness_ratio.to_i == hydration_completeness_ratio
-                      = "#{hydration_completeness_ratio.to_i}"
-                    - else
-                      = "#{hydration_completeness_ratio}"
-                  .text-lg.font-semibold.text-slate-400
-                    = "+50 XP"
-              - else
-                .mdi.mdi-check.text-3xl.text-green-500.mb-4.absolute.top-2.right-3
-                .opacity-85.flex.flex-col.items-center.justify-between.w-full.h-full
+            - hydration_completeness_ratio = cookies[:hydration_completeness_ratio].to_f
+            .card.bg-white.shadow-xl.text-slate-700{ class: hydration_completeness_ratio.to_i >= 100 ? 'opacity-80' : '' }
+              .card-body.flex.flex-col.items-center.justify-between
+                - unless hydration_completeness_ratio >= 100
                   .text-xl.font-semibold
                     = "Hydration Target"
                   .text-lg.font-semibold.text-slate-500
@@ -148,25 +134,26 @@
                         = "#{hydration_completeness_ratio}"
                     .text-lg.font-semibold.text-slate-400
                       = "+50 XP"
+                - else
+                  .mdi.mdi-check.text-3xl.text-green-500.mb-4.absolute.top-2.right-3
+                  .opacity-85.flex.flex-col.items-center.justify-between.w-full.h-full
+                    .text-xl.font-semibold
+                      = "Hydration Target"
+                    .text-lg.font-semibold.text-slate-500
+                      = "Stay hydrated by reaching your daily goal of drinking 2 liters of water."
+                    .flex.flex-row.items-center.justify-between.w-full
+                      .text-lg.font-semibold.text-slate-400
+                        - if hydration_completeness_ratio.to_i == hydration_completeness_ratio
+                          = "#{hydration_completeness_ratio.to_i}"
+                        - else
+                          = "#{hydration_completeness_ratio}"
+                      .text-lg.font-semibold.text-slate-400
+                        = "+50 XP"
 
-          - wellness_completeness_ratio = cookies[:wellness_completeness_ratio].to_f
-          .card.bg-white.shadow-xl.text-slate-700{ class: wellness_completeness_ratio == 100 ? 'opacity-80' : '' }
-            .card-body.flex.flex-col.items-center.justify-between
-              - unless wellness_completeness_ratio == 100
-                .text-xl.font-semibold
-                  = "Wellness Target"
-                .text-lg.font-semibold.text-slate-500
-                  = "Fetching from external API."
-                .flex.flex-row.items-center.justify-between.w-full
-                  .text-lg.font-semibold.text-slate-400
-                    = "#{wellness_completeness_ratio}%"
-                  %button#complete_wellness.bg-primary-500.text-white.py-2.px-4.rounded-lg.flex.flex-row.justify-center.items-center.absolute{ style: "left: 50%; transform: translateX(-50%);" }
-                    = "Complete"
-                  .text-lg.font-semibold.text-slate-400
-                    = "+50 XP"
-              - else
-                .mdi.mdi-check.text-3xl.text-green-500.mb-4.absolute.top-2.right-3
-                .opacity-85.flex.flex-col.items-center.justify-between.w-full.h-full
+            - wellness_completeness_ratio = cookies[:wellness_completeness_ratio].to_f
+            .card.bg-white.shadow-xl.text-slate-700{ class: wellness_completeness_ratio == 100 ? 'opacity-80' : '' }
+              .card-body.flex.flex-col.items-center.justify-between
+                - unless wellness_completeness_ratio == 100
                   .text-xl.font-semibold
                     = "Wellness Target"
                   .text-lg.font-semibold.text-slate-500
@@ -174,212 +161,223 @@
                   .flex.flex-row.items-center.justify-between.w-full
                     .text-lg.font-semibold.text-slate-400
                       = "#{wellness_completeness_ratio}%"
-                    %button.bg-gray-400.text-white.py-2.px-4.rounded-lg.flex.flex-row.justify-center.items-center.absolute{ style: "left: 50%; transform: translateX(-50%);", disabled: true }
-                      = "Add Product"
+                    %button#complete_wellness.bg-primary-500.text-white.py-2.px-4.rounded-lg.flex.flex-row.justify-center.items-center.absolute{ style: "left: 50%; transform: translateX(-50%);" }
+                      = "Complete"
                     .text-lg.font-semibold.text-slate-400
                       = "+50 XP"
+                - else
+                  .mdi.mdi-check.text-3xl.text-green-500.mb-4.absolute.top-2.right-3
+                  .opacity-85.flex.flex-col.items-center.justify-between.w-full.h-full
+                    .text-xl.font-semibold
+                      = "Wellness Target"
+                    .text-lg.font-semibold.text-slate-500
+                      = "Fetching from external API."
+                    .flex.flex-row.items-center.justify-between.w-full
+                      .text-lg.font-semibold.text-slate-400
+                        = "#{wellness_completeness_ratio}%"
+                      %button.bg-gray-400.text-white.py-2.px-4.rounded-lg.flex.flex-row.justify-center.items-center.absolute{ style: "left: 50%; transform: translateX(-50%);", disabled: true }
+                        = "Add Product"
+                      .text-lg.font-semibold.text-slate-400
+                        = "+50 XP"
 
-    .flex.flex-col.w-full{class: "md:max-w-[85%] md:flex-row"}
-      - if @today_goal.present?
+      .flex.flex-col.w-full{class: "md:max-w-[85%] md:flex-row"}
+        - if @today_goal.present?
+          .rounded-lg.bg-white.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:mr-2 md:flex-row"}
+            .flex.flex-col.justify-center.items-center.text-slate-700.space-y-2.w-full{class: "md:max-w-[65%]"}
+              .text-3xl.font-semibold.text-slate-500.flex.flex-row.items-center.space-x-2
+                = "Goal Tracking"
+                .mdi.mdi-flag-outline.text-sky-500.text-4xl.font-semibold
+              .text-3xl.font-semibold.text-slate-500.flex.flex-row.items-center.space-x-2
+                = form_tag '/update_goal', method: :post do
+                  %input#goal_progress{ type: "number", value: @today_goal[:progress] || 0, class: "w-32 text-center rounded-lg", name: "goal_progress" }
+                  %button.bg-primary-500.rounded-full.size-8.text-white
+                    .mdi.mdi-check.text-xl.font-semibold
         .rounded-lg.bg-white.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:mr-2 md:flex-row"}
           .flex.flex-col.justify-center.items-center.text-slate-700.space-y-2.w-full{class: "md:max-w-[65%]"}
-            .text-3xl.font-semibold.text-slate-500.flex.flex-row.items-center.space-x-2
-              = "Goal Tracking"
-              .mdi.mdi-flag-outline.text-sky-500.text-4xl.font-semibold
-            .text-3xl.font-semibold.text-slate-500.flex.flex-row.items-center.space-x-2
-              = form_tag '/update_goal', method: :post do
-                %input#goal_progress{ type: "number", value: @today_goal[:progress] || 0, class: "w-32 text-center rounded-lg", name: "goal_progress" }
-                %button.bg-primary-500.rounded-full.size-8.text-white
-                  .mdi.mdi-check.text-xl.font-semibold
-      .rounded-lg.bg-white.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:mr-2 md:flex-row"}
-        .flex.flex-col.justify-center.items-center.text-slate-700.space-y-2.w-full{class: "md:max-w-[65%]"}
-          .text-3xl.font-semibold.text-slate-500
-            = "Water Tracking"
-          .flex.flex-row.w-full.space-x-2.justify-around.p-2
-            %button#subtract_water.bg-transparent.rounded-full.size-8{ class: "hover:bg-gray-200" }
-              .mdi.mdi-minus.text-2xl.font-semibold.text-gray-700
-            .mdi.mdi-cup.text-sky-500.text-4xl.font-semibold
-            %button#add_water.bg-transparent.rounded-full.size-8{ class: "hover:bg-gray-200" }
-              .mdi.mdi-plus.text-2xl.font-semibold.text-gray-700
-          .text-3xl.font-semibold.text-slate-500 
-            = "#{(hydration_completeness_ratio * 20).to_i}ml"
+            .text-3xl.font-semibold.text-slate-500
+              = "Water Tracking"
+            .flex.flex-row.w-full.space-x-2.justify-around.p-2
+              %button#subtract_water.bg-transparent.rounded-full.size-8{ class: "hover:bg-gray-200" }
+                .mdi.mdi-minus.text-2xl.font-semibold.text-gray-700
+              .mdi.mdi-cup.text-sky-500.text-4xl.font-semibold
+              %button#add_water.bg-transparent.rounded-full.size-8{ class: "hover:bg-gray-200" }
+                .mdi.mdi-plus.text-2xl.font-semibold.text-gray-700
+            .text-3xl.font-semibold.text-slate-500
+              = "#{(hydration_completeness_ratio * 20).to_i}ml"
 
-  - if current_user.present? and !current_user.has_membership?
-    .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-between.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
-      .flex.flex-col.justify-center.text-white.space-y-2{class: "md:max-w-[20%] p-4"}
+    - if current_user.present? and !current_user.has_membership?
+      .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-between.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
+        .flex.flex-col.justify-center.text-white.space-y-2{class: "md:max-w-[20%] p-4"}
+          .text-2xl.font-semibold
+            Freshly Plus
+          .text-sm.text-base.text-left
+            Get access to exclusive features and benefits by subscribing to Freshly Plus. You can cancel at any time.
+          %button.text-white.text-left.w-full
+            = link_to billing_user_profile_path do
+              .flex.flex-row.space-x-2.items-center
+                .text-base.font-semibold.whitespace-nowrap
+                  Take me there
+                .mdi.mdi-arrow-right-circle-outline.text-2xl.font-semibold
+        .flex.flex-col.flex-wrap.items-center.gap-4{class: "sm:flex-row"}
+          .bg-white.rounded-lg.w-64.h-48.p-4.space-y-4
+            .text-xl.text-center
+              AI Nutritionist
+            %p
+              Get live feedback on your meals and nutritional intake with our AI Nutritionist.
+          .bg-white.rounded-lg.w-64.h-48.p-4.space-y-4
+            .text-xl.text-center
+              Subscriber Badge
+            %p
+              Get a special badge next to your username whenever someone sees your profile.
+          .bg-white.rounded-lg.w-64.h-48.p-4.space-y-4
+            .text-xl.text-center
+              Special Awards
+            %p
+              Get special awards price to engage with community hub posts.
+          .bg-white.rounded-lg.w-64.h-48.p-4.space-y-4
+            .text-xl.text-center
+              Support Us
+            %p
+              Help us keep Freshly running by supporting us with a donation.
+
+    .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
+      .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[20%] p-4"}
         .text-2xl.font-semibold
-          Freshly Plus
+          = "Our best rated products"
         .text-sm.text-base.text-left
-          Get access to exclusive features and benefits by subscribing to Freshly Plus. You can cancel at any time.
+          = "Explore the products that our community loves the most. We also make sure to recommend only products that match your preferences."
         %button.text-white.text-left.w-full
-          = link_to billing_user_profile_path do
+          = link_to user_products_path do
             .flex.flex-row.space-x-2.items-center
               .text-base.font-semibold.whitespace-nowrap
-                Take me there
+                = "Explore all products"
               .mdi.mdi-arrow-right-circle-outline.text-2xl.font-semibold
-      .flex.flex-col.flex-wrap.items-center.gap-4{class: "sm:flex-row"}
-        .bg-white.rounded-lg.w-64.h-48.p-4.space-y-4
-          .text-xl.text-center
-            AI Nutritionist
-          %p
-            Get live feedback on your meals and nutritional intake with our AI Nutritionist.
-        .bg-white.rounded-lg.w-64.h-48.p-4.space-y-4
-          .text-xl.text-center
-            Subscriber Badge
-          %p
-            Get a special badge next to your username whenever someone sees your profile.
-        .bg-white.rounded-lg.w-64.h-48.p-4.space-y-4
-          .text-xl.text-center
-            Special Awards
-          %p
-            Get special awards price to engage with community hub posts.
-        .bg-white.rounded-lg.w-64.h-48.p-4.space-y-4
-          .text-xl.text-center
-            Support Us
-          %p
-            Help us keep Freshly running by supporting us with a donation.
+      .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-3.gap-4
+        - @top_products.each do |product|
+          .col-span-1.sm:col-span-2.md:col-span-1.lg:col-span-1.xl:col-span-1
+            = product_card(product)
 
-  .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
-    .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[20%] p-4"}
-      .text-2xl.font-semibold
-        = "Our best rated products"
-      .text-sm.text-base.text-left
-        = "Explore the products that our community loves the most. We also make sure to recommend only products that match your preferences."
-      %button.text-white.text-left.w-full
-        = link_to user_products_path do
-          .flex.flex-row.space-x-2.items-center
-            .text-base.font-semibold.whitespace-nowrap
-              = "Explore all products"
-            .mdi.mdi-arrow-right-circle-outline.text-2xl.font-semibold
-    .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-3.gap-4
-      - @top_products.each do |product|
-        .col-span-1.sm:col-span-2.md:col-span-1.lg:col-span-1.xl:col-span-1
-          = product_card(product)
+    .rounded-lg.bg-white.p-4.shadow-md.flex.flex-row.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
+      .flex.flex-col.justify-center.items-center.text-left.w-full
+        .text-5xl.font-semibold
+          = Post.count
+        .text-l.text-slate-700
+          = "Hub Posts shared by our community"
+      .flex.flex-col.justify-center.items-center.text-center.w-full
+        .text-5xl.font-semibold
+          = Product.count
+        .text-l.text-slate-700
+          = "Products approved by our community"
+      .flex.flex-col.justify-center.items-center.text-right.w-full
+        .text-5xl.font-semibold
+          = Review.count
+        .text-l.text-slate-700
+          = "Reviews added by our community"
 
-  .rounded-lg.bg-white.p-4.shadow-md.flex.flex-row.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
-    .flex.flex-col.justify-center.items-center.text-left.w-full
-      .text-5xl.font-semibold
-        = Post.count
-      .text-l.text-slate-700
-        = "Hub Posts shared by our community"
-    .flex.flex-col.justify-center.items-center.text-center.w-full
-      .text-5xl.font-semibold
-        = Product.count
-      .text-l.text-slate-700
-        = "Products approved by our community"
-    .flex.flex-col.justify-center.items-center.text-right.w-full
-      .text-5xl.font-semibold
-        = Review.count
-      .text-l.text-slate-700
-        = "Reviews added by our community"
+    .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.gap-2.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
+      %h2.text-2xl.mb-2.text-white
+        Most experienced users
+      - @most_experienced_users.each do |user|
+        %a.flex.items-center.justify-between.p-2.bg-white.w-full.rounded-lg{href: user_hub_user_path(user)}
+          .flex.gap-2.items-center
+            %img.w-8.h-8.rounded-full{ src: user.profile_picture_url }
+            .text-lg
+              @#{user.login.username}
+          .flex.items-center.gap-2{class: "w-1/2"}
+            .text-lg.w-24
+              XP: #{user.xp}
+            %progress{ class: "flex-1 progress progress-primary", max: @most_experienced_users.map{|u| u.xp}.max, value: user.xp }
 
-  .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.gap-2.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
-    %h2.text-2xl.mb-2.text-white
-      Most experienced users
-    - @most_experienced_users.each do |user|
-      %a.flex.items-center.justify-between.p-2.bg-white.w-full.rounded-lg{href: user_hub_user_path(user)}
-        .flex.gap-2.items-center
-          %img.w-8.h-8.rounded-full{ src: user.profile_picture_url }
-          .text-lg
-            @#{user.login.username}
-        .flex.items-center.gap-2{class: "w-1/2"}
-          .text-lg.w-24
-            XP: #{user.xp}
-          %progress{ class: "flex-1 progress progress-primary", max: @most_experienced_users.map{|u| u.xp}.max, value: user.xp }
-
-  .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
-    .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[20%] p-4"}
-      .text-2xl.font-semibold
-        = "Our most popular subjects"
-      .text-sm.text-base.text-left
-        = "Explore the top subjects that our community is talking about"
-      %button.text-white.text-left.w-full
-        = link_to user_hub_for_you_path do
-          .flex.flex-row.space-x-2.items-center
-            .text-base.font-semibold.whitespace-nowrap
-              = "Explore all posts"
-            .mdi.mdi-arrow-right-circle-outline.text-2xl.font-semibold
-    .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-3.gap-4
-      - @top_posts.each do |post|
-        .col-span-1.sm:col-span-2.md:col-span-1.lg:col-span-1.xl:col-span-1
-          .flex.flex-col.justify-center.items-center.bg-white.p-4.rounded-lg.shadow-md.h-full{class: "max-w-[22rem]"}
-            .flex.flex-col.justify-center.items-center.space-y-2
-              .text-xl.font-semibold
-                = post[:title]
-              .text-sm.text-slate-700.text-left
-                = post[:content].truncate(100)
-            .h-full
-            %hr.border-1.border-gray-400.rounded-lg.mt-2.w-full
-            .flex.flex-row.items-center.justify-center.w-full.mt-2
-              .flex.flex-row.items-center.space-x-4.w-full.text-slate-700.text-left
-                .mdi.mdi-thumb-up-outline.text-lg
-                  = post[:up_number]
-                .mdi.mdi-thumb-down-outline.text-lg
-                  = post[:down_number]
-                .mdi.mdi-comment-outline.text-lg
-                  = post[:replies_number]
-              = link_to user_hub_post_path(post[:_id]), class: "flex items-center text-primary-500 text-right" do
-                .mdi.mdi-arrow-right-circle-outline.text-3xl
-
-  .rounded-lg.bg-white.p-4.shadow-md.flex.flex-row.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
-    .flex.flex-col.justify-center.text-left.w-full
-      .text-xs.text-slate-700.mb-2
-        = "Random recipe of the moment"
-      .text-xl.font-semibold.flex.flex-row.justify-between.items-center
-        = @food_fact.title
-        .mdi.mdi-clock-check-outline.text-base.text-slate-700
-          = @food_fact.ready_in.to_s + " minutes"
-      - if @food_fact.instructions.length > 300
-        .instructions-short.text-slate-700
-          = sanitize(@food_fact.instructions.first(300)) + "..."
-        .instructions-full.text-slate-700.hidden
-          = sanitize(@food_fact.instructions)
-        %button#show-more Show More
-      - else
-        .text-slate-700
-          = sanitize(@food_fact.instructions)
-
-  #recommended_products_container.flex.flex-col.justify-center.items-center.w-full
-  - if current_user.present?
-    .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-between.items-center.w-full#loading_products{class: "md:max-w-[85%] md:flex-row"}
-      .flex.flex-col.justify-center.items-center.text-white.space-y-2.text-left{class: "md:max-w-[20%] p-4"}
+    .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-center.items-center.w-full{class: "md:max-w-[85%] md:flex-row"}
+      .flex.flex-col.justify-center.items-center.text-white.space-y-2{class: "md:max-w-[20%] p-4"}
         .text-2xl.font-semibold
-          = "Best matches for you"
+          = "Our most popular subjects"
         .text-sm.text-base.text-left
-          = "We make it easy for you to find the best products that match your preferences and the products you love the most."
+          = "Explore the top subjects that our community is talking about"
         %button.text-white.text-left.w-full
-          = link_to user_basket_path do
+          = link_to user_hub_for_you_path do
             .flex.flex-row.space-x-2.items-center
               .text-base.font-semibold.whitespace-nowrap
-                = "Explore best matches"
+                = "Explore all posts"
               .mdi.mdi-arrow-right-circle-outline.text-2xl.font-semibold
-      .mdi.mdi-loading.text-white.text-5xl.animate-spin
-      %div
-= render 'partials/diary_modal'
+      .grid.grid-cols-1.sm:grid-cols-1.md:grid-cols-2.lg:grid-cols-2.xl:grid-cols-3.gap-4
+        - @top_posts.each do |post|
+          .col-span-1.sm:col-span-2.md:col-span-1.lg:col-span-1.xl:col-span-1
+            .flex.flex-col.justify-center.items-center.bg-white.p-4.rounded-lg.shadow-md.h-full{class: "max-w-[22rem]"}
+              .flex.flex-col.justify-center.items-center.space-y-2
+                .text-xl.font-semibold
+                  = post[:title]
+                .text-sm.text-slate-700.text-left
+                  = post[:content].truncate(100)
+              .h-full
+              %hr.border-1.border-gray-400.rounded-lg.mt-2.w-full
+              .flex.flex-row.items-center.justify-center.w-full.mt-2
+                .flex.flex-row.items-center.space-x-4.w-full.text-slate-700.text-left
+                  .mdi.mdi-thumb-up-outline.text-lg
+                    = post[:up_number]
+                  .mdi.mdi-thumb-down-outline.text-lg
+                    = post[:down_number]
+                  .mdi.mdi-comment-outline.text-lg
+                    = post[:replies_number]
+                = link_to user_hub_post_path(post[:_id]), class: "flex items-center text-primary-500 text-right" do
+                  .mdi.mdi-arrow-right-circle-outline.text-3xl
 
-%dialog#add_goal_modal.modal
-  .modal-box{ class: "!bg-white" }
-    %form{method: "dialog"}
-      %button.btn.btn-sm.btn-circle.btn-ghost.absolute.right-2.top-2 ✕
-    = form_tag '/add_goal', method: :post do
-      .flex.flex-col.justify-center.items-center.space-y-4.mt-4
-        .text-semibold.text-lg.text-black
-          = "Add any goal you want to achieve"
-          %span{ class: "!font-bold" }
-            = "today"
-        .flex.flex-row.items-center.justify-center.space-x-1.w-full
-          %textarea{type: "text", placeholder: "Title", class: "p-2 rounded-lg w-full resize-none w-full", name: "goal_title", rows: 1}
-        .flex.flex-row.items-center.justify-center.space-x-1.w-full
-          %textarea{type: "text", placeholder: "Description", class: "p-2 rounded-lg h-32 w-full resize-none w-full", name: "goal_description"}
-        .flex.flex-row.items-center.justify-center.space-x-1.w-full
-          %input{type: "number", placeholder: "Target", class: "p-2 rounded-lg w-full", name: "goal_target"}
-        .modal-action
-          %form{method: "dialog"}
-            %button.btn{ class: "!bg-primary-500 !text-white !border-none" }
-              Add
+    .rounded-lg.bg-white.p-4.shadow-md.flex.flex-row.justify-center.items-center.w-full{class: "md:max-w-[85%]"}
+      .flex.flex-col.justify-center.text-left.w-full
+        .text-xs.text-slate-700.mb-2
+          = "Random recipe of the moment"
+        .text-xl.font-semibold.flex.flex-row.justify-between.items-center
+          = @food_fact.title
+          .mdi.mdi-clock-check-outline.text-base.text-slate-700
+            = @food_fact.ready_in.to_s + " minutes"
+        - if @food_fact.instructions.length > 300
+          .instructions-short.text-slate-700
+            = sanitize(@food_fact.instructions.first(300)) + "..."
+          .instructions-full.text-slate-700.hidden
+            = sanitize(@food_fact.instructions)
+          %button#show-more Show More
+        - else
+          .text-slate-700
+            = sanitize(@food_fact.instructions)
 
-%br
+    #recommended_products_container.flex.flex-col.justify-center.items-center.w-full
+    - if current_user.present?
+      .rounded-lg.bg-primary-400.p-4.shadow-md.flex.flex-col.justify-between.items-center.w-full#loading_products{class: "md:max-w-[85%] md:flex-row"}
+        .flex.flex-col.justify-center.items-center.text-white.space-y-2.text-left{class: "md:max-w-[20%] p-4"}
+          .text-2xl.font-semibold
+            = "Best matches for you"
+          .text-sm.text-base.text-left
+            = "We make it easy for you to find the best products that match your preferences and the products you love the most."
+          %button.text-white.text-left.w-full
+            = link_to user_basket_path do
+              .flex.flex-row.space-x-2.items-center
+                .text-base.font-semibold.whitespace-nowrap
+                  = "Explore best matches"
+                .mdi.mdi-arrow-right-circle-outline.text-2xl.font-semibold
+        .mdi.mdi-loading.text-white.text-5xl.animate-spin
+        %div
+  = render 'partials/diary_modal'
 
+  %dialog#add_goal_modal.modal
+    .modal-box{ class: "!bg-white" }
+      %form{method: "dialog"}
+        %button.btn.btn-sm.btn-circle.btn-ghost.absolute.right-2.top-2 ✕
+      = form_tag '/add_goal', method: :post do
+        .flex.flex-col.justify-center.items-center.space-y-4.mt-4
+          .text-semibold.text-lg.text-black
+            = "Add any goal you want to achieve"
+            %span{ class: "!font-bold" }
+              = "today"
+          .flex.flex-row.items-center.justify-center.space-x-1.w-full
+            %textarea{type: "text", placeholder: "Title", class: "p-2 rounded-lg w-full resize-none w-full", name: "goal_title", rows: 1}
+          .flex.flex-row.items-center.justify-center.space-x-1.w-full
+            %textarea{type: "text", placeholder: "Description", class: "p-2 rounded-lg h-32 w-full resize-none w-full", name: "goal_description"}
+          .flex.flex-row.items-center.justify-center.space-x-1.w-full
+            %input{type: "number", placeholder: "Target", class: "p-2 rounded-lg w-full", name: "goal_target"}
+          .modal-action
+            %form{method: "dialog"}
+              %button.btn{ class: "!bg-primary-500 !text-white !border-none" }
+                Add
 
 :javascript
   $(document).ready(function() {
