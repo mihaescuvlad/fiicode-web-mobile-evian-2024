@@ -29,7 +29,6 @@ class User
   @@LEVEL_1_TRESHOLD = 500
   @@MULTIPLIER = 1.1
   field :xp, type: Integer, default: 0
-  field :points, type: Integer, default: 0
 
   mount_uploader :profile_picture, ProfilePictureUploader
 
