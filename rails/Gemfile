@@ -28,6 +28,7 @@ gem 'omniauth-rails_csrf_protection'
 gem "stripe"
 gem 'execjs'
 gem 'therubyracer'
+gem 'certified'
 
 group :development, :test do
   gem "debug"
